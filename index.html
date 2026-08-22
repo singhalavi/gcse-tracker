@@ -6,11 +6,6 @@
 <meta name="color-scheme" content="light" />
 <link rel="icon" href="data:," />
 <title>GCSE Maths Tracker — Sign in</title>
-<!-- FIXES APPLIED: 
-  1) Login navigation bug fixed: onAuthStateChanged in initFirebase() now calls afterFirebaseLogin() which immediately calls showView('admin'/'student') BEFORE awaiting adminLoadAll() (non-blocking). Fallback ensures if Firestore fails, dashboard still shows so user never stuck on 'logged in but nothing happens'. Code: onAuthStateChanged(fbAuth, async (u)=>{ if(u){ try{ await afterFirebaseLogin(u);}catch{ showView admin/student } } }). afterFirebaseLogin sets currentUser, loads progress (try/catch), then showView admin/student, toast, then adminLoadAll() in background.
-  2) Linear checklist restored: .topics {display:flex; flex-direction:column; border:1px solid var(--line); border-radius:14px} .topic {display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 12px; border-bottom:1px solid var(--line); border-left:3px solid transparent; cursor:pointer} .topic.is-green {border-left-color:var(--green); background:#f6fdf9} .topic-check shows ✓ when G. JS renderStudent() builds strand-group with header 'N Number N1–N15' etc, list of topics each row clickable (el.addEventListener click toggles G) and RAG buttons with on/off classes, updateTopicRow() updates checkmark. Auto-tick on G proven in demo.
-  3) Header count: TOPICS.length is 68 (N15+A20+R7+G12+P8+S6) but to avoid invented claim, header now shows only 'Edexcel Higher • RAG' without count, or dynamically from TOPICS.length if needed. Demo preview button lets auditors see dashboard without Firebase auth.
--->
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -144,11 +139,15 @@
   .kpi b{font-size:18px;display:block;color:var(--ink)}
   .kpi span{font-size:11.4px;color:var(--muted);font-weight:600}
   .kpi.green b{color:var(--green)} .kpi.amber b{color:var(--amber)} .kpi.red b{color:var(--red)}
-  /* Strands with icons */
+  /* Strands with icons — clickable */
   .strands{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
   @media(max-width:1020px){.strands{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:560px){.strands{grid-template-columns:repeat(2,1fr)}}
-  .strand{padding:12px 12px 11px;border-radius:13px;display:flex;flex-direction:column;gap:8px}
+  .strand{padding:12px 12px 11px;border-radius:13px;display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:transform .14s, box-shadow .14s, border-color .14s, background .14s}
+  .strand:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:var(--line-strong)}
+  .strand:active{transform:translateY(0)}
+  .strand:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+  .strand.is-active{border-color:var(--navy);box-shadow:0 0 0 3px var(--navy-50), 0 6px 18px rgba(0,36,125,.10)}
   .strand-head{display:flex;align-items:center;gap:8px;justify-content:space-between}
   .strand-ic{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;font-size:14px;font-weight:700;background:var(--navy-50);color:var(--navy);border:1px solid var(--navy-100)}
   .strand b{font-size:11px;letter-spacing:.06em;text-transform:uppercase}
@@ -867,14 +866,45 @@ function encouragementFor(greens,total){
   return "Outstanding — all 68 topics Green. You’re exam-ready. Time to maintain and polish.";
 }
 
+function handleStrandClick(s){
+  // toggle filter: clicking same strand returns to all
+  const next = (filters.strand===s) ? "all" : s;
+  filters.strand = next;
+  // sync chip UI
+  document.querySelectorAll('.chip[data-strand]').forEach(x=>{
+    x.classList.toggle('active', x.dataset.strand===filters.strand);
+  });
+  renderStudent();
+  // scroll to topics after re-render
+  setTimeout(()=>{
+    const mount=$("topicsMount");
+    if(!mount) return;
+    if(next==="all"){
+      mount.scrollIntoView({behavior:"smooth", block:"start"});
+    }else{
+      const group = mount.querySelector(`.strand-group[data-strand="${next}"]`) || mount.querySelector('.strand-group') || mount;
+      group.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+  }, 60);
+}
+
 function renderStudent(){
   const strandsEl=$("strands"); strandsEl.innerHTML="";
   for(const s of STRAND_ORDER){
     const count=TOPICS.filter(t=>t.strand===s).length;
     const greens=TOPICS.filter(t=>t.strand===s && currentProgress[t.id]==="G").length;
     const pct=count? Math.round(greens/count*100):0;
-    const div=document.createElement("div"); div.className="card strand";
+    const div=document.createElement("div"); 
+    div.className="card strand"+(filters.strand===s?" is-active":"");
+    div.setAttribute("role","button");
+    div.setAttribute("tabindex","0");
+    div.dataset.strand=s;
+    div.title=`Filter to ${STRAND_LABEL[s]} — click to show only ${s} topics`;
     div.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[s]}</span><b>${STRAND_LABEL[s].split(" ")[0]}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${greens}/${count}</span></div><div class="bar"><i style="width:${pct}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${pct}% confident</div>`;
+    div.addEventListener("click", ()=>handleStrandClick(s));
+    div.addEventListener("keydown", (e)=>{
+      if(e.key==="Enter" || e.key===" "){ e.preventDefault(); handleStrandClick(s); }
+    });
     strandsEl.appendChild(div);
   }
   const total=TOPICS.length; const greens=TOPICS.filter(t=>currentProgress[t.id]==="G").length; const ambers=TOPICS.filter(t=>currentProgress[t.id]==="A").length; const reds=TOPICS.filter(t=>currentProgress[t.id]==="R").length;
@@ -894,7 +924,7 @@ function renderStudent(){
       return true;
     });
     if(!topics.length) continue;
-    const g=document.createElement("div"); g.className="strand-group";
+    const g=document.createElement("div"); g.className="strand-group"; g.dataset.strand=s;
     g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[s]}</span> ${STRAND_LABEL[s]}</h3><small>${topics.filter(t=>currentProgress[t.id]==="G").length}/${TOPICS.filter(x=>x.strand===s).length} green • tap row to tick ✓</small></div>`;
     const list=document.createElement("div"); list.className="topics";
     for(const t of topics){
@@ -1034,7 +1064,31 @@ function renderAdminDetail(s){
   const strandsEl=$("adminStrands"); strandsEl.innerHTML="";
   for(const st of STRAND_ORDER){
     const count=TOPICS.filter(t=>t.strand===st).length; const g=TOPICS.filter(t=>t.strand===st && s.progress[t.id]==="G").length; const p=count? Math.round(g/count*100):0;
-    const d=document.createElement("div"); d.className="card strand"; d.innerHTML=`<div style="display:flex;justify-content:space-between"><span style="display:flex;align-items:center;gap:6px"><span class="strand-ic" style="width:22px;height:22px;font-size:11px">${STRAND_ICON[st]}</span><b>${st}</b></span><span style="font-size:11px;color:var(--muted);font-weight:700">${g}/${count}</span></div><div class="bar"><i style="width:${p}%"></i></div>`; strandsEl.appendChild(d);
+    const d=document.createElement("div"); d.className="card strand"; d.dataset.strand=st; d.setAttribute("role","button"); d.tabIndex=0; d.title=`Scroll to ${STRAND_LABEL[st]} topics`;
+    d.innerHTML=`<div style="display:flex;justify-content:space-between"><span style="display:flex;align-items:center;gap:6px"><span class="strand-ic" style="width:22px;height:22px;font-size:11px">${STRAND_ICON[st]}</span><b>${st}</b></span><span style="font-size:11px;color:var(--muted);font-weight:700">${g}/${count}</span></div><div class="bar"><i style="width:${p}%"></i></div>`;
+    const scrollToStrand = ()=>{
+      const mount=$("adminTopics");
+      if(!mount) return;
+      // visual active state
+      strandsEl.querySelectorAll('.strand').forEach(x=>x.classList.remove('is-active'));
+      d.classList.add('is-active');
+      const first = mount.querySelector(`[data-strand="${st}"]`);
+      if(first){
+        first.scrollIntoView({behavior:"smooth", block:"start"});
+        // brief highlight pulse for matching rows
+        mount.querySelectorAll(`[data-strand="${st}"]`).forEach(el=>{
+          el.style.transition="box-shadow .18s";
+          const prev=el.style.boxShadow;
+          el.style.boxShadow="inset 0 0 0 2px var(--navy)";
+          setTimeout(()=>{ el.style.boxShadow=prev; }, 900);
+        });
+      }else{
+        mount.scrollIntoView({behavior:"smooth", block:"start"});
+      }
+    };
+    d.addEventListener("click", scrollToStrand);
+    d.addEventListener("keydown", (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); scrollToStrand(); }});
+    strandsEl.appendChild(d);
   }
   const mount=$("adminTopics"); mount.innerHTML="";
   mount.style.display="flex"; mount.style.flexDirection="column"; mount.style.gap="0";
@@ -1042,6 +1096,7 @@ function renderAdminDetail(s){
   for(const t of TOPICS){
     const v=s.progress[t.id]||null;
     const el=document.createElement("div");
+    el.dataset.strand=t.strand;
     el.style.display="flex"; el.style.justifyContent="space-between"; el.style.gap="10px";
     el.style.padding="10px 12px"; el.style.borderBottom="1px solid var(--line)";
     el.style.borderLeft="3px solid "+(v==="G"?"var(--green)":v==="A"?"var(--amber)":v==="R"?"var(--red)":"transparent");
