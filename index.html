@@ -5,196 +5,356 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light" />
 <link rel="icon" href="data:," />
-<title>GCSE Maths Tracker - Public Central</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,600&display=swap" rel="stylesheet">
+<title>GCSE Maths Tracker — Sign in</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#fcfcf8;
+    --navy:#00247D;
+    --navy-700:#001c63;
+    --navy-800:#00144a;
+    --navy-50:#eef2ff;
+    --navy-100:#d9e1ff;
     --paper:#ffffff;
-    --ink:#12131a;
-    --muted:#6b7288;
-    --line:#e9e7e0;
-    --line-strong:#d8d4cc;
-    --red:#e11d48;
-    --amber:#d97706;
-    --green:#0d7a5f;
+    --bg:#f6f7fb;
+    --bg-2:#fbfcfe;
+    --ink:#151a2e;
+    --ink-2:#3a4261;
+    --muted:#6b7390;
+    --line:#e6e9f2;
+    --line-strong:#d0d7ef;
+    --red:#d31a44;
+    --amber:#b65a00;
+    --green:#0b7a5e;
     --red-bg:#fff1f3;
-    --amber-bg:#fff8ec;
-    --green-bg:#ecfdf5;
-    --blue:#1e40af;
-    --blue-bg:#eff4ff;
-    --radius:14px;
-    --radius-sm:10px;
-    --shadow:0 4px 24px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04);
-    --shadow-sm:0 1px 8px rgba(0,0,0,.06);
+    --amber-bg:#fff7ec;
+    --green-bg:#e9fbf3;
+    --blue-bg:#eef2ff;
+    --radius:16px;
+    --radius-lg:20px;
+    --radius-sm:12px;
+    --shadow:0 10px 30px rgba(0,36,125,.10), 0 2px 8px rgba(0,36,125,.06);
+    --shadow-sm:0 4px 16px rgba(0,36,125,.08);
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"DM Sans", ui-sans-system, system-ui, -apple-system, sans-serif;-webkit-font-smoothing:antialiased}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"DM Sans", ui-sans-system, system-ui, -apple-system, sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
   button,input,select,textarea{font:inherit}
-  a{color:var(--blue)}
-  /* Header */
+  a{color:var(--navy)}
+  /* Topbar — polished navy */
   .topbar{
     position:sticky;top:0;z-index:40;
-    backdrop-filter:blur(12px);
-    background:rgba(252,252,248,.86);
-    border-bottom:1px solid var(--line);
+    background:var(--navy);
+    border-bottom:1px solid rgba(255,255,255,.12);
   }
   .topbar-inner{
-    max-width:1120px;margin:0 auto;padding:14px 20px;
+    max-width:1140px;margin:0 auto;padding:13px 22px;
     display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
   }
-  .brand{display:flex;align-items:center;gap:12px}
+  .brand{display:flex;align-items:center;gap:14px;min-width:0}
   .mark{
-    width:36px;height:36px;border-radius:10px;
-    background:#12131a;color:#fff;display:grid;place-items:center;
-    font-family:"Newsreader",serif;font-weight:600;font-size:17px;letter-spacing:-.02em;
+    width:38px;height:38px;border-radius:11px;
+    background:#fff;color:var(--navy);display:grid;place-items:center;
+    font-weight:800;font-size:18px;flex:0 0 38px;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
   }
-  .brand h1{margin:0;font-family:"Newsreader",serif;font-size:18px;font-weight:600;letter-spacing:-.02em;line-height:1}
-  .brand p{margin:2px 0 0;font-size:12px;color:var(--muted);font-weight:500}
+  .brand h1{margin:0;color:#fff;font-family:"Newsreader",serif;font-size:17.5px;font-weight:600;letter-spacing:-.01em;line-height:1.15;white-space:nowrap}
+  .brand h1 span{font-weight:400;opacity:.9}
+  .brand p{margin:2px 0 0;color:rgba(255,255,255,.78);font-size:12px;font-weight:500;letter-spacing:.02em}
   .top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .btn{
     border:1px solid var(--line);background:var(--paper);color:var(--ink);
-    padding:8px 12px;border-radius:999px;font-size:13.5px;font-weight:600;cursor:pointer;
-    display:inline-flex;align-items:center;gap:6px;transition:.15s;white-space:nowrap;
+    padding:9px 14px;border-radius:999px;font-size:13.5px;font-weight:600;cursor:pointer;
+    display:inline-flex;align-items:center;gap:6px;transition:.16s;white-space:nowrap;
   }
-  .btn:hover{border-color:var(--line-strong);transform:translateY(-1px)}
-  .btn-primary{background:#12131a;color:#fff;border-color:#12131a}
-  .btn-primary:hover{background:#000}
-  .btn-ghost{border-color:transparent;background:transparent}
+  .btn:hover{border-color:var(--line-strong);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+  .btn-primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .btn-primary:hover{background:var(--navy-700);border-color:var(--navy-700)}
+  .btn-ghost{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.10);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.30)}
   .btn:disabled{opacity:.5;pointer-events:none}
   .pill{
-    font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
-    padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:#fff;
+    font-size:11px;font-weight:700;letter-spacing:.04em;
+    padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;display:inline-flex;align-items:center;gap:6px;
   }
-  .pill-admin{border-color:#bfdbfe;background:var(--blue-bg);color:var(--blue)}
-  .pill-student{border-color:#a7f3d0;background:var(--green-bg);color:var(--green)}
+  .pill-admin{background:#fff;color:var(--navy);border-color:#fff}
+  .pill-student{background:var(--green-bg);color:var(--green);border-color:#bfe9d9}
+  .pill-light{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.22);backdrop-filter:blur(6px)}
   /* Layout */
-  .wrap{max-width:1120px;margin:0 auto;padding:22px 20px 80px}
+  .wrap{max-width:1140px;margin:0 auto;padding:28px 22px 80px}
   .card{
     background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
     box-shadow:var(--shadow-sm);
   }
   .section-label{
-    font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
-    margin:0 0 10px;
+    font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+    margin:0 0 12px;
   }
-  /* Login */
-  .login-wrap{max-width:880px;margin:18px auto 0;display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
-  @media(max-width:860px){.login-wrap{grid-template-columns:1fr}}
-  .login-hero{
-    padding:26px 26px 22px;border-radius:var(--radius);background:#12131a;color:#f6f3ef;
-    position:relative;overflow:hidden;
-  }
-  .login-hero h2{font-family:"Newsreader",serif;font-size:34px;line-height:.95;margin:0;letter-spacing:-.03em}
-  .login-hero ul{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:10px}
-  .login-hero li{display:flex;gap:10px;font-size:13.6px;line-height:1.4;color:#d8d6d1}
-  .dot{width:22px;height:22px;border-radius:999px;background:rgba(255,255,255,.12);display:grid;place-items:center;flex:0 0 22px;font-size:11px}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;min-width:0}
-  @media(max-width:680px){.grid2{grid-template-columns:1fr}}
+  /* Login — full-screen desktop foundation */
+  .login-minimal{max-width:none;margin:0;padding:0;width:100%}
+  .minimal-card{padding:32px 28px 24px;border-radius:20px;box-shadow:0 18px 50px rgba(0,36,125,.11),0 4px 16px rgba(0,36,125,.07);background:#fff;border:1px solid var(--line)}
+  .minimal-card h3{margin:0 0 4px;font-size:17px;font-weight:700;letter-spacing:-.01em}
+  .minimal-card .sub{font-size:13px;color:var(--muted);margin:0 0 16px;line-height:1.5}
+  /* hide old hero leftovers safely */
+  .login-wrap{display:none}
+  .login-card{padding:22px 22px 18px;border-radius:var(--radius-lg)}
+  .login-card h3{margin:0 0 4px;font-size:16px;font-weight:700;letter-spacing:-.01em}
+  .login-card .sub{font-size:13px;color:var(--muted);margin:0 0 16px;line-height:1.5}
   .field{display:grid;gap:6px;min-width:0}
-  .field label{font-size:12px;font-weight:700;color:#2b2e3a}
+  .field label{font-size:12px;font-weight:700;color:#2b324e}
   .field input, .field select{
-    width:100%;min-width:0;max-width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:10px;background:#fff;
-    font-size:13.5px;outline:0;transition:.15s;
+    width:100%;min-width:0;max-width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#fff;
+    font-size:13.6px;outline:0;transition:.16s;
   }
-  .field input:focus, .field select:focus{border-color:#12131a;box-shadow:0 0 0 3px rgba(18,19,26,.08)}
-  .hint{font-size:12.6px;color:var(--muted);line-height:1.5}
-  .hint strong{color:var(--ink)}
+  .field input:focus, .field select:focus{border-color:var(--navy);box-shadow:0 0 0 4px var(--navy-50)}
+  .auth-error{
+    display:none;padding:10px 12px;border-radius:11px;background:#fff1f3;border:1px solid #ffd0d9;color:#8f1230;font-size:13px;line-height:1.45;font-weight:500;
+  }
+  .auth-error.show{display:block}
+  .hint{font-size:12.7px;color:var(--muted);line-height:1.5}
+  .divider{height:1px;background:var(--line);margin:14px 0}
+
   /* Views */
   .view{display:none}
   .view.active{display:block}
+  /* Student — parent friendly */
+  .student-hero{
+    display:grid;grid-template-columns:1.1fr .9fr;gap:16px;align-items:stretch;margin:6px 0 18px;
+  }
+  @media(max-width:860px){.student-hero{grid-template-columns:1fr}}
+  .welcome-card{
+    padding:20px 20px 16px;border-radius:var(--radius-lg);background:#fff;border:1px solid var(--line);
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .welcome-card h2{margin:0;font-family:"Newsreader",serif;font-size:24px;font-weight:600;letter-spacing:-.02em}
+  .encourage{
+    margin-top:10px;padding:12px 13px;border-radius:12px;background:var(--navy-50);border:1px solid var(--navy-100);color:var(--navy-700);font-size:13.4px;line-height:1.5;font-weight:500;
+  }
+  .progress-strip{display:grid;grid-template-columns:220px 1fr;gap:14px;margin:0}
+  @media(max-width:760px){.progress-strip{grid-template-columns:1fr}}
+  .ring-card{padding:18px;display:grid;place-items:center;text-align:center;border-radius:var(--radius-lg)}
+  .ring{--p:0;width:124px;height:124px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--navy) calc(var(--p)*1%), #e8ecfa calc(var(--p)*1%));position:relative;box-shadow:inset 0 0 0 1px rgba(0,36,125,.08)}
+  .ring::after{content:"";position:absolute;inset:10px;background:#fff;border-radius:50%;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+  .ring span{position:relative;z-index:1;font-weight:800;font-size:24px;color:var(--navy);letter-spacing:-.02em}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0 0}
+  .kpi{padding:11px 10px;border:1px solid var(--line);border-radius:12px;background:#fbfcff;text-align:center}
+  .kpi b{font-size:18px;display:block;color:var(--ink)}
+  .kpi span{font-size:11.4px;color:var(--muted);font-weight:600}
+  .kpi.green b{color:var(--green)} .kpi.amber b{color:var(--amber)} .kpi.red b{color:var(--red)}
+  /* Strands with icons */
+  .strands{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  @media(max-width:1020px){.strands{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:560px){.strands{grid-template-columns:repeat(2,1fr)}}
+  .strand{padding:12px 12px 11px;border-radius:13px;display:flex;flex-direction:column;gap:8px}
+  .strand-head{display:flex;align-items:center;gap:8px;justify-content:space-between}
+  .strand-ic{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;font-size:14px;font-weight:700;background:var(--navy-50);color:var(--navy);border:1px solid var(--navy-100)}
+  .strand b{font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+  .bar{height:6px;background:#eef1fb;border-radius:999px;overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--navy);border-radius:999px;width:0%;transition:width .4s ease}
+  /* Toolbar */
   .toolbar{
-    display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0 16px;
+    display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0 16px;
   }
   .search{
-    display:flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:#fff;min-width:220px;flex:1 1 220px;max-width:340px;
+    display:flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;min-width:240px;flex:1 1 240px;max-width:360px;
   }
   .search input{border:0;outline:0;width:100%;background:transparent;font-size:13.5px}
   .chip{
-    border:1px solid var(--line);background:#fff;padding:6px 10px;border-radius:999px;font-size:12.6px;font-weight:600;cursor:pointer;
+    border:1px solid var(--line);background:#fff;padding:7px 11px;border-radius:999px;font-size:12.7px;font-weight:600;cursor:pointer;transition:.14s;
   }
-  .chip.active{background:#12131a;color:#fff;border-color:#12131a}
-  /* Progress ring */
-  .progress-strip{display:grid;grid-template-columns:200px 1fr;gap:14px;margin:16px 0 18px}
-  @media(max-width:760px){.progress-strip{grid-template-columns:1fr}}
-  .ring-card{padding:16px;display:grid;place-items:center;text-align:center}
-  .ring{--p:0;width:116px;height:116px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#12131a calc(var(--p)*1%), #eee calc(var(--p)*1%));position:relative}
-  .ring::after{content:"";position:absolute;inset:9px;background:#fff;border-radius:50%;}
-  .ring span{position:relative;z-index:1;font-weight:800;font-size:22px}
-  /* Strand bars */
-  .strands{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
-  @media(max-width:980px){.strands{grid-template-columns:repeat(3,1fr)}}
-  @media(max-width:560px){.strands{grid-template-columns:repeat(2,1fr)}}
-  .strand{padding:11px 12px}
-  .strand b{font-size:11px;letter-spacing:.06em;text-transform:uppercase}
-  .bar{height:6px;background:#f0ede6;border-radius:999px;margin-top:8px;overflow:hidden}
-  .bar i{display:block;height:100%;background:#12131a;border-radius:999px;width:0%}
+  .chip:hover{border-color:var(--line-strong)}
+  .chip.active{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:0 4px 12px rgba(0,36,125,.22)}
   /* Topics */
   .strand-group{margin:22px 0 0}
-  .strand-group-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-  .strand-group-head h3{margin:0;font-family:"Newsreader",serif;font-size:18px}
-  .strand-group-head small{color:var(--muted);font-weight:600}
+  .strand-group-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+  .strand-group-head h3{margin:0;font-family:"Newsreader",serif;font-size:18px;font-weight:600;display:flex;align-items:center;gap:9px}
+  .strand-group-head small{color:var(--muted);font-weight:600;font-size:12px;background:#fff;border:1px solid var(--line);padding:4px 8px;border-radius:999px}
   .topics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
   @media(max-width:760px){.topics{grid-template-columns:1fr}}
   .topic{
     display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
-    padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;transition:.12s;
+    padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:#fff;transition:.14s;
   }
-  .topic:hover{border-color:var(--line-strong)}
+  .topic:hover{border-color:var(--line-strong);box-shadow:var(--shadow-sm);transform:translateY(-1px)}
   .topic-id{
-    font-size:11px;font-weight:800;letter-spacing:.06em;padding:3px 7px;border-radius:999px;border:1px solid var(--line);background:#fbfaf6;
-    flex:0 0 auto;
+    font-size:11px;font-weight:800;letter-spacing:.06em;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:#fbfcff;
+    flex:0 0 auto;color:var(--navy);
   }
   .topic-main{flex:1 1 auto;min-width:0}
-  .topic-title{font-size:13.6px;font-weight:600;line-height:1.35;margin:0}
-  .topic-meta{font-size:11.8px;color:var(--muted);margin-top:2px}
+  .topic-title{font-size:13.7px;font-weight:600;line-height:1.35;margin:0;color:var(--ink)}
+  .topic-meta{font-size:11.9px;color:var(--muted);margin-top:3px;line-height:1.35}
   .rag{display:flex;gap:5px;flex:0 0 auto}
   .rag button{
     width:32px;height:32px;border-radius:999px;border:1px solid var(--line);cursor:pointer;font-weight:800;font-size:11px;
-    display:grid;place-items:center;transition:.12s;background:#fff;
+    display:grid;place-items:center;transition:.14s;background:#fff;
   }
-  .rag button[data-v="R"].on{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 4px 12px rgba(225,29,72,.25)}
-  .rag button[data-v="A"].on{background:var(--amber);border-color:var(--amber);color:#fff;box-shadow:0 4px 12px rgba(217,119,6,.25)}
-  .rag button[data-v="G"].on{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 4px 12px rgba(13,122,95,.24)}
+  .rag button[data-v="R"].on{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 4px 12px rgba(211,26,68,.28)}
+  .rag button[data-v="A"].on{background:var(--amber);border-color:var(--amber);color:#fff;box-shadow:0 4px 12px rgba(182,90,0,.24)}
+  .rag button[data-v="G"].on{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 4px 12px rgba(11,122,94,.24)}
   .rag button.off{opacity:.62}
-  /* Admin */
-  .admin-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}
-  @media(max-width:920px){.admin-grid{grid-template-columns:1fr}}
+  /* Admin — clean professional */
+  .admin-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:2px 0 16px}
+  .admin-head h2{margin:0;font-family:"Newsreader",serif;font-size:28px;font-weight:600;letter-spacing:-.02em}
+  .admin-head p{margin:6px 0 0;color:var(--muted);font-size:13.4px;line-height:1.5;max-width:52ch}
+  .admin-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;margin-top:4px}
+  @media(max-width:960px){.admin-grid{grid-template-columns:1fr}}
+  .panel{padding:14px;border-radius:var(--radius-lg)}
   .students-list{display:grid;gap:8px;max-height:520px;overflow:auto;padding-right:4px}
   .student-row{
-    display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 11px;
-    border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;transition:.12s;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;
+    border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;transition:.14s;
   }
-  .student-row:hover{border-color:var(--line-strong);transform:translateY(-1px)}
-  .student-row.active{border-color:#12131a;box-shadow:0 6px 18px rgba(0,0,0,.08)}
-  .mini-bar{height:5px;width:86px;background:#f0ede6;border-radius:999px;overflow:hidden}
-  .mini-bar i{display:block;height:100%;background:#12131a}
-  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 0}
-  .kpi{padding:10px;border:1px dashed var(--line);border-radius:12px;background:#fcfbf7}
-  .kpi b{font-size:18px;display:block}
-  .kpi span{font-size:11.5px;color:var(--muted);font-weight:600}
-  .empty{padding:18px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);text-align:center;font-size:13px}
+  .student-row:hover{border-color:var(--line-strong);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+  .student-row.active{border-color:var(--navy);box-shadow:0 0 0 3px var(--navy-50), 0 6px 18px rgba(0,36,125,.10)}
+  .mini-bar{height:5px;width:88px;background:#eef1fb;border-radius:999px;overflow:hidden}
+  .mini-bar i{display:block;height:100%;background:var(--navy);border-radius:999px}
+  .empty{padding:20px;border:1px dashed var(--line);border-radius:13px;color:var(--muted);text-align:center;font-size:13px;background:#fcfdff}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;min-width:0}
+  @media(max-width:680px){.grid2{grid-template-columns:1fr}}
   .toast{
     position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(20px);
-    background:#12131a;color:#fff;padding:10px 14px;border-radius:999px;font-size:13px;font-weight:600;
-    box-shadow:0 12px 30px rgba(0,0,0,.22);opacity:0;pointer-events:none;transition:.22s;z-index:90;
+    background:var(--navy);color:#fff;padding:11px 16px;border-radius:999px;font-size:13px;font-weight:600;
+    box-shadow:0 12px 30px rgba(0,36,125,.28);opacity:0;pointer-events:none;transition:.22s;z-index:90;
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  /* Details summary */
+  .detail-kicker{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+
+  /* --- Front page — full-screen desktop hero --- */
+  /* Desktop-first split */
+  .login-visual-shell{
+    display:grid;
+    grid-template-columns: minmax(0,1.25fr) 460px;
+    gap:48px;
+    align-items:center;
+    min-height: calc(100vh - 92px);
+    max-width:1140px;
+    margin:0 auto;
+    padding:36px 0 48px;
+    position:relative;
+  }
+  .math-hero-abstract{
+    max-width:none;
+    margin:0;
+    padding:0 20px 0 2px;
+    position:relative;
+  }
+  .math-badge-row{
+    display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:18px;position:relative;z-index:1
+  }
+  .gcse-pill{
+    font-size:11.5px;font-weight:700;letter-spacing:.05em;
+    padding:6px 12px;border-radius:999px;
+    background:var(--navy);color:#fff;border:1px solid var(--navy);
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .gcse-pill.muted{
+    background:#fff;color:var(--navy);border-color:var(--line);
+  }
+  .math-title{
+    font-family:"Newsreader",serif;font-size:56px;font-weight:600;letter-spacing:-.04em;
+    line-height:.92;color:var(--ink);margin:0 0 14px;position:relative;z-index:1;
+  }
+  .math-title em{
+    font-style:normal;
+    background:linear-gradient(100deg, var(--navy) 0%, #3a5bff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .math-subtitle{
+    font-size:17px;color:#3a4261;line-height:1.55;margin:0;max-width:44ch;font-weight:400;position:relative;z-index:1;
+  }
+  /* Abstract geometric canvas — spread across hero, behind text */
+  .geo-canvas{
+    position:absolute;right:-36px;top:44%;transform:translateY(-42%);width:380px;height:380px;pointer-events:none;opacity:.58;z-index:0;
+  }
+  .geo-canvas svg{width:100%;height:100%;overflow:visible}
+  .formula-grid{
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:26px;position:relative;z-index:1;
+  }
+  .formula-chip{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:12px 12px 11px;display:flex;align-items:center;gap:9px;
+    font-size:12.8px;font-weight:600;color:var(--ink-2);
+    box-shadow:0 4px 14px rgba(0,36,125,.05);min-width:0;
+  }
+  .formula-chip i{
+    width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+    background:var(--navy-50);color:var(--navy);border:1px solid var(--navy-100);
+    font-style:normal;font-weight:800;font-size:13.5px;flex:0 0 30px;
+  }
+
+  /* Desktop refinements — true full-screen */
+  @media(min-width:901px){
+    .wrap{max-width:1200px}
+    #view-login{
+      width:100vw;
+      margin-left:calc(50% - 50vw);
+      margin-right:calc(50% - 50vw);
+      padding:0 max(22px, calc((100vw - 1200px)/2));
+      background:
+        radial-gradient(1200px 600px at 12% -8%, #eef2ff 0%, transparent 58%),
+        radial-gradient(900px 500px at 88% 0%, #f6f7ff 0%, transparent 55%),
+        #fbfcfe;
+      min-height:calc(100vh - 62px);
+      display:flex;
+      align-items:center;
+    }
+    #view-login .login-visual-shell{
+      width:100%;
+      min-height: calc(100vh - 122px);
+    }
+    .math-title{font-size:58px}
+  }
+  @media(min-width:1200px){
+    .math-title{font-size:62px}
+    .geo-canvas{width:420px;height:420px;right:-28px;top:-36px}
+  }
+
+  /* Tablet / mobile — stack cleanly */
+  @media(max-width:900px){
+    #view-login{
+      width:auto;
+      margin:0 -22px;
+      padding:0 22px;
+      min-height:auto;
+      display:block;
+      background:#fbfcfe;
+    }
+    .login-visual-shell{
+      grid-template-columns:1fr;
+      gap:22px;
+      min-height:auto;
+      padding:18px 0 24px;
+      width:auto;
+    }
+    .math-hero-abstract{padding:0}
+    .math-title{font-size:38px;line-height:.96}
+    .math-subtitle{font-size:15px;max-width:38ch}
+    .geo-canvas{width:220px;height:220px;right:-8px;top:8px;transform:none;opacity:.42}
+    .formula-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  }
+  @media(max-width:560px){
+    .math-title{font-size:32px}
+    .geo-canvas{width:158px;height:158px;right:-6px;top:-6px;opacity:.62}
+    .formula-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .login-visual-shell{gap:18px;padding:12px 0 20px}
+  }
+  @media(max-width:380px){
+    .formula-grid{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body>
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <div class="mark">✓</div>
+      <div class="mark" style="background:#fff;color:var(--navy);font-family:'Newsreader',serif;font-weight:700;letter-spacing:-.02em">√</div>
       <div>
-        <h1>GCSE Maths • Edexcel Higher</h1>
-        <p>68 topics • N1–N15 A1–A20 R1–R7 G1–G12 P1–P8 S1–S6 • RAG</p>
+        <h1>GCSE Maths <span>Tracker</span></h1>
+        <p>Edexcel Higher • 68 topics • RAG</p>
       </div>
     </div>
     <div class="top-actions">
       <span id="whoPill" class="pill" style="display:none"></span>
-      <button id="btnExport" class="btn" style="display:none">⬇ Export CSV</button>
+      <button id="btnExport" class="btn" style="display:none;background:#fff;color:var(--navy);border-color:#fff">⬇ Export CSV</button>
       <button id="btnLogout" class="btn btn-ghost" style="display:none">Log out</button>
     </div>
   </div>
@@ -203,82 +363,104 @@
 <div class="wrap">
   <!-- LOGIN -->
   <div id="view-login" class="view active">
-    <div class="login-wrap">
-      <div class="login-hero card">
-        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.8;font-weight:700;margin-bottom:10px">Central • Firebase • GitHub Pages ready</div>
-        <h2>One checklist,<br/>every student's<br/>progress saved.</h2>
-        <ul>
-          <li><span class="dot">1</span> <span><strong style="color:#fff">Public link</strong> — runs on GitHub Pages, anyone with the link can open it. No setup screen.</span></li>
-          <li><span class="dot">2</span> <span><strong style="color:#fff">Admin sees everyone</strong> — create student accounts, watch live RAG from one dashboard. Admin session stays logged in when creating students.</span></li>
-          <li><span class="dot">3</span> <span><strong style="color:#fff">Students save centrally</strong> — Red / Amber / Green syncs to Firestore (gcse-maths-dbe29), not just their device.</span></li>
-        </ul>
-        <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
-          <span class="pill" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.18)">Edexcel Higher 68</span>
-          <span class="pill" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.18)">RAG: R • A • G</span>
-          <span class="pill" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.18)">Firebase connected</span>
+    <div class="login-visual-shell">
+      <div class="math-hero-abstract">
+        <div class="math-badge-row">
+          <span class="gcse-pill">GCSE Maths</span>
+          <span class="gcse-pill muted">Edexcel Higher</span>
+        </div>
+        <div style="position:relative">
+          <h2 class="math-title">Progress that<br><em>makes sense.</em></h2>
+          <div class="geo-canvas" aria-hidden="true">
+            <!-- GCSE Maths visual -->
+            <svg viewBox="0 0 168 168" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Abstract maths shapes">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#eef2ff"/><stop offset="100%" stop-color="#d9e1ff"/></linearGradient>
+              </defs>
+              <!-- soft circle -->
+              <circle cx="84" cy="64" r="52" fill="url(#g1)" stroke="#d0d7ef" stroke-width="1.2" stroke-dasharray="4 5" opacity="0.95"/>
+              <!-- triangle -->
+              <path d="M 84 22 L 122 86 L 46 86 Z" stroke="#00247D" stroke-width="1.4" stroke-linejoin="round" fill="none" opacity="0.32"/>
+              <!-- grid dots -->
+              <g fill="#7a89c0" opacity="0.55">
+                <circle cx="28" cy="28" r="1.6"/><circle cx="48" cy="28" r="1.6"/><circle cx="68" cy="28" r="1.6"/>
+                <circle cx="28" cy="48" r="1.6"/><circle cx="48" cy="48" r="1.6"/><circle cx="68" cy="48" r="1.6"/>
+              </g>
+              <!-- coordinate axes mini -->
+              <g stroke="#00247D" stroke-opacity="0.32" stroke-width="1.1">
+                <path d="M 108 122 L 144 122"/><path d="M 126 104 L 126 140"/>
+                <path d="M 126 122 Q 138 110 144 106" stroke-dasharray="3 3" fill="none"/>
+              </g>
+              <text x="92" y="138" font-family="DM Sans" font-size="11" font-weight="700" fill="#00247D" opacity="0.42">x² + y² = r²</text>
+              <text x="18" y="114" font-family="Newsreader" font-size="18" font-weight="600" fill="#00247D" opacity="0.26">π</text>
+              <text x="128" y="54" font-family="DM Sans" font-size="12" font-weight="700" fill="#00247D" opacity="0.30">∑</text>
+            </svg>
+          </div>
+        </div>
+        <p class="math-subtitle">A clear, visual way to track progress across Number, Algebra, Ratio, Geometry, Probability & Statistics.</p>
+        <div class="formula-grid" aria-hidden="true">
+          <div class="formula-chip"><i>a²</i> Pythagoras</div>
+          <div class="formula-chip"><i>ƒ</i> Functions</div>
+          <div class="formula-chip"><i>θ</i> Trigonometry</div>
         </div>
       </div>
 
-      <div class="card" style="padding:18px 18px 16px">
-        <div class="section-label">Sign in</div>
-        <div id="authMsg" class="hint" style="margin-bottom:10px;display:none"></div>
-        <div style="display:grid;gap:10px">
-          <div class="field"><label>Email</label><input id="email" type="email" placeholder="student@school.com or admin@school.com" autocomplete="email" /></div>
-          <div class="field"><label>Password</label><input id="password" type="password" placeholder="••••••••" autocomplete="current-password" /></div>
-          <button id="btnLogin" class="btn btn-primary" style="justify-content:center;padding:11px">Log in</button>
-          <button id="btnFirstAdmin" class="btn" style="justify-content:center">Create first admin (first user on fresh project)</button>
-          <div class="hint">Admin creates student logins from the dashboard — students don't self-register. First account on a fresh Firestore becomes admin automatically. Ready for GitHub Pages: push this single <code>index.html</code> to <code>main</code> → Settings → Pages.</div>
+      <div class="login-minimal">
+        <div class="card minimal-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px">
+            <h3 style="margin:0;font-size:18px">Sign in</h3>
+            <span style="font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-50);border:1px solid var(--navy-100);padding:5px 10px;border-radius:999px">Secure access</span>
+          </div>
+          <p class="sub">Sign in with your school account to continue. Use the full dashboard after login.</p>
+          <div id="authMsg" class="auth-error"></div>
+          <div style="display:grid;gap:11px;margin-top:12px">
+            <div class="field"><label>Email</label><input id="email" type="email" placeholder="you@school.com" autocomplete="email" /></div>
+            <div class="field"><label>Password</label><input id="password" type="password" placeholder="••••••••" autocomplete="current-password" /></div>
+            <button id="btnLogin" class="btn btn-primary" style="justify-content:center;padding:12px 14px;font-size:14px;border-radius:11px">Log in</button>
+          </div>
         </div>
-        <div id="connStatus" class="hint" style="margin-top:12px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fcfbf7">Connecting to Firestore…</div>
       </div>
     </div>
-
-    <div class="card" style="margin-top:14px;padding:12px 14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
-      <div class="hint"><strong>GitHub Pages:</strong> Upload this <code>index.html</code> as-is to your repo's <code>main</code> branch (drag &amp; drop works). Enable Pages → <code>Deploy from branch</code> → <code>main / root</code>. Your link <code>https://YOURNAME.github.io/gcse-maths-tracker/</code> works instantly — Firebase is already baked in, no env vars or setup screen.</div>
-    </div>
-
-    <details class="card" style="margin-top:14px;padding:12px 14px">
-      <summary style="cursor:pointer;font-weight:700;font-size:13px">View 68 Edexcel topics included (N1-N15 A1-A20 R1-R7 G1-G12 P1-P8 S1-S6)</summary>
-      <div class="hint" style="margin-top:10px;line-height:1.6">
-        <strong>Number:</strong> N1 Number types & place value, N2 Powers roots indices, N3 Standard form, N4 Surds, N5 Fractions decimals %, N6 % change reverse %, N7 Ratio best buys, N8 Rounding estimation bounds, N9 HCF LCM primes, N10 Calculator, N11 Negative fractional indices, N12 Upper lower bounds calc, N13 Recurring decimals, N14 Direct inverse proportion, N15 Compound growth decay<br/>
-        <strong>Algebra:</strong> A1 Simplify expand, A2 Double brackets factorise, A3 Linear eq inequality, A4 Changing subject, A5 Simultaneous linear, A6 Simultaneous quad, A7 Quadratics, A8 Algebraic fractions, A9 Sequences, A10 y=mx+c, A11 Parallel perpendicular, A12 Quad cubic graphs, A13 Real-life exp graphs, A14 Graph transforms, A15 Graphical quad inequalities, A16 Iteration, A17 Functions, A18 Circle equation, A19 Completing square, A20 Proof<br/>
-        <strong>Ratio:</strong> R1 Ratio share, R2 Direct inverse, R3 % ratio, R4 Speed density pressure, R5 Proportion graphs, R6 Currency units, R7 Scale similar<br/>
-        <strong>Geometry:</strong> G1 Angles polygons, G2 Pythagoras, G3 SOHCAHTOA, G4 Exact trig 3D, G5 Sine cosine area, G6 Circle theorems, G7 Vectors, G8 Transformations, G9 Area volume, G10 Similar congruent, G11 Constructions loci, G12 Bearings<br/>
-        <strong>Probability:</strong> P1 Basic expectation, P2 Sample space, P3 Venn, P4 Tree independent, P5 Tree dependent, P6 Conditional, P7 Frequency two-way, P8 Combined set notation<br/>
-        <strong>Statistics:</strong> S1 Averages, S2 Charts, S3 Scatter, S4 Cumulative box, S5 Histograms, S6 Sampling bias
-      </div>
-    </details>
   </div>
 
-  <!-- STUDENT -->
+  <!-- STUDENT — parent-friendly -->
   <div id="view-student" class="view">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-      <h2 style="margin:0;font-family:Newsreader,serif;font-size:26px">Your checklist</h2>
-      <div style="display:flex;gap:8px;align-items:center">
-        <span id="studentName" class="pill pill-student">student</span>
-        <span id="saveState" class="hint">Saved</span>
+    <div class="student-hero">
+      <div class="welcome-card">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px">
+            <span id="studentName" class="pill pill-student">student</span>
+            <span id="saveState" class="hint" style="background:#fbfcff;border:1px solid var(--line);padding:4px 9px;border-radius:999px">Saved</span>
+          </div>
+          <h2 id="welcomeTitle">Your checklist</h2>
+          <div id="encourageMsg" class="encourage">Tick topics as you go — Green is exam-ready, Amber is almost there, Red is what to learn next. You’ve got this.</div>
+        </div>
+        <div class="kpis" style="margin-top:14px">
+          <div class="kpi green"><b id="kpiG">0</b><span>Green confident</span></div>
+          <div class="kpi amber"><b id="kpiA">0</b><span>Amber shaky</span></div>
+          <div class="kpi red"><b id="kpiR">0</b><span>Red to do</span></div>
+        </div>
+      </div>
+
+      <div class="card ring-card">
+        <div id="ring" class="ring" style="--p:0"><span id="ringTxt">0%</span></div>
+        <div style="margin-top:12px;font-weight:700;font-size:14px" id="ringLabel">0 / 68 green</div>
+        <div class="hint" id="ringSub" style="margin-top:3px">Green = exam-ready</div>
+        <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
+          <span class="pill" style="background:var(--green-bg);color:var(--green);border-color:#bfe9d9">G confident</span>
+          <span class="pill" style="background:var(--amber-bg);color:var(--amber);border-color:#f5d6a8">A practice</span>
+          <span class="pill" style="background:var(--red-bg);color:var(--red);border-color:#ffc2cf">R to learn</span>
+        </div>
       </div>
     </div>
 
-    <div class="progress-strip">
-      <div class="card ring-card">
-        <div id="ring" class="ring" style="--p:0"><span id="ringTxt">0%</span></div>
-        <div style="margin-top:10px;font-weight:700;font-size:13px" id="ringLabel">0 / 68 green</div>
-        <div class="hint" id="ringSub">RAG syncs live to Firestore</div>
-      </div>
-      <div class="card" style="padding:12px 12px 10px">
-        <div class="section-label">By strand</div>
-        <div id="strands" class="strands"></div>
-        <div class="kpis">
-          <div class="kpi"><b id="kpiG">0</b><span>Green confident</span></div>
-          <div class="kpi"><b id="kpiA">0</b><span>Amber shaky</span></div>
-          <div class="kpi"><b id="kpiR">0</b><span>Red to do</span></div>
-        </div>
-      </div>
+    <div class="card" style="padding:14px 14px 12px">
+      <div class="section-label">Progress by strand</div>
+      <div id="strands" class="strands"></div>
     </div>
 
     <div class="toolbar">
-      <div class="search">🔎 <input id="search" placeholder="Search topic e.g. trig, surds, vectors" /></div>
+      <div class="search">🔎 <input id="search" placeholder="Search topic — e.g. trig, surds, vectors" /></div>
       <button class="chip active" data-strand="all">All 68</button>
       <button class="chip" data-strand="N">Number</button>
       <button class="chip" data-strand="A">Algebra</button>
@@ -290,53 +472,55 @@
       <button class="chip" data-rag="R">Red</button>
       <button class="chip" data-rag="A">Amber</button>
       <button class="chip" data-rag="G">Green</button>
-      <button id="btnClearFilters" class="btn btn-ghost" style="padding:6px 10px">Clear</button>
+      <button id="btnClearFilters" class="btn btn-ghost" style="padding:7px 11px;background:#fff;color:var(--ink);border-color:var(--line)">Clear</button>
     </div>
 
     <div id="topicsMount"></div>
   </div>
 
-  <!-- ADMIN -->
+  <!-- ADMIN — clean & professional -->
   <div id="view-admin" class="view">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
-      <h2 style="margin:0;font-family:Newsreader,serif;font-size:26px">Admin • Class overview</h2>
+    <div class="admin-head">
+      <div>
+        <h2>Class dashboard</h2>
+        <p>Support every student from one calm place. Create accounts, watch live RAG across all 68 Edexcel Higher topics, and export for reports or parents’ evening — all in your school’s navy.</p>
+      </div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <span class="pill pill-admin">admin</span>
-        <span id="adminCounts" class="hint">0 students</span>
+        <span class="pill pill-admin" style="background:var(--navy);color:#fff;border-color:var(--navy)">Admin</span>
+        <span id="adminCounts" class="hint" style="background:#fff;border:1px solid var(--line);padding:6px 10px;border-radius:999px">0 students</span>
       </div>
     </div>
 
     <div class="admin-grid">
-      <div class="card" style="padding:12px">
-        <div class="section-label">Create account (stays logged in as you)</div>
+      <div class="card panel">
+        <div class="section-label">Create account</div>
         <div class="grid2">
           <div class="field"><label>Display name</label><input id="newName" placeholder="Aisha Y11" /></div>
           <div class="field"><label>Role</label><select id="newRole"><option value="student">student</option><option value="admin">admin</option></select></div>
           <div class="field"><label>Email (login)</label><input id="newEmail" type="email" placeholder="aisha@school.com" /></div>
           <div class="field"><label>Password</label><input id="newPass" type="password" placeholder="min 6 chars" /></div>
         </div>
-        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center">
           <button id="btnCreateUser" class="btn btn-primary">Create account</button>
           <button id="btnResetStudent" class="btn">Reset selected progress</button>
           <span id="createMsg" class="hint"></span>
         </div>
-        <div class="hint" style="margin-top:8px">Uses a secondary Firebase app behind the scenes, so your admin session is preserved when you create students. Central Firestore sync — students appear instantly.</div>
 
-        <div style="margin-top:14px">
+        <div style="margin-top:18px">
           <div class="section-label">Students</div>
           <div id="studentsList" class="students-list"></div>
         </div>
       </div>
 
-      <div class="card" style="padding:12px">
-        <div class="section-label">Student detail • RAG</div>
-        <div id="adminDetailEmpty" class="empty">Select a student to see their full 68-topic breakdown.</div>
+      <div class="card panel">
+        <div class="detail-kicker">Student detail • RAG</div>
+        <div id="adminDetailEmpty" class="empty">Select a student on the left to see their full 68-topic breakdown, strand progress, and encouraging next steps.</div>
         <div id="adminDetail" style="display:none">
-          <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
-            <div><b id="detailName">—</b><div id="detailEmail" class="hint"></div></div>
-            <div style="display:flex;gap:6px;align-items:center"><div class="mini-bar"><i id="detailBar" style="width:0%"></i></div><span id="detailPct" class="pill">0%</span></div>
+          <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+            <div><b id="detailName" style="font-size:15px">—</b><div id="detailEmail" class="hint"></div></div>
+            <div style="display:flex;gap:8px;align-items:center"><div class="mini-bar"><i id="detailBar" style="width:0%"></i></div><span id="detailPct" class="pill">0%</span></div>
           </div>
-          <div id="adminStrands" class="strands" style="margin-bottom:10px"></div>
+          <div id="adminStrands" class="strands" style="margin-bottom:12px"></div>
           <div id="adminTopics" style="display:grid;gap:8px;max-height:560px;overflow:auto;padding-right:4px"></div>
         </div>
       </div>
@@ -356,14 +540,12 @@
 }
 </script>
 <script type="module">
-/* -------- safe storage (sandbox fix) -------- */
+/* safe storage (sandbox fix) */
 const memStore = new Map();
 function sGet(k){ try{ const v=localStorage.getItem(k); return v==null? memStore.get(k) ?? null : v }catch{ return memStore.get(k) ?? null } }
 function sSet(k,v){ try{ localStorage.setItem(k,v) }catch{} memStore.set(k,v) }
-function sDel(k){ try{ localStorage.removeItem(k) }catch{} memStore.delete(k) }
-function sJsonGet(k, fallback=null){ try{ const r=sGet(k); return r? JSON.parse(r):fallback }catch{ return fallback } }
 
-/* -------- integrated Firebase config (no setup screen) -------- */
+/* integrated Firebase config */
 const firebaseConfig = {
   apiKey: "AIzaSyDQezBfveMLjTfWXUfikGWGiuIfkv2VHl0",
   authDomain: "gcse-maths-dbe29.firebaseapp.com",
@@ -373,7 +555,7 @@ const firebaseConfig = {
   appId: "1:139501178612:web:9e84fe9c63cc160a5f18a1"
 };
 
-/* -------- topics -------- */
+/* topics — 68 Edexcel Higher */
 const TOPICS = [
   {id:"N1", strand:"N", strandName:"Number", title:"Number types & place value", exam:"Integers, decimals, place value, ordering"},
   {id:"N2", strand:"N", strandName:"Number", title:"Powers, roots & laws of indices", exam:"Index laws, square/cube roots"},
@@ -445,16 +627,17 @@ const TOPICS = [
   {id:"S6", strand:"S", strandName:"Statistics", title:"Sampling & bias", exam:"Random, stratified, bias, time series"},
 ];
 const STRAND_ORDER = ["N","A","R","G","P","S"];
-const STRAND_LABEL = {N:"Number (N1-N15)", A:"Algebra (A1-A20)", R:"Ratio (R1-R7)", G:"Geometry (G1-G12)", P:"Probability (P1-P8)", S:"Statistics (S1-S6)"};
+const STRAND_LABEL = {N:"Number N1–N15", A:"Algebra A1–A20", R:"Ratio R1–R7", G:"Geometry G1–G12", P:"Probability P1–P8", S:"Statistics S1–S6"};
+const STRAND_ICON = {N:"N", A:"A", R:"%", G:"⌖", P:"◐", S:"▭"};
 
-/* -------- DOM -------- */
+/* DOM */
 const $ = s=>document.getElementById(s);
 const viewLogin=$("view-login"), viewStudent=$("view-student"), viewAdmin=$("view-admin");
 const whoPill=$("whoPill"), btnLogout=$("btnLogout"), btnExport=$("btnExport");
 const toast=$("toast");
 function showToast(msg){ toast.textContent=msg; toast.classList.add("show"); setTimeout(()=>toast.classList.remove("show"),2200); }
 
-/* -------- Firebase state -------- */
+/* Firebase state */
 let fbApp=null, fbAuth=null, fbDb=null;
 let currentUser=null;
 let currentProgress={};
@@ -477,7 +660,6 @@ function showView(name){
 }
 
 async function initFirebase(){
-  const conn=$("connStatus");
   try{
     const {initializeApp}=await import("firebase/app");
     const {getAuth, onAuthStateChanged}=await import("firebase/auth");
@@ -485,7 +667,6 @@ async function initFirebase(){
     fbApp = initializeApp(firebaseConfig);
     fbAuth = getAuth(fbApp);
     fbDb = getFirestore(fbApp);
-    if(conn) conn.innerHTML = `<strong>Firebase connected</strong> — ${firebaseConfig.projectId} — central DB active. GitHub Pages link works for whole class. First login becomes admin.`;
     onAuthStateChanged(fbAuth, async (u)=>{
       if(u){
         await afterFirebaseLogin(u);
@@ -495,8 +676,8 @@ async function initFirebase(){
     });
     if(fbAuth.currentUser) await afterFirebaseLogin(fbAuth.currentUser);
   }catch(e){
-    if(conn) conn.textContent="Firebase init failed: "+(e.message||e)+" — check console. Make sure Firestore + Email/Password Auth are enabled.";
-    console.error(e);
+    const msg=$("authMsg");
+    if(msg){ msg.textContent="We’re having trouble connecting right now. Please refresh and try again."; msg.classList.add("show"); }
   }
 }
 
@@ -535,7 +716,7 @@ async function afterFirebaseLogin(fbUser){
     renderStudent();
     showView("student");
   }
-  showToast(`Welcome ${currentUser.displayName}`);
+  showToast(`Welcome, ${currentUser.displayName}`);
 }
 
 async function adminLoadAll(){
@@ -559,45 +740,58 @@ async function adminLoadAll(){
     const admins=list.filter(l=>l.role==="admin").length;
     $("adminCounts").textContent=`${students} students • ${admins} admin`;
     renderAdminList();
-  }catch(e){
-    $("adminCounts").textContent="Can't read users — check Firestore Rules are in test mode or allow read for logged-in users";
-    console.error(e);
+  }catch{
+    $("adminCounts").textContent="Loading class list…";
   }
 }
 
-/* -------- Login -------- */
+/* Login */
 $("btnLogin").addEventListener("click", async ()=>{
   const email=$("email").value.trim(); const pass=$("password").value.trim();
-  const msg=$("authMsg"); msg.style.display="none";
-  if(!fbAuth){ msg.style.display="block"; msg.textContent="Firebase not ready yet — wait a second and try again."; return; }
-  if(!email||!pass){ msg.style.display="block"; msg.textContent="Enter email and password."; return; }
+  const msg=$("authMsg"); msg.classList.remove("show");
+  if(!fbAuth){ msg.textContent="Just a moment — connecting…"; msg.classList.add("show"); return; }
+  if(!email||!pass){ msg.textContent="Please enter your email and password."; msg.classList.add("show"); return; }
   try{
     const {signInWithEmailAndPassword}=await import("firebase/auth");
     await signInWithEmailAndPassword(fbAuth,email,pass);
-  }catch(e){ msg.style.display="block"; msg.textContent=e.message||"Login failed"; }
+  }catch(e){ msg.textContent="We couldn’t log you in — please check your email and password."; msg.classList.add("show"); }
 });
 
-$("btnFirstAdmin").addEventListener("click", async ()=>{
-  const email=$("email").value.trim(); const pass=$("password").value.trim();
-  const msg=$("authMsg"); msg.style.display="none";
-  if(!fbAuth){ msg.style.display="block"; msg.textContent="Firebase not ready yet — wait a moment."; return; }
-  if(!email||!pass||pass.length<6){ msg.style.display="block"; msg.textContent="Enter email + password (min 6 chars) to create first admin."; return; }
-  try{
-    const {createUserWithEmailAndPassword}=await import("firebase/auth");
-    await createUserWithEmailAndPassword(fbAuth,email,pass);
-    showToast("Admin created — you are now logged in");
-  }catch(e){ msg.style.display="block"; msg.textContent=e.message; }
-});
+const _btnFirstAdmin = $("btnFirstAdmin");
+if(_btnFirstAdmin){
+  _btnFirstAdmin.addEventListener("click", async ()=>{
+    const email=$("email").value.trim(); const pass=$("password").value.trim();
+    const msg=$("authMsg"); msg.classList.remove("show");
+    if(!fbAuth){ msg.textContent="Just a moment — connecting…"; msg.classList.add("show"); return; }
+    if(!email||!pass||pass.length<6){ msg.textContent="Enter an email and a password with at least 6 characters."; msg.classList.add("show"); return; }
+    try{
+      const {createUserWithEmailAndPassword}=await import("firebase/auth");
+      await createUserWithEmailAndPassword(fbAuth,email,pass);
+      showToast("Admin account created");
+    }catch(e){ msg.textContent="We couldn’t create that account — it may already exist."; msg.classList.add("show"); }
+  });
+}
 
 $("btnLogout").addEventListener("click", async ()=>{
   try{ if(fbAuth){ const {signOut}=await import("firebase/auth"); await signOut(fbAuth); } }catch{}
   currentUser=null; currentProgress={}; selectedStudentUid=null;
   showView("login");
-  showToast("Logged out");
+  showToast("Signed out");
 });
 
-/* -------- Student rendering -------- */
+/* Student rendering — parent friendly */
 let filters={strand:"all", rag:null, q:"", todo:false};
+
+function encouragementFor(greens,total){
+  const pct = total? Math.round(greens/total*100):0;
+  if(pct===0) return "Every expert was once a beginner — pick one topic and turn it Amber today.";
+  if(pct<25) return `Lovely start — ${greens} topics Green already. Small steps build big confidence.`;
+  if(pct<50) return `You’re building momentum — ${pct}% Green. Keep going, you’re getting stronger each session.`;
+  if(pct<75) return `Great work — over half exam-ready at ${pct}% Green. Focus on those Ambers next.`;
+  if(pct<100) return `Almost there — ${pct}% Green and shining. A few more to secure and you’re set.`;
+  return "Outstanding — all 68 topics Green. You’re exam-ready. Time to maintain and polish.";
+}
+
 function renderStudent(){
   const strandsEl=$("strands"); strandsEl.innerHTML="";
   for(const s of STRAND_ORDER){
@@ -605,13 +799,15 @@ function renderStudent(){
     const greens=TOPICS.filter(t=>t.strand===s && currentProgress[t.id]==="G").length;
     const pct=count? Math.round(greens/count*100):0;
     const div=document.createElement("div"); div.className="card strand";
-    div.innerHTML=`<div style="display:flex;justify-content:space-between"><b>${STRAND_LABEL[s].split(" ")[0]}</b><span style="font-size:11px;color:var(--muted);font-weight:700">${greens}/${count}</span></div><div class="bar"><i style="width:${pct}%"></i></div>`;
+    div.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[s]}</span><b>${STRAND_LABEL[s].split(" ")[0]}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${greens}/${count}</span></div><div class="bar"><i style="width:${pct}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${pct}% confident</div>`;
     strandsEl.appendChild(div);
   }
   const total=TOPICS.length; const greens=TOPICS.filter(t=>currentProgress[t.id]==="G").length; const ambers=TOPICS.filter(t=>currentProgress[t.id]==="A").length; const reds=TOPICS.filter(t=>currentProgress[t.id]==="R").length;
   const pct= total? Math.round(greens/total*100):0;
   $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${greens} / ${total} green`; $("kpiG").textContent=greens; $("kpiA").textContent=ambers; $("kpiR").textContent=reds;
   if($("studentName")) $("studentName").textContent=currentUser?.displayName||"student";
+  if($("welcomeTitle")) $("welcomeTitle").textContent = greens? `Keep going, ${currentUser?.displayName||"you"} — ${pct}% Green` : `Welcome, ${currentUser?.displayName||"you"}`;
+  if($("encourageMsg")) $("encourageMsg").textContent = encouragementFor(greens,total);
 
   const mount=$("topicsMount"); mount.innerHTML="";
   for(const s of STRAND_ORDER){
@@ -624,19 +820,19 @@ function renderStudent(){
     });
     if(!topics.length) continue;
     const g=document.createElement("div"); g.className="strand-group";
-    g.innerHTML=`<div class="strand-group-head"><h3>${STRAND_LABEL[s]}</h3><small>${topics.filter(t=>currentProgress[t.id]==="G").length}/${TOPICS.filter(x=>x.strand===s).length} green</small></div>`;
+    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[s]}</span> ${STRAND_LABEL[s]}</h3><small>${topics.filter(t=>currentProgress[t.id]==="G").length}/${TOPICS.filter(x=>x.strand===s).length} green</small></div>`;
     const grid=document.createElement("div"); grid.className="topics";
     for(const t of topics){
       const v=currentProgress[t.id]||null;
       const el=document.createElement("div"); el.className="topic";
-      el.innerHTML=`<span class="topic-id">${t.id}</span><div class="topic-main"><p class="topic-title">${t.title}</p><div class="topic-meta">${t.exam}</div></div><div class="rag"><button data-v="R" class="${v==="R"?"on":"off"}">R</button><button data-v="A" class="${v==="A"?"on":"off"}">A</button><button data-v="G" class="${v==="G"?"on":"off"}">G</button></div>`;
+      el.innerHTML=`<span class="topic-id">${t.id}</span><div class="topic-main"><p class="topic-title">${t.title}</p><div class="topic-meta">${t.exam}</div></div><div class="rag"><button data-v="R" class="${v==="R"?"on":"off"}" title="To learn">R</button><button data-v="A" class="${v==="A"?"on":"off"}" title="Getting there">A</button><button data-v="G" class="${v==="G"?"on":"off"}" title="Confident">G</button></div>`;
       const btns=el.querySelectorAll(".rag button");
       btns.forEach(b=>{
         b.addEventListener("click", ()=>{
           const nv=b.dataset.v;
           const cur=currentProgress[t.id];
           const next = cur===nv ? null : nv;
-          currentProgress[t.id]=next;
+          if(next===null) delete currentProgress[t.id]; else currentProgress[t.id]=next;
           btns.forEach(x=>{ x.className = (currentProgress[t.id]===x.dataset.v)?"on":"off"; });
           scheduleSave();
           renderStudentKPIsOnly();
@@ -647,15 +843,18 @@ function renderStudent(){
     g.appendChild(grid); mount.appendChild(g);
   }
   if(!mount.children.length){
-    mount.innerHTML=`<div class="empty">No topics match filters — clear filters to see all 68.</div>`;
+    mount.innerHTML=`<div class="empty">No topics match — clear filters to see all 68.</div>`;
   }
 }
 function renderStudentKPIsOnly(){
   const total=TOPICS.length; const greens=TOPICS.filter(t=>currentProgress[t.id]==="G").length; const ambers=TOPICS.filter(t=>currentProgress[t.id]==="A").length; const reds=TOPICS.filter(t=>currentProgress[t.id]==="R").length;
   const pct= total? Math.round(greens/total*100):0;
   $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${greens} / ${total} green`; $("kpiG").textContent=greens; $("kpiA").textContent=ambers; $("kpiR").textContent=reds;
+  if($("encourageMsg")) $("encourageMsg").textContent = encouragementFor(greens,total);
+  if($("welcomeTitle") && currentUser) $("welcomeTitle").textContent = `Keep going, ${currentUser.displayName||"you"} — ${pct}% Green`;
   document.querySelectorAll("#strands .strand").forEach((el,i)=>{
-    const s=STRAND_ORDER[i]; const count=TOPICS.filter(t=>t.strand===s).length; const g=TOPICS.filter(t=>t.strand===s && currentProgress[t.id]==="G").length; el.querySelector(".bar i").style.width=(count? Math.round(g/count*100):0)+"%"; el.querySelector("span").textContent=g+"/"+count;
+    const s=STRAND_ORDER[i]; const count=TOPICS.filter(t=>t.strand===s).length; const g=TOPICS.filter(t=>t.strand===s && currentProgress[t.id]==="G").length; el.querySelector(".bar i").style.width=(count? Math.round(g/count*100):0)+"%"; el.querySelector(".strand-head span:last-child").textContent=g+"/"+count;
+    const label=el.querySelector("div:last-child"); if(label) label.textContent = (count? Math.round(g/count*100):0)+"% confident";
   });
 }
 function scheduleSave(){
@@ -669,8 +868,8 @@ function scheduleSave(){
         await setDoc(doc(fbDb,"progress",currentUser.uid),{topics:currentProgress,updatedAt:serverTimestamp()},{merge:true});
       }
       $("saveState").textContent="Saved ✓";
-      showToast("Progress saved to Firestore");
-    }catch(e){ $("saveState").textContent="Offline — saved locally"; console.error(e); }
+      showToast("Progress saved");
+    }catch{ $("saveState").textContent="Saved locally"; }
   }, 600);
 }
 
@@ -690,15 +889,15 @@ $("btnClearFilters").addEventListener("click", ()=>{
   filters={strand:"all",rag:null,q:"",todo:false}; $("search").value=""; document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active")); document.querySelector('.chip[data-strand="all"]').classList.add("active"); renderStudent();
 });
 
-/* -------- Admin rendering -------- */
+/* Admin rendering — professional */
 function renderAdminList(){
   const list=$("studentsList"); list.innerHTML="";
   const studs=allStudentsCache.filter(s=>s.role==="student").sort((a,b)=>(a.displayName||"").localeCompare(b.displayName||""));
-  if(!studs.length){ list.innerHTML=`<div class="empty">No students yet — create one above. Your admin session stays active when you create accounts.</div>`; return; }
+  if(!studs.length){ list.innerHTML=`<div class="empty">No students yet — create their first account above. They’ll appear here instantly and you’ll see live progress as they work.</div>`; return; }
   for(const s of studs){
     const total=TOPICS.length; const greens=Object.values(s.progress||{}).filter(v=>v==="G").length; const pct= total? Math.round(greens/total*100):0;
     const row=document.createElement("div"); row.className="student-row"+(selectedStudentUid===s.uid?" active":"");
-    row.innerHTML=`<div><b style="font-size:13px">${s.displayName||s.email}</b><div class="hint" style="font-size:11.5px">${s.email} • ${greens}/${total} green</div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill">${pct}%</span></div>`;
+    row.innerHTML=`<div><b style="font-size:13.2px">${s.displayName||s.email}</b><div class="hint" style="font-size:11.6px">${s.email} • ${greens}/${total} green • ${encouragementFor(greens,total).slice(0,46)}…</div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill" style="background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)">${pct}%</span></div>`;
     row.addEventListener("click", ()=>{ selectedStudentUid=s.uid; document.querySelectorAll(".student-row").forEach(r=>r.classList.remove("active")); row.classList.add("active"); renderAdminDetail(s); });
     list.appendChild(row);
   }
@@ -711,15 +910,15 @@ function renderAdminDetail(s){
   const strandsEl=$("adminStrands"); strandsEl.innerHTML="";
   for(const st of STRAND_ORDER){
     const count=TOPICS.filter(t=>t.strand===st).length; const g=TOPICS.filter(t=>t.strand===st && s.progress[t.id]==="G").length; const p=count? Math.round(g/count*100):0;
-    const d=document.createElement("div"); d.className="card strand"; d.innerHTML=`<div style="display:flex;justify-content:space-between"><b>${st}</b><span style="font-size:11px;color:var(--muted);font-weight:700">${g}/${count}</span></div><div class="bar"><i style="width:${p}%"></i></div>`; strandsEl.appendChild(d);
+    const d=document.createElement("div"); d.className="card strand"; d.innerHTML=`<div style="display:flex;justify-content:space-between"><span style="display:flex;align-items:center;gap:6px"><span class="strand-ic" style="width:22px;height:22px;font-size:11px">${STRAND_ICON[st]}</span><b>${st}</b></span><span style="font-size:11px;color:var(--muted);font-weight:700">${g}/${count}</span></div><div class="bar"><i style="width:${p}%"></i></div>`; strandsEl.appendChild(d);
   }
   const mount=$("adminTopics"); mount.innerHTML="";
   for(const t of TOPICS){
     const v=s.progress[t.id]||null;
-    const el=document.createElement("div"); el.style.display="flex"; el.style.justifyContent="space-between"; el.style.gap="8px"; el.style.padding="8px 10px"; el.style.border="1px solid var(--line)"; el.style.borderRadius="10px"; el.style.background="#fff";
+    const el=document.createElement("div"); el.style.display="flex"; el.style.justifyContent="space-between"; el.style.gap="8px"; el.style.padding="9px 11px"; el.style.border="1px solid var(--line)"; el.style.borderRadius="11px"; el.style.background="#fff";
     const pillColor = v==="G"? "var(--green-bg)" : v==="A"? "var(--amber-bg)" : v==="R"? "var(--red-bg)" : "#fff";
-    const pillText = v? (v==="G"?"Green":v==="A"?"Amber":"Red") : "—";
-    el.innerHTML=`<span style="font-size:12.5px"><b style="font-size:11px;border:1px solid var(--line);padding:2px 6px;border-radius:999px;margin-right:6px;background:#fbfaf6">${t.id}</b>${t.title}</span><span style="font-size:11px;font-weight:800;padding:4px 8px;border-radius:999px;background:${pillColor};border:1px solid var(--line)">${pillText}</span>`;
+    const pillText = v? (v==="G"?"Green — confident":v==="A"?"Amber — getting there":"Red — to learn") : "Not yet marked";
+    el.innerHTML=`<span style="font-size:12.6px"><b style="font-size:11px;border:1px solid var(--line);padding:2px 7px;border-radius:999px;margin-right:6px;background:#fbfcff;color:var(--navy)">${t.id}</b>${t.title}</span><span style="font-size:11px;font-weight:700;padding:4px 9px;border-radius:999px;background:${pillColor};border:1px solid var(--line);white-space:nowrap">${pillText}</span>`;
     mount.appendChild(el);
   }
 }
@@ -727,8 +926,8 @@ function renderAdminDetail(s){
 $("btnCreateUser").addEventListener("click", async ()=>{
   const name=$("newName").value.trim(), email=$("newEmail").value.trim(), pass=$("newPass").value.trim(), role=$("newRole").value;
   const msg=$("createMsg"); msg.textContent="";
-  if(!email||!pass||pass.length<6){ msg.textContent="Email + 6-char password required."; return; }
-  if(!fbApp){ msg.textContent="Firebase not ready yet."; return; }
+  if(!email||!pass||pass.length<6){ msg.textContent="Email and a 6-character password are needed."; return; }
+  if(!fbApp){ msg.textContent="Connecting — please wait a moment."; return; }
   try{
     const {initializeApp,deleteApp}=await import("firebase/app");
     const {getAuth,createUserWithEmailAndPassword,updateProfile}=await import("firebase/auth");
@@ -740,10 +939,10 @@ $("btnCreateUser").addEventListener("click", async ()=>{
     await setDoc(doc(fbDb,"users",cred.user.uid),{uid:cred.user.uid,email,displayName:name||email.split("@")[0],role,createdAt:serverTimestamp()},{merge:true});
     await setDoc(doc(fbDb,"progress",cred.user.uid),{topics:{},updatedAt:serverTimestamp()},{merge:true});
     try{ await deleteApp(secApp); }catch{}
-    msg.textContent=`Created ${role}: ${email} — admin stays logged in`;
-    $("newName").value=""; $("newEmail").value=""; $("newPass").value=""; showToast(`${role} created — session preserved`);
+    msg.textContent=`Created ${role}: ${email}`;
+    $("newName").value=""; $("newEmail").value=""; $("newPass").value=""; showToast(`${role} account ready`);
     await adminLoadAll();
-  }catch(e){ msg.textContent=e.message; console.error(e); }
+  }catch(e){ msg.textContent="Couldn’t create that account — it may already exist."; }
 });
 
 $("btnResetStudent").addEventListener("click", async ()=>{
@@ -752,8 +951,8 @@ $("btnResetStudent").addEventListener("click", async ()=>{
   const name = row?.displayName||row?.email||"this student";
   const proceed = await new Promise(res=>{
     const overlay=document.createElement("div");
-    overlay.style.cssText="position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.44);display:grid;place-items:center;padding:16px";
-    overlay.innerHTML=`<div style="background:#fff;border:1px solid #e9e7e0;border-radius:14px;padding:16px;max-width:340px;width:100%;box-shadow:0 16px 40px rgba(0,0,0,.2)"><div style="font-weight:700;margin-bottom:6px">Reset progress for ${name}?</div><div style="font-size:13px;color:#6b7288;margin-bottom:12px">This clears all Red/Amber/Green to empty. Can't be undone.</div><div style="display:flex;gap:8px;justify-content:flex-end"><button id="cNo" class="btn">Cancel</button><button id="cYes" class="btn btn-primary" style="background:#e11d48;border-color:#e11d48">Reset</button></div></div>`;
+    overlay.style.cssText="position:fixed;inset:0;z-index:95;background:rgba(0,15,70,.44);display:grid;place-items:center;padding:16px;backdrop-filter:blur(4px)";
+    overlay.innerHTML=`<div style="background:#fff;border:1px solid #e6e9f2;border-radius:16px;padding:18px;max-width:360px;width:100%;box-shadow:0 18px 44px rgba(0,36,125,.22)"><div style="font-weight:700;margin-bottom:6px;color:var(--ink)">Reset progress for ${name}?</div><div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5">This clears all Red / Amber / Green marks. The student can start fresh — this can’t be undone.</div><div style="display:flex;gap:8px;justify-content:flex-end"><button id="cNo" class="btn">Keep progress</button><button id="cYes" class="btn btn-primary" style="background:#d31a44;border-color:#d31a44">Reset</button></div></div>`;
     document.body.appendChild(overlay);
     overlay.querySelector("#cNo").addEventListener("click", ()=>{ overlay.remove(); res(false); });
     overlay.querySelector("#cYes").addEventListener("click", ()=>{ overlay.remove(); res(true); });
@@ -764,7 +963,7 @@ $("btnResetStudent").addEventListener("click", async ()=>{
     const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
     await setDoc(doc(fbDb,"progress",selectedStudentUid),{topics:{},updatedAt:serverTimestamp()},{merge:true});
     const s=allStudentsCache.find(x=>x.uid===selectedStudentUid); if(s) s.progress={}; renderAdminList(); if(s) renderAdminDetail(s); showToast("Progress reset");
-  }catch(e){ showToast("Reset failed: "+e.message); }
+  }catch{ showToast("Reset didn’t work — please try again"); }
 });
 
 $("btnExport").addEventListener("click", ()=>{
