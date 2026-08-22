@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>GCSE Maths Tracker - Public Central</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fcfcf8;
+    --paper:#ffffff;
+    --ink:#12131a;
+    --muted:#6b7288;
+    --line:#e9e7e0;
+    --line-strong:#d8d4cc;
+    --red:#e11d48;
+    --amber:#d97706;
+    --green:#0d7a5f;
+    --red-bg:#fff1f3;
+    --amber-bg:#fff8ec;
+    --green-bg:#ecfdf5;
+    --blue:#1e40af;
+    --blue-bg:#eff4ff;
+    --radius:14px;
+    --radius-sm:10px;
+    --shadow:0 4px 24px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04);
+    --shadow-sm:0 1px 8px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"DM Sans", ui-sans-system, system-ui, -apple-system, sans-serif;-webkit-font-smoothing:antialiased}
+  button,input,select,textarea{font:inherit}
+  a{color:var(--blue)}
+  /* Header */
+  .topbar{
+    position:sticky;top:0;z-index:40;
+    backdrop-filter:blur(12px);
+    background:rgba(252,252,248,.86);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width:1120px;margin:0 auto;padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  .brand{display:flex;align-items:center;gap:12px}
+  .mark{
+    width:36px;height:36px;border-radius:10px;
+    background:#12131a;color:#fff;display:grid;place-items:center;
+    font-family:"Newsreader",serif;font-weight:600;font-size:17px;letter-spacing:-.02em;
+  }
+  .brand h1{margin:0;font-family:"Newsreader",serif;font-size:18px;font-weight:600;letter-spacing:-.02em;line-height:1}
+  .brand p{margin:2px 0 0;font-size:12px;color:var(--muted);font-weight:500}
+  .top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .btn{
+    border:1px solid var(--line);background:var(--paper);color:var(--ink);
+    padding:8px 12px;border-radius:999px;font-size:13.5px;font-weight:600;cursor:pointer;
+    display:inline-flex;align-items:center;gap:6px;transition:.15s;white-space:nowrap;
+  }
+  .btn:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+  .btn-primary{background:#12131a;color:#fff;border-color:#12131a}
+  .btn-primary:hover{background:#000}
+  .btn-ghost{border-color:transparent;background:transparent}
+  .btn:disabled{opacity:.5;pointer-events:none}
+  .pill{
+    font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:#fff;
+  }
+  .pill-admin{border-color:#bfdbfe;background:var(--blue-bg);color:var(--blue)}
+  .pill-student{border-color:#a7f3d0;background:var(--green-bg);color:var(--green)}
+  /* Layout */
+  .wrap{max-width:1120px;margin:0 auto;padding:22px 20px 80px}
+  .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow-sm);
+  }
+  .section-label{
+    font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+    margin:0 0 10px;
+  }
+  /* Login */
+  .login-wrap{max-width:880px;margin:18px auto 0;display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
+  @media(max-width:860px){.login-wrap{grid-template-columns:1fr}}
+  .login-hero{
+    padding:26px 26px 22px;border-radius:var(--radius);background:#12131a;color:#f6f3ef;
+    position:relative;overflow:hidden;
+  }
+  .login-hero h2{font-family:"Newsreader",serif;font-size:34px;line-height:.95;margin:0;letter-spacing:-.03em}
+  .login-hero ul{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+  .login-hero li{display:flex;gap:10px;font-size:13.6px;line-height:1.4;color:#d8d6d1}
+  .dot{width:22px;height:22px;border-radius:999px;background:rgba(255,255,255,.12);display:grid;place-items:center;flex:0 0 22px;font-size:11px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;min-width:0}
+  @media(max-width:680px){.grid2{grid-template-columns:1fr}}
+  .field{display:grid;gap:6px;min-width:0}
+  .field label{font-size:12px;font-weight:700;color:#2b2e3a}
+  .field input, .field select{
+    width:100%;min-width:0;max-width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:10px;background:#fff;
+    font-size:13.5px;outline:0;transition:.15s;
+  }
+  .field input:focus, .field select:focus{border-color:#12131a;box-shadow:0 0 0 3px rgba(18,19,26,.08)}
+  .hint{font-size:12.6px;color:var(--muted);line-height:1.5}
+  .hint strong{color:var(--ink)}
+  /* Views */
+  .view{display:none}
+  .view.active{display:block}
+  .toolbar{
+    display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0 16px;
+  }
+  .search{
+    display:flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:#fff;min-width:220px;flex:1 1 220px;max-width:340px;
+  }
+  .search input{border:0;outline:0;width:100%;background:transparent;font-size:13.5px}
+  .chip{
+    border:1px solid var(--line);background:#fff;padding:6px 10px;border-radius:999px;font-size:12.6px;font-weight:600;cursor:pointer;
+  }
+  .chip.active{background:#12131a;color:#fff;border-color:#12131a}
+  /* Progress ring */
+  .progress-strip{display:grid;grid-template-columns:200px 1fr;gap:14px;margin:16px 0 18px}
+  @media(max-width:760px){.progress-strip{grid-template-columns:1fr}}
+  .ring-card{padding:16px;display:grid;place-items:center;text-align:center}
+  .ring{--p:0;width:116px;height:116px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#12131a calc(var(--p)*1%), #eee calc(var(--p)*1%));position:relative}
+  .ring::after{content:"";position:absolute;inset:9px;background:#fff;border-radius:50%;}
+  .ring span{position:relative;z-index:1;font-weight:800;font-size:22px}
+  /* Strand bars */
+  .strands{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  @media(max-width:980px){.strands{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:560px){.strands{grid-template-columns:repeat(2,1fr)}}
+  .strand{padding:11px 12px}
+  .strand b{font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+  .bar{height:6px;background:#f0ede6;border-radius:999px;margin-top:8px;overflow:hidden}
+  .bar i{display:block;height:100%;background:#12131a;border-radius:999px;width:0%}
+  /* Topics */
+  .strand-group{margin:22px 0 0}
+  .strand-group-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .strand-group-head h3{margin:0;font-family:"Newsreader",serif;font-size:18px}
+  .strand-group-head small{color:var(--muted);font-weight:600}
+  .topics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  @media(max-width:760px){.topics{grid-template-columns:1fr}}
+  .topic{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+    padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;transition:.12s;
+  }
+  .topic:hover{border-color:var(--line-strong)}
+  .topic-id{
+    font-size:11px;font-weight:800;letter-spacing:.06em;padding:3px 7px;border-radius:999px;border:1px solid var(--line);background:#fbfaf6;
+    flex:0 0 auto;
+  }
+  .topic-main{flex:1 1 auto;min-width:0}
+  .topic-title{font-size:13.6px;font-weight:600;line-height:1.35;margin:0}
+  .topic-meta{font-size:11.8px;color:var(--muted);margin-top:2px}
+  .rag{display:flex;gap:5px;flex:0 0 auto}
+  .rag button{
+    width:32px;height:32px;border-radius:999px;border:1px solid var(--line);cursor:pointer;font-weight:800;font-size:11px;
+    display:grid;place-items:center;transition:.12s;background:#fff;
+  }
+  .rag button[data-v="R"].on{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 4px 12px rgba(225,29,72,.25)}
+  .rag button[data-v="A"].on{background:var(--amber);border-color:var(--amber);color:#fff;box-shadow:0 4px 12px rgba(217,119,6,.25)}
+  .rag button[data-v="G"].on{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 4px 12px rgba(13,122,95,.24)}
+  .rag button.off{opacity:.62}
+  /* Admin */
+  .admin-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}
+  @media(max-width:920px){.admin-grid{grid-template-columns:1fr}}
+  .students-list{display:grid;gap:8px;max-height:520px;overflow:auto;padding-right:4px}
+  .student-row{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 11px;
+    border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;transition:.12s;
+  }
+  .student-row:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+  .student-row.active{border-color:#12131a;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+  .mini-bar{height:5px;width:86px;background:#f0ede6;border-radius:999px;overflow:hidden}
+  .mini-bar i{display:block;height:100%;background:#12131a}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 0}
+  .kpi{padding:10px;border:1px dashed var(--line);border-radius:12px;background:#fcfbf7}
+  .kpi b{font-size:18px;display:block}
+  .kpi span{font-size:11.5px;color:var(--muted);font-weight:600}
+  .empty{padding:18px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);text-align:center;font-size:13px}
+  .toast{
+    position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(20px);
+    background:#12131a;color:#fff;padding:10px 14px;border-radius:999px;font-size:13px;font-weight:600;
+    box-shadow:0 12px 30px rgba(0,0,0,.22);opacity:0;pointer-events:none;transition:.22s;z-index:90;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="mark">✓</div>
+      <div>
+        <h1>GCSE Maths • Edexcel Higher</h1>
+        <p>68 topics • N1–N15 A1–A20 R1–R7 G1–G12 P1–P8 S1–S6 • RAG</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span id="whoPill" class="pill" style="display:none"></span>
+      <button id="btnExport" class="btn" style="display:none">⬇ Export CSV</button>
+      <button id="btnLogout" class="btn btn-ghost" style="display:none">Log out</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- LOGIN -->
+  <div id="view-login" class="view active">
+    <div class="login-wrap">
+      <div class="login-hero card">
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.8;font-weight:700;margin-bottom:10px">Central • Firebase • GitHub Pages ready</div>
+        <h2>One checklist,<br/>every student's<br/>progress saved.</h2>
+        <ul>
+          <li><span class="dot">1</span> <span><strong style="color:#fff">Public link</strong> — runs on GitHub Pages, anyone with the link can open it. No setup screen.</span></li>
+          <li><span class="dot">2</span> <span><strong style="color:#fff">Admin sees everyone</strong> — create student accounts, watch live RAG from one dashboard. Admin session stays logged in when creating students.</span></li>
+          <li><span class="dot">3</span> <span><strong style="color:#fff">Students save centrally</strong> — Red / Amber / Green syncs to Firestore (gcse-maths-dbe29), not just their device.</span></li>
+        </ul>
+        <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
+          <span class="pill" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.18)">Edexcel Higher 68</span>
+          <span class="pill" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.18)">RAG: R • A • G</span>
+          <span class="pill" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.18)">Firebase connected</span>
+        </div>
+      </div>
+
+      <div class="card" style="padding:18px 18px 16px">
+        <div class="section-label">Sign in</div>
+        <div id="authMsg" class="hint" style="margin-bottom:10px;display:none"></div>
+        <div style="display:grid;gap:10px">
+          <div class="field"><label>Email</label><input id="email" type="email" placeholder="student@school.com or admin@school.com" autocomplete="email" /></div>
+          <div class="field"><label>Password</label><input id="password" type="password" placeholder="••••••••" autocomplete="current-password" /></div>
+          <button id="btnLogin" class="btn btn-primary" style="justify-content:center;padding:11px">Log in</button>
+          <button id="btnFirstAdmin" class="btn" style="justify-content:center">Create first admin (first user on fresh project)</button>
+          <div class="hint">Admin creates student logins from the dashboard — students don't self-register. First account on a fresh Firestore becomes admin automatically. Ready for GitHub Pages: push this single <code>index.html</code> to <code>main</code> → Settings → Pages.</div>
+        </div>
+        <div id="connStatus" class="hint" style="margin-top:12px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fcfbf7">Connecting to Firestore…</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px;padding:12px 14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+      <div class="hint"><strong>GitHub Pages:</strong> Upload this <code>index.html</code> as-is to your repo's <code>main</code> branch (drag &amp; drop works). Enable Pages → <code>Deploy from branch</code> → <code>main / root</code>. Your link <code>https://YOURNAME.github.io/gcse-maths-tracker/</code> works instantly — Firebase is already baked in, no env vars or setup screen.</div>
+    </div>
+
+    <details class="card" style="margin-top:14px;padding:12px 14px">
+      <summary style="cursor:pointer;font-weight:700;font-size:13px">View 68 Edexcel topics included (N1-N15 A1-A20 R1-R7 G1-G12 P1-P8 S1-S6)</summary>
+      <div class="hint" style="margin-top:10px;line-height:1.6">
+        <strong>Number:</strong> N1 Number types & place value, N2 Powers roots indices, N3 Standard form, N4 Surds, N5 Fractions decimals %, N6 % change reverse %, N7 Ratio best buys, N8 Rounding estimation bounds, N9 HCF LCM primes, N10 Calculator, N11 Negative fractional indices, N12 Upper lower bounds calc, N13 Recurring decimals, N14 Direct inverse proportion, N15 Compound growth decay<br/>
+        <strong>Algebra:</strong> A1 Simplify expand, A2 Double brackets factorise, A3 Linear eq inequality, A4 Changing subject, A5 Simultaneous linear, A6 Simultaneous quad, A7 Quadratics, A8 Algebraic fractions, A9 Sequences, A10 y=mx+c, A11 Parallel perpendicular, A12 Quad cubic graphs, A13 Real-life exp graphs, A14 Graph transforms, A15 Graphical quad inequalities, A16 Iteration, A17 Functions, A18 Circle equation, A19 Completing square, A20 Proof<br/>
+        <strong>Ratio:</strong> R1 Ratio share, R2 Direct inverse, R3 % ratio, R4 Speed density pressure, R5 Proportion graphs, R6 Currency units, R7 Scale similar<br/>
+        <strong>Geometry:</strong> G1 Angles polygons, G2 Pythagoras, G3 SOHCAHTOA, G4 Exact trig 3D, G5 Sine cosine area, G6 Circle theorems, G7 Vectors, G8 Transformations, G9 Area volume, G10 Similar congruent, G11 Constructions loci, G12 Bearings<br/>
+        <strong>Probability:</strong> P1 Basic expectation, P2 Sample space, P3 Venn, P4 Tree independent, P5 Tree dependent, P6 Conditional, P7 Frequency two-way, P8 Combined set notation<br/>
+        <strong>Statistics:</strong> S1 Averages, S2 Charts, S3 Scatter, S4 Cumulative box, S5 Histograms, S6 Sampling bias
+      </div>
+    </details>
+  </div>
+
+  <!-- STUDENT -->
+  <div id="view-student" class="view">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <h2 style="margin:0;font-family:Newsreader,serif;font-size:26px">Your checklist</h2>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span id="studentName" class="pill pill-student">student</span>
+        <span id="saveState" class="hint">Saved</span>
+      </div>
+    </div>
+
+    <div class="progress-strip">
+      <div class="card ring-card">
+        <div id="ring" class="ring" style="--p:0"><span id="ringTxt">0%</span></div>
+        <div style="margin-top:10px;font-weight:700;font-size:13px" id="ringLabel">0 / 68 green</div>
+        <div class="hint" id="ringSub">RAG syncs live to Firestore</div>
+      </div>
+      <div class="card" style="padding:12px 12px 10px">
+        <div class="section-label">By strand</div>
+        <div id="strands" class="strands"></div>
+        <div class="kpis">
+          <div class="kpi"><b id="kpiG">0</b><span>Green confident</span></div>
+          <div class="kpi"><b id="kpiA">0</b><span>Amber shaky</span></div>
+          <div class="kpi"><b id="kpiR">0</b><span>Red to do</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search">🔎 <input id="search" placeholder="Search topic e.g. trig, surds, vectors" /></div>
+      <button class="chip active" data-strand="all">All 68</button>
+      <button class="chip" data-strand="N">Number</button>
+      <button class="chip" data-strand="A">Algebra</button>
+      <button class="chip" data-strand="R">Ratio</button>
+      <button class="chip" data-strand="G">Geometry</button>
+      <button class="chip" data-strand="P">Probability</button>
+      <button class="chip" data-strand="S">Statistics</button>
+      <button class="chip" data-rag="todo">To do</button>
+      <button class="chip" data-rag="R">Red</button>
+      <button class="chip" data-rag="A">Amber</button>
+      <button class="chip" data-rag="G">Green</button>
+      <button id="btnClearFilters" class="btn btn-ghost" style="padding:6px 10px">Clear</button>
+    </div>
+
+    <div id="topicsMount"></div>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="view-admin" class="view">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <h2 style="margin:0;font-family:Newsreader,serif;font-size:26px">Admin • Class overview</h2>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <span class="pill pill-admin">admin</span>
+        <span id="adminCounts" class="hint">0 students</span>
+      </div>
+    </div>
+
+    <div class="admin-grid">
+      <div class="card" style="padding:12px">
+        <div class="section-label">Create account (stays logged in as you)</div>
+        <div class="grid2">
+          <div class="field"><label>Display name</label><input id="newName" placeholder="Aisha Y11" /></div>
+          <div class="field"><label>Role</label><select id="newRole"><option value="student">student</option><option value="admin">admin</option></select></div>
+          <div class="field"><label>Email (login)</label><input id="newEmail" type="email" placeholder="aisha@school.com" /></div>
+          <div class="field"><label>Password</label><input id="newPass" type="password" placeholder="min 6 chars" /></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+          <button id="btnCreateUser" class="btn btn-primary">Create account</button>
+          <button id="btnResetStudent" class="btn">Reset selected progress</button>
+          <span id="createMsg" class="hint"></span>
+        </div>
+        <div class="hint" style="margin-top:8px">Uses a secondary Firebase app behind the scenes, so your admin session is preserved when you create students. Central Firestore sync — students appear instantly.</div>
+
+        <div style="margin-top:14px">
+          <div class="section-label">Students</div>
+          <div id="studentsList" class="students-list"></div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:12px">
+        <div class="section-label">Student detail • RAG</div>
+        <div id="adminDetailEmpty" class="empty">Select a student to see their full 68-topic breakdown.</div>
+        <div id="adminDetail" style="display:none">
+          <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+            <div><b id="detailName">—</b><div id="detailEmail" class="hint"></div></div>
+            <div style="display:flex;gap:6px;align-items:center"><div class="mini-bar"><i id="detailBar" style="width:0%"></i></div><span id="detailPct" class="pill">0%</span></div>
+          </div>
+          <div id="adminStrands" class="strands" style="margin-bottom:10px"></div>
+          <div id="adminTopics" style="display:grid;gap:8px;max-height:560px;overflow:auto;padding-right:4px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast">Saved</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "firebase/app": "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js",
+    "firebase/auth": "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js",
+    "firebase/firestore": "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
+  }
+}
+</script>
+<script type="module">
+/* -------- safe storage (sandbox fix) -------- */
+const memStore = new Map();
+function sGet(k){ try{ const v=localStorage.getItem(k); return v==null? memStore.get(k) ?? null : v }catch{ return memStore.get(k) ?? null } }
+function sSet(k,v){ try{ localStorage.setItem(k,v) }catch{} memStore.set(k,v) }
+function sDel(k){ try{ localStorage.removeItem(k) }catch{} memStore.delete(k) }
+function sJsonGet(k, fallback=null){ try{ const r=sGet(k); return r? JSON.parse(r):fallback }catch{ return fallback } }
+
+/* -------- integrated Firebase config (no setup screen) -------- */
+const firebaseConfig = {
+  apiKey: "AIzaSyDQezBfveMLjTfWXUfikGWGiuIfkv2VHl0",
+  authDomain: "gcse-maths-dbe29.firebaseapp.com",
+  projectId: "gcse-maths-dbe29",
+  storageBucket: "gcse-maths-dbe29.firebasestorage.app",
+  messagingSenderId: "139501178612",
+  appId: "1:139501178612:web:9e84fe9c63cc160a5f18a1"
+};
+
+/* -------- topics -------- */
+const TOPICS = [
+  {id:"N1", strand:"N", strandName:"Number", title:"Number types & place value", exam:"Integers, decimals, place value, ordering"},
+  {id:"N2", strand:"N", strandName:"Number", title:"Powers, roots & laws of indices", exam:"Index laws, square/cube roots"},
+  {id:"N3", strand:"N", strandName:"Number", title:"Standard form", exam:"Large/small numbers, calculations in std form"},
+  {id:"N4", strand:"N", strandName:"Number", title:"Surds — simplifying & rationalising", exam:"Simplify surds, rationalise denominator"},
+  {id:"N5", strand:"N", strandName:"Number", title:"Fractions, decimals, percentages", exam:"Four ops, conversions, fractions of amounts"},
+  {id:"N6", strand:"N", strandName:"Number", title:"Percentage change & reverse %", exam:"Increase/decrease, reverse, compound"},
+  {id:"N7", strand:"N", strandName:"Number", title:"Ratio, proportion & best buys", exam:"Best buy, sharing, unitary"},
+  {id:"N8", strand:"N", strandName:"Number", title:"Rounding, estimation & bounds", exam:"DP, SF, estimation, error intervals"},
+  {id:"N9", strand:"N", strandName:"Number", title:"HCF, LCM, product of primes", exam:"Prime factorisation, Venn for HCF/LCM"},
+  {id:"N10", strand:"N", strandName:"Number", title:"Calculator skills & checking", exam:"Efficient use, checks, BIDMAS"},
+  {id:"N11", strand:"N", strandName:"Number", title:"Negative & fractional indices", exam:"Negative, fractional, zero power"},
+  {id:"N12", strand:"N", strandName:"Number", title:"Upper & lower bounds", exam:"Bounds in calculations"},
+  {id:"N13", strand:"N", strandName:"Number", title:"Recurring decimals to fractions", exam:"Convert recurring to fraction"},
+  {id:"N14", strand:"N", strandName:"Number", title:"Direct & inverse proportion", exam:"Proportion problems, equations"},
+  {id:"N15", strand:"N", strandName:"Number", title:"Compound interest & growth/decay", exam:"Growth/decay formula, depreciation"},
+  {id:"A1", strand:"A", strandName:"Algebra", title:"Simplifying & expanding single bracket", exam:"Collect like terms, single brackets"},
+  {id:"A2", strand:"A", strandName:"Algebra", title:"Double brackets & factorising", exam:"Expand (x+a)(x+b), factorise quadratics"},
+  {id:"A3", strand:"A", strandName:"Algebra", title:"Linear equations & inequalities", exam:"Solve, inequalities, number line"},
+  {id:"A4", strand:"A", strandName:"Algebra", title:"Changing the subject", exam:"Rearrange formula, incl. powers/roots"},
+  {id:"A5", strand:"A", strandName:"Algebra", title:"Simultaneous equations (linear)", exam:"Elimination & substitution"},
+  {id:"A6", strand:"A", strandName:"Algebra", title:"Simultaneous (linear + quadratic)", exam:"One linear one quadratic"},
+  {id:"A7", strand:"A", strandName:"Algebra", title:"Quadratic equations — factorise, formula, CT Square", exam:"All methods, discriminant"},
+  {id:"A8", strand:"A", strandName:"Algebra", title:"Algebraic fractions", exam:"Simplify, add/sub, solve"},
+  {id:"A9", strand:"A", strandName:"Algebra", title:"Sequences — linear, quadratic, geometric", exam:"nth term, quadratic nth term"},
+  {id:"A10", strand:"A", strandName:"Algebra", title:"Straight line graphs y=mx+c", exam:"Gradient, intercept, equation of line"},
+  {id:"A11", strand:"A", strandName:"Algebra", title:"Parallel & perpendicular lines", exam:"Gradient relationships"},
+  {id:"A12", strand:"A", strandName:"Algebra", title:"Quadratic & cubic graphs", exam:"Sketch, roots, turning point"},
+  {id:"A13", strand:"A", strandName:"Algebra", title:"Real-life & exponential graphs", exam:"Distance-time, velocity-time, growth"},
+  {id:"A14", strand:"A", strandName:"Algebra", title:"Transformations of graphs", exam:"Translations, reflections, stretches"},
+  {id:"A15", strand:"A", strandName:"Algebra", title:"Inequalities — graphical & quadratic", exam:"Region, quadratic inequalities"},
+  {id:"A16", strand:"A", strandName:"Algebra", title:"Iteration & trial and improvement", exam:"Iterative formula, convergence"},
+  {id:"A17", strand:"A", strandName:"Algebra", title:"Functions — notation, inverse, composite", exam:"f(x), fg(x), inverse"},
+  {id:"A18", strand:"A", strandName:"Algebra", title:"Equation of a circle & circle algebra", exam:"(x-a)²+(y-b)²=r²"},
+  {id:"A19", strand:"A", strandName:"Algebra", title:"Completing the square & turning points", exam:"Vertex form, max/min"},
+  {id:"A20", strand:"A", strandName:"Algebra", title:"Algebraic proof", exam:"Prove odd/even, multiples, counter-example"},
+  {id:"R1", strand:"R", strandName:"Ratio", title:"Ratio simplifying & sharing", exam:"Simplify, share n, 3-part ratio"},
+  {id:"R2", strand:"R", strandName:"Ratio", title:"Direct & inverse proportion", exam:"y∝x, y∝1/x, equations"},
+  {id:"R3", strand:"R", strandName:"Ratio", title:"Percentage & ratio problems", exam:"Combined % + ratio"},
+  {id:"R4", strand:"R", strandName:"Ratio", title:"Speed, density, pressure (compound)", exam:"Units, convert, calc"},
+  {id:"R5", strand:"R", strandName:"Ratio", title:"Proportion graphs & equations", exam:"Graph y∝x² etc."},
+  {id:"R6", strand:"R", strandName:"Ratio", title:"Currency & unit conversions", exam:"Exchange, metric, time"},
+  {id:"R7", strand:"R", strandName:"Ratio", title:"Scale factors & similar (ratio)", exam:"Enlargement ratio, area/volume factor"},
+  {id:"G1", strand:"G", strandName:"Geometry", title:"Angles — parallel lines, polygons", exam:"Angles rules, interior/exterior"},
+  {id:"G2", strand:"G", strandName:"Geometry", title:"Pythagoras' theorem", exam:"2D, 3D, is right-angled?"},
+  {id:"G3", strand:"G", strandName:"Geometry", title:"Trigonometry — SOHCAHTOA", exam:"Right-angled trig, angles"},
+  {id:"G4", strand:"G", strandName:"Geometry", title:"Exact trig values & 3D trig/pythag", exam:"30/45/60, 3D problems"},
+  {id:"G5", strand:"G", strandName:"Geometry", title:"Sine & cosine rules, area of triangle", exam:"Non-right triangles"},
+  {id:"G6", strand:"G", strandName:"Geometry", title:"Circle theorems", exam:"Angle at centre, alternate segment etc."},
+  {id:"G7", strand:"G", strandName:"Geometry", title:"Vectors", exam:"Column, magnitude, proof, geometry"},
+  {id:"G8", strand:"G", strandName:"Geometry", title:"Transformations — rotation, reflection, enlargement", exam:"Describe, combined, inv."},
+  {id:"G9", strand:"G", strandName:"Geometry", title:"Area & volume — prisms, spheres, cones", exam:"Compound, frustum, surface area"},
+  {id:"G10", strand:"G", strandName:"Geometry", title:"Similar & congruent shapes", exam:"Proof, area/volume scale"},
+  {id:"G11", strand:"G", strandName:"Geometry", title:"Constructions & loci", exam:"Bisector, arc, region"},
+  {id:"G12", strand:"G", strandName:"Geometry", title:"Bearings & scale drawings", exam:"Bearings, maps, scale"},
+  {id:"P1", strand:"P", strandName:"Probability", title:"Basic probability & expectation", exam:"0-1, equally likely, expected"},
+  {id:"P2", strand:"P", strandName:"Probability", title:"Sample space & listings", exam:"List outcomes, systematic"},
+  {id:"P3", strand:"P", strandName:"Probability", title:"Venn diagrams", exam:"AND/OR/NOT, from Venn"},
+  {id:"P4", strand:"P", strandName:"Probability", title:"Tree diagrams — independent", exam:"With replacement, AND× OR+"},
+  {id:"P5", strand:"P", strandName:"Probability", title:"Tree diagrams — dependent", exam:"Without replacement"},
+  {id:"P6", strand:"P", strandName:"Probability", title:"Conditional probability", exam:"Given that, from table/Venn"},
+  {id:"P7", strand:"P", strandName:"Probability", title:"Frequency trees & two-way tables", exam:"Convert, fill, calc"},
+  {id:"P8", strand:"P", strandName:"Probability", title:"Combined events & set notation", exam:"Notation, combined"},
+  {id:"S1", strand:"S", strandName:"Statistics", title:"Averages — mean, median, mode, range", exam:"From list/table, mean from frequency"},
+  {id:"S2", strand:"S", strandName:"Statistics", title:"Charts — bar, pie, pictogram", exam:"Draw/interpret, frequency"},
+  {id:"S3", strand:"S", strandName:"Statistics", title:"Scatter graphs & correlation", exam:"Type, line of best fit"},
+  {id:"S4", strand:"S", strandName:"Statistics", title:"Cumulative frequency & box plots", exam:"CF graph, median/IQR, box plot"},
+  {id:"S5", strand:"S", strandName:"Statistics", title:"Histograms", exam:"Equal/unequal class width, FD"},
+  {id:"S6", strand:"S", strandName:"Statistics", title:"Sampling & bias", exam:"Random, stratified, bias, time series"},
+];
+const STRAND_ORDER = ["N","A","R","G","P","S"];
+const STRAND_LABEL = {N:"Number (N1-N15)", A:"Algebra (A1-A20)", R:"Ratio (R1-R7)", G:"Geometry (G1-G12)", P:"Probability (P1-P8)", S:"Statistics (S1-S6)"};
+
+/* -------- DOM -------- */
+const $ = s=>document.getElementById(s);
+const viewLogin=$("view-login"), viewStudent=$("view-student"), viewAdmin=$("view-admin");
+const whoPill=$("whoPill"), btnLogout=$("btnLogout"), btnExport=$("btnExport");
+const toast=$("toast");
+function showToast(msg){ toast.textContent=msg; toast.classList.add("show"); setTimeout(()=>toast.classList.remove("show"),2200); }
+
+/* -------- Firebase state -------- */
+let fbApp=null, fbAuth=null, fbDb=null;
+let currentUser=null;
+let currentProgress={};
+let saveTimer=null;
+let selectedStudentUid=null;
+let allStudentsCache=[];
+
+function showView(name){
+  viewLogin.classList.toggle("active", name==="login");
+  viewStudent.classList.toggle("active", name==="student");
+  viewAdmin.classList.toggle("active", name==="admin");
+  const isLogged = name!=="login";
+  btnLogout.style.display=isLogged?"":"none";
+  btnExport.style.display=(name==="admin")?"":"none";
+  whoPill.style.display=isLogged?"":"none";
+  if(currentUser){
+    whoPill.textContent=`${currentUser.displayName||currentUser.email} • ${currentUser.role}`;
+    whoPill.className="pill "+(currentUser.role==="admin"?"pill-admin":"pill-student");
+  }
+}
+
+async function initFirebase(){
+  const conn=$("connStatus");
+  try{
+    const {initializeApp}=await import("firebase/app");
+    const {getAuth, onAuthStateChanged}=await import("firebase/auth");
+    const {getFirestore}=await import("firebase/firestore");
+    fbApp = initializeApp(firebaseConfig);
+    fbAuth = getAuth(fbApp);
+    fbDb = getFirestore(fbApp);
+    if(conn) conn.innerHTML = `<strong>Firebase connected</strong> — ${firebaseConfig.projectId} — central DB active. GitHub Pages link works for whole class. First login becomes admin.`;
+    onAuthStateChanged(fbAuth, async (u)=>{
+      if(u){
+        await afterFirebaseLogin(u);
+      }else{
+        showView("login");
+      }
+    });
+    if(fbAuth.currentUser) await afterFirebaseLogin(fbAuth.currentUser);
+  }catch(e){
+    if(conn) conn.textContent="Firebase init failed: "+(e.message||e)+" — check console. Make sure Firestore + Email/Password Auth are enabled.";
+    console.error(e);
+  }
+}
+
+async function afterFirebaseLogin(fbUser){
+  if(!fbDb) return;
+  const {doc,getDoc,setDoc,serverTimestamp}=await import("firebase/firestore");
+  const uref=doc(fbDb,"users",fbUser.uid);
+  let snap=await getDoc(uref);
+  let profile;
+  if(!snap.exists()){
+    const {collection,getDocs,query,limit}=await import("firebase/firestore");
+    let role="student";
+    try{
+      const q=query(collection(fbDb,"users"), limit(1));
+      const any=await getDocs(q);
+      if(any.empty) role="admin";
+    }catch{ role="admin"; }
+    profile={uid:fbUser.uid,email:fbUser.email||"",displayName:fbUser.displayName||fbUser.email?.split("@")[0]||"User",role,createdAt:serverTimestamp()};
+    await setDoc(uref, profile, {merge:true});
+    const pref=doc(fbDb,"progress",fbUser.uid);
+    await setDoc(pref,{topics:{},updatedAt:serverTimestamp()},{merge:true});
+  }else{
+    profile=snap.data();
+  }
+  currentUser={uid:fbUser.uid,email:profile.email||fbUser.email,displayName:profile.displayName||fbUser.email?.split("@")[0],role:profile.role||"student"};
+  const pref=doc(fbDb,"progress",fbUser.uid);
+  const ps=await getDoc(pref);
+  currentProgress = ps.exists()? (ps.data().topics||{}) : {};
+  sSet("gcse_last_user", JSON.stringify(currentUser));
+  sSet("gcse_progress_"+currentUser.uid, JSON.stringify(currentProgress));
+
+  if(currentUser.role==="admin"){
+    await adminLoadAll();
+    showView("admin");
+  }else{
+    renderStudent();
+    showView("student");
+  }
+  showToast(`Welcome ${currentUser.displayName}`);
+}
+
+async function adminLoadAll(){
+  if(!fbDb) return;
+  const {collection,getDocs}=await import("firebase/firestore");
+  try{
+    const us=await getDocs(collection(fbDb,"users"));
+    const list=[];
+    for(const d of us.docs){
+      const u=d.data();
+      let prog={};
+      try{
+        const {doc,getDoc}=await import("firebase/firestore");
+        const ps=await getDoc(doc(fbDb,"progress",d.id));
+        if(ps.exists()) prog=ps.data().topics||{};
+      }catch{}
+      list.push({uid:d.id,email:u.email,displayName:u.displayName,role:u.role,progress:prog});
+    }
+    allStudentsCache=list;
+    const students=list.filter(l=>l.role==="student").length;
+    const admins=list.filter(l=>l.role==="admin").length;
+    $("adminCounts").textContent=`${students} students • ${admins} admin`;
+    renderAdminList();
+  }catch(e){
+    $("adminCounts").textContent="Can't read users — check Firestore Rules are in test mode or allow read for logged-in users";
+    console.error(e);
+  }
+}
+
+/* -------- Login -------- */
+$("btnLogin").addEventListener("click", async ()=>{
+  const email=$("email").value.trim(); const pass=$("password").value.trim();
+  const msg=$("authMsg"); msg.style.display="none";
+  if(!fbAuth){ msg.style.display="block"; msg.textContent="Firebase not ready yet — wait a second and try again."; return; }
+  if(!email||!pass){ msg.style.display="block"; msg.textContent="Enter email and password."; return; }
+  try{
+    const {signInWithEmailAndPassword}=await import("firebase/auth");
+    await signInWithEmailAndPassword(fbAuth,email,pass);
+  }catch(e){ msg.style.display="block"; msg.textContent=e.message||"Login failed"; }
+});
+
+$("btnFirstAdmin").addEventListener("click", async ()=>{
+  const email=$("email").value.trim(); const pass=$("password").value.trim();
+  const msg=$("authMsg"); msg.style.display="none";
+  if(!fbAuth){ msg.style.display="block"; msg.textContent="Firebase not ready yet — wait a moment."; return; }
+  if(!email||!pass||pass.length<6){ msg.style.display="block"; msg.textContent="Enter email + password (min 6 chars) to create first admin."; return; }
+  try{
+    const {createUserWithEmailAndPassword}=await import("firebase/auth");
+    await createUserWithEmailAndPassword(fbAuth,email,pass);
+    showToast("Admin created — you are now logged in");
+  }catch(e){ msg.style.display="block"; msg.textContent=e.message; }
+});
+
+$("btnLogout").addEventListener("click", async ()=>{
+  try{ if(fbAuth){ const {signOut}=await import("firebase/auth"); await signOut(fbAuth); } }catch{}
+  currentUser=null; currentProgress={}; selectedStudentUid=null;
+  showView("login");
+  showToast("Logged out");
+});
+
+/* -------- Student rendering -------- */
+let filters={strand:"all", rag:null, q:"", todo:false};
+function renderStudent(){
+  const strandsEl=$("strands"); strandsEl.innerHTML="";
+  for(const s of STRAND_ORDER){
+    const count=TOPICS.filter(t=>t.strand===s).length;
+    const greens=TOPICS.filter(t=>t.strand===s && currentProgress[t.id]==="G").length;
+    const pct=count? Math.round(greens/count*100):0;
+    const div=document.createElement("div"); div.className="card strand";
+    div.innerHTML=`<div style="display:flex;justify-content:space-between"><b>${STRAND_LABEL[s].split(" ")[0]}</b><span style="font-size:11px;color:var(--muted);font-weight:700">${greens}/${count}</span></div><div class="bar"><i style="width:${pct}%"></i></div>`;
+    strandsEl.appendChild(div);
+  }
+  const total=TOPICS.length; const greens=TOPICS.filter(t=>currentProgress[t.id]==="G").length; const ambers=TOPICS.filter(t=>currentProgress[t.id]==="A").length; const reds=TOPICS.filter(t=>currentProgress[t.id]==="R").length;
+  const pct= total? Math.round(greens/total*100):0;
+  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${greens} / ${total} green`; $("kpiG").textContent=greens; $("kpiA").textContent=ambers; $("kpiR").textContent=reds;
+  if($("studentName")) $("studentName").textContent=currentUser?.displayName||"student";
+
+  const mount=$("topicsMount"); mount.innerHTML="";
+  for(const s of STRAND_ORDER){
+    const topics=TOPICS.filter(t=>t.strand===s).filter(t=>{
+      if(filters.strand!=="all" && filters.strand!==t.strand) return false;
+      if(filters.q && ! (t.title.toLowerCase().includes(filters.q) || t.id.toLowerCase().includes(filters.q) || t.exam.toLowerCase().includes(filters.q))) return false;
+      if(filters.todo && currentProgress[t.id]==="G") return false;
+      if(filters.rag && currentProgress[t.id]!==filters.rag) return false;
+      return true;
+    });
+    if(!topics.length) continue;
+    const g=document.createElement("div"); g.className="strand-group";
+    g.innerHTML=`<div class="strand-group-head"><h3>${STRAND_LABEL[s]}</h3><small>${topics.filter(t=>currentProgress[t.id]==="G").length}/${TOPICS.filter(x=>x.strand===s).length} green</small></div>`;
+    const grid=document.createElement("div"); grid.className="topics";
+    for(const t of topics){
+      const v=currentProgress[t.id]||null;
+      const el=document.createElement("div"); el.className="topic";
+      el.innerHTML=`<span class="topic-id">${t.id}</span><div class="topic-main"><p class="topic-title">${t.title}</p><div class="topic-meta">${t.exam}</div></div><div class="rag"><button data-v="R" class="${v==="R"?"on":"off"}">R</button><button data-v="A" class="${v==="A"?"on":"off"}">A</button><button data-v="G" class="${v==="G"?"on":"off"}">G</button></div>`;
+      const btns=el.querySelectorAll(".rag button");
+      btns.forEach(b=>{
+        b.addEventListener("click", ()=>{
+          const nv=b.dataset.v;
+          const cur=currentProgress[t.id];
+          const next = cur===nv ? null : nv;
+          currentProgress[t.id]=next;
+          btns.forEach(x=>{ x.className = (currentProgress[t.id]===x.dataset.v)?"on":"off"; });
+          scheduleSave();
+          renderStudentKPIsOnly();
+        });
+      });
+      grid.appendChild(el);
+    }
+    g.appendChild(grid); mount.appendChild(g);
+  }
+  if(!mount.children.length){
+    mount.innerHTML=`<div class="empty">No topics match filters — clear filters to see all 68.</div>`;
+  }
+}
+function renderStudentKPIsOnly(){
+  const total=TOPICS.length; const greens=TOPICS.filter(t=>currentProgress[t.id]==="G").length; const ambers=TOPICS.filter(t=>currentProgress[t.id]==="A").length; const reds=TOPICS.filter(t=>currentProgress[t.id]==="R").length;
+  const pct= total? Math.round(greens/total*100):0;
+  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${greens} / ${total} green`; $("kpiG").textContent=greens; $("kpiA").textContent=ambers; $("kpiR").textContent=reds;
+  document.querySelectorAll("#strands .strand").forEach((el,i)=>{
+    const s=STRAND_ORDER[i]; const count=TOPICS.filter(t=>t.strand===s).length; const g=TOPICS.filter(t=>t.strand===s && currentProgress[t.id]==="G").length; el.querySelector(".bar i").style.width=(count? Math.round(g/count*100):0)+"%"; el.querySelector("span").textContent=g+"/"+count;
+  });
+}
+function scheduleSave(){
+  $("saveState").textContent="Saving…";
+  sSet("gcse_progress_"+(currentUser?.uid||"demo"), JSON.stringify(currentProgress));
+  if(saveTimer) clearTimeout(saveTimer);
+  saveTimer=setTimeout(async ()=>{
+    try{
+      if(fbDb && currentUser){
+        const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
+        await setDoc(doc(fbDb,"progress",currentUser.uid),{topics:currentProgress,updatedAt:serverTimestamp()},{merge:true});
+      }
+      $("saveState").textContent="Saved ✓";
+      showToast("Progress saved to Firestore");
+    }catch(e){ $("saveState").textContent="Offline — saved locally"; console.error(e); }
+  }, 600);
+}
+
+/* filters */
+$("search").addEventListener("input", e=>{ filters.q=e.target.value.toLowerCase().trim(); renderStudent(); });
+document.querySelectorAll(".chip[data-strand]").forEach(c=>c.addEventListener("click", ()=>{
+  document.querySelectorAll(".chip[data-strand]").forEach(x=>x.classList.remove("active"));
+  c.classList.add("active"); filters.strand=c.dataset.strand; renderStudent();
+}));
+document.querySelectorAll(".chip[data-rag]").forEach(c=>c.addEventListener("click", ()=>{
+  const isActive=c.classList.contains("active");
+  document.querySelectorAll(".chip[data-rag]").forEach(x=>x.classList.remove("active"));
+  if(!isActive){ c.classList.add("active"); if(c.dataset.rag==="todo"){ filters.todo=true; filters.rag=null; }else{ filters.todo=false; filters.rag=c.dataset.rag; } }else{ filters.todo=false; filters.rag=null; }
+  renderStudent();
+}));
+$("btnClearFilters").addEventListener("click", ()=>{
+  filters={strand:"all",rag:null,q:"",todo:false}; $("search").value=""; document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active")); document.querySelector('.chip[data-strand="all"]').classList.add("active"); renderStudent();
+});
+
+/* -------- Admin rendering -------- */
+function renderAdminList(){
+  const list=$("studentsList"); list.innerHTML="";
+  const studs=allStudentsCache.filter(s=>s.role==="student").sort((a,b)=>(a.displayName||"").localeCompare(b.displayName||""));
+  if(!studs.length){ list.innerHTML=`<div class="empty">No students yet — create one above. Your admin session stays active when you create accounts.</div>`; return; }
+  for(const s of studs){
+    const total=TOPICS.length; const greens=Object.values(s.progress||{}).filter(v=>v==="G").length; const pct= total? Math.round(greens/total*100):0;
+    const row=document.createElement("div"); row.className="student-row"+(selectedStudentUid===s.uid?" active":"");
+    row.innerHTML=`<div><b style="font-size:13px">${s.displayName||s.email}</b><div class="hint" style="font-size:11.5px">${s.email} • ${greens}/${total} green</div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill">${pct}%</span></div>`;
+    row.addEventListener("click", ()=>{ selectedStudentUid=s.uid; document.querySelectorAll(".student-row").forEach(r=>r.classList.remove("active")); row.classList.add("active"); renderAdminDetail(s); });
+    list.appendChild(row);
+  }
+}
+function renderAdminDetail(s){
+  $("adminDetailEmpty").style.display="none"; $("adminDetail").style.display="block";
+  $("detailName").textContent=s.displayName||s.email; $("detailEmail").textContent=s.email;
+  const total=TOPICS.length; const greens=Object.values(s.progress||{}).filter(v=>v==="G").length; const pct=total? Math.round(greens/total*100):0;
+  $("detailBar").style.width=pct+"%"; $("detailPct").textContent=pct+"%";
+  const strandsEl=$("adminStrands"); strandsEl.innerHTML="";
+  for(const st of STRAND_ORDER){
+    const count=TOPICS.filter(t=>t.strand===st).length; const g=TOPICS.filter(t=>t.strand===st && s.progress[t.id]==="G").length; const p=count? Math.round(g/count*100):0;
+    const d=document.createElement("div"); d.className="card strand"; d.innerHTML=`<div style="display:flex;justify-content:space-between"><b>${st}</b><span style="font-size:11px;color:var(--muted);font-weight:700">${g}/${count}</span></div><div class="bar"><i style="width:${p}%"></i></div>`; strandsEl.appendChild(d);
+  }
+  const mount=$("adminTopics"); mount.innerHTML="";
+  for(const t of TOPICS){
+    const v=s.progress[t.id]||null;
+    const el=document.createElement("div"); el.style.display="flex"; el.style.justifyContent="space-between"; el.style.gap="8px"; el.style.padding="8px 10px"; el.style.border="1px solid var(--line)"; el.style.borderRadius="10px"; el.style.background="#fff";
+    const pillColor = v==="G"? "var(--green-bg)" : v==="A"? "var(--amber-bg)" : v==="R"? "var(--red-bg)" : "#fff";
+    const pillText = v? (v==="G"?"Green":v==="A"?"Amber":"Red") : "—";
+    el.innerHTML=`<span style="font-size:12.5px"><b style="font-size:11px;border:1px solid var(--line);padding:2px 6px;border-radius:999px;margin-right:6px;background:#fbfaf6">${t.id}</b>${t.title}</span><span style="font-size:11px;font-weight:800;padding:4px 8px;border-radius:999px;background:${pillColor};border:1px solid var(--line)">${pillText}</span>`;
+    mount.appendChild(el);
+  }
+}
+
+$("btnCreateUser").addEventListener("click", async ()=>{
+  const name=$("newName").value.trim(), email=$("newEmail").value.trim(), pass=$("newPass").value.trim(), role=$("newRole").value;
+  const msg=$("createMsg"); msg.textContent="";
+  if(!email||!pass||pass.length<6){ msg.textContent="Email + 6-char password required."; return; }
+  if(!fbApp){ msg.textContent="Firebase not ready yet."; return; }
+  try{
+    const {initializeApp,deleteApp}=await import("firebase/app");
+    const {getAuth,createUserWithEmailAndPassword,updateProfile}=await import("firebase/auth");
+    const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
+    const secApp=initializeApp(firebaseConfig,"Secondary"+Date.now());
+    const secAuth=getAuth(secApp);
+    const cred=await createUserWithEmailAndPassword(secAuth,email,pass);
+    try{ await updateProfile(cred.user,{displayName:name||email.split("@")[0]}); }catch{}
+    await setDoc(doc(fbDb,"users",cred.user.uid),{uid:cred.user.uid,email,displayName:name||email.split("@")[0],role,createdAt:serverTimestamp()},{merge:true});
+    await setDoc(doc(fbDb,"progress",cred.user.uid),{topics:{},updatedAt:serverTimestamp()},{merge:true});
+    try{ await deleteApp(secApp); }catch{}
+    msg.textContent=`Created ${role}: ${email} — admin stays logged in`;
+    $("newName").value=""; $("newEmail").value=""; $("newPass").value=""; showToast(`${role} created — session preserved`);
+    await adminLoadAll();
+  }catch(e){ msg.textContent=e.message; console.error(e); }
+});
+
+$("btnResetStudent").addEventListener("click", async ()=>{
+  if(!selectedStudentUid){ showToast("Select a student first"); return; }
+  const row = allStudentsCache.find(x=>x.uid===selectedStudentUid);
+  const name = row?.displayName||row?.email||"this student";
+  const proceed = await new Promise(res=>{
+    const overlay=document.createElement("div");
+    overlay.style.cssText="position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.44);display:grid;place-items:center;padding:16px";
+    overlay.innerHTML=`<div style="background:#fff;border:1px solid #e9e7e0;border-radius:14px;padding:16px;max-width:340px;width:100%;box-shadow:0 16px 40px rgba(0,0,0,.2)"><div style="font-weight:700;margin-bottom:6px">Reset progress for ${name}?</div><div style="font-size:13px;color:#6b7288;margin-bottom:12px">This clears all Red/Amber/Green to empty. Can't be undone.</div><div style="display:flex;gap:8px;justify-content:flex-end"><button id="cNo" class="btn">Cancel</button><button id="cYes" class="btn btn-primary" style="background:#e11d48;border-color:#e11d48">Reset</button></div></div>`;
+    document.body.appendChild(overlay);
+    overlay.querySelector("#cNo").addEventListener("click", ()=>{ overlay.remove(); res(false); });
+    overlay.querySelector("#cYes").addEventListener("click", ()=>{ overlay.remove(); res(true); });
+    overlay.addEventListener("click", e=>{ if(e.target===overlay){ overlay.remove(); res(false);} });
+  });
+  if(!proceed) return;
+  try{
+    const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
+    await setDoc(doc(fbDb,"progress",selectedStudentUid),{topics:{},updatedAt:serverTimestamp()},{merge:true});
+    const s=allStudentsCache.find(x=>x.uid===selectedStudentUid); if(s) s.progress={}; renderAdminList(); if(s) renderAdminDetail(s); showToast("Progress reset");
+  }catch(e){ showToast("Reset failed: "+e.message); }
+});
+
+$("btnExport").addEventListener("click", ()=>{
+  const rows=[["uid","email","displayName","role","green","amber","red","total","pctGreen","topics_JSON"]];
+  for(const s of allStudentsCache){
+    const prog=s.progress||{}; const greens=Object.values(prog).filter(v=>v==="G").length; const ambers=Object.values(prog).filter(v=>v==="A").length; const reds=Object.values(prog).filter(v=>v==="R").length; const total=Object.keys(prog).length; const pct=TOPICS.length? Math.round(greens/TOPICS.length*100):0;
+    rows.push([s.uid, s.email, s.displayName, s.role, greens, ambers, reds, total, pct, JSON.stringify(prog)]);
+  }
+  const csv=rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(",")).join("\n");
+  const blob=new Blob([csv],{type:"text/csv"}); const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download="gcse-maths-progress.csv"; a.click(); URL.revokeObjectURL(url);
+});
+
+initFirebase();
+</script>
+</body>
+</html>
