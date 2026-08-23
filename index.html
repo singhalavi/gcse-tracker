@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,7 +40,6 @@
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"DM Sans", ui-sans-system, system-ui, -apple-system, sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
   button,input,select,textarea{font:inherit}
   a{color:var(--navy)}
-  /* Topbar — polished navy */
   .topbar{
     position:sticky;top:0;z-index:40;
     background:var(--navy);
@@ -77,8 +77,6 @@
   }
   .pill-admin{background:#fff;color:var(--navy);border-color:#fff}
   .pill-student{background:var(--green-bg);color:var(--green);border-color:#bfe9d9}
-  .pill-light{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.22);backdrop-filter:blur(6px)}
-  /* Layout */
   .wrap{max-width:1140px;margin:0 auto;padding:28px 22px 80px}
   .card{
     background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
@@ -88,16 +86,10 @@
     font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
     margin:0 0 12px;
   }
-  /* Login — full-screen desktop foundation */
   .login-minimal{max-width:none;margin:0;padding:0;width:100%}
   .minimal-card{padding:32px 28px 24px;border-radius:20px;box-shadow:0 18px 50px rgba(0,36,125,.11),0 4px 16px rgba(0,36,125,.07);background:#fff;border:1px solid var(--line)}
   .minimal-card h3{margin:0 0 4px;font-size:17px;font-weight:700;letter-spacing:-.01em}
   .minimal-card .sub{font-size:13px;color:var(--muted);margin:0 0 16px;line-height:1.5}
-  /* hide old hero leftovers safely */
-  .login-wrap{display:none}
-  .login-card{padding:22px 22px 18px;border-radius:var(--radius-lg)}
-  .login-card h3{margin:0 0 4px;font-size:16px;font-weight:700;letter-spacing:-.01em}
-  .login-card .sub{font-size:13px;color:var(--muted);margin:0 0 16px;line-height:1.5}
   .field{display:grid;gap:6px;min-width:0}
   .field label{font-size:12px;font-weight:700;color:#2b324e}
   .field input, .field select{
@@ -111,11 +103,8 @@
   .auth-error.show{display:block}
   .hint{font-size:12.7px;color:var(--muted);line-height:1.5}
   .divider{height:1px;background:var(--line);margin:14px 0}
-
-  /* Views */
   .view{display:none}
   .view.active{display:block}
-  /* Student — parent friendly */
   .student-hero{
     display:grid;grid-template-columns:1.1fr .9fr;gap:16px;align-items:stretch;margin:6px 0 18px;
   }
@@ -139,11 +128,10 @@
   .kpi b{font-size:18px;display:block;color:var(--ink)}
   .kpi span{font-size:11.4px;color:var(--muted);font-weight:600}
   .kpi.green b{color:var(--green)} .kpi.amber b{color:var(--amber)} .kpi.red b{color:var(--red)}
-  /* Strands with icons — clickable */
   .strands{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
   @media(max-width:1020px){.strands{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:560px){.strands{grid-template-columns:repeat(2,1fr)}}
-  .strand{padding:12px 12px 11px;border-radius:13px;display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:transform .14s, box-shadow .14s, border-color .14s, background .14s}
+  .strand{padding:12px 12px 11px;border-radius:13px;display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:transform .14s, box-shadow .14s, border-color .14s, background .14s;background:#fff;border:1px solid var(--line)}
   .strand:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:var(--line-strong)}
   .strand:active{transform:translateY(0)}
   .strand:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
@@ -153,7 +141,17 @@
   .strand b{font-size:11px;letter-spacing:.06em;text-transform:uppercase}
   .bar{height:6px;background:#eef1fb;border-radius:999px;overflow:hidden}
   .bar i{display:block;height:100%;background:var(--navy);border-radius:999px;width:0%;transition:width .4s ease}
-  /* Toolbar */
+  .subject-bar{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    margin:8px 0 16px;padding:10px 12px;
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    box-shadow:var(--shadow-sm);
+  }
+  .subject-select{
+    padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:#fff;
+    font-size:13.5px;font-weight:600;min-width:220px;max-width:320px;
+  }
+  .subject-select:focus{border-color:var(--navy);box-shadow:0 0 0 3px var(--navy-50);outline:0}
   .toolbar{
     display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0 16px;
   }
@@ -166,7 +164,6 @@
   }
   .chip:hover{border-color:var(--line-strong)}
   .chip.active{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:0 4px 12px rgba(0,36,125,.22)}
-  /* Topics — linear checklist (restored original UX) */
   .strand-group{margin:24px 0 0}
   .strand-group-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px;padding:0 2px}
   .strand-group-head h3{margin:0;font-family:"Newsreader",serif;font-size:18px;font-weight:600;display:flex;align-items:center;gap:9px}
@@ -196,7 +193,6 @@
     flex:0 0 22px;font-size:12px;font-weight:800;line-height:1;transition:.14s;
   }
   .topic.is-green .topic-check{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 2px 8px rgba(11,122,94,.22)}
-  .topic-check svg{width:12px;height:12px;display:block}
   .topic-id{
     font-size:11px;font-weight:800;letter-spacing:.05em;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:#fbfcff;
     flex:0 0 auto;color:var(--navy);min-width:34px;text-align:center;
@@ -215,14 +211,12 @@
   .rag button[data-v="G"].on{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 4px 12px rgba(11,122,94,.24)}
   .rag button.off{opacity:.62}
   .rag button:hover{transform:translateY(-1px);border-color:var(--line-strong)}
-  /* Admin — clean professional */
   .admin-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:2px 0 16px}
   .admin-head h2{margin:0;font-family:"Newsreader",serif;font-size:28px;font-weight:600;letter-spacing:-.02em}
   .admin-head p{margin:6px 0 0;color:var(--muted);font-size:13.4px;line-height:1.5;max-width:52ch}
   .admin-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;margin-top:4px}
   @media(max-width:960px){.admin-grid{grid-template-columns:1fr}}
   .panel{padding:14px;border-radius:var(--radius-lg)}
-  /* Full-screen student detail for admin */
   #view-admin.is-detail .admin-head,
   #view-admin.is-detail .admin-grid > .panel:first-child{display:none !important}
   #view-admin.is-detail .admin-grid{display:block;max-width:980px;margin:0 auto}
@@ -247,11 +241,7 @@
     box-shadow:0 12px 30px rgba(0,36,125,.28);opacity:0;pointer-events:none;transition:.22s;z-index:90;
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-  /* Details summary */
   .detail-kicker{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-
-  /* --- Front page — full-screen desktop hero --- */
-  /* Desktop-first split */
   .login-visual-shell{
     display:grid;
     grid-template-columns: minmax(0,1.25fr) 460px;
@@ -293,7 +283,6 @@
   .math-subtitle{
     font-size:17px;color:#3a4261;line-height:1.55;margin:0;max-width:44ch;font-weight:400;position:relative;z-index:1;
   }
-  /* Abstract geometric canvas — spread across hero, behind text */
   .geo-canvas{
     position:absolute;right:-36px;top:44%;transform:translateY(-42%);width:380px;height:380px;pointer-events:none;opacity:.58;z-index:0;
   }
@@ -312,8 +301,6 @@
     background:var(--navy-50);color:var(--navy);border:1px solid var(--navy-100);
     font-style:normal;font-weight:800;font-size:13.5px;flex:0 0 30px;
   }
-
-  /* Desktop refinements — true full-screen */
   @media(min-width:901px){
     .wrap{max-width:1200px}
     #view-login.active{
@@ -339,8 +326,6 @@
     .math-title{font-size:62px}
     .geo-canvas{width:420px;height:420px;right:-28px;top:-36px}
   }
-
-  /* Tablet / mobile — stack cleanly */
   @media(max-width:900px){
     #view-login.active{
       width:auto;
@@ -379,9 +364,9 @@
   <div class="topbar-inner">
     <div class="brand">
       <div class="mark" style="background:#fff;color:var(--navy);font-family:'Newsreader',serif;font-weight:700;letter-spacing:-.02em">√</div>
-  <div>
+      <div>
         <h1>GCSE Maths <span>Tracker</span></h1>
-        <p><span id="hdrMeta">Edexcel Higher • RAG</span></p>
+        <p><span id="hdrMeta">GCSE Edexcel Maths Higher • 62 topics</span></p>
       </div>
     </div>
     <div class="top-actions">
@@ -404,21 +389,16 @@
         <div style="position:relative">
           <h2 class="math-title">Progress that<br><em>makes sense.</em></h2>
           <div class="geo-canvas" aria-hidden="true">
-            <!-- GCSE Maths visual -->
             <svg viewBox="0 0 168 168" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Abstract maths shapes">
               <defs>
                 <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#eef2ff"/><stop offset="100%" stop-color="#d9e1ff"/></linearGradient>
               </defs>
-              <!-- soft circle -->
               <circle cx="84" cy="64" r="52" fill="url(#g1)" stroke="#d0d7ef" stroke-width="1.2" stroke-dasharray="4 5" opacity="0.95"/>
-              <!-- triangle -->
               <path d="M 84 22 L 122 86 L 46 86 Z" stroke="#00247D" stroke-width="1.4" stroke-linejoin="round" fill="none" opacity="0.32"/>
-              <!-- grid dots -->
               <g fill="#7a89c0" opacity="0.55">
                 <circle cx="28" cy="28" r="1.6"/><circle cx="48" cy="28" r="1.6"/><circle cx="68" cy="28" r="1.6"/>
                 <circle cx="28" cy="48" r="1.6"/><circle cx="48" cy="48" r="1.6"/><circle cx="68" cy="48" r="1.6"/>
               </g>
-              <!-- coordinate axes mini -->
               <g stroke="#00247D" stroke-opacity="0.32" stroke-width="1.1">
                 <path d="M 108 122 L 144 122"/><path d="M 126 104 L 126 140"/>
                 <path d="M 126 122 Q 138 110 144 106" stroke-dasharray="3 3" fill="none"/>
@@ -443,22 +423,26 @@
             <h3 style="margin:0;font-size:18px">Sign in</h3>
             <span style="font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-50);border:1px solid var(--navy-100);padding:5px 10px;border-radius:999px">Secure access</span>
           </div>
-          <p class="sub">Sign in with your school account to continue. Use the full dashboard after login.</p>
+          <p class="sub">Sign in with your school account to continue.</p>
           <div id="authMsg" class="auth-error"></div>
           <div style="display:grid;gap:11px;margin-top:12px">
             <div class="field"><label>Email</label><input id="email" type="email" placeholder="you@school.com" autocomplete="email" /></div>
             <div class="field"><label>Password</label><input id="password" type="password" placeholder="••••••••" autocomplete="current-password" /></div>
             <button id="btnLogin" class="btn btn-primary" style="justify-content:center;padding:12px 14px;font-size:14px;border-radius:11px">Log in</button>
-            <button id="btnDemo" class="btn" style="justify-content:center;padding:9px 12px;font-size:12.5px;border-radius:11px;background:#fff;border:1px dashed var(--line);color:var(--muted)">Preview dashboards (demo)</button>
-            <button id="btnDemoAdmin" class="btn" style="justify-content:center;padding:9px 12px;font-size:12.5px;border-radius:11px;background:#fff;border:1px dashed var(--line);color:var(--navy)">Preview admin (demo)</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- STUDENT — parent-friendly -->
+  <!-- STUDENT -->
   <div id="view-student" class="view">
+    <div class="subject-bar" id="studentSubjectBar">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Subject</span>
+      <select id="subjectSelectStudent" class="subject-select"></select>
+      <span id="studentSubjectMeta" class="hint" style="background:#fbfcff;border:1px solid var(--line);padding:4px 9px;border-radius:999px">GCSE Edexcel Maths Higher • 62 topics</span>
+    </div>
+
     <div class="student-hero">
       <div class="welcome-card">
         <div>
@@ -478,7 +462,7 @@
 
       <div class="card ring-card">
         <div id="ring" class="ring" style="--p:0"><span id="ringTxt">0%</span></div>
-        <div style="margin-top:12px;font-weight:700;font-size:14px" id="ringLabel">0 / 68 green</div>
+        <div style="margin-top:12px;font-weight:700;font-size:14px" id="ringLabel">0 / 62 green</div>
         <div class="hint" id="ringSub" style="margin-top:3px">Green = exam-ready</div>
         <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
           <span class="pill" style="background:var(--green-bg);color:var(--green);border-color:#bfe9d9">G confident</span>
@@ -495,7 +479,7 @@
 
     <div class="toolbar">
       <div class="search">🔎 <input id="search" placeholder="Search topic — e.g. trig, surds, vectors" /></div>
-      <button class="chip active" data-strand="all">All 68</button>
+      <button class="chip active" data-strand="all">All 62</button>
       <button class="chip" data-strand="N">Number</button>
       <button class="chip" data-strand="A">Algebra</button>
       <button class="chip" data-strand="R">Ratio</button>
@@ -506,23 +490,30 @@
       <button class="chip" data-rag="R">Red</button>
       <button class="chip" data-rag="A">Amber</button>
       <button class="chip" data-rag="G">Green</button>
-      <button id="btnClearFilters" class="btn btn-ghost" style="padding:7px 11px;background:#fff;color:var(--ink);border-color:var(--line)">Clear</button>
+      <button id="btnClearFilters" class="btn" style="padding:7px 11px;background:#fff;color:var(--ink);border-color:var(--line)">Clear</button>
     </div>
 
     <div id="topicsMount"></div>
   </div>
 
-  <!-- ADMIN — clean & professional -->
+  <!-- ADMIN -->
   <div id="view-admin" class="view">
     <div class="admin-head">
       <div>
         <h2>Class dashboard</h2>
-        <p>Support every student from one calm place. Create accounts, watch live RAG across all 68 Edexcel Higher topics, and export for reports or parents’ evening — all in your school’s navy.</p>
+        <p>Support every student from one calm place. Create accounts, watch live RAG across your subjects, and export for reports.</p>
       </div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <span class="pill pill-admin" style="background:var(--navy);color:#fff;border-color:var(--navy)">Admin</span>
         <span id="adminCounts" class="hint" style="background:#fff;border:1px solid var(--line);padding:6px 10px;border-radius:999px">0 students</span>
       </div>
+    </div>
+
+    <div class="subject-bar" id="adminSubjectBar">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Subject</span>
+      <select id="subjectSelectAdmin" class="subject-select"></select>
+      <span id="adminSubjectMeta" class="hint" style="background:#fff;border:1px solid var(--line);padding:4px 9px;border-radius:999px">GCSE Edexcel Maths Higher • 62 topics</span>
+      <span class="hint">Switch subjects to view different progress</span>
     </div>
 
     <div class="admin-grid">
@@ -547,12 +538,11 @@
       </div>
 
       <div class="card panel">
-        <div class="detail-kicker">Student detail • RAG</div>
-        <div id="adminDetailEmpty" class="empty">Select a student on the left to see their full 68-topic breakdown, strand progress, and encouraging next steps.</div>
+        <div class="detail-kicker">Student detail</div>
+        <div id="adminDetailEmpty" class="empty">Select a student on the left to see their full breakdown and strand progress.</div>
         <div id="adminDetail" style="display:none">
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
             <button id="btnAdminBack" class="btn" style="padding:7px 12px;border-radius:999px;background:#fff">← Back to class list</button>
-            <span class="hint" style="background:#fbfcff;border:1px solid var(--line);padding:4px 9px;border-radius:999px">Full-screen detail • same linear checklist</span>
           </div>
           <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
             <div><b id="detailName" style="font-size:15px">—</b><div id="detailEmail" class="hint"></div></div>
@@ -579,12 +569,10 @@
 }
 </script>
 <script type="module">
-/* safe storage (sandbox fix) */
 const memStore = new Map();
 function sGet(k){ try{ const v=localStorage.getItem(k); return v==null? memStore.get(k) ?? null : v }catch{ return memStore.get(k) ?? null } }
 function sSet(k,v){ try{ localStorage.setItem(k,v) }catch{} memStore.set(k,v) }
 
-/* integrated Firebase config */
 const firebaseConfig = {
   apiKey: "AIzaSyDQezBfveMLjTfWXUfikGWGiuIfkv2VHl0",
   authDomain: "gcse-maths-dbe29.firebaseapp.com",
@@ -594,80 +582,159 @@ const firebaseConfig = {
   appId: "1:139501178612:web:9e84fe9c63cc160a5f18a1"
 };
 
-/* topics — 68 Edexcel Higher */
-const TOPICS = [
-  {id:"N1", strand:"N", strandName:"Number", title:"Number types & place value", exam:"Integers, decimals, place value, ordering"},
-  {id:"N2", strand:"N", strandName:"Number", title:"Powers, roots & laws of indices", exam:"Index laws, square/cube roots"},
-  {id:"N3", strand:"N", strandName:"Number", title:"Standard form", exam:"Large/small numbers, calculations in std form"},
-  {id:"N4", strand:"N", strandName:"Number", title:"Surds — simplifying & rationalising", exam:"Simplify surds, rationalise denominator"},
-  {id:"N5", strand:"N", strandName:"Number", title:"Fractions, decimals, percentages", exam:"Four ops, conversions, fractions of amounts"},
-  {id:"N6", strand:"N", strandName:"Number", title:"Percentage change & reverse %", exam:"Increase/decrease, reverse, compound"},
-  {id:"N7", strand:"N", strandName:"Number", title:"Ratio, proportion & best buys", exam:"Best buy, sharing, unitary"},
-  {id:"N8", strand:"N", strandName:"Number", title:"Rounding, estimation & bounds", exam:"DP, SF, estimation, error intervals"},
-  {id:"N9", strand:"N", strandName:"Number", title:"HCF, LCM, product of primes", exam:"Prime factorisation, Venn for HCF/LCM"},
-  {id:"N10", strand:"N", strandName:"Number", title:"Calculator skills & checking", exam:"Efficient use, checks, BIDMAS"},
-  {id:"N11", strand:"N", strandName:"Number", title:"Negative & fractional indices", exam:"Negative, fractional, zero power"},
-  {id:"N12", strand:"N", strandName:"Number", title:"Upper & lower bounds", exam:"Bounds in calculations"},
-  {id:"N13", strand:"N", strandName:"Number", title:"Recurring decimals to fractions", exam:"Convert recurring to fraction"},
-  {id:"N14", strand:"N", strandName:"Number", title:"Direct & inverse proportion", exam:"Proportion problems, equations"},
-  {id:"N15", strand:"N", strandName:"Number", title:"Compound interest & growth/decay", exam:"Growth/decay formula, depreciation"},
-  {id:"A1", strand:"A", strandName:"Algebra", title:"Simplifying & expanding single bracket", exam:"Collect like terms, single brackets"},
-  {id:"A2", strand:"A", strandName:"Algebra", title:"Double brackets & factorising", exam:"Expand (x+a)(x+b), factorise quadratics"},
-  {id:"A3", strand:"A", strandName:"Algebra", title:"Linear equations & inequalities", exam:"Solve, inequalities, number line"},
-  {id:"A4", strand:"A", strandName:"Algebra", title:"Changing the subject", exam:"Rearrange formula, incl. powers/roots"},
-  {id:"A5", strand:"A", strandName:"Algebra", title:"Simultaneous equations (linear)", exam:"Elimination & substitution"},
-  {id:"A6", strand:"A", strandName:"Algebra", title:"Simultaneous (linear + quadratic)", exam:"One linear one quadratic"},
-  {id:"A7", strand:"A", strandName:"Algebra", title:"Quadratic equations — factorise, formula, CT Square", exam:"All methods, discriminant"},
-  {id:"A8", strand:"A", strandName:"Algebra", title:"Algebraic fractions", exam:"Simplify, add/sub, solve"},
-  {id:"A9", strand:"A", strandName:"Algebra", title:"Sequences — linear, quadratic, geometric", exam:"nth term, quadratic nth term"},
-  {id:"A10", strand:"A", strandName:"Algebra", title:"Straight line graphs y=mx+c", exam:"Gradient, intercept, equation of line"},
-  {id:"A11", strand:"A", strandName:"Algebra", title:"Parallel & perpendicular lines", exam:"Gradient relationships"},
-  {id:"A12", strand:"A", strandName:"Algebra", title:"Quadratic & cubic graphs", exam:"Sketch, roots, turning point"},
-  {id:"A13", strand:"A", strandName:"Algebra", title:"Real-life & exponential graphs", exam:"Distance-time, velocity-time, growth"},
-  {id:"A14", strand:"A", strandName:"Algebra", title:"Transformations of graphs", exam:"Translations, reflections, stretches"},
-  {id:"A15", strand:"A", strandName:"Algebra", title:"Inequalities — graphical & quadratic", exam:"Region, quadratic inequalities"},
-  {id:"A16", strand:"A", strandName:"Algebra", title:"Iteration & trial and improvement", exam:"Iterative formula, convergence"},
-  {id:"A17", strand:"A", strandName:"Algebra", title:"Functions — notation, inverse, composite", exam:"f(x), fg(x), inverse"},
-  {id:"A18", strand:"A", strandName:"Algebra", title:"Equation of a circle & circle algebra", exam:"(x-a)²+(y-b)²=r²"},
-  {id:"A19", strand:"A", strandName:"Algebra", title:"Completing the square & turning points", exam:"Vertex form, max/min"},
-  {id:"A20", strand:"A", strandName:"Algebra", title:"Algebraic proof", exam:"Prove odd/even, multiples, counter-example"},
-  {id:"R1", strand:"R", strandName:"Ratio", title:"Ratio simplifying & sharing", exam:"Simplify, share n, 3-part ratio"},
-  {id:"R2", strand:"R", strandName:"Ratio", title:"Direct & inverse proportion", exam:"y∝x, y∝1/x, equations"},
-  {id:"R3", strand:"R", strandName:"Ratio", title:"Percentage & ratio problems", exam:"Combined % + ratio"},
-  {id:"R4", strand:"R", strandName:"Ratio", title:"Speed, density, pressure (compound)", exam:"Units, convert, calc"},
-  {id:"R5", strand:"R", strandName:"Ratio", title:"Proportion graphs & equations", exam:"Graph y∝x² etc."},
-  {id:"R6", strand:"R", strandName:"Ratio", title:"Currency & unit conversions", exam:"Exchange, metric, time"},
-  {id:"R7", strand:"R", strandName:"Ratio", title:"Scale factors & similar (ratio)", exam:"Enlargement ratio, area/volume factor"},
-  {id:"G1", strand:"G", strandName:"Geometry", title:"Angles — parallel lines, polygons", exam:"Angles rules, interior/exterior"},
-  {id:"G2", strand:"G", strandName:"Geometry", title:"Pythagoras' theorem", exam:"2D, 3D, is right-angled?"},
-  {id:"G3", strand:"G", strandName:"Geometry", title:"Trigonometry — SOHCAHTOA", exam:"Right-angled trig, angles"},
-  {id:"G4", strand:"G", strandName:"Geometry", title:"Exact trig values & 3D trig/pythag", exam:"30/45/60, 3D problems"},
-  {id:"G5", strand:"G", strandName:"Geometry", title:"Sine & cosine rules, area of triangle", exam:"Non-right triangles"},
-  {id:"G6", strand:"G", strandName:"Geometry", title:"Circle theorems", exam:"Angle at centre, alternate segment etc."},
-  {id:"G7", strand:"G", strandName:"Geometry", title:"Vectors", exam:"Column, magnitude, proof, geometry"},
-  {id:"G8", strand:"G", strandName:"Geometry", title:"Transformations — rotation, reflection, enlargement", exam:"Describe, combined, inv."},
-  {id:"G9", strand:"G", strandName:"Geometry", title:"Area & volume — prisms, spheres, cones", exam:"Compound, frustum, surface area"},
-  {id:"G10", strand:"G", strandName:"Geometry", title:"Similar & congruent shapes", exam:"Proof, area/volume scale"},
-  {id:"G11", strand:"G", strandName:"Geometry", title:"Constructions & loci", exam:"Bisector, arc, region"},
-  {id:"G12", strand:"G", strandName:"Geometry", title:"Bearings & scale drawings", exam:"Bearings, maps, scale"},
-  {id:"P1", strand:"P", strandName:"Probability", title:"Basic probability & expectation", exam:"0-1, equally likely, expected"},
-  {id:"P2", strand:"P", strandName:"Probability", title:"Sample space & listings", exam:"List outcomes, systematic"},
-  {id:"P3", strand:"P", strandName:"Probability", title:"Venn diagrams", exam:"AND/OR/NOT, from Venn"},
-  {id:"P4", strand:"P", strandName:"Probability", title:"Tree diagrams — independent", exam:"With replacement, AND× OR+"},
-  {id:"P5", strand:"P", strandName:"Probability", title:"Tree diagrams — dependent", exam:"Without replacement"},
-  {id:"P6", strand:"P", strandName:"Probability", title:"Conditional probability", exam:"Given that, from table/Venn"},
-  {id:"P7", strand:"P", strandName:"Probability", title:"Frequency trees & two-way tables", exam:"Convert, fill, calc"},
-  {id:"P8", strand:"P", strandName:"Probability", title:"Combined events & set notation", exam:"Notation, combined"},
-  {id:"S1", strand:"S", strandName:"Statistics", title:"Averages — mean, median, mode, range", exam:"From list/table, mean from frequency"},
-  {id:"S2", strand:"S", strandName:"Statistics", title:"Charts — bar, pie, pictogram", exam:"Draw/interpret, frequency"},
-  {id:"S3", strand:"S", strandName:"Statistics", title:"Scatter graphs & correlation", exam:"Type, line of best fit"},
-  {id:"S4", strand:"S", strandName:"Statistics", title:"Cumulative frequency & box plots", exam:"CF graph, median/IQR, box plot"},
-  {id:"S5", strand:"S", strandName:"Statistics", title:"Histograms", exam:"Equal/unequal class width, FD"},
-  {id:"S6", strand:"S", strandName:"Statistics", title:"Sampling & bias", exam:"Random, stratified, bias, time series"},
+const DEFAULT_SUBJECT_ID = "gcse-edexcel-maths-higher";
+
+const SUBJECTS = [
+  {
+    id: "gcse-edexcel-maths-higher",
+    name: "GCSE Edexcel Maths Higher",
+    shortName: "Edexcel Higher",
+    strands: {N:"Number", A:"Algebra", R:"Ratio", G:"Geometry", P:"Probability", S:"Statistics"},
+    strandOrder: ["N","A","R","G","P","S"],
+    strandLabels: {N:"Number N1–N13", A:"Algebra A1–A20", R:"Ratio R1–R5", G:"Geometry G1–G12", P:"Probability P1–P6", S:"Statistics S1–S6"},
+    strandIcons: {N:"N", A:"A", R:"%", G:"⌖", P:"◐", S:"▭"},
+    topics: [
+      {id:"N1", strand:"N", strandName:"Number", title:"Number types & place value", exam:"Integers, decimals, ordering, multiplying & dividing decimals"},
+      {id:"N2", strand:"N", strandName:"Number", title:"Powers, roots & index laws", exam:"Index laws, square/cube roots, powers of a base"},
+      {id:"N3", strand:"N", strandName:"Number", title:"Standard form", exam:"Large/small numbers, calculations in std form, adding in std form"},
+      {id:"N4", strand:"N", strandName:"Number", title:"Surds — simplify & rationalise", exam:"Simplify surds, rationalise denominator, a + b√c form"},
+      {id:"N5", strand:"N", strandName:"Number", title:"Fractions, decimals, percentages", exam:"Four ops, mixed numbers, conversions, fractions of amounts"},
+      {id:"N6", strand:"N", strandName:"Number", title:"Percentage change & reverse %", exam:"Increase/decrease, reverse %, profit/loss, successive changes"},
+      {id:"N7", strand:"N", strandName:"Number", title:"Rounding, estimation & error intervals", exam:"DP, SF, truncation, estimation, error intervals"},
+      {id:"N8", strand:"N", strandName:"Number", title:"HCF, LCM, product of primes", exam:"Prime factorisation, HCF/LCM from index form, Venn"},
+      {id:"N9", strand:"N", strandName:"Number", title:"Calculator skills & checking", exam:"Efficient use, all display figures, reciprocals, BIDMAS"},
+      {id:"N10", strand:"N", strandName:"Number", title:"Negative & fractional indices", exam:"Negative, fractional and zero powers; root-then-power"},
+      {id:"N11", strand:"N", strandName:"Number", title:"Upper & lower bounds in calculations", exam:"Bounds in calculations, suitable degree of accuracy"},
+      {id:"N12", strand:"N", strandName:"Number", title:"Recurring decimals to fractions", exam:"Convert recurring to fraction; sums and products"},
+      {id:"N13", strand:"N", strandName:"Number", title:"Compound interest, growth & decay", exam:"Growth/decay, depreciation, reverse, changing rates"},
+      {id:"A1", strand:"A", strandName:"Algebra", title:"Simplifying & expanding single brackets", exam:"Collect like terms, single brackets, factorise fully"},
+      {id:"A2", strand:"A", strandName:"Algebra", title:"Double/triple brackets & factorising", exam:"Expand (x+a)(x+b) and three brackets, factorise quadratics, DOTS"},
+      {id:"A3", strand:"A", strandName:"Algebra", title:"Linear equations & inequalities", exam:"Solve, inequalities, number line, integer solutions"},
+      {id:"A4", strand:"A", strandName:"Algebra", title:"Changing the subject", exam:"Rearrange formula, incl. powers/roots and subject appearing twice"},
+      {id:"A5", strand:"A", strandName:"Algebra", title:"Simultaneous equations (linear)", exam:"Elimination, substitution, solving from graphs"},
+      {id:"A6", strand:"A", strandName:"Algebra", title:"Simultaneous (linear + quadratic)", exam:"One linear one quadratic"},
+      {id:"A7", strand:"A", strandName:"Algebra", title:"Quadratic equations — all methods", exam:"Factorise, formula, completing the square, discriminant"},
+      {id:"A8", strand:"A", strandName:"Algebra", title:"Algebraic fractions", exam:"Simplify, add/subtract, solve equations"},
+      {id:"A9", strand:"A", strandName:"Algebra", title:"Sequences — linear, quadratic, geometric", exam:"nth term, quadratic nth term, Fibonacci, geometric incl. surds"},
+      {id:"A10", strand:"A", strandName:"Algebra", title:"Straight line graphs y = mx + c", exam:"Gradient, intercept, equation of line, dividing a segment"},
+      {id:"A11", strand:"A", strandName:"Algebra", title:"Parallel & perpendicular lines", exam:"Parallel and perpendicular gradient relationships"},
+      {id:"A12", strand:"A", strandName:"Algebra", title:"Graph shapes — quadratic, cubic, reciprocal, trig", exam:"Sketch, roots, turning point, y = 1/x, sin/cos/tan curves"},
+      {id:"A13", strand:"A", strandName:"Algebra", title:"Real-life & exponential graphs; gradient & area", exam:"Distance-time, velocity-time, exponential, tangent gradient, area under curve"},
+      {id:"A14", strand:"A", strandName:"Algebra", title:"Transformations of graphs", exam:"Translations and reflections"},
+      {id:"A15", strand:"A", strandName:"Algebra", title:"Inequalities — graphical & quadratic", exam:"Regions, quadratic inequalities"},
+      {id:"A16", strand:"A", strandName:"Algebra", title:"Iteration", exam:"Iterative formula, convergence, growth models"},
+      {id:"A17", strand:"A", strandName:"Algebra", title:"Functions — notation, inverse, composite", exam:"f(x), fg(x), inverse"},
+      {id:"A18", strand:"A", strandName:"Algebra", title:"Circle equation & tangents", exam:"x² + y² = r², tangent at a point"},
+      {id:"A19", strand:"A", strandName:"Algebra", title:"Completing the square & turning points", exam:"Vertex form, max/min"},
+      {id:"A20", strand:"A", strandName:"Algebra", title:"Algebraic proof", exam:"Prove odd/even, multiples, counter-example"},
+      {id:"R1", strand:"R", strandName:"Ratio", title:"Ratio simplifying & sharing", exam:"Simplify, share, 3-part and chained ratios"},
+      {id:"R2", strand:"R", strandName:"Ratio", title:"Direct & inverse proportion (incl. graphs)", exam:"y ∝ x, y ∝ 1/x, combined, find k, proportion graphs"},
+      {id:"R3", strand:"R", strandName:"Ratio", title:"Percentage & ratio problems; best buys", exam:"Combined % + ratio, best buy, value for money"},
+      {id:"R4", strand:"R", strandName:"Ratio", title:"Speed, density, pressure", exam:"Speed, density, pressure; units, convert, calculate"},
+      {id:"R5", strand:"R", strandName:"Ratio", title:"Currency & unit conversions", exam:"Exchange rates, metric/imperial, time"},
+      {id:"G1", strand:"G", strandName:"Geometry", title:"Angles — parallel lines, polygons", exam:"Angle rules, parallel lines, interior/exterior angles"},
+      {id:"G2", strand:"G", strandName:"Geometry", title:"Pythagoras' theorem", exam:"2D, 3D, from coordinates, is it right-angled?"},
+      {id:"G3", strand:"G", strandName:"Geometry", title:"Trigonometry — SOHCAHTOA", exam:"Right-angled trig, finding sides and angles"},
+      {id:"G4", strand:"G", strandName:"Geometry", title:"Exact trig values & 3D trig/Pythagoras", exam:"30/45/60 exact values, 3D problems, line-plane angles"},
+      {id:"G5", strand:"G", strandName:"Geometry", title:"Sine & cosine rules, area of triangle", exam:"Sine rule, cosine rule, area = ½ab sin C"},
+      {id:"G6", strand:"G", strandName:"Geometry", title:"Circle theorems", exam:"Angle at centre, alternate segment, cyclic quadrilaterals, tangents"},
+      {id:"G7", strand:"G", strandName:"Geometry", title:"Vectors", exam:"Column, magnitude, collinearity, geometric proof"},
+      {id:"G8", strand:"G", strandName:"Geometry", title:"Transformations — rotation, reflection, enlargement", exam:"Describe, combined, negative scale factor, invariance"},
+      {id:"G9", strand:"G", strandName:"Geometry", title:"Area & volume — circles, sectors, solids, plans", exam:"Arc/sector, compound area, prisms, spheres, cones, frustum, plans & elevations"},
+      {id:"G10", strand:"G", strandName:"Geometry", title:"Similar & congruent shapes; area/volume scale factors", exam:"Congruence/similarity proof, length/area/volume scale factors"},
+      {id:"G11", strand:"G", strandName:"Geometry", title:"Constructions & loci", exam:"Bisector, arc, region, loci"},
+      {id:"G12", strand:"G", strandName:"Geometry", title:"Bearings & scale drawings", exam:"Bearings, maps, scale drawings"},
+      {id:"P1", strand:"P", strandName:"Probability", title:"Basic probability & expectation", exam:"0-1 scale, relative frequency, expected frequency"},
+      {id:"P2", strand:"P", strandName:"Probability", title:"Sample space, listings & counting", exam:"List outcomes systematically, product rule for counting"},
+      {id:"P3", strand:"P", strandName:"Probability", title:"Venn diagrams, set notation & conditional probability", exam:"AND/OR/NOT, ∪ ∩ ′, conditional 'given that'"},
+      {id:"P4", strand:"P", strandName:"Probability", title:"Tree diagrams — independent", exam:"With replacement, AND ×, OR +, at least one"},
+      {id:"P5", strand:"P", strandName:"Probability", title:"Tree diagrams — dependent", exam:"Without replacement, algebraic probability"},
+      {id:"P6", strand:"P", strandName:"Probability", title:"Frequency trees & two-way tables", exam:"Convert, fill in, calculate"},
+      {id:"S1", strand:"S", strandName:"Statistics", title:"Averages — mean, median, mode, range", exam:"From list/table, estimated mean from grouped data, combining means"},
+      {id:"S2", strand:"S", strandName:"Statistics", title:"Charts, pictograms & frequency polygons", exam:"Bar, pie, pictogram, frequency polygon, spot errors"},
+      {id:"S3", strand:"S", strandName:"Statistics", title:"Scatter graphs & correlation", exam:"Correlation type, line of best fit, outliers"},
+      {id:"S4", strand:"S", strandName:"Statistics", title:"Cumulative frequency & box plots", exam:"CF graph, median/IQR, box plot, compare distributions"},
+      {id:"S5", strand:"S", strandName:"Statistics", title:"Histograms", exam:"Equal/unequal class width, frequency density"},
+      {id:"S6", strand:"S", strandName:"Statistics", title:"Sampling & bias", exam:"Sampling, bias, capture-recapture, inferring from a sample"},
+    ]
+  }
 ];
-const STRAND_ORDER = ["N","A","R","G","P","S"];
-const STRAND_LABEL = {N:"Number N1–N15", A:"Algebra A1–A20", R:"Ratio R1–R7", G:"Geometry G1–G12", P:"Probability P1–P8", S:"Statistics S1–S6"};
-const STRAND_ICON = {N:"N", A:"A", R:"%", G:"⌖", P:"◐", S:"▭"};
+
+let currentSubjectId = sGet("gcse_current_subject") || DEFAULT_SUBJECT_ID;
+if(!SUBJECTS.find(s=>s.id===currentSubjectId)) currentSubjectId = DEFAULT_SUBJECT_ID;
+
+let allProgressBySubject = {};
+let currentProgress = {};
+
+function getCurrentSubject(){ return SUBJECTS.find(s=>s.id===currentSubjectId) || SUBJECTS[0]; }
+function getCurrentTopics(){ return getCurrentSubject().topics; }
+
+let TOPICS = getCurrentTopics();
+let STRAND_ORDER = getCurrentSubject().strandOrder;
+let STRAND_LABEL = getCurrentSubject().strandLabels;
+let STRAND_ICON = getCurrentSubject().strandIcons;
+
+function updateSubjectGlobals(){
+  const subj=getCurrentSubject();
+  TOPICS=subj.topics;
+  STRAND_ORDER=subj.strandOrder||Object.keys(subj.strands);
+  STRAND_LABEL=subj.strandLabels||subj.strands;
+  STRAND_ICON=subj.strandIcons||{};
+}
+
+function updateHeaderMeta(){
+  const subj=getCurrentSubject();
+  const count=subj.topics.length;
+  const hdr=$("hdrMeta");
+  if(hdr) hdr.textContent = `${subj.name} • ${count} topics`;
+  const sMeta=$("studentSubjectMeta");
+  if(sMeta) sMeta.textContent = `${subj.shortName} • ${count} topics`;
+  const aMeta=$("adminSubjectMeta");
+  if(aMeta) aMeta.textContent = `${subj.shortName} • ${count} topics`;
+  const allChip=document.querySelector('.chip[data-strand="all"]');
+  if(allChip) allChip.textContent=`All ${count}`;
+}
+
+function populateSubjectSelectors(){
+  const selS=$("subjectSelectStudent");
+  const selA=$("subjectSelectAdmin");
+  [selS, selA].forEach(sel=>{
+    if(!sel) return;
+    sel.innerHTML = SUBJECTS.map(s=>`<option value="${s.id}">${s.name}</option>`).join("");
+    sel.value=currentSubjectId;
+  });
+  updateHeaderMeta();
+}
+
+function handleSubjectSwitch(newId){
+  if(!newId || newId===currentSubjectId) return;
+  const found=SUBJECTS.find(s=>s.id===newId);
+  if(!found) return;
+  allProgressBySubject[currentSubjectId]=currentProgress;
+  if(currentUser) sSet("gcse_progress_"+currentUser.uid+"_all", JSON.stringify(allProgressBySubject));
+  currentSubjectId=newId;
+  sSet("gcse_current_subject", currentSubjectId);
+  updateSubjectGlobals();
+  currentProgress = allProgressBySubject[currentSubjectId] || {};
+  const selS=$("subjectSelectStudent"); if(selS) selS.value=currentSubjectId;
+  const selA=$("subjectSelectAdmin"); if(selA) selA.value=currentSubjectId;
+  updateHeaderMeta();
+  filters.strand="all";
+  adminFilters.strand="all";
+  document.querySelectorAll('.chip[data-strand]').forEach(x=>{
+    x.classList.toggle('active', x.dataset.strand==="all");
+  });
+  if(viewStudent.classList.contains("active")) renderStudent();
+  if(viewAdmin.classList.contains("active")){
+    renderAdminList();
+    if(selectedStudentUid){
+      const stu=allStudentsCache.find(x=>x.uid===selectedStudentUid);
+      if(stu) renderAdminDetail(stu);
+    }
+  }
+  scheduleSave();
+  showToast(`Switched to ${found.name}`);
+}
 
 /* DOM */
 const $ = s=>document.getElementById(s);
@@ -679,7 +746,6 @@ function showToast(msg){ toast.textContent=msg; toast.classList.add("show"); set
 /* Firebase state */
 let fbApp=null, fbAuth=null, fbDb=null;
 let currentUser=null;
-let currentProgress={};
 let saveTimer=null;
 let selectedStudentUid=null;
 let allStudentsCache=[];
@@ -693,7 +759,7 @@ function showView(name){
   btnExport.style.display=(name==="admin")?"":"none";
   whoPill.style.display=isLogged?"":"none";
   if(currentUser){
-    whoPill.textContent=`${currentUser.displayName||currentUser.email} • ${currentUser.role}`;
+    whoPill.textContent=`${currentUser.displayName||currentUser.email} • ${currentUser.role} • ${getCurrentSubject().shortName}`;
     whoPill.className="pill "+(currentUser.role==="admin"?"pill-admin":"pill-student");
   }
 }
@@ -706,12 +772,12 @@ async function initFirebase(){
     fbApp = initializeApp(firebaseConfig);
     fbAuth = getAuth(fbApp);
     fbDb = getFirestore(fbApp);
+    populateSubjectSelectors();
     onAuthStateChanged(fbAuth, async (u)=>{
       if(u){
         try{ await afterFirebaseLogin(u); }catch(err){
           console.error("after login failed", err);
           const m=$("authMsg"); if(m){ m.textContent="Signed in — loading your dashboard…"; m.classList.add("show"); setTimeout(()=>m.classList.remove("show"),2200); }
-          // still try to navigate even if Firestore hiccups
           if(currentUser?.role==="admin") showView("admin"); else if(currentUser) showView("student");
         }
       }else{
@@ -723,9 +789,10 @@ async function initFirebase(){
       try{ await afterFirebaseLogin(fbAuth.currentUser); }catch(e){ console.error(e); }
     }
   }catch(e){
-    console.error(e);
+    console.error("Firebase init failed", e);
     const msg=$("authMsg");
-    if(msg){ msg.textContent="We’re having trouble connecting right now. Please refresh and try again."; msg.classList.add("show"); }
+    if(msg){ msg.textContent="We’re having trouble connecting right now. Please refresh to try again."; msg.classList.add("show"); }
+    populateSubjectSelectors();
   }
 }
 
@@ -744,34 +811,71 @@ async function afterFirebaseLogin(fbUser){
         const q=query(collection(fbDb,"users"), limit(1));
         const any=await getDocs(q);
         if(any.empty) role="admin";
-      }catch{ /* first user in new project becomes admin */ role="admin"; }
+      }catch{ role="admin"; }
       profile={uid:fbUser.uid,email:fbUser.email||"",displayName:fbUser.displayName||fbUser.email?.split("@")[0]||"User",role,createdAt:serverTimestamp()};
       try{ await setDoc(uref, profile, {merge:true}); }catch{}
       try{
         const pref=doc(fbDb,"progress",fbUser.uid);
-        await setDoc(pref,{topics:{},updatedAt:serverTimestamp()},{merge:true});
+        await setDoc(pref,{topics:{}, subjects:{}, topicsBySubject:{}, updatedAt:serverTimestamp()},{merge:true});
       }catch{}
     }else{
       profile=snap.data();
     }
     currentUser={uid:fbUser.uid,email:profile.email||fbUser.email,displayName:profile.displayName||fbUser.email?.split("@")[0],role:profile.role||"student"};
-    // load progress (non-blocking for navigation)
+
+    let rawMap={};
     try{
       const pref=doc(fbDb,"progress",fbUser.uid);
       const ps=await getDoc(pref);
-      currentProgress = ps.exists()? (ps.data().topics||{}) : {};
-    }catch{
-      const cached = sGet("gcse_progress_"+fbUser.uid);
-      try{ currentProgress = cached? JSON.parse(cached): {}; }catch{ currentProgress={}; }
-    }
-    sSet("gcse_last_user", JSON.stringify(currentUser));
-    sSet("gcse_progress_"+currentUser.uid, JSON.stringify(currentProgress));
+      if(ps.exists()){
+        const data=ps.data();
+        if(data.subjects && typeof data.subjects==="object" && Object.keys(data.subjects).length){
+          rawMap=data.subjects;
+        }else if(data.topicsBySubject && typeof data.topicsBySubject==="object" && Object.keys(data.topicsBySubject).length){
+          rawMap=data.topicsBySubject;
+        }else if(data.topics && typeof data.topics==="object"){
+          rawMap[DEFAULT_SUBJECT_ID]=data.topics;
+        }
+        try{
+          const {collection,getDocs}=await import("firebase/firestore");
+          const subCol=collection(fbDb,"progress",fbUser.uid,"subjects");
+          const subSnap=await getDocs(subCol);
+          subSnap.forEach(d=>{
+            const sd=d.data();
+            if(sd.topics) rawMap[d.id]=sd.topics;
+            else if(sd && typeof sd==="object") rawMap[d.id]=sd;
+          });
+        }catch{}
+      }
+    }catch(e){ console.warn("progress load failed", e); }
 
-    // critical fix: navigate FIRST, then load heavy admin data
+    if(!Object.keys(rawMap).length){
+      try{
+        const cachedAll=sGet("gcse_progress_"+fbUser.uid+"_all");
+        if(cachedAll){ const parsed=JSON.parse(cachedAll); if(parsed && typeof parsed==="object") rawMap=parsed; }
+      }catch{}
+    }
+    if(!Object.keys(rawMap).length){
+      try{
+        const cached=sGet("gcse_progress_"+fbUser.uid);
+        if(cached){ const parsed=JSON.parse(cached); if(parsed && typeof parsed==="object" && Object.keys(parsed).length) rawMap[DEFAULT_SUBJECT_ID]=parsed; }
+      }catch{}
+    }
+
+    allProgressBySubject = rawMap||{};
+    currentProgress = allProgressBySubject[currentSubjectId] || allProgressBySubject[DEFAULT_SUBJECT_ID] || {};
+
+    sSet("gcse_last_user", JSON.stringify(currentUser));
+    sSet("gcse_progress_"+currentUser.uid+"_all", JSON.stringify(allProgressBySubject));
+    sSet("gcse_progress_"+currentUser.uid, JSON.stringify(currentProgress));
+    sSet("gcse_current_subject", currentSubjectId);
+
+    updateSubjectGlobals();
+    populateSubjectSelectors();
+
     if(currentUser.role==="admin"){
       showView("admin");
       showToast(`Welcome, ${currentUser.displayName}`);
-      // load class list in background, don't block dashboard
       adminLoadAll().catch(err=>{ console.error("adminLoadAll failed", err); $("adminCounts").textContent="Class list unavailable — check Firestore rules"; });
     }else{
       renderStudent();
@@ -780,9 +884,10 @@ async function afterFirebaseLogin(fbUser){
     }
   }catch(err){
     console.error("afterFirebaseLogin inner error", err);
-    // fallback: if we at least know uid, show student view so user is not stuck on "logged in but nothing"
     if(fbUser){
       if(!currentUser) currentUser={uid:fbUser.uid,email:fbUser.email||"",displayName:fbUser.displayName||fbUser.email?.split("@")[0]||"User",role:"student"};
+      updateSubjectGlobals();
+      populateSubjectSelectors();
       renderStudent();
       showView("student");
       showToast(`Welcome, ${currentUser.displayName}`);
@@ -800,13 +905,28 @@ async function adminLoadAll(){
     const list=[];
     for(const d of us.docs){
       const u=d.data();
-      let prog={};
+      let progMap={};
+      let progFlat={};
       try{
         const {doc,getDoc}=await import("firebase/firestore");
         const ps=await getDoc(doc(fbDb,"progress",d.id));
-        if(ps.exists()) prog=ps.data().topics||{};
+        if(ps.exists()){
+          const data=ps.data();
+          if(data.subjects && typeof data.subjects==="object") progMap=data.subjects;
+          else if(data.topicsBySubject && typeof data.topicsBySubject==="object") progMap=data.topicsBySubject;
+          else if(data.topics) progFlat=data.topics;
+          try{
+            const subCol=collection(fbDb,"progress",d.id,"subjects");
+            const subSnap=await getDocs(subCol);
+            subSnap.forEach(sd=>{ const sdata=sd.data(); if(sdata.topics) progMap[sd.id]=sdata.topics; });
+          }catch{}
+        }
       }catch{}
-      list.push({uid:d.id,email:u.email,displayName:u.displayName,role:u.role,progress:prog});
+      if(!Object.keys(progMap).length && Object.keys(progFlat).length){
+        progMap[DEFAULT_SUBJECT_ID]=progFlat;
+      }
+      const currentProg = progMap[currentSubjectId] || progMap[DEFAULT_SUBJECT_ID] || progFlat || {};
+      list.push({uid:d.id,email:u.email,displayName:u.displayName,role:u.role,progress:currentProg, progressBySubject:progMap, progressFlat:progFlat});
     }
     allStudentsCache=list;
     const students=list.filter(l=>l.role==="student").length;
@@ -840,35 +960,23 @@ $("btnLogin").addEventListener("click", async ()=>{
   }
 });
 
-const _btnFirstAdmin = $("btnFirstAdmin");
-if(_btnFirstAdmin){
-  _btnFirstAdmin.addEventListener("click", async ()=>{
-    const email=$("email").value.trim(); const pass=$("password").value.trim();
-    const msg=$("authMsg"); msg.classList.remove("show");
-    if(!fbAuth){ msg.textContent="Just a moment — connecting…"; msg.classList.add("show"); return; }
-    if(!email||!pass||pass.length<6){ msg.textContent="Enter an email and a password with at least 6 characters."; msg.classList.add("show"); return; }
-    try{
-      const {createUserWithEmailAndPassword}=await import("firebase/auth");
-      await createUserWithEmailAndPassword(fbAuth,email,pass);
-      showToast("Admin account created");
-    }catch(e){ msg.textContent="We couldn’t create that account — it may already exist."; msg.classList.add("show"); }
-  });
-}
-
 $("btnLogout").addEventListener("click", async ()=>{
   try{ if(fbAuth){ const {signOut}=await import("firebase/auth"); await signOut(fbAuth); } }catch{}
-  currentUser=null; currentProgress={}; selectedStudentUid=null;
+  currentUser=null; currentProgress={}; selectedStudentUid=null; allProgressBySubject={};
   const va=$("view-admin"); if(va) va.classList.remove("is-detail");
   adminFilters={strand:"all", q:"", rag:null, todo:false};
   showView("login");
   showToast("Signed out");
 });
 
-// allow Enter to submit
 $("password").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); $("btnLogin").click(); } });
 $("email").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); $("password").focus(); } });
 
-/* Student rendering — parent friendly */
+/* Subject selectors */
+$("subjectSelectStudent")?.addEventListener("change", e=>{ handleSubjectSwitch(e.target.value); });
+$("subjectSelectAdmin")?.addEventListener("change", e=>{ handleSubjectSwitch(e.target.value); });
+
+/* Student rendering */
 let filters={strand:"all", rag:null, q:"", todo:false};
 let adminFilters={strand:"all", q:"", rag:null, todo:false};
 
@@ -879,7 +987,7 @@ function encouragementFor(greens,total){
   if(pct<50) return `You’re building momentum — ${pct}% Green. Keep going, you’re getting stronger each session.`;
   if(pct<75) return `Great work — over half exam-ready at ${pct}% Green. Focus on those Ambers next.`;
   if(pct<100) return `Almost there — ${pct}% Green and shining. A few more to secure and you’re set.`;
-  return "Outstanding — all 68 topics Green. You’re exam-ready. Time to maintain and polish.";
+  return "Outstanding — all topics Green. You’re exam-ready. Time to maintain and polish.";
 }
 
 function handleStrandClick(s){
@@ -936,6 +1044,7 @@ function handleAdminStrandClick(st, student){
 }
 
 function renderStudent(){
+  const subj=getCurrentSubject();
   const strandsEl=$("strands"); strandsEl.innerHTML="";
   for(const s of STRAND_ORDER){
     const count=TOPICS.filter(t=>t.strand===s).length;
@@ -946,8 +1055,9 @@ function renderStudent(){
     div.setAttribute("role","button");
     div.setAttribute("tabindex","0");
     div.dataset.strand=s;
-    div.title=`Filter to ${STRAND_LABEL[s]} — click to show only ${s} topics`;
-    div.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[s]}</span><b>${STRAND_LABEL[s].split(" ")[0]}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${greens}/${count}</span></div><div class="bar"><i style="width:${pct}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${pct}% confident</div>`;
+    const labelName = STRAND_LABEL[s] ? STRAND_LABEL[s].split(" ")[0] : (subj.strands[s]||s);
+    div.title=`Filter to ${STRAND_LABEL[s]||subj.strands[s]||s} — click to show only ${s} topics`;
+    div.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[s]||s}</span><b>${labelName}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${greens}/${count}</span></div><div class="bar"><i style="width:${pct}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${pct}% confident</div>`;
     div.addEventListener("click", ()=>handleStrandClick(s));
     div.addEventListener("keydown", (e)=>{
       if(e.key==="Enter" || e.key===" "){ e.preventDefault(); handleStrandClick(s); }
@@ -958,7 +1068,7 @@ function renderStudent(){
   const pct= total? Math.round(greens/total*100):0;
   $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${greens} / ${total} green`; $("kpiG").textContent=greens; $("kpiA").textContent=ambers; $("kpiR").textContent=reds;
   if($("studentName")) $("studentName").textContent=currentUser?.displayName||"student";
-  if($("welcomeTitle")) $("welcomeTitle").textContent = greens? `Keep going, ${currentUser?.displayName||"you"} — ${pct}% Green` : `Welcome, ${currentUser?.displayName||"you"}`;
+  if($("welcomeTitle")) $("welcomeTitle").textContent = greens? `Keep going, ${currentUser?.displayName||"you"} — ${pct}% Green in ${subj.shortName}` : `Welcome, ${currentUser?.displayName||"you"}`;
   if($("encourageMsg")) $("encourageMsg").textContent = encouragementFor(greens,total);
 
   const mount=$("topicsMount"); mount.innerHTML="";
@@ -972,7 +1082,7 @@ function renderStudent(){
     });
     if(!topics.length) continue;
     const g=document.createElement("div"); g.className="strand-group"; g.dataset.strand=s;
-    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[s]}</span> ${STRAND_LABEL[s]}</h3><small>${topics.filter(t=>currentProgress[t.id]==="G").length}/${TOPICS.filter(x=>x.strand===s).length} green • tap row to tick ✓</small></div>`;
+    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[s]||s}</span> ${STRAND_LABEL[s]||subj.strands[s]||s}</h3><small>${topics.filter(t=>currentProgress[t.id]==="G").length}/${TOPICS.filter(x=>x.strand===s).length} green • tap row to tick ✓</small></div>`;
     const list=document.createElement("div"); list.className="topics";
     for(const t of topics){
       const v=currentProgress[t.id]||null;
@@ -994,16 +1104,14 @@ function renderStudent(){
           <button data-v="A" class="${v==="A"?"on":"off"}" title="Getting there — Amber">A</button>
           <button data-v="G" class="${v==="G"?"on":"off"}" title="Confident — Green">G</button>
         </div>`;
-      // row click → quick Green tick (original linear UX)
       el.addEventListener("click", (e)=>{
-        if(e.target.closest("button")) return; // let buttons handle themselves
+        if(e.target.closest("button")) return;
         const cur=currentProgress[t.id];
         const next = cur==="G" ? null : "G";
         if(next===null) delete currentProgress[t.id]; else currentProgress[t.id]=next;
         updateTopicRow(el, t.id);
         scheduleSave();
         renderStudentKPIsOnly();
-        // update group header count
         const headerSmall = g.querySelector("small");
         if(headerSmall){
           const sgGreens = TOPICS.filter(x=>x.strand===s && currentProgress[x.id]==="G").length;
@@ -1035,7 +1143,7 @@ function renderStudent(){
     g.appendChild(list); mount.appendChild(g);
   }
   if(!mount.children.length){
-    mount.innerHTML=`<div class="empty">No topics match — clear filters to see all 68.</div>`;
+    mount.innerHTML=`<div class="empty">No topics match — clear filters to see all ${TOPICS.length}.</div>`;
   }
 }
 function updateTopicRow(rowEl, topicId){
@@ -1052,7 +1160,7 @@ function renderStudentKPIsOnly(){
   const pct= total? Math.round(greens/total*100):0;
   $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${greens} / ${total} green`; $("kpiG").textContent=greens; $("kpiA").textContent=ambers; $("kpiR").textContent=reds;
   if($("encourageMsg")) $("encourageMsg").textContent = encouragementFor(greens,total);
-  if($("welcomeTitle") && currentUser) $("welcomeTitle").textContent = `Keep going, ${currentUser.displayName||"you"} — ${pct}% Green`;
+  if($("welcomeTitle") && currentUser) $("welcomeTitle").textContent = `Keep going, ${currentUser.displayName||"you"} — ${pct}% Green in ${getCurrentSubject().shortName}`;
   document.querySelectorAll("#strands .strand").forEach((el,i)=>{
     const s=STRAND_ORDER[i]; const count=TOPICS.filter(t=>t.strand===s).length; const g=TOPICS.filter(t=>t.strand===s && currentProgress[t.id]==="G").length; el.querySelector(".bar i").style.width=(count? Math.round(g/count*100):0)+"%"; el.querySelector(".strand-head span:last-child").textContent=g+"/"+count;
     const label=el.querySelector("div:last-child"); if(label) label.textContent = (count? Math.round(g/count*100):0)+"% confident";
@@ -1060,13 +1168,19 @@ function renderStudentKPIsOnly(){
 }
 function scheduleSave(){
   $("saveState").textContent="Saving…";
+  allProgressBySubject[currentSubjectId]=currentProgress;
+  sSet("gcse_progress_"+(currentUser?.uid||"demo")+"_all", JSON.stringify(allProgressBySubject));
   sSet("gcse_progress_"+(currentUser?.uid||"demo"), JSON.stringify(currentProgress));
+  sSet("gcse_current_subject", currentSubjectId);
   if(saveTimer) clearTimeout(saveTimer);
   saveTimer=setTimeout(async ()=>{
     try{
       if(fbDb && currentUser){
         const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
-        await setDoc(doc(fbDb,"progress",currentUser.uid),{topics:currentProgress,updatedAt:serverTimestamp()},{merge:true});
+        await setDoc(doc(fbDb,"progress",currentUser.uid),{subjects:allProgressBySubject, topicsBySubject:allProgressBySubject, topics: allProgressBySubject[DEFAULT_SUBJECT_ID] || allProgressBySubject[currentSubjectId] || currentProgress, updatedAt:serverTimestamp()},{merge:true});
+        try{
+          await setDoc(doc(fbDb,"progress",currentUser.uid,"subjects",currentSubjectId),{topics:currentProgress, updatedAt:serverTimestamp()},{merge:true});
+        }catch{}
       }
       $("saveState").textContent="Saved ✓";
       showToast("Progress saved");
@@ -1090,16 +1204,17 @@ $("btnClearFilters").addEventListener("click", ()=>{
   filters={strand:"all",rag:null,q:"",todo:false}; $("search").value=""; document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active")); document.querySelector('.chip[data-strand="all"]').classList.add("active"); renderStudent();
 });
 
-/* Admin rendering — professional */
+/* Admin rendering */
 function renderAdminList(){
   const list=$("studentsList"); if(!list) return; list.innerHTML="";
   const studs=allStudentsCache.filter(s=>s.role==="student").sort((a,b)=>(a.displayName||"").localeCompare(b.displayName||""));
   if(!studs.length){ list.innerHTML=`<div class="empty">No students yet — create their first account above. They’ll appear here instantly and you’ll see live progress as they work.</div>`; return; }
   for(const s of studs){
-    const total=TOPICS.length; const greens=Object.values(s.progress||{}).filter(v=>v==="G").length; const pct= total? Math.round(greens/total*100):0;
+    const progForSubject = (s.progressBySubject && s.progressBySubject[currentSubjectId]) || s.progress || {};
+    const total=TOPICS.length; const greens=Object.values(progForSubject||{}).filter(v=>v==="G").length; const pct= total? Math.round(greens/total*100):0;
     const row=document.createElement("button"); row.type="button"; row.className="student-row"+(selectedStudentUid===s.uid?" active":"");
     row.dataset.uid=s.uid; row.style.width="100%"; row.style.textAlign="left"; row.style.cursor="pointer";
-    row.innerHTML=`<div><b style="font-size:13.2px">${s.displayName||s.email}</b><div class="hint" style="font-size:11.6px">${s.email} • ${greens}/${total} green • ${encouragementFor(greens,total).slice(0,46)}…</div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill" style="background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)">${pct}%</span></div>`;
+    row.innerHTML=`<div><b style="font-size:13.2px">${s.displayName||s.email}</b><div class="hint" style="font-size:11.6px">${s.email} • ${greens}/${total} green in ${getCurrentSubject().shortName}</div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill" style="background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)">${pct}%</span></div>`;
     const activate=()=>{ selectedStudentUid=s.uid; document.querySelectorAll(".student-row").forEach(r=>r.classList.remove("active")); row.classList.add("active"); renderAdminDetail(s); };
     row.addEventListener("click", activate);
     list.appendChild(row);
@@ -1112,31 +1227,27 @@ function renderAdminDetail(s, keepFullscreen=false){
   const detailEl=$("adminDetail");
   if(emptyEl) emptyEl.style.display="none";
   if(detailEl) detailEl.style.display="block";
-  // enter full-screen detail mode
   if(viewAdmin) viewAdmin.classList.add("is-detail");
-  // reset filters when switching student (unless keepFullscreen from strand click)
   if(!keepFullscreen){
     adminFilters={strand:"all", q:($("adminSearch")?.value||"").toLowerCase().trim(), rag:null, todo:false};
     if($("adminSearch")) $("adminSearch").value = adminFilters.q;
   }
-  $("detailName").textContent=s.displayName||s.email; $("detailEmail").textContent=s.email;
-  const total=TOPICS.length; const greens=Object.values(s.progress||{}).filter(v=>v==="G").length; const pct=total? Math.round(greens/total*100):0;
+  $("detailName").textContent=s.displayName||s.email; $("detailEmail").textContent=s.email + ` • ${getCurrentSubject().name}`;
+  const progForSubject = (s.progressBySubject && s.progressBySubject[currentSubjectId]) || s.progress || {};
+  const total=TOPICS.length; const greens=Object.values(progForSubject||{}).filter(v=>v==="G").length; const pct=total? Math.round(greens/total*100):0;
   $("detailBar").style.width=pct+"%"; $("detailPct").textContent=pct+"%";
 
-  // --- Strand cards — same as student, clickable, filters + smooth scroll ---
   const strandsEl=$("adminStrands"); strandsEl.innerHTML="";
   for(const st of STRAND_ORDER){
-    const count=TOPICS.filter(t=>t.strand===st).length; const g=TOPICS.filter(t=>t.strand===st && s.progress[t.id]==="G").length; const p=count? Math.round(g/count*100):0;
-    const d=document.createElement("div"); d.className="card strand"+(adminFilters.strand===st?" is-active":""); d.dataset.strand=st; d.setAttribute("role","button"); d.tabIndex=0; d.title=`Filter to ${STRAND_LABEL[st]} — click to show only ${st} topics`;
-    d.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[st]}</span><b>${STRAND_LABEL[st].split(" ")[0]}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${g}/${count}</span></div><div class="bar"><i style="width:${p}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${p}% confident</div>`;
+    const count=TOPICS.filter(t=>t.strand===st).length; const g=TOPICS.filter(t=>t.strand===st && progForSubject[t.id]==="G").length; const p=count? Math.round(g/count*100):0;
+    const d=document.createElement("div"); d.className="card strand"+(adminFilters.strand===st?" is-active":""); d.dataset.strand=st; d.setAttribute("role","button"); d.tabIndex=0; d.title=`Filter to ${STRAND_LABEL[st]||st} — click to show only ${st} topics`;
+    d.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[st]||st}</span><b>${(STRAND_LABEL[st]||st).split(" ")[0]}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${g}/${count}</span></div><div class="bar"><i style="width:${p}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${p}% confident</div>`;
     d.addEventListener("click", ()=>handleAdminStrandClick(st, s));
     d.addEventListener("keydown", (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); handleAdminStrandClick(st, s); }});
     strandsEl.appendChild(d);
   }
 
-  // --- Linear checklist — same UX as student ---
   const mount=$("adminTopics"); mount.innerHTML="";
-  // ensure mount is not the old max-height scroll box — use full flow
   mount.style.display="flex"; mount.style.flexDirection="column"; mount.style.gap="0";
   mount.style.border="0"; mount.style.background="transparent"; mount.style.maxHeight="none"; mount.style.overflow="visible"; mount.style.padding="0";
 
@@ -1145,19 +1256,19 @@ function renderAdminDetail(s, keepFullscreen=false){
     const topics=TOPICS.filter(t=>t.strand===st).filter(t=>{
       if(adminFilters.strand!=="all" && adminFilters.strand!==st) return false;
       if(adminFilters.q && ! (t.title.toLowerCase().includes(adminFilters.q) || t.id.toLowerCase().includes(adminFilters.q) || t.exam.toLowerCase().includes(adminFilters.q))) return false;
-      if(adminFilters.todo && s.progress[t.id]==="G") return false;
-      if(adminFilters.rag && s.progress[t.id]!==adminFilters.rag) return false;
+      if(adminFilters.todo && progForSubject[t.id]==="G") return false;
+      if(adminFilters.rag && progForSubject[t.id]!==adminFilters.rag) return false;
       return true;
     });
     if(!topics.length) continue;
     any=true;
     const g=document.createElement("div"); g.className="strand-group"; g.dataset.strand=st;
-    const sgGreens = TOPICS.filter(x=>x.strand===st && s.progress[x.id]==="G").length;
+    const sgGreens = TOPICS.filter(x=>x.strand===st && progForSubject[x.id]==="G").length;
     const sgTotal = TOPICS.filter(x=>x.strand===st).length;
-    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[st]}</span> ${STRAND_LABEL[st]}</h3><small>${sgGreens}/${sgTotal} green • ${topics.length} shown</small></div>`;
+    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[st]||st}</span> ${STRAND_LABEL[st]||st}</h3><small>${sgGreens}/${sgTotal} green • ${topics.length} shown</small></div>`;
     const list=document.createElement("div"); list.className="topics";
     for(const t of topics){
-      const v=s.progress[t.id]||null;
+      const v=progForSubject[t.id]||null;
       const el=document.createElement("div");
       el.className="topic"+(v==="G"?" is-green":v==="A"?" is-amber":v==="R"?" is-red":"");
       el.dataset.id=t.id; el.dataset.strand=t.strand;
@@ -1179,10 +1290,9 @@ function renderAdminDetail(s, keepFullscreen=false){
     g.appendChild(list); mount.appendChild(g);
   }
   if(!any){
-    mount.innerHTML=`<div class="empty">No topics match — clear search or click All to see all 68.</div>`;
+    mount.innerHTML=`<div class="empty">No topics match — clear search or click All to see all ${TOPICS.length}.</div>`;
   }
 
-  // bind back button once
   const backBtn=$("btnAdminBack");
   if(backBtn && !backBtn._bound){
     backBtn._bound=true;
@@ -1197,7 +1307,6 @@ function renderAdminDetail(s, keepFullscreen=false){
       window.scrollTo({top:0, behavior:"smooth"});
     });
   }
-  // bind admin search once
   const aSearch=$("adminSearch");
   if(aSearch && !aSearch._bound){
     aSearch._bound=true;
@@ -1207,7 +1316,6 @@ function renderAdminDetail(s, keepFullscreen=false){
       if(cur) renderAdminDetail(cur, true);
     });
   }
-  // ensure detail is visible after entering fullscreen
   if(!keepFullscreen){
     setTimeout(()=>{
       const detail = $("adminDetail");
@@ -1230,7 +1338,7 @@ $("btnCreateUser").addEventListener("click", async ()=>{
     const cred=await createUserWithEmailAndPassword(secAuth,email,pass);
     try{ await updateProfile(cred.user,{displayName:name||email.split("@")[0]}); }catch{}
     await setDoc(doc(fbDb,"users",cred.user.uid),{uid:cred.user.uid,email,displayName:name||email.split("@")[0],role,createdAt:serverTimestamp()},{merge:true});
-    await setDoc(doc(fbDb,"progress",cred.user.uid),{topics:{},updatedAt:serverTimestamp()},{merge:true});
+    await setDoc(doc(fbDb,"progress",cred.user.uid),{topics:{}, subjects:{}, topicsBySubject:{}, updatedAt:serverTimestamp()},{merge:true});
     try{ await deleteApp(secApp); }catch{}
     msg.textContent=`Created ${role}: ${email}`;
     $("newName").value=""; $("newEmail").value=""; $("newPass").value=""; showToast(`${role} account ready`);
@@ -1245,7 +1353,7 @@ $("btnResetStudent").addEventListener("click", async ()=>{
   const proceed = await new Promise(res=>{
     const overlay=document.createElement("div");
     overlay.style.cssText="position:fixed;inset:0;z-index:95;background:rgba(0,15,70,.44);display:grid;place-items:center;padding:16px;backdrop-filter:blur(4px)";
-    overlay.innerHTML=`<div style="background:#fff;border:1px solid #e6e9f2;border-radius:16px;padding:18px;max-width:360px;width:100%;box-shadow:0 18px 44px rgba(0,36,125,.22)"><div style="font-weight:700;margin-bottom:6px;color:var(--ink)">Reset progress for ${name}?</div><div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5">This clears all Red / Amber / Green marks. The student can start fresh — this can’t be undone.</div><div style="display:flex;gap:8px;justify-content:flex-end"><button id="cNo" class="btn">Keep progress</button><button id="cYes" class="btn btn-primary" style="background:#d31a44;border-color:#d31a44">Reset</button></div></div>`;
+    overlay.innerHTML=`<div style="background:#fff;border:1px solid #e6e9f2;border-radius:16px;padding:18px;max-width:360px;width:100%;box-shadow:0 18px 44px rgba(0,36,125,.22)"><div style="font-weight:700;margin-bottom:6px;color:var(--ink)">Reset progress for ${name} in ${getCurrentSubject().shortName}?</div><div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5">This clears all Red / Amber / Green marks for this subject only. The student can start fresh — this can’t be undone.</div><div style="display:flex;gap:8px;justify-content:flex-end"><button id="cNo" class="btn">Keep progress</button><button id="cYes" class="btn btn-primary" style="background:#d31a44;border-color:#d31a44">Reset</button></div></div>`;
     document.body.appendChild(overlay);
     overlay.querySelector("#cNo").addEventListener("click", ()=>{ overlay.remove(); res(false); });
     overlay.querySelector("#cYes").addEventListener("click", ()=>{ overlay.remove(); res(true); });
@@ -1254,91 +1362,34 @@ $("btnResetStudent").addEventListener("click", async ()=>{
   if(!proceed) return;
   try{
     const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
-    await setDoc(doc(fbDb,"progress",selectedStudentUid),{topics:{},updatedAt:serverTimestamp()},{merge:true});
-    const s=allStudentsCache.find(x=>x.uid===selectedStudentUid); if(s) s.progress={}; renderAdminList(); if(s) renderAdminDetail(s); showToast("Progress reset");
+    const s=allStudentsCache.find(x=>x.uid===selectedStudentUid);
+    if(s){
+      if(s.progressBySubject) s.progressBySubject[currentSubjectId]={};
+      s.progress={};
+    }
+    const progMap = s?.progressBySubject||{};
+    progMap[currentSubjectId]={};
+    await setDoc(doc(fbDb,"progress",selectedStudentUid),{subjects:progMap, topicsBySubject:progMap, updatedAt:serverTimestamp()},{merge:true});
+    try{ await setDoc(doc(fbDb,"progress",selectedStudentUid,"subjects",currentSubjectId),{topics:{}, updatedAt:serverTimestamp()},{merge:true}); }catch{}
+    renderAdminList(); if(s) renderAdminDetail(s); showToast("Progress reset for "+getCurrentSubject().shortName);
   }catch{ showToast("Reset didn’t work — please try again"); }
 });
 
 $("btnExport").addEventListener("click", ()=>{
-  const rows=[["uid","email","displayName","role","green","amber","red","total","pctGreen","topics_JSON"]];
+  const subj=getCurrentSubject();
+  const rows=[["uid","email","displayName","role","subjectId","subjectName","green","amber","red","total","pctGreen","topics_JSON"]];
   for(const s of allStudentsCache){
-    const prog=s.progress||{}; const greens=Object.values(prog).filter(v=>v==="G").length; const ambers=Object.values(prog).filter(v=>v==="A").length; const reds=Object.values(prog).filter(v=>v==="R").length; const total=Object.keys(prog).length; const pct=TOPICS.length? Math.round(greens/TOPICS.length*100):0;
-    rows.push([s.uid, s.email, s.displayName, s.role, greens, ambers, reds, total, pct, JSON.stringify(prog)]);
+    const progMap = s.progressBySubject||{};
+    const prog = progMap[currentSubjectId] || s.progress||{};
+    const greens=Object.values(prog).filter(v=>v==="G").length; const ambers=Object.values(prog).filter(v=>v==="A").length; const reds=Object.values(prog).filter(v=>v==="R").length; const total=Object.keys(prog).length; const pct=subj.topics.length? Math.round(greens/subj.topics.length*100):0;
+    rows.push([s.uid, s.email, s.displayName, s.role, currentSubjectId, subj.name, greens, ambers, reds, total, pct, JSON.stringify(prog)]);
   }
   const csv=rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(",")).join("\n");
-  const blob=new Blob([csv],{type:"text/csv"}); const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download="gcse-maths-progress.csv"; a.click(); URL.revokeObjectURL(url);
+  const blob=new Blob([csv],{type:"text/csv"}); const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download=`gcse-progress-${currentSubjectId}.csv`; a.click(); URL.revokeObjectURL(url);
 });
 
+populateSubjectSelectors();
 initFirebase();
-
-// demo preview — lets auditors see linear checklist without Firebase auth (keeps front page minimal, button is low-contrast dashed)
-$("btnDemo").addEventListener("click", ()=>{
-  // mock user for preview
-  currentUser = {uid:"demo", email:"demo@school.com", displayName:"Demo Student", role:"student"};
-  // seed some progress to show R/G/A + auto-tick
-  currentProgress = {"N1":"G","N2":"G","N3":"A","A1":"G","A2":"R","R1":"G","G1":"A","G2":"G","P1":"G","S1":"R"};
-  whoPill.textContent = "Demo • student"; whoPill.className="pill pill-student"; whoPill.style.display="";
-  btnLogout.style.display="";
-  renderStudent();
-  showView("student");
-  showToast("Demo preview — linear checklist with tap-to-tick ✓ on Green");
-});
-
-$("btnDemoAdmin").addEventListener("click", ()=>{
-  currentUser = {uid:"demo-admin", email:"admin@school.com", displayName:"Demo Admin", role:"admin"};
-  whoPill.textContent = "Demo • admin"; whoPill.className="pill pill-admin"; whoPill.style.display=""; whoPill.style.background="var(--navy)"; whoPill.style.color="#fff";
-  btnLogout.style.display=""; btnExport.style.display="";
-  // seed fake students
-  allStudentsCache = [
-    {uid:"s1", email:"aisha@school.com", displayName:"Aisha Y11", role:"student", progress:{"N1":"G","N2":"G","N3":"A","A1":"G","R1":"G","G2":"G","P1":"G"}},
-    {uid:"s2", email:"ben@school.com", displayName:"Ben Y11", role:"student", progress:{"N1":"G","N2":"A","A1":"R","G1":"G"}},
-    {uid:"s3", email:"cara@school.com", displayName:"Cara Y11", role:"student", progress:{"N1":"G","N2":"G","N3":"G","A1":"G","A2":"G","R1":"G","G1":"G","G2":"G","P1":"G","S1":"G"}}
-  ];
-  selectedStudentUid=null;
-  adminFilters={strand:"all", q:"", rag:null, todo:false};
-  const va=$("view-admin"); if(va) va.classList.remove("is-detail");
-  showView("admin");
-  $("adminCounts").textContent = `${allStudentsCache.length} students • 1 admin`;
-  renderAdminList();
-  showToast("Demo admin — click a student for full-screen detail with clickable strand filters");
-});
-
-// set header meta from actual TOPICS length (source of truth, not invented) — keep minimal for audit, show RAG only
-try{
-  const hdr = $("hdrMeta");
-  if(hdr) hdr.textContent = `Edexcel Higher • RAG`; // count available as TOPICS.length=${TOPICS.length} if needed, but removed to satisfy verification
-}catch{}
-
-// Auto-show demo admin when running in Hatch audit environment so baseline screenshots include admin dashboard for verification
-try{
-  const href = window.location.href||"";
-  const isAudit = href.includes("hatch-audit") || href.includes("audit-") || href.includes("spaces/v2") ;
-  if(isAudit){
-    // run immediately and also after short delay to ensure DOM ready
-    const doDemoAdmin = ()=>{
-      const btn=$("btnDemoAdmin");
-      if(btn) { try{ btn.click(); }catch{} return; }
-      // fallback direct seeding if button not found
-      currentUser = {uid:"demo-admin", email:"admin@school.com", displayName:"Demo Admin", role:"admin"};
-      const wp=$("whoPill"); if(wp){ wp.textContent="Demo • admin"; wp.className="pill pill-admin"; wp.style.display=""; wp.style.background="var(--navy)"; wp.style.color="#fff"; }
-      const lo=$("btnLogout"); if(lo) lo.style.display=""; const ex=$("btnExport"); if(ex) ex.style.display="";
-      allStudentsCache = [
-        {uid:"s1", email:"aisha@school.com", displayName:"Aisha Y11", role:"student", progress:{"N1":"G","N2":"G","N3":"A","A1":"G","R1":"G","G2":"G","P1":"G"}},
-        {uid:"s2", email:"ben@school.com", displayName:"Ben Y11", role:"student", progress:{"N1":"G","N2":"A","A1":"R","G1":"G"}},
-        {uid:"s3", email:"cara@school.com", displayName:"Cara Y11", role:"student", progress:{"N1":"G","N2":"G","N3":"G","A1":"G","A2":"G","R1":"G","G1":"G","G2":"G","P1":"G","S1":"G"}}
-      ];
-      selectedStudentUid=null;
-      adminFilters={strand:"all", q:"", rag:null, todo:false};
-      const va=$("view-admin"); if(va) va.classList.remove("is-detail");
-      showView("admin");
-      const ac=$("adminCounts"); if(ac) ac.textContent=`${allStudentsCache.length} students • 1 admin`;
-      renderAdminList();
-    };
-    doDemoAdmin();
-    setTimeout(doDemoAdmin, 200);
-    setTimeout(doDemoAdmin, 600);
-  }
-}catch{}
 </script>
 </body>
 </html>
