@@ -1,4 +1,5 @@
 
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -178,7 +179,7 @@
     padding:11px 12px 11px 12px;
     border:0;border-bottom:1px solid var(--line);
     border-left:3px solid transparent;
-    background:#fff;transition:.14s;cursor:pointer;
+    background:#fff;transition:.14s;cursor:default;
     width:100%;min-width:0;
   }
   .topic:last-child{border-bottom:0}
@@ -399,11 +400,6 @@
 .btn-practice.complete{background:var(--green-bg);border-color:#bfe9d9;color:var(--green)}
 .qz-done{font-weight:800}
 .qz-tag.firstwrong{background:var(--amber-bg);color:var(--amber);border-color:#f3ddba}
-.done-btn{border:1px solid var(--line);background:#fff;color:var(--ink-2);padding:6px 13px;border-radius:999px;
-  font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.15s}
-.done-btn:hover{border-color:var(--line-strong)}
-.done-btn.on{background:var(--green);border-color:var(--green);color:#fff;
-  cursor:default;pointer-events:none}   /* done is one-way; undo via Reset */
 .qz-admin{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 14px;padding:9px 11px;
   background:var(--bg-2);border:1px dashed var(--line-strong);border-radius:11px}
 .qz-adm-lab{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
@@ -509,10 +505,10 @@
             <span id="saveState" class="hint" style="background:#fbfcff;border:1px solid var(--line);padding:4px 9px;border-radius:999px">Saved</span>
           </div>
           <h2 id="welcomeTitle">Your checklist</h2>
-          <div id="encourageMsg" class="encourage">Mark a topic done when you’re happy with it. The practice tally next to each one shows how far through the questions you are.</div>
+          <div id="encourageMsg" class="encourage">Complete the practice questions to update each topic automatically. The tally shows how far through the questions you are.</div>
         </div>
         <div class="kpis" style="margin-top:14px">
-          <div class="kpi green"><b id="kpiG">0</b><span>Marked done</span></div>
+          <div class="kpi green"><b id="kpiG">0</b><span>Completed</span></div>
           <div class="kpi red"><b id="kpiR">0</b><span>Still to do</span></div>
           <div class="kpi amber"><b id="kpiA">0</b><span>Practice complete</span></div>
         </div>
@@ -520,13 +516,9 @@
 
       <div class="card ring-card">
         <div id="ring" class="ring" style="--p:0"><span id="ringTxt">0%</span></div>
-        <div style="margin-top:12px;font-weight:700;font-size:14px" id="ringLabel">0 / 62 done</div>
-        <div class="hint" id="ringSub" style="margin-top:3px">Topics you’ve marked done</div>
-        <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
-          <span class="pill" style="background:var(--green-bg);color:var(--green);border-color:#bfe9d9">G confident</span>
-          <span class="pill" style="background:var(--amber-bg);color:var(--amber);border-color:#f5d6a8">A practice</span>
-          <span class="pill" style="background:var(--red-bg);color:var(--red);border-color:#ffc2cf">R to learn</span>
-        </div>
+        <div style="margin-top:12px;font-weight:700;font-size:14px" id="ringLabel">0 / 62 completed</div>
+        <div class="hint" id="ringSub" style="margin-top:3px">Topics you have completed</div>
+
       </div>
     </div>
 
@@ -544,8 +536,8 @@
       <button class="chip" data-strand="G">Geometry</button>
       <button class="chip" data-strand="P">Probability</button>
       <button class="chip" data-strand="S">Statistics</button>
-      <button class="chip" data-rag="todo">Not done</button>
-      <button class="chip" data-rag="G">Done</button>
+      <button class="chip" data-rag="todo">Not completed</button>
+      <button class="chip" data-rag="G">Completed</button>
       <button id="btnClearFilters" class="btn" style="padding:7px 11px;background:#fff;color:var(--ink);border-color:var(--line)">Clear</button>
     </div>
 
@@ -557,7 +549,7 @@
     <div class="admin-head">
       <div>
         <h2>Class dashboard</h2>
-        <p>Support every student from one calm place. Create accounts, watch live RAG across your subjects, and export for reports.</p>
+        <p>Support every student from one calm place. Create accounts, review completed topics and practice progress, and export for reports.</p>
       </div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <span class="pill pill-admin" style="background:var(--navy);color:#fff;border-color:var(--navy)">Admin</span>
@@ -822,16 +814,15 @@ const viewLogin=$("view-login"), viewStudent=$("view-student"), viewAdmin=$("vie
 const whoPill=$("whoPill"), btnLogout=$("btnLogout"), btnExport=$("btnExport");
 const toast=$("toast");
 function qzPracticeBtn(id){
-  const s = qzTopicScore(id);
-  if(!s) return '';
+  const s = qzTopicScore(id) || {c:0,w:0,u:0,n:0};
   const att   = s.c + s.w;
   const done  = qzTopicComplete(s);
-  const tally = att ? ' <span class="qz-score">'+att+'/'+s.n+'</span>' : '';
+  const tally = ' <span class="qz-score">'+att+'/'+s.n+'</span>';
   const tick  = done ? ' <span class="qz-done" title="All attempted, 90%+ correct">\u2713</span>' : '';
   const btn = '<button class="btn-practice'+(done?' complete':'')+'" data-practice="'+id+
          '" title="'+att+' of '+s.n+' attempted, '+s.c+' correct">Practice'+tally+tick+'</button>';
-  // only offer a reset once there is something to clear
-  const dirty = att>0 || currentProgress[id]==='G';
+  // only offer a reset once there is practice history to clear
+  const dirty = att>0;
   const rst = dirty ? '<button class="btn-reset" data-reset="'+id+'" title="Reset this topic"'+
               ' aria-label="Reset this topic">\u21ba</button>' : '';
   return btn + rst;
@@ -842,6 +833,20 @@ function qzTopicComplete(s){
 }
 function qzPracticeCompleteCount(){
   return TOPICS.filter(t=>qzTopicComplete(qzTopicScore(t.id))).length;
+}
+function qzSyncAutoProgress(codes=TOPICS.map(t=>t.id)){
+  let changed=false;
+  for(const code of codes){
+    const completed=qzTopicComplete(qzTopicScore(code));
+    if(completed && currentProgress[code]!=="G"){
+      currentProgress[code]="G";
+      changed=true;
+    }else if(!completed && currentProgress[code]!=null){
+      delete currentProgress[code];
+      changed=true;
+    }
+  }
+  return changed;
 }
 function showToast(msg){ toast.textContent=msg; toast.classList.add("show"); setTimeout(()=>toast.classList.remove("show"),2200); }
 
@@ -864,7 +869,9 @@ function showView(name){
   btnExport.style.display=(name==="admin")?"":"none";
   whoPill.style.display=isLogged?"":"none";
   if(currentUser){
-    whoPill.textContent=`${currentUser.displayName||currentUser.email} • ${currentUser.role} • ${getCurrentSubject().shortName}`;
+    whoPill.textContent=currentUser.role==="student"
+      ? `${currentUser.displayName||currentUser.email} • ${currentUser.role}`
+      : `${currentUser.displayName||currentUser.email} • ${currentUser.role} • ${getCurrentSubject().shortName}`;
     whoPill.className="pill "+(currentUser.role==="admin"?"pill-admin":"pill-student");
   }
 }
@@ -1089,12 +1096,12 @@ let adminFilters={strand:"all", q:"", rag:null, todo:false};
 
 function encouragementFor(greens,total){
   const pct = total? Math.round(greens/total*100):0;
-  if(pct===0) return "Every expert was once a beginner — pick one topic and turn it Amber today.";
-  if(pct<25) return `Lovely start — ${greens} topics Green already. Small steps build big confidence.`;
-  if(pct<50) return `You’re building momentum — ${pct}% Green. Keep going, you’re getting stronger each session.`;
-  if(pct<75) return `Great work — over half exam-ready at ${pct}% Green. Focus on those Ambers next.`;
-  if(pct<100) return `Almost there — ${pct}% Green and shining. A few more to secure and you’re set.`;
-  return "Outstanding — all topics Green. You’re exam-ready. Time to maintain and polish.";
+  if(pct===0) return "Every expert was once a beginner — choose a topic and start its practice questions.";
+  if(pct<25) return `Lovely start — ${greens} topics completed already. Small steps build steady progress.`;
+  if(pct<50) return `You’re building momentum — ${pct}% completed. Keep going, you’re getting stronger each session.`;
+  if(pct<75) return `Great work — over half completed at ${pct}%. Focus on the remaining topics next.`;
+  if(pct<100) return `Almost there — ${pct}% completed. A few more to finish and you’re set.`;
+  return "Outstanding — all topics completed. Time to maintain and polish.";
 }
 
 function handleStrandClick(s){
@@ -1164,18 +1171,18 @@ function renderStudent(){
     div.dataset.strand=s;
     const labelName = STRAND_LABEL[s] ? STRAND_LABEL[s].split(" ")[0] : (subj.strands[s]||s);
     div.title=`Filter to ${STRAND_LABEL[s]||subj.strands[s]||s} — click to show only ${s} topics`;
-    div.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[s]||s}</span><b>${labelName}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${greens}/${count}</span></div><div class="bar"><i style="width:${pct}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${pct}% confident</div>`;
+    div.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[s]||s}</span><b>${labelName}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${greens}/${count}</span></div><div class="bar"><i style="width:${pct}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${pct}% completed</div>`;
     div.addEventListener("click", ()=>handleStrandClick(s));
     div.addEventListener("keydown", (e)=>{
       if(e.key==="Enter" || e.key===" "){ e.preventDefault(); handleStrandClick(s); }
     });
     strandsEl.appendChild(div);
   }
-  const total=TOPICS.length; const greens=TOPICS.filter(t=>currentProgress[t.id]==="G").length; const ambers=TOPICS.filter(t=>currentProgress[t.id]==="A").length; const reds=TOPICS.filter(t=>currentProgress[t.id]==="R").length;
+  const total=TOPICS.length; const greens=TOPICS.filter(t=>currentProgress[t.id]==="G").length;
   const pct= total? Math.round(greens/total*100):0;
-  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${greens} / ${total} done`; $("kpiG").textContent=greens; $("kpiA").textContent=qzPracticeCompleteCount(); $("kpiR").textContent=reds;
+  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${greens} / ${total} completed`; $("kpiG").textContent=greens; $("kpiA").textContent=qzPracticeCompleteCount(); $("kpiR").textContent=total-greens;
   if($("studentName")) $("studentName").textContent=currentUser?.displayName||"student";
-  if($("welcomeTitle")) $("welcomeTitle").textContent = greens? `Keep going, ${currentUser?.displayName||"you"} — ${pct}% Green in ${subj.shortName}` : `Welcome, ${currentUser?.displayName||"you"}`;
+  if($("welcomeTitle")) $("welcomeTitle").textContent = greens? `Keep going, ${currentUser?.displayName||"you"} — ${pct}% completed in ${subj.shortName}` : `Welcome, ${currentUser?.displayName||"you"}`;
   if($("encourageMsg")) $("encourageMsg").textContent = encouragementFor(greens,total);
 
   const mount=$("topicsMount"); mount.innerHTML="";
@@ -1189,7 +1196,7 @@ function renderStudent(){
     });
     if(!topics.length) continue;
     const g=document.createElement("div"); g.className="strand-group"; g.dataset.strand=s;
-    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[s]||s}</span> ${STRAND_LABEL[s]||subj.strands[s]||s}</h3><small>${topics.filter(t=>currentProgress[t.id]==="G").length}/${TOPICS.filter(x=>x.strand===s).length} green • tap row to tick ✓</small> <button class="btn-practice" data-practice-strand="${s}">Practice all ${s}</button></div>`;
+    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[s]||s}</span> ${STRAND_LABEL[s]||subj.strands[s]||s}</h3><small>${topics.filter(t=>currentProgress[t.id]==="G").length}/${TOPICS.filter(x=>x.strand===s).length} completed automatically from practice</small> <button class="btn-practice" data-practice-strand="${s}">Practice all ${s}</button></div>`;
     const sb=g.querySelector("[data-practice-strand]");
     if(sb) sb.addEventListener("click",(e)=>{ e.stopPropagation(); qzOpen({kind:"strand", id:s}); });
     const list=document.createElement("div"); list.className="topics";
@@ -1209,43 +1216,11 @@ function renderStudent(){
         </div>
         <div class="topic-actions">
           ${qzPracticeBtn(t.id)}
-          <button data-v="G" class="done-btn ${v==="G"?"on":"off"}" title="Mark this topic as done">${v==="G"?"✓ Done":"Mark done"}</button>
         </div>`;
       const pb=el.querySelector("[data-practice]");
       if(pb) pb.addEventListener("click",(e)=>{ e.stopPropagation(); qzOpen({kind:"topic", id:t.id}); });
       const rb=el.querySelector("[data-reset]");
       if(rb) rb.addEventListener("click",(e)=>{ e.stopPropagation(); qzResetTopic(t.id); });
-      el.addEventListener("click", (e)=>{
-        if(e.target.closest("button")) return;
-        if(currentProgress[t.id]==="G") return;   // already done — undo via Reset
-        currentProgress[t.id]="G";
-        updateTopicRow(el, t.id);
-        scheduleSave();
-        renderStudentKPIsOnly();
-        const headerSmall = g.querySelector("small");
-        if(headerSmall){
-          const sgGreens = TOPICS.filter(x=>x.strand===s && currentProgress[x.id]==="G").length;
-          const sgTotal = TOPICS.filter(x=>x.strand===s).length;
-          headerSmall.textContent = `${sgGreens}/${sgTotal} green • tap row to tick ✓`;
-        }
-      });
-      const btns=el.querySelectorAll(".topic-actions button[data-v]");
-      btns.forEach(b=>{
-        b.addEventListener("click", (e)=>{
-          e.stopPropagation();
-          if(currentProgress[t.id]==="G") return;   // already done — undo via Reset
-          currentProgress[t.id]=b.dataset.v;
-          updateTopicRow(el, t.id);
-          scheduleSave();
-          renderStudentKPIsOnly();
-          const headerSmall = g.querySelector("small");
-          if(headerSmall){
-            const sgGreens = TOPICS.filter(x=>x.strand===s && currentProgress[x.id]==="G").length;
-            const sgTotal = TOPICS.filter(x=>x.strand===s).length;
-            headerSmall.textContent = `${sgGreens}/${sgTotal} green • tap row to tick ✓`;
-          }
-        });
-      });
       list.appendChild(el);
     }
     g.appendChild(list); mount.appendChild(g);
@@ -1254,26 +1229,15 @@ function renderStudent(){
     mount.innerHTML=`<div class="empty">No topics match — clear filters to see all ${TOPICS.length}.</div>`;
   }
 }
-function updateTopicRow(rowEl, topicId){
-  const v=currentProgress[topicId]||null;
-  rowEl.className="topic"+(v==="G"?" is-green":"");
-  const check=rowEl.querySelector(".topic-check");
-  if(check) check.textContent = v==="G" ? "✓" : "";
-  rowEl.querySelectorAll(".topic-actions button[data-v]").forEach(x=>{
-    const on = currentProgress[topicId]===x.dataset.v;
-    x.className = "done-btn " + (on?"on":"off");
-    x.textContent = on ? "✓ Done" : "Mark done";
-  });
-}
 function renderStudentKPIsOnly(){
-  const total=TOPICS.length; const greens=TOPICS.filter(t=>currentProgress[t.id]==="G").length; const ambers=TOPICS.filter(t=>currentProgress[t.id]==="A").length; const reds=TOPICS.filter(t=>currentProgress[t.id]==="R").length;
+  const total=TOPICS.length; const greens=TOPICS.filter(t=>currentProgress[t.id]==="G").length;
   const pct= total? Math.round(greens/total*100):0;
-  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${greens} / ${total} done`; $("kpiG").textContent=greens; $("kpiA").textContent=qzPracticeCompleteCount(); $("kpiR").textContent=reds;
+  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${greens} / ${total} completed`; $("kpiG").textContent=greens; $("kpiA").textContent=qzPracticeCompleteCount(); $("kpiR").textContent=total-greens;
   if($("encourageMsg")) $("encourageMsg").textContent = encouragementFor(greens,total);
-  if($("welcomeTitle") && currentUser) $("welcomeTitle").textContent = `Keep going, ${currentUser.displayName||"you"} — ${pct}% Green in ${getCurrentSubject().shortName}`;
+  if($("welcomeTitle") && currentUser) $("welcomeTitle").textContent = `Keep going, ${currentUser.displayName||"you"} — ${pct}% completed in ${getCurrentSubject().shortName}`;
   document.querySelectorAll("#strands .strand").forEach((el,i)=>{
     const s=STRAND_ORDER[i]; const count=TOPICS.filter(t=>t.strand===s).length; const g=TOPICS.filter(t=>t.strand===s && currentProgress[t.id]==="G").length; el.querySelector(".bar i").style.width=(count? Math.round(g/count*100):0)+"%"; el.querySelector(".strand-head span:last-child").textContent=g+"/"+count;
-    const label=el.querySelector("div:last-child"); if(label) label.textContent = (count? Math.round(g/count*100):0)+"% confident";
+    const label=el.querySelector("div:last-child"); if(label) label.textContent = (count? Math.round(g/count*100):0)+"% completed";
   });
 }
 function scheduleSave(){
@@ -1323,7 +1287,7 @@ function renderAdminList(){
     const total=TOPICS.length; const greens=Object.values(progForSubject||{}).filter(v=>v==="G").length; const pct= total? Math.round(greens/total*100):0;
     const row=document.createElement("button"); row.type="button"; row.className="student-row"+(selectedStudentUid===s.uid?" active":"");
     row.dataset.uid=s.uid; row.style.width="100%"; row.style.textAlign="left"; row.style.cursor="pointer";
-    row.innerHTML=`<div><b style="font-size:13.2px">${s.displayName||s.email}</b><div class="hint" style="font-size:11.6px">${s.email} • ${greens}/${total} green in ${getCurrentSubject().shortName}</div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill" style="background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)">${pct}%</span></div>`;
+    row.innerHTML=`<div><b style="font-size:13.2px">${s.displayName||s.email}</b><div class="hint" style="font-size:11.6px">${s.email} • ${greens}/${total} completed in ${getCurrentSubject().shortName}</div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill" style="background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)">${pct}%</span></div>`;
     const activate=()=>{ selectedStudentUid=s.uid; document.querySelectorAll(".student-row").forEach(r=>r.classList.remove("active")); row.classList.add("active"); renderAdminDetail(s); };
     row.addEventListener("click", activate);
     list.appendChild(row);
@@ -1350,7 +1314,7 @@ function renderAdminDetail(s, keepFullscreen=false){
   for(const st of STRAND_ORDER){
     const count=TOPICS.filter(t=>t.strand===st).length; const g=TOPICS.filter(t=>t.strand===st && progForSubject[t.id]==="G").length; const p=count? Math.round(g/count*100):0;
     const d=document.createElement("div"); d.className="card strand"+(adminFilters.strand===st?" is-active":""); d.dataset.strand=st; d.setAttribute("role","button"); d.tabIndex=0; d.title=`Filter to ${STRAND_LABEL[st]||st} — click to show only ${st} topics`;
-    d.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[st]||st}</span><b>${(STRAND_LABEL[st]||st).split(" ")[0]}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${g}/${count}</span></div><div class="bar"><i style="width:${p}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${p}% confident</div>`;
+    d.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[st]||st}</span><b>${(STRAND_LABEL[st]||st).split(" ")[0]}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${g}/${count}</span></div><div class="bar"><i style="width:${p}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${p}% completed</div>`;
     d.addEventListener("click", ()=>handleAdminStrandClick(st, s));
     d.addEventListener("keydown", (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); handleAdminStrandClick(st, s); }});
     strandsEl.appendChild(d);
@@ -1374,7 +1338,7 @@ function renderAdminDetail(s, keepFullscreen=false){
     const g=document.createElement("div"); g.className="strand-group"; g.dataset.strand=st;
     const sgGreens = TOPICS.filter(x=>x.strand===st && progForSubject[x.id]==="G").length;
     const sgTotal = TOPICS.filter(x=>x.strand===st).length;
-    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[st]||st}</span> ${STRAND_LABEL[st]||st}</h3><small>${sgGreens}/${sgTotal} green • ${topics.length} shown</small></div>`;
+    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[st]||st}</span> ${STRAND_LABEL[st]||st}</h3><small>${sgGreens}/${sgTotal} completed • ${topics.length} shown</small></div>`;
     const list=document.createElement("div"); list.className="topics";
     for(const t of topics){
       const v=progForSubject[t.id]||null;
@@ -1383,7 +1347,7 @@ function renderAdminDetail(s, keepFullscreen=false){
       el.dataset.id=t.id; el.dataset.strand=t.strand;
       const check = v==="G" ? `✓` : ``;
       const pillColor = v==="G"? "var(--green-bg)" : "#fff";
-      const pillText = v==="G" ? "Done" : "Not done";
+      const pillText = v==="G" ? "Completed" : "Not completed";
       el.innerHTML=`
         <div class="topic-left">
           <span class="topic-check" aria-hidden="true">${check}</span>
@@ -1462,7 +1426,7 @@ $("btnResetStudent").addEventListener("click", async ()=>{
   const proceed = await new Promise(res=>{
     const overlay=document.createElement("div");
     overlay.style.cssText="position:fixed;inset:0;z-index:95;background:rgba(0,15,70,.44);display:grid;place-items:center;padding:16px;backdrop-filter:blur(4px)";
-    overlay.innerHTML=`<div style="background:#fff;border:1px solid #e6e9f2;border-radius:16px;padding:18px;max-width:360px;width:100%;box-shadow:0 18px 44px rgba(0,36,125,.22)"><div style="font-weight:700;margin-bottom:6px;color:var(--ink)">Reset everything for ${name} in ${getCurrentSubject().shortName}?</div><div style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.5">This wipes, for this subject only:</div><ul style="font-size:13px;color:var(--muted);margin:0 0 12px;padding-left:18px;line-height:1.6"><li>every topic marked <b>done</b></li><li>all practice answers — <b>correct, wrong and not-attempted</b> counts</li><li>the <b>wrong first time</b> history</li><li>all <b>favourited</b> questions</li></ul><div style="font-size:13px;color:#8f1230;background:#fff1f3;border:1px solid #ffd0d9;border-radius:9px;padding:9px 10px;margin-bottom:14px;line-height:1.45"><b>This cannot be undone.</b></div><div style="display:flex;gap:8px;justify-content:flex-end"><button id="cNo" class="btn">Keep progress</button><button id="cYes" class="btn btn-primary" style="background:#d31a44;border-color:#d31a44">Reset everything</button></div></div>`;
+    overlay.innerHTML=`<div style="background:#fff;border:1px solid #e6e9f2;border-radius:16px;padding:18px;max-width:360px;width:100%;box-shadow:0 18px 44px rgba(0,36,125,.22)"><div style="font-weight:700;margin-bottom:6px;color:var(--ink)">Reset everything for ${name} in ${getCurrentSubject().shortName}?</div><div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5">It will clear your progress markers i.e. completed, wrong counts.</div><div style="display:flex;gap:8px;justify-content:flex-end"><button id="cNo" class="btn">Keep progress</button><button id="cYes" class="btn btn-primary" style="background:#d31a44;border-color:#d31a44">Reset everything</button></div></div>`;
     document.body.appendChild(overlay);
     overlay.querySelector("#cNo").addEventListener("click", ()=>{ overlay.remove(); res(false); });
     overlay.querySelector("#cYes").addEventListener("click", ()=>{ overlay.remove(); res(true); });
@@ -1534,12 +1498,17 @@ async function qzFetchAll(){
 }
 
 function qzLoad(){
-  if(qzBySubject[currentSubjectId]){ qzState = qzBySubject[currentSubjectId]; return; }
-  let local={};
-  try{ local = JSON.parse(sGet(qzKey())||"{}"); }catch{ local={}; }
-  qzState = local; qzBySubject[currentSubjectId] = local;
-  // first sign-in on a device that already has local history: push it up once
-  if(Object.keys(local).length && fbDb && currentUser) qzFlush();
+  if(qzBySubject[currentSubjectId]){
+    qzState = qzBySubject[currentSubjectId];
+  }else{
+    let local={};
+    try{ local = JSON.parse(sGet(qzKey())||"{}"); }catch{ local={}; }
+    qzState = local; qzBySubject[currentSubjectId] = local;
+    // first sign-in on a device that already has local history: push it up once
+    if(Object.keys(local).length && fbDb && currentUser) qzFlush();
+  }
+  // Topic completion is derived from practice results, never set manually.
+  if(qzSyncAutoProgress()) scheduleSave();
 }
 
 async function qzFlush(){
@@ -1681,7 +1650,7 @@ function qzRender(){
       </div>
       ${qzAdminBar(q)}
       <p class="qz-q">${qzEsc(q.q)}</p>
-      <input class="qz-ans-in" id="qzInput" placeholder="Write your answer here (optional — you mark yourself)" autocomplete="off" />
+      <input class="qz-ans-in" id="qzInput" placeholder="Write your answer here (optional — compare it after revealing the answer)" autocomplete="off" />
       <div class="qz-actions">
         <button class="btn btn-primary" id="qzShow">Show answer</button>
         <button class="btn" id="qzHintBtn">Show hint</button>
@@ -1756,7 +1725,7 @@ async function qzResetTopic(code){
   if(!attempted && !isDone){ showToast("Nothing to reset here yet"); return; }
   const what = code+" — "+((TOPICS.find(t=>t.id===code)||{}).title||"");
   const body='<div style="font-size:13.5px;color:var(--ink-2);margin-bottom:14px;line-height:1.55">'+
-    'It will clear your progress markers, Completed, Wrong counters, except favourites.</div>';
+    'It will clear your progress markers i.e. completed, wrong counts.</div>';
   if(!await qzConfirm("Reset "+qzEsc(what)+"?", body, "Reset")) return;
 
   for(const q of pool){
@@ -1777,7 +1746,9 @@ function qzMark(qid, res){
   if(!s.first) s.first=res;   // how it went the very first time, so "wrong first
   s.s=res;                    // time" survives a later correction
   qzState[qid]=s; qzSave();
-  showToast(res==="c" ? "Marked correct" : "Marked wrong — it'll come back in the Wrong filter");
+  const question=QEFF.find(q=>q.i===qid);
+  if(question && qzSyncAutoProgress([question.c])) scheduleSave();
+  showToast(res==="c" ? "Saved as correct" : "Saved as wrong — it'll come back in the Wrong filter");
   // stay in place if filtering would remove this question, otherwise advance
   // On "all" we step forward. On a filtered list the question drops out, so the
   // same index already lands on the next one once qzRender re-derives the list.
