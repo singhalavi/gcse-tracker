@@ -30,6 +30,7 @@
     --red-bg:#fff1f3;
     --amber-bg:#fff7ec;
     --green-bg:#e9fbf3;
+    --green-row-bg:#e3f4eb;
     --blue-bg:#eef2ff;
     --radius:16px;
     --radius-lg:20px;
@@ -106,6 +107,11 @@
   .divider{height:1px;background:var(--line);margin:14px 0}
   .view{display:none}
   .view.active{display:block}
+  .auth-loading{display:none;min-height:calc(100vh - 150px);align-items:center;justify-content:center;gap:10px;color:var(--muted);font-size:13px;font-weight:600}
+  .auth-loading-spinner{width:18px;height:18px;border:2px solid var(--navy-100);border-top-color:var(--navy);border-radius:50%;animation:auth-spin .7s linear infinite}
+  body.auth-pending .auth-loading{display:flex}
+  @keyframes auth-spin{to{transform:rotate(360deg)}}
+  @media(prefers-reduced-motion:reduce){.auth-loading-spinner{animation:none;border-top-color:var(--navy-100);background:var(--navy)}}
   .student-hero{
     display:grid;grid-template-columns:1.1fr .9fr;gap:16px;align-items:stretch;margin:6px 0 18px;
   }
@@ -184,7 +190,7 @@
   }
   .topic:last-child{border-bottom:0}
   .topic:hover{background:#fbfcff}
-  .topic.is-green{border-left-color:var(--green);background:#f6fdf9}
+  .topic.is-green{border-left-color:var(--green);background:var(--green-row-bg)}
   .topic.is-amber{border-left-color:var(--amber);background:#fffaf2}
   .topic.is-red{border-left-color:var(--red);background:#fff8f9}
   .topic-left{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 auto}
@@ -363,7 +369,9 @@
   font-variant-numeric:tabular-nums}
 .qz-chip.on .qz-n{background:rgba(255,255,255,.22);color:#fff}
 .qz-chip.zero{opacity:.45}
-.qz-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:20px 20px 18px}
+.qz-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:20px 20px 18px;overflow:hidden}
+.qz-card-progress{height:5px;margin:-20px -20px 16px;background:#e8ecfa}
+.qz-card-progress i{display:block;height:100%;background:var(--navy);transition:width .2s ease}
 .qz-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:12px}
 .qz-tag{font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--bg-2);color:var(--ink-2)}
 .qz-tag.code{background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)}
@@ -390,8 +398,13 @@
 .qz-btn-right:hover{filter:brightness(.94)}
 .qz-btn-wrong{background:var(--red);border-color:var(--red);color:#fff}
 .qz-btn-wrong:hover{filter:brightness(.94)}
-.qz-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:15px}
-.qz-count{font-size:12.8px;color:var(--muted);font-weight:600}
+.qz-nav{position:sticky;bottom:max(12px, env(safe-area-inset-bottom));z-index:20;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;margin-top:15px;padding:10px 12px;background:#fff;border:1px solid var(--line-strong);border-radius:14px;box-shadow:0 8px 24px rgba(0,36,125,.14)}
+.qz-countbox{display:grid;place-items:center;gap:5px;min-width:0}
+.qz-count{font-size:13px;color:var(--ink);font-weight:800;text-align:center;white-space:nowrap}
+.qz-dots{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;max-width:170px}
+.qz-dot{width:5px;height:5px;border-radius:50%;background:#d8ddef}
+.qz-dot.past{background:#8fa3df}.qz-dot.current{width:8px;height:8px;background:var(--navy);box-shadow:0 0 0 2px var(--navy-100)}
+@media(max-width:440px){.qz-nav{gap:7px;padding:9px 8px}.qz-nav .btn{padding:8px 10px}.qz-count{font-size:11.8px}.qz-dots{max-width:110px}}
 .qz-empty{background:#fff;border:1px dashed var(--line-strong);border-radius:var(--radius);padding:34px 22px;text-align:center;color:var(--muted);font-size:14px}
 .topic-actions{display:flex;align-items:center;gap:6px}
 .btn-practice{border:1px solid var(--navy-100);background:var(--navy-50);color:var(--navy);
@@ -400,6 +413,7 @@
 .btn-practice.complete{background:var(--green-bg);border-color:#bfe9d9;color:var(--green)}
 .qz-done{font-weight:800}
 .qz-tag.firstwrong{background:var(--amber-bg);color:var(--amber);border-color:#f3ddba}
+.qz-position{font-size:11px;font-weight:800;letter-spacing:.03em;padding:5px 10px;border-radius:999px;background:var(--navy);color:#fff;border:1px solid var(--navy);white-space:nowrap}
 .qz-admin{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 14px;padding:9px 11px;
   background:var(--bg-2);border:1px dashed var(--line-strong);border-radius:11px}
 .qz-adm-lab{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
@@ -410,10 +424,22 @@
   border-radius:999px;font-size:14px;line-height:1;cursor:pointer;flex:0 0 26px;transition:.15s;padding:0}
 .btn-reset:hover{border-color:#ffd0d9;background:var(--red-bg);color:var(--red)}
 .qz-score{font-size:11px;color:var(--muted);font-weight:700;margin-left:8px;white-space:nowrap}
+.qz-complete{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:34px 28px;text-align:center}
+.qz-complete-mark{width:56px;height:56px;margin:0 auto 15px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:#fff;font-size:28px;font-weight:800;box-shadow:0 8px 20px rgba(11,122,94,.20)}
+.qz-complete h3{margin:0;font-family:"Newsreader",serif;font-size:30px;font-weight:600;letter-spacing:-.025em}
+.qz-complete-lead{margin:7px auto 22px;color:var(--ink-2);font-size:15px;line-height:1.5;max-width:44ch}
+.qz-complete-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;max-width:470px;margin:0 auto 22px}
+.qz-complete-stat{padding:13px 10px;border:1px solid var(--line);border-radius:12px;background:var(--bg-2)}
+.qz-complete-stat b{display:block;font-size:22px;line-height:1.15;color:var(--ink);font-variant-numeric:tabular-nums}
+.qz-complete-stat span{display:block;margin-top:4px;font-size:11.5px;font-weight:700;color:var(--muted)}
+.qz-complete-stat.is-right b{color:var(--green)}
+.qz-complete-stat.is-wrong b{color:var(--red)}
+.qz-complete-actions{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+@media(max-width:520px){.qz-complete{padding:28px 16px}.qz-complete h3{font-size:26px}.qz-complete-stats{grid-template-columns:1fr 1fr}.qz-complete-stat:first-child{grid-column:1/-1}.qz-complete-actions{display:grid;grid-template-columns:1fr}.qz-complete-actions .btn{justify-content:center;width:100%}}
 /* == QUIZ:END == */
 </style>
 </head>
-<body>
+<body class="auth-pending">
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">
@@ -432,8 +458,13 @@
 </div>
 
 <div class="wrap">
+  <div id="auth-loading" class="auth-loading" role="status" aria-live="polite">
+    <span class="auth-loading-spinner" aria-hidden="true"></span>
+    <span>Loading your dashboard…</span>
+  </div>
+
   <!-- LOGIN -->
-  <div id="view-login" class="view active">
+  <div id="view-login" class="view">
     <div class="login-visual-shell">
       <div class="math-hero-abstract">
         <div class="math-badge-row">
@@ -858,6 +889,7 @@ let selectedStudentUid=null;
 let allStudentsCache=[];
 
 function showView(name){
+  document.body.classList.remove("auth-pending");
   viewLogin.classList.toggle("active", name==="login");
   viewStudent.classList.toggle("active", name==="student");
   viewAdmin.classList.toggle("active", name==="admin");
@@ -897,14 +929,12 @@ async function initFirebase(){
         showView("login");
       }
     });
-    if(fbAuth.currentUser){
-      try{ await afterFirebaseLogin(fbAuth.currentUser); }catch(e){ console.error(e); }
-    }
   }catch(e){
     console.error("Firebase init failed", e);
     const msg=$("authMsg");
     if(msg){ msg.textContent="We’re having trouble connecting right now. Please refresh to try again."; msg.classList.add("show"); }
     populateSubjectSelectors();
+    showView("login");
   }
 }
 
@@ -1482,7 +1512,8 @@ const QUESTIONS = [{"i":"N1-01","c":"N1","q":"Work out 0.006 × 0.45","a":"0.002
    Written as a FULL overwrite, not a merge: with merge:true a deleted key
    (un-favouriting, or a reset) would survive in Firestore forever. */
 let qzBySubject = {}, qzState = {}, qzScope = null, qzFilter = "all",
-    qzList = [], qzIdx = 0, qzSaveTimer = null, qzDirty = false;
+    qzList = [], qzIdx = 0, qzSaveTimer = null, qzDirty = false,
+    qzReviewingComplete = false;
 
 function qzKey(){ return "gcse_quiz_"+(currentUser?.uid||"demo")+"_"+currentSubjectId; }
 function qzSetSaveState(t){ const el=$("saveState"); if(el) el.textContent=t; }
@@ -1583,8 +1614,21 @@ function qzTopicScore(code){
 }
 
 function qzOpen(scope){
-  qzScope = scope; qzFilter = "all"; qzIdx = 0;
+  qzScope = scope; qzFilter = "all"; qzIdx = 0; qzReviewingComplete = false;
   document.querySelectorAll(".qz-chip").forEach(c=>c.classList.toggle("on", c.dataset.f==="all"));
+
+  // Smart resume: continue at the first untouched question. Once every
+  // question has an answer, revisit the first one still marked wrong. A fully
+  // correct topic stays in completion mode instead of jumping back to Q1.
+  const resumePool=qzPool();
+  const firstUnattempted=resumePool.findIndex(q=>!qzState[q.i]?.s);
+  if(firstUnattempted>=0){
+    qzIdx=firstUnattempted;
+  }else{
+    const firstWrong=resumePool.findIndex(q=>qzState[q.i]?.s==="w");
+    if(firstWrong>=0){ qzIdx=firstWrong; qzReviewingComplete=true; }
+  }
+
   const subj=getCurrentSubject();
   if(scope.kind==="topic"){
     const t=TOPICS.find(x=>x.id===scope.id);
@@ -1628,6 +1672,36 @@ function qzRender(){
   qzList = qzApplyFilter(pool);
   if(qzIdx >= qzList.length) qzIdx = Math.max(0, qzList.length-1);
   const body=$("qzBody");
+  const topicFinished = qzScope.kind==="topic" && pool.length>0 && u===0;
+  if(topicFinished && !qzReviewingComplete){
+    const topicIndex=TOPICS.findIndex(t=>t.id===qzScope.id);
+    const nextTopic=TOPICS.slice(topicIndex+1).find(t=>qzFor(t.id).length>0);
+    const accuracy=Math.round(c/pool.length*100);
+    body.innerHTML=`
+      <section class="qz-complete" aria-labelledby="qzCompleteTitle">
+        <div class="qz-complete-mark" aria-hidden="true">✓</div>
+        <h3 id="qzCompleteTitle">All done!</h3>
+        <p class="qz-complete-lead">You’ve completed all ${pool.length} question${pool.length===1?"":"s"} in this topic.</p>
+        <div class="qz-complete-stats" aria-label="Topic results">
+          <div class="qz-complete-stat"><b>${accuracy}%</b><span>Score</span></div>
+          <div class="qz-complete-stat is-right"><b>${c}</b><span>Got right</span></div>
+          <div class="qz-complete-stat is-wrong"><b>${w}</b><span>Got wrong</span></div>
+        </div>
+        <div class="qz-complete-actions">
+          <button class="btn" id="qzReview">Review questions</button>
+          <button class="btn" id="qzCompleteBack">Back to checklist</button>
+          <button class="btn btn-primary" id="qzNextTopic" ${nextTopic?"":"disabled"}>${nextTopic?`Next topic: ${nextTopic.id} →`:"No next topic"}</button>
+        </div>
+      </section>`;
+    $("qzReview").onclick=()=>{
+      qzReviewingComplete=true; qzFilter="all"; qzIdx=0;
+      document.querySelectorAll(".qz-chip").forEach(ch=>ch.classList.toggle("on", ch.dataset.f==="all"));
+      qzRender();
+    };
+    $("qzCompleteBack").onclick=()=>{ showView("student"); renderStudent(); };
+    if(nextTopic) $("qzNextTopic").onclick=()=>qzOpen({kind:"topic",id:nextTopic.id});
+    return;
+  }
   if(!qzList.length){
     body.innerHTML='<div class="qz-empty">No questions match this filter.<br>Try <b>All</b> to see every question in this topic.</div>';
     return;
@@ -1635,10 +1709,16 @@ function qzRender(){
   const q=qzList[qzIdx], st=qzState[q.i]||{};
   const doneTag = st.s==="c" ? '<span class="qz-tag done-c">Got it right</span>'
                 : st.s==="w" ? '<span class="qz-tag done-w">Got it wrong</span>' : '';
+  const qzPct=Math.round((qzIdx+1)/qzList.length*100);
+  const qzDots=qzList.length<=16
+    ? `<span class="qz-dots" aria-hidden="true">${qzList.map((_,i)=>`<i class="qz-dot${i<qzIdx?' past':''}${i===qzIdx?' current':''}"></i>`).join("")}</span>`
+    : "";
   body.innerHTML = `
     <div class="qz-card">
+      <div class="qz-card-progress" role="progressbar" aria-label="Question progress" aria-valuemin="1" aria-valuemax="${qzList.length}" aria-valuenow="${qzIdx+1}"><i style="width:${qzPct}%"></i></div>
       <div class="qz-meta">
         <span class="qz-tag code">${q.c}</span>
+        <span class="qz-position" aria-label="Question ${qzIdx+1} of ${qzList.length}">Q${qzIdx+1} / ${qzList.length}</span>
         <span class="qz-tag">${q.k} mark${q.k>1?"s":""}</span>
         <span class="qz-tag">Grade ${q.g}</span>
         ${q.t==="N"?'<span class="qz-tag noncalc">Non-calculator</span>':''}
@@ -1665,9 +1745,9 @@ function qzRender(){
         </div>
       </div>
     </div>
-    <div class="qz-nav">
+    <div class="qz-nav" aria-label="Question navigation">
       <button class="btn" id="qzPrev" ${qzIdx===0?"disabled":""}>← Previous</button>
-      <span class="qz-count">Question ${qzIdx+1} of ${qzList.length}</span>
+      <div class="qz-countbox"><span class="qz-count">Question ${qzIdx+1} of ${qzList.length}</span>${qzDots}</div>
       <button class="btn" id="qzNext" ${qzIdx>=qzList.length-1?"disabled":""}>Next →</button>
     </div>`;
 
