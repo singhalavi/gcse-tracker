@@ -880,6 +880,7 @@ async function initFirebase(){
 
 async function afterFirebaseLogin(fbUser){
   if(!fbDb) return;
+  const _tLogin=performance.now();
   try{
     const {doc,getDoc,setDoc,serverTimestamp}=await import("firebase/firestore");
     const uref=doc(fbDb,"users",fbUser.uid);
@@ -917,6 +918,9 @@ async function afterFirebaseLogin(fbUser){
                  readErr ? "unknown (never read)" : !!(snap.exists && snap.exists()),
                  currentUser.role);
 
+    console.info("[perf] profile read %sms", Math.round(performance.now()-_tLogin));
+    const _tProg=performance.now();
+
     let rawMap={};
     try{
       const pref=doc(fbDb,"progress",fbUser.uid);
@@ -930,16 +934,6 @@ async function afterFirebaseLogin(fbUser){
         }else if(data.topics && typeof data.topics==="object"){
           rawMap[DEFAULT_SUBJECT_ID]=data.topics;
         }
-        try{
-          const {collection,getDocs}=await import("firebase/firestore");
-          const subCol=collection(fbDb,"progress",fbUser.uid,"subjects");
-          const subSnap=await getDocs(subCol);
-          subSnap.forEach(d=>{
-            const sd=d.data();
-            if(sd.topics) rawMap[d.id]=sd.topics;
-            else if(sd && typeof sd==="object") rawMap[d.id]=sd;
-          });
-        }catch{}
       }
     }catch(e){ console.warn("progress load failed", e); }
 
@@ -958,7 +952,15 @@ async function afterFirebaseLogin(fbUser){
 
     allProgressBySubject = rawMap||{};
     currentProgress = allProgressBySubject[currentSubjectId] || allProgressBySubject[DEFAULT_SUBJECT_ID] || {};
-    await qFetchOverrides(); await qzFetchAll(); qzLoad();
+    // These two are independent, so fetch them concurrently rather than in
+    // series. They must both finish before qzLoad(): if the cloud copy has not
+    // arrived, qzLoad() falls back to localStorage and pushes that up as a full
+    // overwrite, which would clobber newer stats saved on another device.
+    { const _t0=performance.now();
+      await Promise.all([qFetchOverrides(), qzFetchAll()]);
+      console.info("[perf] quiz+overrides fetch %sms", Math.round(performance.now()-_t0)); }
+    qzLoad();
+    console.info("[perf] progress read %sms", Math.round(performance.now()-_tProg));
 
     sSet("gcse_last_user", JSON.stringify(currentUser));
     sSet("gcse_progress_"+currentUser.uid+"_all", JSON.stringify(allProgressBySubject));
@@ -1010,11 +1012,6 @@ async function adminLoadAll(){
           if(data.subjects && typeof data.subjects==="object") progMap=data.subjects;
           else if(data.topicsBySubject && typeof data.topicsBySubject==="object") progMap=data.topicsBySubject;
           else if(data.topics) progFlat=data.topics;
-          try{
-            const subCol=collection(fbDb,"progress",d.id,"subjects");
-            const subSnap=await getDocs(subCol);
-            subSnap.forEach(sd=>{ const sdata=sd.data(); if(sdata.topics) progMap[sd.id]=sdata.topics; });
-          }catch{}
         }
       }catch{}
       if(!Object.keys(progMap).length && Object.keys(progFlat).length){
@@ -1279,9 +1276,6 @@ function scheduleSave(){
       if(fbDb && currentUser){
         const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
         await setDoc(doc(fbDb,"progress",currentUser.uid),{subjects:allProgressBySubject, topicsBySubject:allProgressBySubject, topics: allProgressBySubject[DEFAULT_SUBJECT_ID] || allProgressBySubject[currentSubjectId] || currentProgress, updatedAt:serverTimestamp()},{merge:true});
-        try{
-          await setDoc(doc(fbDb,"progress",currentUser.uid,"subjects",currentSubjectId),{topics:currentProgress, updatedAt:serverTimestamp()},{merge:true});
-        }catch{}
       }
       $("saveState").textContent="Saved ✓";
       showToast("Progress saved");
@@ -1471,7 +1465,6 @@ $("btnResetStudent").addEventListener("click", async ()=>{
     const progMap = s?.progressBySubject||{};
     progMap[currentSubjectId]={};
     await setDoc(doc(fbDb,"progress",selectedStudentUid),{subjects:progMap, topicsBySubject:progMap, updatedAt:serverTimestamp()},{merge:true});
-    try{ await setDoc(doc(fbDb,"progress",selectedStudentUid,"subjects",currentSubjectId),{topics:{}, updatedAt:serverTimestamp()},{merge:true}); }catch{}
     renderAdminList(); if(s) renderAdminDetail(s); showToast("Progress reset for "+getCurrentSubject().shortName);
   }catch{ showToast("Reset didn’t work — please try again"); }
 });
