@@ -402,7 +402,8 @@
 .done-btn{border:1px solid var(--line);background:#fff;color:var(--ink-2);padding:6px 13px;border-radius:999px;
   font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.15s}
 .done-btn:hover{border-color:var(--line-strong)}
-.done-btn.on{background:var(--green);border-color:var(--green);color:#fff}
+.done-btn.on{background:var(--green);border-color:var(--green);color:#fff;
+  cursor:default;pointer-events:none}   /* done is one-way; undo via Reset */
 .qz-admin{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 14px;padding:9px 11px;
   background:var(--bg-2);border:1px dashed var(--line-strong);border-radius:11px}
 .qz-adm-lab{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
@@ -1200,7 +1201,6 @@ function renderStudent(){
       const checkSvg = v==="G" ? `✓` : ``;
       el.innerHTML=`
         <div class="topic-left">
-          <span class="topic-check" aria-hidden="true">${checkSvg}</span>
           <span class="topic-id">${t.id}</span>
           <div class="topic-main">
             <p class="topic-title">${t.title}</p>
@@ -1217,9 +1217,8 @@ function renderStudent(){
       if(rb) rb.addEventListener("click",(e)=>{ e.stopPropagation(); qzResetTopic(t.id); });
       el.addEventListener("click", (e)=>{
         if(e.target.closest("button")) return;
-        const cur=currentProgress[t.id];
-        const next = cur==="G" ? null : "G";
-        if(next===null) delete currentProgress[t.id]; else currentProgress[t.id]=next;
+        if(currentProgress[t.id]==="G") return;   // already done — undo via Reset
+        currentProgress[t.id]="G";
         updateTopicRow(el, t.id);
         scheduleSave();
         renderStudentKPIsOnly();
@@ -1234,10 +1233,8 @@ function renderStudent(){
       btns.forEach(b=>{
         b.addEventListener("click", (e)=>{
           e.stopPropagation();
-          const nv=b.dataset.v;
-          const cur=currentProgress[t.id];
-          const next = cur===nv ? null : nv;
-          if(next===null) delete currentProgress[t.id]; else currentProgress[t.id]=next;
+          if(currentProgress[t.id]==="G") return;   // already done — undo via Reset
+          currentProgress[t.id]=b.dataset.v;
           updateTopicRow(el, t.id);
           scheduleSave();
           renderStudentKPIsOnly();
