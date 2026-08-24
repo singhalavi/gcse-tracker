@@ -362,17 +362,16 @@
 .qz-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
 .qz-title{margin:0;font-family:"Newsreader",serif;font-size:23px;font-weight:600;letter-spacing:-.02em}
 .qz-sub{margin:3px 0 0;font-size:12.8px;color:var(--muted)}
-.qz-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 14px}
-@media(max-width:560px){.qz-stats{grid-template-columns:repeat(2,1fr)}}
-.qz-stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-.qz-stat b{display:block;font-size:19px;line-height:1.1}
-.qz-stat span{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
-.qz-stat.c b{color:var(--green)} .qz-stat.w b{color:var(--red)} .qz-stat.u b{color:var(--ink-2)} .qz-stat.f b{color:var(--amber)}
 .qz-filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
 .qz-chip{border:1px solid var(--line);background:#fff;color:var(--ink-2);padding:7px 13px;border-radius:999px;
   font-size:12.6px;font-weight:600;cursor:pointer;transition:.15s}
 .qz-chip:hover{border-color:var(--line-strong)}
 .qz-chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.qz-n{display:inline-block;min-width:18px;padding:1px 5px;margin-left:5px;border-radius:999px;
+  background:var(--navy-50);color:var(--navy);font-size:11px;font-weight:800;text-align:center;
+  font-variant-numeric:tabular-nums}
+.qz-chip.on .qz-n{background:rgba(255,255,255,.22);color:#fff}
+.qz-chip.zero{opacity:.45}
 .qz-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:20px 20px 18px}
 .qz-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:12px}
 .qz-tag{font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--bg-2);color:var(--ink-2)}
@@ -625,18 +624,12 @@
       </div>
       <button id="qzBack" class="btn">← Back to topics</button>
     </div>
-    <div class="qz-stats">
-      <div class="qz-stat c"><b id="qzNc">0</b><span>Correct</span></div>
-      <div class="qz-stat w"><b id="qzNw">0</b><span>Wrong</span></div>
-      <div class="qz-stat u"><b id="qzNu">0</b><span>Not attempted</span></div>
-      <div class="qz-stat f"><b id="qzNf">0</b><span>Favourites</span></div>
-    </div>
     <div class="qz-filters">
-      <button class="qz-chip on" data-f="all">All</button>
-      <button class="qz-chip" data-f="unattempted">Not attempted</button>
-      <button class="qz-chip" data-f="wrong">Got wrong</button>
-      <button class="qz-chip" data-f="correct">Got right</button>
-      <button class="qz-chip" data-f="fav">★ Favourites</button>
+      <button class="qz-chip on" data-f="all" data-label="All">All</button>
+      <button class="qz-chip" data-f="unattempted" data-label="Not attempted">Not attempted</button>
+      <button class="qz-chip" data-f="wrong" data-label="Got wrong">Got wrong</button>
+      <button class="qz-chip" data-f="correct" data-label="Got right">Got right</button>
+      <button class="qz-chip" data-f="fav" data-label="★ Favourites">★ Favourites</button>
     </div>
     <div id="qzBody"></div>
   </div>
@@ -891,12 +884,11 @@ async function afterFirebaseLogin(fbUser){
     const {doc,getDoc,setDoc,serverTimestamp}=await import("firebase/firestore");
     const uref=doc(fbDb,"users",fbUser.uid);
     let snap;
-    // A denied read here used to be silent, and then looked exactly like
-    // "no profile yet" -> role forced to student. Log it so the two cases
-    // can be told apart.
+    // Distinguish "read was denied" from "document genuinely absent" — both
+    // used to surface as profileFound=false, which is not the same problem.
+    let readErr=null;
     try{ snap=await getDoc(uref); }
-    catch(e){ console.error("[auth] could not read users/"+fbUser.uid+" — check Firestore rules:", e);
-              snap={exists:()=>false}; }
+    catch(e){ readErr=e; snap={exists:()=>false}; }
     let profile;
     if(!snap.exists || !snap.exists()){
       // Role is never self-assigned. Security rules only allow creating a
@@ -916,8 +908,14 @@ async function afterFirebaseLogin(fbUser){
     }
     currentUser={uid:fbUser.uid,email:profile.email||fbUser.email,displayName:profile.displayName||fbUser.email?.split("@")[0],role:profile.role||"student"};
 
-    console.info("[auth] uid=%s  profileFound=%s  role=%s",
-                 fbUser.uid, !!(snap.exists && snap.exists()), currentUser.role);
+    if(readErr){
+      console.error("[auth] READ DENIED on users/"+fbUser.uid+" (code="+(readErr.code||"?")+
+        "). The document was never fetched, so its role is irrelevant — this is a Firestore RULES problem.", readErr);
+    }
+    console.info("[auth] uid=%s  readDenied=%s  docExists=%s  roleUsed=%s",
+                 fbUser.uid, !!readErr,
+                 readErr ? "unknown (never read)" : !!(snap.exists && snap.exists()),
+                 currentUser.role);
 
     let rawMap={};
     try{
@@ -1645,8 +1643,14 @@ function qzRender(){
   const pool=qzPool();
   let c=0,w=0,f=0;
   for(const q of pool){ const s=qzState[q.i]||{}; if(s.s==="c")c++; else if(s.s==="w")w++; if(s.f)f++; }
-  $("qzNc").textContent=c; $("qzNw").textContent=w;
-  $("qzNu").textContent=pool.length-c-w; $("qzNf").textContent=f;
+  const u=pool.length-c-w;
+  // counts live on the filter chips themselves, scoped to the current pool
+  const counts={all:pool.length, unattempted:u, wrong:w, correct:c, fav:f};
+  document.querySelectorAll(".qz-chip").forEach(ch=>{
+    const n=counts[ch.dataset.f] ?? 0;
+    ch.innerHTML = `${ch.dataset.label} <span class="qz-n">${n}</span>`;
+    ch.classList.toggle("zero", n===0);
+  });
 
   qzList = qzApplyFilter(pool);
   if(qzIdx >= qzList.length) qzIdx = Math.max(0, qzList.length-1);
