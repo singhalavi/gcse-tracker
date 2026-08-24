@@ -381,9 +381,36 @@
 .qz-star{margin-left:auto;background:none;border:0;font-size:21px;line-height:1;cursor:pointer;color:#cbd2e6;padding:2px 4px;transition:.15s}
 .qz-star:hover{transform:scale(1.15)} .qz-star.on{color:#f0a828}
 .qz-q{font-size:16.5px;line-height:1.6;white-space:pre-wrap;margin:0 0 16px;color:var(--ink)}
-.qz-ans-in{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:11px;font-size:14.5px;outline:0}
+.qz-ans-in{width:100%;min-height:88px;resize:none;overflow:hidden;padding:11px 12px;border:1px solid var(--line);border-radius:11px;font-size:14.5px;line-height:1.55;outline:0}
 .qz-ans-in:focus{border-color:var(--navy);box-shadow:0 0 0 4px var(--navy-50)}
 .qz-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.qz-feedback{display:none;margin-top:12px;padding:11px 13px;border-radius:11px;font-size:13.5px;line-height:1.5;border:1px solid var(--line)}
+.qz-feedback.show{display:block}
+.qz-feedback.correct{background:var(--green-bg);border-color:#bfe9d9;color:#075c48}
+.qz-feedback.incorrect{background:var(--red-bg);border-color:#ffd0d9;color:#8f1230}
+.qz-feedback.review{background:var(--amber-bg);border-color:#f3ddba;color:#7b4300}
+.qz-feedback strong{display:block;margin-bottom:2px}
+.qz-feedback-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.qz-feedback-actions .btn{
+  background:#fff;min-height:38px;line-height:1.2;white-space:normal;overflow:visible;
+  opacity:1;-webkit-text-fill-color:currentColor;
+}
+.qz-feedback-actions .btn.qz-btn-right,
+.qz-feedback-actions #qzOverride{
+  background:#fff;color:#075c48;border-color:var(--green);
+}
+.qz-feedback-actions .btn.qz-btn-right:hover,
+.qz-feedback-actions #qzOverride:hover{
+  background:var(--green-bg);border-color:#075c48;
+}
+.qz-feedback-actions .btn.qz-btn-wrong{
+  background:#fff;color:#8f1230;border-color:var(--red);
+}
+.qz-feedback-actions .btn.qz-btn-wrong:hover{
+  background:var(--red-bg);border-color:#8f1230;
+}
+@media(max-width:520px){.qz-actions .btn{flex:1 1 auto;justify-content:center}.qz-actions #qzCheck{flex-basis:100%}.qz-feedback-actions .btn{flex:1 1 145px;justify-content:center}}
+
 .qz-reveal{display:none;margin-top:15px;border-top:1px dashed var(--line-strong);padding-top:15px}
 .qz-reveal.show{display:block}
 .qz-block{margin-bottom:11px}
@@ -472,7 +499,7 @@
           <span class="gcse-pill muted">Edexcel Higher</span>
         </div>
         <div style="position:relative">
-          <h2 class="math-title">Progress that<br><em>makes sense.</em></h2>
+          <h2 class="math-title">Sign in to<br><em>practise.</em></h2>
           <div class="geo-canvas" aria-hidden="true">
             <svg viewBox="0 0 168 168" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Abstract maths shapes">
               <defs>
@@ -494,7 +521,7 @@
             </svg>
           </div>
         </div>
-        <p class="math-subtitle">A clear, visual way to track progress across Number, Algebra, Ratio, Geometry, Probability & Statistics.</p>
+        <p class="math-subtitle">Number, Algebra, Ratio, Geometry, Probability & Statistics.</p>
         <div class="formula-grid" aria-hidden="true">
           <div class="formula-chip"><i>a²</i> Pythagoras</div>
           <div class="formula-chip"><i>ƒ</i> Functions</div>
@@ -506,9 +533,8 @@
         <div class="card minimal-card">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px">
             <h3 style="margin:0;font-size:18px">Sign in</h3>
-            <span style="font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-50);border:1px solid var(--navy-100);padding:5px 10px;border-radius:999px">Secure access</span>
           </div>
-          <p class="sub">Sign in with your school account to continue.</p>
+          <p class="sub">Sign in to continue.</p>
           <div id="authMsg" class="auth-error"></div>
           <div style="display:grid;gap:11px;margin-top:12px">
             <div class="field"><label>Email</label><input id="email" type="email" placeholder="you@school.com" autocomplete="email" /></div>
@@ -539,9 +565,9 @@
           <div id="encourageMsg" class="encourage">Complete the practice questions to update each topic automatically. The tally shows how far through the questions you are.</div>
         </div>
         <div class="kpis" style="margin-top:14px">
-          <div class="kpi green"><b id="kpiG">0</b><span>Completed</span></div>
-          <div class="kpi red"><b id="kpiR">0</b><span>Still to do</span></div>
-          <div class="kpi amber"><b id="kpiA">0</b><span>Practice complete</span></div>
+          <div class="kpi green"><b id="kpiG">0</b><span>Got right</span></div>
+          <div class="kpi red"><b id="kpiR">0</b><span>Still to get right</span></div>
+          <div class="kpi amber"><b id="kpiA">0</b><span>Topics completed</span></div>
         </div>
       </div>
 
@@ -848,8 +874,9 @@ function qzPracticeBtn(id){
   const s = qzTopicScore(id) || {c:0,w:0,u:0,n:0};
   const att   = s.c + s.w;
   const done  = qzTopicComplete(s);
+  // Practice keeps its attempted-question tally; dashboard progress uses correct answers.
   const tally = ' <span class="qz-score">'+att+'/'+s.n+'</span>';
-  const tick  = done ? ' <span class="qz-done" title="All attempted, 90%+ correct">\u2713</span>' : '';
+  const tick  = done ? ' <span class="qz-done" title="All questions correct">\u2713</span>' : '';
   const btn = '<button class="btn-practice'+(done?' complete':'')+'" data-practice="'+id+
          '" title="'+att+' of '+s.n+' attempted, '+s.c+' correct">Practice'+tally+tick+'</button>';
   // only offer a reset once there is practice history to clear
@@ -858,12 +885,26 @@ function qzPracticeBtn(id){
               ' aria-label="Reset this topic">\u21ba</button>' : '';
   return btn + rst;
 }
-/* complete = every question attempted AND at least 90% correct */
+/* A topic is complete only when every active question is marked correct. */
 function qzTopicComplete(s){
-  return !!(s && s.n>0 && s.u===0 && (s.c / s.n) >= 0.9);
+  return !!(s && s.n>0 && s.c===s.n);
 }
-function qzPracticeCompleteCount(){
-  return TOPICS.filter(t=>qzTopicComplete(qzTopicScore(t.id))).length;
+function qzPracticeCompleteCount(state=qzState){
+  return TOPICS.filter(t=>qzTopicComplete(qzTopicScoreFromState(t.id,state))).length;
+}
+function qzTopicScoreFromState(code,state={}){
+  const all=(typeof QEFF!=="undefined" ? QEFF : []).filter(q=>!q.dep && q.c===code);
+  if(!all.length) return null;
+  let c=0,w=0;
+  for(const q of all){ const result=state[q.i]?.s; if(result==="c") c++; else if(result==="w") w++; }
+  return {c,w,u:all.length-c-w,n:all.length};
+}
+function qzScoreForTopics(topics,state=qzState){
+  return topics.reduce((sum,t)=>{
+    const s=qzTopicScoreFromState(t.id,state);
+    if(s){ sum.c+=s.c; sum.w+=s.w; sum.u+=s.u; sum.n+=s.n; }
+    return sum;
+  },{c:0,w:0,u:0,n:0});
 }
 function qzSyncAutoProgress(codes=TOPICS.map(t=>t.id)){
   let changed=false;
@@ -1050,7 +1091,7 @@ async function afterFirebaseLogin(fbUser){
 
 async function adminLoadAll(){
   if(!fbDb) return;
-  const {collection,getDocs}=await import("firebase/firestore");
+  const {collection,getDocs,doc,getDoc}=await import("firebase/firestore");
   try{
     const us=await getDocs(collection(fbDb,"users"));
     const list=[];
@@ -1058,19 +1099,23 @@ async function adminLoadAll(){
       const u=d.data();
       let progMap={};
       let progFlat={};
+      let quizBySubject={};
       try{
-        const {doc,getDoc}=await import("firebase/firestore");
-        const ps=await getDoc(doc(fbDb,"progress",d.id));
+        const [ps,quizSnap]=await Promise.all([
+          getDoc(doc(fbDb,"progress",d.id)),
+          getDocs(collection(fbDb,"progress",d.id,"quiz"))
+        ]);
         if(ps.exists()){
           const data=ps.data();
           if(data.subjects && typeof data.subjects==="object") progMap=data.subjects;
         }
+        quizSnap.forEach(qd=>{ const data=qd.data()||{}; quizBySubject[qd.id]=data.q||{}; });
       }catch{}
       if(!Object.keys(progMap).length && Object.keys(progFlat).length){
         progMap[DEFAULT_SUBJECT_ID]=progFlat;
       }
       const currentProg = progMap[currentSubjectId] || progMap[DEFAULT_SUBJECT_ID] || progFlat || {};
-      list.push({uid:d.id,email:u.email,displayName:u.displayName,role:u.role,progress:currentProg, progressBySubject:progMap, progressFlat:progFlat});
+      list.push({uid:d.id,email:u.email,displayName:u.displayName,role:u.role,progress:currentProg,progressBySubject:progMap,progressFlat:progFlat,quizBySubject});
     }
     allStudentsCache=list;
     const students=list.filter(l=>l.role==="student").length;
@@ -1191,51 +1236,54 @@ function renderStudent(){
   const subj=getCurrentSubject();
   const strandsEl=$("strands"); strandsEl.innerHTML="";
   for(const s of STRAND_ORDER){
-    const count=TOPICS.filter(t=>t.strand===s).length;
-    const greens=TOPICS.filter(t=>t.strand===s && currentProgress[t.id]==="G").length;
-    const pct=count? Math.round(greens/count*100):0;
-    const div=document.createElement("div"); 
+    const strandTopics=TOPICS.filter(t=>t.strand===s);
+    const score=qzScoreForTopics(strandTopics);
+    const pct=score.n? Math.round(score.c/score.n*100):0;
+    const div=document.createElement("div");
     div.className="card strand"+(filters.strand===s?" is-active":"");
     div.setAttribute("role","button");
     div.setAttribute("tabindex","0");
     div.dataset.strand=s;
     const labelName = STRAND_LABEL[s] ? STRAND_LABEL[s].split(" ")[0] : (subj.strands[s]||s);
     div.title=`Filter to ${STRAND_LABEL[s]||subj.strands[s]||s} — click to show only ${s} topics`;
-    div.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[s]||s}</span><b>${labelName}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${greens}/${count}</span></div><div class="bar"><i style="width:${pct}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${pct}% completed</div>`;
+    div.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[s]||s}</span><b>${labelName}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${score.c}/${score.n}</span></div><div class="bar"><i style="width:${pct}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${pct}% correct</div>`;
     div.addEventListener("click", ()=>handleStrandClick(s));
     div.addEventListener("keydown", (e)=>{
       if(e.key==="Enter" || e.key===" "){ e.preventDefault(); handleStrandClick(s); }
     });
     strandsEl.appendChild(div);
   }
-  const total=TOPICS.length; const greens=TOPICS.filter(t=>currentProgress[t.id]==="G").length;
-  const pct= total? Math.round(greens/total*100):0;
-  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${greens} / ${total} completed`; $("kpiG").textContent=greens; $("kpiA").textContent=qzPracticeCompleteCount(); $("kpiR").textContent=total-greens;
+  const score=qzScoreForTopics(TOPICS);
+  const completedTopics=qzPracticeCompleteCount();
+  const pct=score.n? Math.round(score.c/score.n*100):0;
+  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${score.c} / ${score.n} correct`; $("ringSub").textContent="Questions you have got right"; $("kpiG").textContent=score.c; $("kpiA").textContent=completedTopics; $("kpiR").textContent=score.n-score.c;
   if($("studentName")) $("studentName").textContent=currentUser?.displayName||"student";
-  if($("welcomeTitle")) $("welcomeTitle").textContent = greens? `Keep going, ${currentUser?.displayName||"you"} — ${pct}% completed in ${subj.shortName}` : `Welcome, ${currentUser?.displayName||"you"}`;
-  if($("encourageMsg")) $("encourageMsg").textContent = encouragementFor(greens,total);
+  if($("welcomeTitle")) $("welcomeTitle").textContent = score.c? `Keep going, ${currentUser?.displayName||"you"} — ${pct}% completed` : `Welcome, ${currentUser?.displayName||"you"}`;
+  if($("encourageMsg")) $("encourageMsg").textContent = encouragementFor(completedTopics,TOPICS.length);
 
   const mount=$("topicsMount"); mount.innerHTML="";
   for(const s of STRAND_ORDER){
-    const topics=TOPICS.filter(t=>t.strand===s).filter(t=>{
+    const allStrandTopics=TOPICS.filter(t=>t.strand===s);
+    const topics=allStrandTopics.filter(t=>{
+      const completed=qzTopicComplete(qzTopicScore(t.id));
       if(filters.strand!=="all" && filters.strand!==t.strand) return false;
       if(filters.q && ! (t.title.toLowerCase().includes(filters.q) || t.id.toLowerCase().includes(filters.q) || t.exam.toLowerCase().includes(filters.q))) return false;
-      if(filters.todo && currentProgress[t.id]==="G") return false;
-      if(filters.rag && currentProgress[t.id]!==filters.rag) return false;
+      if(filters.todo && completed) return false;
+      if(filters.rag && !completed) return false;
       return true;
     });
     if(!topics.length) continue;
+    const completedInStrand=allStrandTopics.filter(t=>qzTopicComplete(qzTopicScore(t.id))).length;
     const g=document.createElement("div"); g.className="strand-group"; g.dataset.strand=s;
-    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[s]||s}</span> ${STRAND_LABEL[s]||subj.strands[s]||s}</h3><small>${topics.filter(t=>currentProgress[t.id]==="G").length}/${TOPICS.filter(x=>x.strand===s).length} completed automatically from practice</small> <button class="btn-practice" data-practice-strand="${s}">Practice all ${s}</button></div>`;
+    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[s]||s}</span> ${STRAND_LABEL[s]||subj.strands[s]||s}</h3><small>${completedInStrand}/${allStrandTopics.length} topics completed from correct answers</small> <button class="btn-practice" data-practice-strand="${s}">Practice all ${s}</button></div>`;
     const sb=g.querySelector("[data-practice-strand]");
     if(sb) sb.addEventListener("click",(e)=>{ e.stopPropagation(); qzOpen({kind:"strand", id:s}); });
     const list=document.createElement("div"); list.className="topics";
     for(const t of topics){
-      const v=currentProgress[t.id]||null;
-      const el=document.createElement("div"); 
-      el.className="topic"+(v==="G"?" is-green":"");
+      const completed=qzTopicComplete(qzTopicScore(t.id));
+      const el=document.createElement("div");
+      el.className="topic"+(completed?" is-green":"");
       el.dataset.id=t.id;
-      const checkSvg = v==="G" ? `✓` : ``;
       el.innerHTML=`
         <div class="topic-left">
           <span class="topic-id">${t.id}</span>
@@ -1260,14 +1308,14 @@ function renderStudent(){
   }
 }
 function renderStudentKPIsOnly(){
-  const total=TOPICS.length; const greens=TOPICS.filter(t=>currentProgress[t.id]==="G").length;
-  const pct= total? Math.round(greens/total*100):0;
-  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${greens} / ${total} completed`; $("kpiG").textContent=greens; $("kpiA").textContent=qzPracticeCompleteCount(); $("kpiR").textContent=total-greens;
-  if($("encourageMsg")) $("encourageMsg").textContent = encouragementFor(greens,total);
-  if($("welcomeTitle") && currentUser) $("welcomeTitle").textContent = `Keep going, ${currentUser.displayName||"you"} — ${pct}% completed in ${getCurrentSubject().shortName}`;
+  const score=qzScoreForTopics(TOPICS); const completedTopics=qzPracticeCompleteCount();
+  const pct=score.n? Math.round(score.c/score.n*100):0;
+  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${score.c} / ${score.n} correct`; $("ringSub").textContent="Questions you have got right"; $("kpiG").textContent=score.c; $("kpiA").textContent=completedTopics; $("kpiR").textContent=score.n-score.c;
+  if($("encourageMsg")) $("encourageMsg").textContent = encouragementFor(completedTopics,TOPICS.length);
+  if($("welcomeTitle") && currentUser) $("welcomeTitle").textContent = `Keep going, ${currentUser.displayName||"you"} — ${pct}% completed`;
   document.querySelectorAll("#strands .strand").forEach((el,i)=>{
-    const s=STRAND_ORDER[i]; const count=TOPICS.filter(t=>t.strand===s).length; const g=TOPICS.filter(t=>t.strand===s && currentProgress[t.id]==="G").length; el.querySelector(".bar i").style.width=(count? Math.round(g/count*100):0)+"%"; el.querySelector(".strand-head span:last-child").textContent=g+"/"+count;
-    const label=el.querySelector("div:last-child"); if(label) label.textContent = (count? Math.round(g/count*100):0)+"% completed";
+    const s=STRAND_ORDER[i]; const score=qzScoreForTopics(TOPICS.filter(t=>t.strand===s)); const p=score.n?Math.round(score.c/score.n*100):0; el.querySelector(".bar i").style.width=p+"%"; el.querySelector(".strand-head span:last-child").textContent=score.c+"/"+score.n;
+    const label=el.querySelector("div:last-child"); if(label) label.textContent = p+"% correct";
   });
 }
 function scheduleSave(){
@@ -1313,11 +1361,12 @@ function renderAdminList(){
   const studs=allStudentsCache.filter(s=>s.role==="student").sort((a,b)=>(a.displayName||"").localeCompare(b.displayName||""));
   if(!studs.length){ list.innerHTML=`<div class="empty">No students yet — create their first account above. They’ll appear here instantly and you’ll see live progress as they work.</div>`; return; }
   for(const s of studs){
-    const progForSubject = (s.progressBySubject && s.progressBySubject[currentSubjectId]) || s.progress || {};
-    const total=TOPICS.length; const greens=Object.values(progForSubject||{}).filter(v=>v==="G").length; const pct= total? Math.round(greens/total*100):0;
+    const quizState=(s.quizBySubject&&s.quizBySubject[currentSubjectId])||{};
+    const score=qzScoreForTopics(TOPICS,quizState);
+    const pct=score.n?Math.round(score.c/score.n*100):0;
     const row=document.createElement("button"); row.type="button"; row.className="student-row"+(selectedStudentUid===s.uid?" active":"");
     row.dataset.uid=s.uid; row.style.width="100%"; row.style.textAlign="left"; row.style.cursor="pointer";
-    row.innerHTML=`<div><b style="font-size:13.2px">${s.displayName||s.email}</b><div class="hint" style="font-size:11.6px">${s.email} • ${greens}/${total} completed in ${getCurrentSubject().shortName}</div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill" style="background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)">${pct}%</span></div>`;
+    row.innerHTML=`<div><b style="font-size:13.2px">${s.displayName||s.email}</b><div class="hint" style="font-size:11.6px">${s.email} • ${score.c}/${score.n} questions correct in ${getCurrentSubject().shortName}</div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill" style="background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)">${pct}%</span></div>`;
     const activate=()=>{ selectedStudentUid=s.uid; document.querySelectorAll(".student-row").forEach(r=>r.classList.remove("active")); row.classList.add("active"); renderAdminDetail(s); };
     row.addEventListener("click", activate);
     list.appendChild(row);
@@ -1336,15 +1385,15 @@ function renderAdminDetail(s, keepFullscreen=false){
     if($("adminSearch")) $("adminSearch").value = adminFilters.q;
   }
   $("detailName").textContent=s.displayName||s.email; $("detailEmail").textContent=s.email + ` • ${getCurrentSubject().name}`;
-  const progForSubject = (s.progressBySubject && s.progressBySubject[currentSubjectId]) || s.progress || {};
-  const total=TOPICS.length; const greens=Object.values(progForSubject||{}).filter(v=>v==="G").length; const pct=total? Math.round(greens/total*100):0;
-  $("detailBar").style.width=pct+"%"; $("detailPct").textContent=pct+"%";
+  const quizState=(s.quizBySubject&&s.quizBySubject[currentSubjectId])||{};
+  const score=qzScoreForTopics(TOPICS,quizState); const pct=score.n?Math.round(score.c/score.n*100):0;
+  $("detailBar").style.width=pct+"%"; $("detailPct").textContent=`${score.c}/${score.n} • ${pct}%`;
 
   const strandsEl=$("adminStrands"); strandsEl.innerHTML="";
   for(const st of STRAND_ORDER){
-    const count=TOPICS.filter(t=>t.strand===st).length; const g=TOPICS.filter(t=>t.strand===st && progForSubject[t.id]==="G").length; const p=count? Math.round(g/count*100):0;
+    const strandTopics=TOPICS.filter(t=>t.strand===st); const strandScore=qzScoreForTopics(strandTopics,quizState); const p=strandScore.n?Math.round(strandScore.c/strandScore.n*100):0;
     const d=document.createElement("div"); d.className="card strand"+(adminFilters.strand===st?" is-active":""); d.dataset.strand=st; d.setAttribute("role","button"); d.tabIndex=0; d.title=`Filter to ${STRAND_LABEL[st]||st} — click to show only ${st} topics`;
-    d.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[st]||st}</span><b>${(STRAND_LABEL[st]||st).split(" ")[0]}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${g}/${count}</span></div><div class="bar"><i style="width:${p}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${p}% completed</div>`;
+    d.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[st]||st}</span><b>${(STRAND_LABEL[st]||st).split(" ")[0]}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${strandScore.c}/${strandScore.n}</span></div><div class="bar"><i style="width:${p}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${p}% correct</div>`;
     d.addEventListener("click", ()=>handleAdminStrandClick(st, s));
     d.addEventListener("keydown", (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); handleAdminStrandClick(st, s); }});
     strandsEl.appendChild(d);
@@ -1356,28 +1405,29 @@ function renderAdminDetail(s, keepFullscreen=false){
 
   let any=false;
   for(const st of STRAND_ORDER){
-    const topics=TOPICS.filter(t=>t.strand===st).filter(t=>{
+    const allStrandTopics=TOPICS.filter(t=>t.strand===st);
+    const topics=allStrandTopics.filter(t=>{
+      const completed=qzTopicComplete(qzTopicScoreFromState(t.id,quizState));
       if(adminFilters.strand!=="all" && adminFilters.strand!==st) return false;
       if(adminFilters.q && ! (t.title.toLowerCase().includes(adminFilters.q) || t.id.toLowerCase().includes(adminFilters.q) || t.exam.toLowerCase().includes(adminFilters.q))) return false;
-      if(adminFilters.todo && progForSubject[t.id]==="G") return false;
-      if(adminFilters.rag && progForSubject[t.id]!==adminFilters.rag) return false;
+      if(adminFilters.todo && completed) return false;
+      if(adminFilters.rag && !completed) return false;
       return true;
     });
     if(!topics.length) continue;
     any=true;
     const g=document.createElement("div"); g.className="strand-group"; g.dataset.strand=st;
-    const sgGreens = TOPICS.filter(x=>x.strand===st && progForSubject[x.id]==="G").length;
-    const sgTotal = TOPICS.filter(x=>x.strand===st).length;
-    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[st]||st}</span> ${STRAND_LABEL[st]||st}</h3><small>${sgGreens}/${sgTotal} completed • ${topics.length} shown</small></div>`;
+    const sgCompleted=allStrandTopics.filter(t=>qzTopicComplete(qzTopicScoreFromState(t.id,quizState))).length;
+    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[st]||st}</span> ${STRAND_LABEL[st]||st}</h3><small>${sgCompleted}/${allStrandTopics.length} topics completed • ${topics.length} shown</small></div>`;
     const list=document.createElement("div"); list.className="topics";
     for(const t of topics){
-      const v=progForSubject[t.id]||null;
+      const completed=qzTopicComplete(qzTopicScoreFromState(t.id,quizState));
       const el=document.createElement("div");
-      el.className="topic"+(v==="G"?" is-green":"");
+      el.className="topic"+(completed?" is-green":"");
       el.dataset.id=t.id; el.dataset.strand=t.strand;
-      const check = v==="G" ? `✓` : ``;
-      const pillColor = v==="G"? "var(--green-bg)" : "#fff";
-      const pillText = v==="G" ? "Completed" : "Not completed";
+      const check = completed ? `✓` : ``;
+      const pillColor = completed? "var(--green-bg)" : "#fff";
+      const pillText = completed ? "Completed" : "Not completed";
       el.innerHTML=`
         <div class="topic-left">
           <span class="topic-check" aria-hidden="true">${check}</span>
@@ -1468,6 +1518,7 @@ $("btnResetStudent").addEventListener("click", async ()=>{
     const s=allStudentsCache.find(x=>x.uid===selectedStudentUid);
     if(s){
       if(s.progressBySubject) s.progressBySubject[currentSubjectId]={};
+      if(s.quizBySubject) s.quizBySubject[currentSubjectId]={};
       s.progress={};
     }
     const progMap = s?.progressBySubject||{};
@@ -1489,12 +1540,13 @@ $("btnResetStudent").addEventListener("click", async ()=>{
 
 $("btnExport").addEventListener("click", ()=>{
   const subj=getCurrentSubject();
-  const rows=[["uid","email","displayName","role","subjectId","subjectName","green","amber","red","total","pctGreen","topics_JSON"]];
+  const rows=[["uid","email","displayName","role","subjectId","subjectName","correctQuestions","wrongQuestions","unattemptedQuestions","totalQuestions","pctCorrect","topicsCompleted"]];
   for(const s of allStudentsCache){
-    const progMap = s.progressBySubject||{};
-    const prog = progMap[currentSubjectId] || s.progress||{};
-    const greens=Object.values(prog).filter(v=>v==="G").length; const ambers=Object.values(prog).filter(v=>v==="A").length; const reds=Object.values(prog).filter(v=>v==="R").length; const total=Object.keys(prog).length; const pct=subj.topics.length? Math.round(greens/subj.topics.length*100):0;
-    rows.push([s.uid, s.email, s.displayName, s.role, currentSubjectId, subj.name, greens, ambers, reds, total, pct, JSON.stringify(prog)]);
+    const quizState=(s.quizBySubject&&s.quizBySubject[currentSubjectId])||{};
+    const score=qzScoreForTopics(TOPICS,quizState);
+    const pct=score.n?Math.round(score.c/score.n*100):0;
+    const topicsCompleted=qzPracticeCompleteCount(quizState);
+    rows.push([s.uid,s.email,s.displayName,s.role,currentSubjectId,subj.name,score.c,score.w,score.u,score.n,pct,topicsCompleted]);
   }
   const csv=rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(",")).join("\n");
   const blob=new Blob([csv],{type:"text/csv"}); const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download=`gcse-progress-${currentSubjectId}.csv`; a.click(); URL.revokeObjectURL(url);
@@ -1513,7 +1565,7 @@ const QUESTIONS = [{"i":"N1-01","c":"N1","q":"Work out 0.006 × 0.45","a":"0.002
    (un-favouriting, or a reset) would survive in Firestore forever. */
 let qzBySubject = {}, qzState = {}, qzScope = null, qzFilter = "all",
     qzList = [], qzIdx = 0, qzSaveTimer = null, qzDirty = false,
-    qzReviewingComplete = false;
+    qzReviewingComplete = false, qzFeedback = {}, qzDrafts = {};
 
 function qzKey(){ return "gcse_quiz_"+(currentUser?.uid||"demo")+"_"+currentSubjectId; }
 function qzSetSaveState(t){ const el=$("saveState"); if(el) el.textContent=t; }
@@ -1562,7 +1614,7 @@ function qzSave(){
   qzSaveTimer = setTimeout(qzFlush, 800);
 }
 
-function qzReset(){ qzBySubject={}; qzState={}; qzDirty=false; qOverrides={}; qRebuild(); }
+function qzReset(){ qzBySubject={}; qzState={}; qzFeedback={}; qzDrafts={}; qzDirty=false; qOverrides={}; qRebuild(); }
 /* -------------------------------------------------------------- content layer
    QIDs are treated as OPAQUE and permanent. The topic a question belongs to is
    metadata, not part of its identity, so an admin can move it without orphaning
@@ -1608,9 +1660,7 @@ async function qSetOverride(qid, patch){
 function qzFor(code){ return qVisible().filter(q=>q.c===code); }
 function qzForStrand(st){ return qVisible().filter(q=>q.c[0]===st); }
 function qzTopicScore(code){
-  const all=qzFor(code); if(!all.length) return null;
-  let c=0,w=0; for(const q of all){ const s=qzState[q.i]?.s; if(s==="c")c++; else if(s==="w")w++; }
-  return {c,w,u:all.length-c-w,n:all.length};
+  return qzTopicScoreFromState(code,qzState);
 }
 
 function qzOpen(scope){
@@ -1653,6 +1703,74 @@ function qzApplyFilter(pool){
     if(qzFilter==="fav")         return !!st.f;
     return true;
   });
+}
+
+/* Answer checking deliberately has two lanes. Short numerical and algebraic
+   answers are checked automatically; explanations, proofs and multipart
+   responses are advisory because valid working can be phrased many ways. */
+function qzSuperscripts(s){
+  const map={"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9","⁻":"-","⁺":"+"};
+  return String(s).replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]+/g, m=>"^"+[...m].map(ch=>map[ch]).join(""));
+}
+function qzNormal(s){
+  return qzSuperscripts(String(s||"").toLowerCase())
+    .replace(/[−–—]/g,"-").replace(/[×·]/g,"*").replace(/÷/g,"/")
+    .replace(/\b(times|multiplied by)\b/g,"*").replace(/\s+/g,"")
+    .replace(/[,.!?;:]+$/g,"").replace(/\^\+/g,"^");
+}
+function qzNumeric(s){
+  let x=qzNormal(s).replace(/^\(?[a-z]\)?=/," ").trim();
+  x=x.replace(/(\d)x(?=10\^)/g,"$1*").replace(/^(?:£|\$)/,"");
+  let scale=1;
+  if(x.endsWith("%")){ scale=.01; x=x.slice(0,-1); }
+  x=x.replace(/(?:seconds?|secs?|s|minutes?|mins?|hours?|hrs?|cm|mm|km|metres?|meters?|m|kg|g|litres?|liters?|ml|degrees?|°)(?:\^?[23])?$/i,"");
+  const sci=x.match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))(?:\*?10\^?([+-]?\d+)|e([+-]?\d+))$/i);
+  if(sci) return Number(sci[1])*Math.pow(10,Number(sci[2]??sci[3]))*scale;
+  const mixed=x.match(/^([+-]?\d+)\s+([+-]?\d+)\/([+-]?\d+)$/);
+  if(mixed && Number(mixed[3])) return (Number(mixed[1])+Math.sign(Number(mixed[1])||1)*Number(mixed[2])/Number(mixed[3]))*scale;
+  const fraction=x.match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))\/([+-]?(?:\d+(?:\.\d*)?|\.\d+))$/);
+  if(fraction && Number(fraction[2])) return Number(fraction[1])/Number(fraction[2])*scale;
+  if(/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(x)) return Number(x)*scale;
+  return null;
+}
+function qzManualReview(q){
+  return /\b(explain|show that|prove|justify|describe|sketch|draw|construct|compare|comment|give a reason)\b/i.test(q.q)
+    || /(^|\n)\s*\([a-z]\)/i.test(q.q) || /\n/.test(q.a) || q.a.length>90;
+}
+function qzCheckValue(given, expected){
+  const a=qzNormal(given), b=qzNormal(expected);
+  if(!a) return false;
+  if(a===b) return true;
+  const na=qzNumeric(given), nb=qzNumeric(expected);
+  if(na!==null && nb!==null){
+    const tolerance=Math.max(1e-9,Math.abs(nb)*1e-6);
+    return Math.abs(na-nb)<=tolerance;
+  }
+  /* Accept a bare value when the mark scheme writes a simple variable label. */
+  const bareExpected=String(expected).replace(/^\s*[a-z]\s*=\s*/i,"");
+  if(bareExpected!==expected && a===qzNormal(bareExpected)) return true;
+  return false;
+}
+function qzFeedbackHtml(q){
+  const fb=qzFeedback[q.i];
+  if(!fb) return '<div class="qz-feedback" id="qzFeedback" role="status" aria-live="polite"></div>';
+  if(fb.kind==="correct") return '<div class="qz-feedback correct show" id="qzFeedback" role="status" aria-live="polite"><strong>Correct</strong>Your answer matches the expected answer.</div>';
+  if(fb.kind==="review") return `<div class="qz-feedback review show" id="qzFeedback" role="status" aria-live="polite"><strong>Check your method</strong>This question can be answered in different valid ways. Compare yours with: <b>${qzEsc(q.a)}</b><div class="qz-feedback-actions"><button class="btn qz-btn-right" id="qzSelfRight">Mark as correct</button><button class="btn qz-btn-wrong" id="qzSelfWrong">Mark as wrong</button></div></div>`;
+  return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Not quite</strong>Expected answer: <b>${qzEsc(q.a)}</b><div class="qz-feedback-actions"><button class="btn" id="qzOverride">Mark as correct anyway</button></div></div>`;
+}
+function qzCheckAnswer(q){
+  const input=$("qzInput");
+  const given=(input?.value||"").trim();
+  if(!given) return;
+  qzDrafts[q.i]=given;
+  if(qzManualReview(q)){
+    qzFeedback[q.i]={kind:"review"};
+    qzSave(); qzRender();
+    return;
+  }
+  const correct=qzCheckValue(given,q.a);
+  qzFeedback[q.i]={kind:correct?"correct":"incorrect"};
+  qzMark(q.i,correct?"c":"w",false);
 }
 function qzRender(){
   const pool=qzPool();
@@ -1730,39 +1848,58 @@ function qzRender(){
       </div>
       ${qzAdminBar(q)}
       <p class="qz-q">${qzEsc(q.q)}</p>
-      <input class="qz-ans-in" id="qzInput" placeholder="Write your answer here (optional — compare it after revealing the answer)" autocomplete="off" />
+      <textarea class="qz-ans-in" id="qzInput" rows="3" placeholder="Write your answer here (optional — compare it after revealing the answer)" autocomplete="off">${qzEsc(qzDrafts[q.i]||"")}</textarea>
       <div class="qz-actions">
-        <button class="btn btn-primary" id="qzShow">Show answer</button>
+        <button class="btn btn-primary" id="qzCheck" ${(qzDrafts[q.i]||"").trim()?"":"disabled"}>Check answer</button>
+        <button class="btn" id="qzShow">Show answer</button>
         <button class="btn" id="qzHintBtn">Show hint</button>
       </div>
+      ${qzFeedbackHtml(q)}
       <div class="qz-hintbox" id="qzHint">${qzEsc(q.h)}</div>
       <div class="qz-reveal" id="qzReveal">
         <div class="qz-block qz-correct"><div class="lab">Answer</div><div class="val">${qzEsc(q.a)}</div></div>
         <div class="qz-block"><div class="lab">Mark scheme</div><div class="val">${qzEsc(q.m)}</div></div>
-        <div class="qz-mark">
-          <button class="btn qz-btn-right" id="qzRight">✓ I got it right</button>
-          <button class="btn qz-btn-wrong" id="qzWrong">✗ I got it wrong</button>
-        </div>
+        ${qzManualReview(q)?`<div class="qz-mark">
+          <button class="btn qz-btn-right" id="qzRight">✓ Mark as correct</button>
+          <button class="btn qz-btn-wrong" id="qzWrong">✗ Mark as wrong</button>
+        </div>`:""}
       </div>
     </div>
     <div class="qz-nav" aria-label="Question navigation">
       <button class="btn" id="qzPrev" ${qzIdx===0?"disabled":""}>← Previous</button>
       <div class="qz-countbox"><span class="qz-count">Question ${qzIdx+1} of ${qzList.length}</span>${qzDots}</div>
-      <button class="btn" id="qzNext" ${qzIdx>=qzList.length-1?"disabled":""}>Next →</button>
+      <button class="btn" id="qzNext" ${qzIdx>=qzList.length-1 && !(qzScope.kind==="topic" && u===0)?"disabled":""}>${qzIdx>=qzList.length-1 && qzScope.kind==="topic" && u===0?"Finish →":"Next →"}</button>
     </div>`;
 
-  const mv=$("qzMove"), dp=$("qzDep");
+  const mv=$("qzMove"), dp=$("qzDep"), answerInput=$("qzInput"), checkBtn=$("qzCheck");
   if(mv) mv.onchange = async ()=>{ await qSetOverride(q.i,{c:mv.value}); qzRender(); renderStudent(); };
   if(dp) dp.onclick   = async ()=>{ await qSetOverride(q.i,{dep:!q.dep});  qzRender(); renderStudent(); };
+  const growAnswer=()=>{ if(!answerInput) return; answerInput.style.height="auto"; answerInput.style.height=Math.max(88,answerInput.scrollHeight)+"px"; };
+  if(answerInput){
+    growAnswer();
+    answerInput.oninput=()=>{
+      qzDrafts[q.i]=answerInput.value;
+      checkBtn.disabled=!answerInput.value.trim();
+      delete qzFeedback[q.i];
+      const feedbackEl=$("qzFeedback"); if(feedbackEl){ feedbackEl.className="qz-feedback"; feedbackEl.innerHTML=""; }
+      growAnswer();
+    };
+
+  }
+  checkBtn.onclick=()=>qzCheckAnswer(q);
   $("qzShow").onclick   = ()=>{ $("qzReveal").classList.add("show"); $("qzShow").disabled=true; };
   $("qzHintBtn").onclick= ()=>{ const h=$("qzHint"); h.classList.toggle("show");
                                 $("qzHintBtn").textContent = h.classList.contains("show")?"Hide hint":"Show hint"; };
   $("qzStar").onclick   = ()=>{ const s=qzState[q.i]||{}; if(s.f) delete s.f; else s.f=1;
                                 qzState[q.i]=s; qzSave(); qzRender(); };
-  $("qzRight").onclick  = ()=>qzMark(q.i,"c");
-  $("qzWrong").onclick  = ()=>qzMark(q.i,"w");
+  const manualRight=$("qzRight"), manualWrong=$("qzWrong"), selfRight=$("qzSelfRight"), selfWrong=$("qzSelfWrong"), override=$("qzOverride");
+  if(manualRight) manualRight.onclick=()=>{ delete qzFeedback[q.i]; qzMark(q.i,"c"); };
+  if(manualWrong) manualWrong.onclick=()=>{ delete qzFeedback[q.i]; qzMark(q.i,"w"); };
+  if(selfRight) selfRight.onclick=()=>{ delete qzFeedback[q.i]; qzMark(q.i,"c",false); };
+  if(selfWrong) selfWrong.onclick=()=>{ delete qzFeedback[q.i]; qzMark(q.i,"w",false); };
+  if(override) override.onclick=()=>{ delete qzFeedback[q.i]; qzMark(q.i,"c",false); };
   $("qzPrev").onclick   = ()=>{ if(qzIdx>0){ qzIdx--; qzRender(); } };
-  $("qzNext").onclick   = ()=>{ if(qzIdx<qzList.length-1){ qzIdx++; qzRender(); } };
+  $("qzNext").onclick   = ()=>{ if(qzIdx<qzList.length-1){ qzIdx++; qzRender(); } else if(qzScope.kind==="topic" && u===0){ qzReviewingComplete=false; qzRender(); } };
 }
 function qzAdminBar(q){
   if(!qIsAdmin()) return "";
@@ -1810,7 +1947,7 @@ async function qzResetTopic(code){
 
   for(const q of pool){
     const st=qzState[q.i]; if(!st) continue;
-    delete st.s; delete st.first;
+    delete st.s; delete st.first; delete qzFeedback[q.i]; delete qzDrafts[q.i];
     if(!st.f) delete qzState[q.i];          // drop empty entries, keep the doc small
   }
   for(const c of new Set(pool.map(q=>q.c))) delete currentProgress[c];
@@ -1821,7 +1958,7 @@ async function qzResetTopic(code){
 }
 
 function qzEsc(s){ return String(s).replace(/[&<>]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])); }
-function qzMark(qid, res){
+function qzMark(qid, res, advance=true){
   const s=qzState[qid]||{};
   if(!s.first) s.first=res;   // how it went the very first time, so "wrong first
   s.s=res;                    // time" survives a later correction
@@ -1832,7 +1969,8 @@ function qzMark(qid, res){
   // stay in place if filtering would remove this question, otherwise advance
   // On "all" we step forward. On a filtered list the question drops out, so the
   // same index already lands on the next one once qzRender re-derives the list.
-  if(qzFilter==="all" && qzIdx < qzList.length-1) qzIdx++;
+  if(advance && qzFilter==="all" && qzIdx < qzList.length-1) qzIdx++;
+  if(!advance && qzScope?.kind==="topic" && qzPool().every(q=>(qzState[q.i]||{}).s)) qzReviewingComplete=true;
   qzRender();
 }
 /* == QUIZ:END == */
