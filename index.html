@@ -227,7 +227,17 @@
   }
   .student-row:hover{border-color:var(--line-strong);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
   .student-row.active{border-color:var(--navy);box-shadow:0 0 0 3px var(--navy-50), 0 6px 18px rgba(0,36,125,.10)}
+  .student-row-main{min-width:0;flex:1 1 auto}
+  .student-row-meta{font-size:11.6px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:2px}
+  .student-status{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;font-size:10.8px;font-weight:800;white-space:nowrap;border:1px solid var(--line)}
+  .student-status::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+  .student-status.invited{background:var(--amber-bg);color:var(--amber);border-color:#f3ddba}
+  .student-status.active{background:var(--green-bg);color:var(--green);border-color:#bfe9d9}
+  .invite-message{min-height:20px;font-size:12.8px;line-height:1.45;font-weight:600;color:var(--muted)}
+  .invite-message.success{color:var(--green)}
+  .invite-message.error{color:var(--red)}
   .mini-bar{height:5px;width:88px;background:#eef1fb;border-radius:999px;overflow:hidden}
+  @media(max-width:560px){.student-row{align-items:flex-start;flex-direction:column}.student-row > div:last-child{width:100%;justify-content:space-between}.mini-bar{flex:1 1 auto;max-width:180px}}
   .mini-bar i{display:block;height:100%;background:var(--navy);border-radius:999px}
   .empty{padding:20px;border:1px dashed var(--line);border-radius:13px;color:var(--muted);text-align:center;font-size:13px;background:#fcfdff}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;min-width:0}
@@ -606,7 +616,7 @@
     <div class="admin-head">
       <div>
         <h2>Class dashboard</h2>
-        <p>Support every student from one calm place. Create accounts, review completed topics and practice progress, and export for reports.</p>
+        <p>Support every student from one calm place. Invite students by email, review completed topics and practice progress, and export for reports.</p>
       </div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <span class="pill pill-admin" style="background:var(--navy);color:#fff;border-color:var(--navy)">Admin</span>
@@ -623,22 +633,23 @@
 
     <div class="admin-grid">
       <div class="card panel">
-        <div class="section-label">Create account</div>
+        <div class="section-label">Invite student</div>
         <div class="grid2">
-          <div class="field"><label>Display name</label><input id="newName" placeholder="Aisha Y11" /></div>
-          <div class="field"><label>Role</label><select id="newRole"><option value="student">student</option><option value="admin">admin</option></select></div>
-          <div class="field"><label>Email (login)</label><input id="newEmail" type="email" placeholder="aisha@school.com" /></div>
-          <div class="field"><label>Password</label><input id="newPass" type="password" placeholder="min 6 chars" /></div>
+          <div class="field"><label>Email</label><input id="newEmail" type="email" placeholder="student@school.com" autocomplete="off" /></div>
+          <div class="field"><label>Name <span style="font-weight:500;color:var(--muted)">(optional)</span></label><input id="newName" placeholder="Aisha Y11" autocomplete="off" /></div>
         </div>
         <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center">
-          <button id="btnCreateUser" class="btn btn-primary">Create account</button>
-          <button id="btnResetStudent" class="btn">Reset selected progress</button>
-          <span id="createMsg" class="hint"></span>
+          <button id="btnInviteStudent" class="btn btn-primary">Invite student</button>
+          <button id="btnResendInvite" class="btn" style="display:none">Resend invite</button>
+          <span id="inviteMsg" class="invite-message" role="status" aria-live="polite"></span>
         </div>
 
         <div style="margin-top:18px">
           <div class="section-label">Students</div>
           <div id="studentsList" class="students-list"></div>
+          <div style="margin-top:12px">
+            <button id="btnResetStudent" class="btn">Reset selected progress</button>
+          </div>
         </div>
       </div>
 
@@ -1009,6 +1020,11 @@ async function afterFirebaseLogin(fbUser){
       profile=snap.data();
     }
     currentUser={uid:fbUser.uid,email:profile.email||fbUser.email,displayName:profile.displayName||fbUser.email?.split("@")[0],role:profile.role||"student"};
+    // This timestamp lets the admin distinguish an emailed invitation from a
+    // student who has completed the reset flow and signed in. It is best-effort
+    // so older Firestore rules cannot block the dashboard from loading.
+    try{ await setDoc(uref,{lastLoginAt:serverTimestamp()},{merge:true}); }
+    catch(e){ console.warn("last login marker unavailable", e); }
 
     if(readErr){
       console.error("[auth] READ DENIED on users/"+fbUser.uid+" (code="+(readErr.code||"?")+
@@ -1115,7 +1131,9 @@ async function adminLoadAll(){
         progMap[DEFAULT_SUBJECT_ID]=progFlat;
       }
       const currentProg = progMap[currentSubjectId] || progMap[DEFAULT_SUBJECT_ID] || progFlat || {};
-      list.push({uid:d.id,email:u.email,displayName:u.displayName,role:u.role,progress:currentProg,progressBySubject:progMap,progressFlat:progFlat,quizBySubject});
+      const hasProgress = Object.keys(progMap).some(subjectId=>Object.keys(progMap[subjectId]||{}).length>0)
+        || Object.keys(quizBySubject).some(subjectId=>Object.keys(quizBySubject[subjectId]||{}).length>0);
+      list.push({uid:d.id,email:u.email,displayName:u.displayName,role:u.role,invitedAt:u.invitedAt||null,invitedBy:u.invitedBy||null,lastLoginAt:u.lastLoginAt||null,hasProgress,progress:currentProg,progressBySubject:progMap,progressFlat:progFlat,quizBySubject});
     }
     allStudentsCache=list;
     const students=list.filter(l=>l.role==="student").length;
@@ -1359,14 +1377,16 @@ $("btnClearFilters").addEventListener("click", ()=>{
 function renderAdminList(){
   const list=$("studentsList"); if(!list) return; list.innerHTML="";
   const studs=allStudentsCache.filter(s=>s.role==="student").sort((a,b)=>(a.displayName||"").localeCompare(b.displayName||""));
-  if(!studs.length){ list.innerHTML=`<div class="empty">No students yet — create their first account above. They’ll appear here instantly and you’ll see live progress as they work.</div>`; return; }
+  if(!studs.length){ list.innerHTML=`<div class="empty">No students yet — invite the first student above. They’ll appear here as soon as the invitation is sent.</div>`; return; }
   for(const s of studs){
     const quizState=(s.quizBySubject&&s.quizBySubject[currentSubjectId])||{};
     const score=qzScoreForTopics(TOPICS,quizState);
     const pct=score.n?Math.round(score.c/score.n*100):0;
+    const isActive=!!s.lastLoginAt || !!s.hasProgress;
+    const status=isActive?"Active":"Invited";
     const row=document.createElement("button"); row.type="button"; row.className="student-row"+(selectedStudentUid===s.uid?" active":"");
     row.dataset.uid=s.uid; row.style.width="100%"; row.style.textAlign="left"; row.style.cursor="pointer";
-    row.innerHTML=`<div><b style="font-size:13.2px">${s.displayName||s.email}</b><div class="hint" style="font-size:11.6px">${s.email} • ${score.c}/${score.n} questions correct in ${getCurrentSubject().shortName}</div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill" style="background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)">${pct}%</span></div>`;
+    row.innerHTML=`<div class="student-row-main"><b style="font-size:13.2px">${s.displayName||s.email}</b><div class="student-row-meta"><span>${s.email}</span><span class="student-status ${isActive?"active":"invited"}">${status}</span><span>• ${score.c}/${score.n} questions correct in ${getCurrentSubject().shortName}</span></div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill" style="background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)">${pct}%</span></div>`;
     const activate=()=>{ selectedStudentUid=s.uid; document.querySelectorAll(".student-row").forEach(r=>r.classList.remove("active")); row.classList.add("active"); renderAdminDetail(s); };
     row.addEventListener("click", activate);
     list.appendChild(row);
@@ -1477,27 +1497,129 @@ function renderAdminDetail(s, keepFullscreen=false){
   }
 }
 
-$("btnCreateUser").addEventListener("click", async ()=>{
-  const name=$("newName").value.trim(), email=$("newEmail").value.trim(), pass=$("newPass").value.trim(), role=$("newRole").value;
-  const msg=$("createMsg"); msg.textContent="";
-  if(!email||!pass||pass.length<6){ msg.textContent="Email and a 6-character password are needed."; return; }
-  if(!fbApp){ msg.textContent="Connecting — please wait a moment."; return; }
+let resendInviteEmail="";
+function inviteContinueUrl(){
+  // On GitHub Pages, preserve the exact repository path. The fallback is the
+  // authorized GitHub Pages domain configured in Firebase Authentication.
+  return window.location.hostname==="singhalavi.github.io"
+    ? window.location.href.split(/[?#]/)[0]
+    : "https://singhalavi.github.io/";
+}
+function randomTemporaryPassword(){
+  const alphabet="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
+  const bytes=new Uint32Array(20); crypto.getRandomValues(bytes);
+  return "Aa1!"+Array.from(bytes,n=>alphabet[n%alphabet.length]).join("");
+}
+function setInviteMessage(text,type=""){
+  const msg=$("inviteMsg");
+  msg.textContent=text;
+  msg.className="invite-message"+(type?" "+type:"");
+}
+async function sendInviteReset(email){
+  const {sendPasswordResetEmail}=await import("firebase/auth");
+  await sendPasswordResetEmail(fbAuth,email,{url:inviteContinueUrl(),handleCodeInApp:false});
+}
+function offerResend(email,message){
+  resendInviteEmail=email;
+  setInviteMessage(message,"error");
+  const btn=$("btnResendInvite"); btn.style.display=""; btn.textContent=`Resend invite to ${email}`;
+}
+
+$("btnInviteStudent").addEventListener("click", async ()=>{
+  const name=$("newName").value.trim(), email=$("newEmail").value.trim().toLowerCase();
+  const button=$("btnInviteStudent");
+  $("btnResendInvite").style.display="none"; resendInviteEmail=""; setInviteMessage("");
+  if(!email){ setInviteMessage("Enter the student’s email address.","error"); $("newEmail").focus(); return; }
+  if(!$("newEmail").checkValidity()){ setInviteMessage("Enter a valid email address.","error"); $("newEmail").focus(); return; }
+  if(!fbApp||!fbAuth||!fbDb){ setInviteMessage("Connecting — please wait a moment.","error"); return; }
+
+  let secApp=null, secAuth=null;
+  button.disabled=true; button.textContent="Sending invite…";
   try{
     const {initializeApp,deleteApp}=await import("firebase/app");
-    const {getAuth,createUserWithEmailAndPassword,updateProfile}=await import("firebase/auth");
-    const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
-    const secApp=initializeApp(firebaseConfig,"Secondary"+Date.now());
-    const secAuth=getAuth(secApp);
-    const cred=await createUserWithEmailAndPassword(secAuth,email,pass);
-    try{ await updateProfile(cred.user,{displayName:name||email.split("@")[0]}); }catch{}
-    await setDoc(doc(fbDb,"users",cred.user.uid),{uid:cred.user.uid,email,displayName:name||email.split("@")[0],role,createdAt:serverTimestamp()},{merge:true});
-    await setDoc(doc(fbDb,"progress",cred.user.uid),{subjects:{}, updatedAt:serverTimestamp()});
-    try{ await deleteApp(secApp); }catch{}
-    msg.textContent=`Created ${role}: ${email}`;
-    $("newName").value=""; $("newEmail").value=""; $("newPass").value=""; showToast(`${role} account ready`);
-    await adminLoadAll();
-  }catch(e){ msg.textContent="Couldn’t create that account — it may already exist."; }
+    const {getAuth,createUserWithEmailAndPassword,updateProfile,signOut}=await import("firebase/auth");
+    const {getFirestore,doc,setDoc,serverTimestamp}=await import("firebase/firestore");
+    secApp=initializeApp(firebaseConfig,"InviteStudent"+Date.now());
+    secAuth=getAuth(secApp);
+    const secDb=getFirestore(secApp);
+    const cred=await createUserWithEmailAndPassword(secAuth,email,randomTemporaryPassword());
+    const displayName=name||email.split("@")[0];
+    try{ await updateProfile(cred.user,{displayName}); }catch{}
+
+    // Create the student's records through the secondary app while it is
+    // authenticated as that student. Standard owner-based Firestore rules
+    // reject the old main-app write because the admin's uid differs from the
+    // new document uid; that stopped the flow before any email was sent.
+    await setDoc(doc(secDb,"users",cred.user.uid),{
+      uid:cred.user.uid,
+      role:"student",
+      email,
+      displayName,
+      createdAt:serverTimestamp()
+    },{merge:true});
+    await setDoc(doc(secDb,"progress",cred.user.uid),{subjects:{},updatedAt:serverTimestamp()},{merge:true});
+
+    // Invitation metadata is optional. Keep it best-effort so stricter rules
+    // cannot prevent a valid account and password-set email from being sent.
+    try{
+      await setDoc(doc(fbDb,"users",cred.user.uid),{
+        invitedAt:serverTimestamp(),
+        invitedBy:currentUser.uid
+      },{merge:true});
+    }catch(metaErr){ console.warn("invite metadata unavailable",metaErr); }
+
+    await sendInviteReset(email);
+    setInviteMessage(`Invite sent to ${email} — the account now appears below and they’ll get an email to set their password.`,"success");
+    showToast(`Invite sent to ${email}`);
+    $("newName").value=""; $("newEmail").value="";
+    await adminLoadAll().catch(loadErr=>console.warn("student list refresh unavailable",loadErr));
+    try{ await signOut(secAuth); }catch{}
+  }catch(e){
+    console.error("student invite failed",e);
+    if(e?.code==="auth/email-already-in-use"){
+      try{
+        await sendInviteReset(email);
+        setInviteMessage(`An account already exists for ${email}. A fresh password-set email has been sent.`,"success");
+        showToast(`Invite resent to ${email}`);
+        await adminLoadAll().catch(()=>{});
+      }catch(sendErr){
+        console.error("existing account invite failed",sendErr);
+        offerResend(email,"An account already exists, but the password-set email could not be sent. Try resending it.");
+      }
+    }else if(e?.code==="auth/invalid-email"){
+      setInviteMessage("Enter a valid email address.","error");
+    }else if(e?.code==="auth/unauthorized-continue-uri"){
+      setInviteMessage("The invite link domain is not authorized in Firebase Authentication.","error");
+    }else if(e?.code==="permission-denied" || e?.code==="firestore/permission-denied"){
+      setInviteMessage("Firebase blocked the student profile. Check that signed-in users may create their own student profile in Firestore rules, then try again.","error");
+    }else{
+      setInviteMessage("The invite was not completed. No success message was shown — please try again.","error");
+    }
+  }finally{
+    if(secAuth){ try{ const {signOut}=await import("firebase/auth"); await signOut(secAuth); }catch{} }
+    if(secApp){ try{ const {deleteApp}=await import("firebase/app"); await deleteApp(secApp); }catch{} }
+    button.disabled=false; button.textContent="Invite student";
+  }
 });
+
+$("btnResendInvite").addEventListener("click", async ()=>{
+  const email=resendInviteEmail||$("newEmail").value.trim().toLowerCase();
+  const button=$("btnResendInvite");
+  if(!email) return;
+  button.disabled=true; button.textContent="Resending…";
+  try{
+    await sendInviteReset(email);
+    setInviteMessage(`Invite sent to ${email} — they’ll get an email to set their password.`,"success");
+    showToast(`Invite resent to ${email}`);
+    button.style.display="none"; resendInviteEmail="";
+  }catch(e){
+    console.error("resend invite failed",e);
+    setInviteMessage(e?.code==="auth/invalid-email"?"Enter a valid email address.":"The invite email could not be resent. Please try again.","error");
+    button.textContent=`Resend invite to ${email}`;
+  }finally{ button.disabled=false; }
+});
+
+$("newEmail").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); $("btnInviteStudent").click(); } });
 
 $("btnResetStudent").addEventListener("click", async ()=>{
   if(!selectedStudentUid){ showToast("Select a student first"); return; }
@@ -1978,9 +2100,16 @@ function qzMark(qid, res, advance=true){
 /* == QUIZ:BEGIN == */
 document.addEventListener("click",(e)=>{
   const chip=e.target.closest(".qz-chip");
-  if(chip){ qzFilter=chip.dataset.f; qzIdx=0;
+  if(chip){
+    qzFilter=chip.dataset.f;
+    qzIdx=0;
+    // Filter pills are also an exit from the completed summary. Without this,
+    // qzRender() immediately rebuilt the same summary and made every pill look
+    // unresponsive once a topic had been fully attempted.
+    qzReviewingComplete=true;
     document.querySelectorAll(".qz-chip").forEach(c=>c.classList.toggle("on", c===chip));
-    qzRender(); return; }
+    qzRender(); return;
+  }
   if(e.target.id==="qzBack"){ showView("student"); renderStudent(); }
 });
 /* == QUIZ:END == */
