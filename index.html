@@ -246,7 +246,28 @@
   .invite-credential code{display:block;overflow-wrap:anywhere;color:var(--ink);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;font-weight:700}
   .invite-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .invite-actions .btn{text-decoration:none}
-  @media(max-width:560px){.invite-credentials{grid-template-columns:1fr}.invite-actions .btn{width:100%;justify-content:center}}
+  .question-review{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+  .question-review-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:9px}
+  .question-review-head .section-label{margin:0}
+  .question-review-summary{font-size:11.5px;color:var(--muted);font-weight:700}
+  .question-review-list{display:grid;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+  .question-review-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;padding:11px 12px;border-bottom:1px solid var(--line)}
+  .question-review-row:last-child{border-bottom:0}
+  .question-review-copy{min-width:0}
+  .question-review-title{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:3px}
+  .question-review-title b{font-size:12.8px;color:var(--navy)}
+  .question-review-topic{font-size:11.2px;color:var(--muted);font-weight:600}
+  .question-review-text{font-size:12.3px;line-height:1.4;color:var(--ink-2);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+  .question-review-answers{display:grid;gap:6px;margin-top:9px}
+  .question-review-answer{padding:8px 10px;border-radius:9px;background:#f8f9fc;border:1px solid var(--line);font-size:12px;line-height:1.4;color:var(--ink)}
+  .question-review-answer b{color:var(--ink-2);font-size:11px}
+  .question-review-answer span{display:block;margin-top:2px;color:var(--muted);font-size:10.8px;font-weight:600;overflow-wrap:anywhere}
+  .question-review-counts{display:flex;align-items:flex-start;justify-content:flex-end;gap:5px;flex-wrap:wrap;max-width:180px}
+  .question-review-count{font-size:10.8px;font-weight:800;padding:4px 7px;border-radius:999px;white-space:nowrap;border:1px solid var(--line)}
+  .question-review-count.correct{background:var(--green-bg);color:var(--green);border-color:#bfe9d9}
+  .question-review-count.wrong{background:var(--red-bg);color:var(--red);border-color:#ffd0d9}
+  .question-review-count.attempts{background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)}
+  @media(max-width:560px){.invite-credentials{grid-template-columns:1fr}.invite-actions .btn{width:100%;justify-content:center}.question-review-row{grid-template-columns:1fr}.question-review-counts{justify-content:flex-start;max-width:none}}
   .mini-bar{height:5px;width:88px;background:#eef1fb;border-radius:999px;overflow:hidden}
   @media(max-width:560px){.student-row{align-items:flex-start;flex-direction:column}.student-row > div:last-child{width:100%;justify-content:space-between}.mini-bar{flex:1 1 auto;max-width:180px}}
   .mini-bar i{display:block;height:100%;background:var(--navy);border-radius:999px}
@@ -458,12 +479,12 @@
 
 /* == QUIZ:BEGIN == */
 #view-quiz.active{min-height:calc(100dvh - 64px);background:linear-gradient(180deg,#f4f6fc 0,#f8f9fc 240px)}
-.qz-wrap{max-width:900px;margin:0 auto;padding-top:34px}
-.qz-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.qz-wrap{max-width:900px;margin:0 auto;padding-top:8px}
+.qz-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
 .qz-eyebrow{margin:0 0 6px;font-size:10.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--navy)}
 .qz-title{margin:0;font-family:"Newsreader",serif;font-size:30px;line-height:1.05;font-weight:600;letter-spacing:-.025em}
 .qz-sub{margin:6px 0 0;font-size:13.2px;color:var(--muted);line-height:1.45}
-.qz-filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;padding:4px}
+.qz-filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;padding:2px 4px}
 .qz-chip{border:1px solid var(--line);background:#fff;color:var(--ink-2);padding:7px 13px;border-radius:999px;
   font-size:12.6px;font-weight:600;cursor:pointer;transition:.15s}
 .qz-chip:hover{border-color:var(--line-strong)}
@@ -473,10 +494,15 @@
   font-variant-numeric:tabular-nums}
 .qz-chip.on .qz-n{background:rgba(255,255,255,.22);color:#fff}
 .qz-chip.zero{opacity:.45}
-.qz-card{background:#fff;border:1px solid #dfe4f1;border-radius:24px;box-shadow:0 24px 60px rgba(17,35,90,.11),0 3px 10px rgba(17,35,90,.05);padding:28px 30px 25px;overflow:hidden}
-.qz-card-progress{height:6px;margin:-28px -30px 22px;background:#e8ecfa}
+.qz-card{background:#fff;border:1px solid #dfe4f1;border-radius:24px;box-shadow:0 24px 60px rgba(17,35,90,.11),0 3px 10px rgba(17,35,90,.05);padding:16px 30px 25px;overflow:hidden}
+.qz-card-progress{height:6px;margin:-16px -30px 13px;background:#e8ecfa}
 .qz-card-progress i{display:block;height:100%;background:var(--navy);transition:width .2s ease}
-.qz-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.qz-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.qz-code{font-size:13px;font-weight:800;letter-spacing:.065em;padding:8px 13px;border-radius:999px;background:var(--navy);color:#fff;border:1px solid var(--navy);box-shadow:0 5px 13px rgba(0,36,125,.20);white-space:nowrap;font-variant-numeric:tabular-nums}
+.qz-topic-name{font-size:13.5px;font-weight:700;color:var(--ink);min-width:0;line-height:1.35}
+.qz-context{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:0 0 13px;color:var(--muted)}
+.qz-context-position{font-size:11.8px;font-weight:600;color:var(--muted);white-space:nowrap}
+.qz-context-sep{width:3px;height:3px;border-radius:50%;background:#aab2c8;flex:0 0 3px}
 .qz-tag{font-size:11px;font-weight:700;letter-spacing:.025em;padding:6px 10px;border-radius:999px;border:1px solid #dfe4ef;background:#f8f9fc;color:var(--ink-2)}
 .qz-tag.code{background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)}
 .qz-tag.noncalc{background:var(--amber-bg);color:var(--amber);border-color:#f3ddba}
@@ -492,10 +518,11 @@
 .qz-working-in{width:100%;min-height:148px;resize:none;overflow:hidden;padding:14px 15px;border:1.5px solid #d8deed;border-radius:13px;background:#fff;font-size:14.5px;line-height:1.6;outline:0;transition:border-color .16s,box-shadow .16s}
 .qz-working-in::placeholder,.qz-final-in::placeholder{color:#8a93aa}
 .qz-working-in:focus,.qz-final-in:focus{border-color:var(--navy);background:#fff;box-shadow:0 0 0 4px var(--navy-50)}
-.qz-final-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end}
+.qz-final-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start}
 .qz-final-field{min-width:0}
 .qz-final-in{width:100%;min-height:50px;padding:12px 14px;border:1.5px solid #cdd5e8;border-radius:13px;background:#fff;font-size:15px;line-height:1.4;outline:0;transition:border-color .16s,box-shadow .16s}
-.qz-final-row #qzCheck{min-height:50px;padding:12px 22px;border-radius:13px;font-size:13px;font-weight:800;letter-spacing:.025em;box-shadow:0 7px 0 var(--navy-800),0 12px 22px rgba(0,36,125,.16);margin-bottom:7px}
+.qz-answer-tip{margin:8px 0 0;color:var(--muted);font-size:11.8px;line-height:1.45}
+.qz-final-row #qzCheck{min-height:50px;padding:12px 22px;border-radius:13px;font-size:13px;font-weight:800;letter-spacing:.025em;box-shadow:0 7px 0 var(--navy-800),0 12px 22px rgba(0,36,125,.16);margin-top:27px}
 .qz-final-row #qzCheck:hover{transform:translateY(-1px);box-shadow:0 8px 0 var(--navy-800),0 14px 24px rgba(0,36,125,.18)}
 .qz-final-row #qzCheck:active{transform:translateY(5px);box-shadow:0 2px 0 var(--navy-800),0 5px 12px rgba(0,36,125,.14)}
 .qz-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px;align-items:center}
@@ -511,21 +538,22 @@
   background:#fff;min-height:38px;line-height:1.2;white-space:normal;overflow:visible;
   opacity:1;-webkit-text-fill-color:currentColor;
 }
-.qz-feedback-actions .btn.qz-btn-right,
-.qz-feedback-actions #qzOverride{
+.qz-feedback-actions .btn.qz-btn-right{
   background:#fff;color:#075c48;border-color:var(--green);
 }
-.qz-feedback-actions .btn.qz-btn-right:hover,
-.qz-feedback-actions #qzOverride:hover{
+.qz-feedback-actions .btn.qz-btn-right:hover{
   background:var(--green-bg);border-color:#075c48;
 }
+.qz-flag-prompt{margin-top:10px;font-weight:700;color:#76132c}
+.qz-feedback-actions .qz-flag-button{background:#fff;color:#8f1230;border-color:var(--red)}
+.qz-feedback-actions .qz-flag-button:hover{background:var(--red-bg);border-color:#8f1230}
 .qz-feedback-actions .btn.qz-btn-wrong{
   background:#fff;color:#8f1230;border-color:var(--red);
 }
 .qz-feedback-actions .btn.qz-btn-wrong:hover{
   background:var(--red-bg);border-color:#8f1230;
 }
-@media(max-width:520px){.qz-final-row{grid-template-columns:1fr}.qz-final-row #qzCheck{width:100%;justify-content:center}.qz-actions .btn{flex:1 1 auto;justify-content:center}.qz-feedback-actions .btn{flex:1 1 145px;justify-content:center}}
+@media(max-width:520px){.qz-final-row{grid-template-columns:1fr}.qz-final-row #qzCheck{width:100%;justify-content:center;margin-top:0}.qz-actions .btn{flex:1 1 auto;justify-content:center}.qz-feedback-actions .btn{flex:1 1 145px;justify-content:center}}
 
 .qz-reveal{display:none;margin-top:15px;border-top:1px dashed var(--line-strong);padding-top:15px}
 .qz-reveal.show{display:block}
@@ -550,12 +578,12 @@
 .qz-dot.current{width:9px;height:9px;background:var(--navy);box-shadow:0 0 0 3px var(--navy-100)}
 @media(max-width:640px){
   #view-quiz.active{background:#fff;min-height:calc(100dvh - 60px)}
-  .qz-wrap{width:100%;max-width:none;padding:16px 0 max(72px,env(safe-area-inset-bottom))}
+  .qz-wrap{width:100%;max-width:none;padding:8px 0 max(72px,env(safe-area-inset-bottom))}
   .qz-head,.qz-filters{margin-left:16px;margin-right:16px}
-  .qz-head{align-items:flex-start}
+  .qz-head{align-items:flex-start;margin-bottom:8px}
   .qz-title{font-size:27px}
-  .qz-card{border-left:0;border-right:0;border-radius:0;padding:24px 18px 26px;min-height:calc(100dvh - 252px);box-shadow:none}
-  .qz-card-progress{margin:-24px -18px 20px}
+  .qz-card{border-left:0;border-right:0;border-radius:0;padding:14px 18px 26px;min-height:calc(100dvh - 252px);box-shadow:none}
+  .qz-card-progress{margin:-14px -18px 11px}
   .qz-q{font-size:22px;line-height:1.5}
   .qz-final-row{grid-template-columns:1fr}
   .qz-final-row #qzCheck{width:100%;justify-content:center}
@@ -576,7 +604,7 @@
 .btn-practice .qz-score,.btn-practice .qz-done{color:rgba(255,255,255,.84)}
 .qz-done{font-weight:800}
 .qz-tag.firstwrong{background:var(--amber-bg);color:var(--amber);border-color:#f3ddba}
-.qz-position{font-size:11px;font-weight:800;letter-spacing:.03em;padding:6px 11px;border-radius:999px;background:var(--navy);color:#fff;border:1px solid var(--navy);white-space:nowrap;box-shadow:0 4px 10px rgba(0,36,125,.18)}
+.qz-position{font-size:11px;font-weight:700;letter-spacing:.01em;padding:0;background:transparent;color:var(--muted);border:0;white-space:nowrap;box-shadow:none}
 .qz-admin{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 14px;padding:9px 11px;
   background:var(--bg-2);border:1px dashed var(--line-strong);border-radius:11px}
 .qz-adm-lab{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
@@ -797,6 +825,26 @@
             <button id="btnResetStudent" class="btn">Reset selected progress</button>
           </div>
         </div>
+
+        <section class="question-review" aria-labelledby="questionReviewTitle">
+          <div class="question-review-head">
+            <div id="questionReviewTitle" class="section-label">Needs review (marked correct manually)</div>
+            <span id="questionReviewSummary" class="question-review-summary">Loading…</span>
+          </div>
+          <div id="questionReviewList" class="question-review-list">
+            <div class="empty">Loading manual override counts…</div>
+          </div>
+        </section>
+
+        <section class="question-review" aria-labelledby="flaggedQuestionsTitle">
+          <div class="question-review-head">
+            <div id="flaggedQuestionsTitle" class="section-label">Flagged questions</div>
+            <span id="flaggedQuestionsSummary" class="question-review-summary">Loading…</span>
+          </div>
+          <div id="flaggedQuestionsList" class="question-review-list">
+            <div class="empty">Loading flagged question counts…</div>
+          </div>
+        </section>
       </div>
 
       <div class="card panel">
@@ -1144,6 +1192,7 @@ let currentUser=null;
 let saveTimer=null;
 let selectedStudentUid=null;
 let allStudentsCache=[];
+let questionStatsCache=[];
 
 function showView(name,{preserveAuthMessage=false}={}){
   document.body.classList.remove("auth-pending");
@@ -1319,6 +1368,90 @@ async function afterFirebaseLogin(fbUser){
   }
 }
 
+function renderQuestionStats(){
+  const reviewList=$("questionReviewList");
+  const reviewSummary=$("questionReviewSummary");
+  const flaggedList=$("flaggedQuestionsList");
+  const flaggedSummary=$("flaggedQuestionsSummary");
+  if(!reviewList || !reviewSummary || !flaggedList || !flaggedSummary) return;
+
+  const rowFor=(item,countHtml,countLabel,detailHtml="")=>{
+    const q=QEFF.find(question=>qzQuestionCode(question)===item.id) || QUESTIONS.find(question=>question.i===item.id);
+    const topic=TOPICS.find(t=>t.id===(q?.c||item.topicId));
+    const text=q?.q || item.questionText || "Question text unavailable";
+    return `<div class="question-review-row">
+      <div class="question-review-copy">
+        <div class="question-review-title"><b>${qzEsc(item.id)}</b><span class="question-review-topic">${qzEsc(topic?.title||item.topicId||"Unknown topic")}</span></div>
+        <div class="question-review-text">${qzEsc(text)}</div>
+        ${detailHtml}
+      </div>
+      <div class="question-review-counts" aria-label="${qzEsc(countLabel)}">
+        ${countHtml}
+        <span class="question-review-count attempts">${item.totalAttempts} attempts</span>
+      </div>
+    </div>`;
+  };
+
+  const reviewItems=questionStatsCache
+    .filter(item=>item.manualCorrectCount>0)
+    .sort((a,b)=>b.manualCorrectCount-a.manualCorrectCount || b.totalAttempts-a.totalAttempts);
+  reviewSummary.textContent=reviewItems.length ? `${reviewItems.length} to review` : "No overrides yet";
+  reviewList.innerHTML=reviewItems.length
+    ? reviewItems.slice(0,12).map(item=>rowFor(item,`<span class="question-review-count correct">${item.manualCorrectCount} marked correct</span>`,"Manual-correct and attempt counts")).join("")
+      + (reviewItems.length>12?'<div class="empty">Showing the 12 most frequently overridden questions.</div>':"")
+    : '<div class="empty">No answers have been marked correct manually yet.</div>';
+
+  const flaggedItems=questionStatsCache
+    .filter(item=>item.flagCount>0)
+    .sort((a,b)=>b.flagCount-a.flagCount || b.totalAttempts-a.totalAttempts);
+  flaggedSummary.textContent=flaggedItems.length ? `${flaggedItems.length} flagged` : "No flags yet";
+  flaggedList.innerHTML=flaggedItems.length
+    ? flaggedItems.slice(0,12).map(item=>{
+        const answers=(item.flaggedAnswers||[]).slice().sort((a,b)=>{
+          const time=value=>(value?.toMillis?.() ?? Date.parse(value||"")) || 0;
+          return time(b.at)-time(a.at);
+        }).slice(0,3);
+        const answerHtml=answers.length
+          ? `<div class="question-review-answers" aria-label="Recent flagged answers">${answers.map(entry=>`<div class="question-review-answer">“${qzEsc(entry.answer||"(blank)")}”</div>`).join("")}</div>`
+          : '<div class="question-review-answers"><div class="question-review-answer"><span>No saved answer is available for this earlier flag.</span></div></div>';
+        return rowFor(item,`<span class="question-review-count wrong">${item.flagCount} flag${item.flagCount===1?"":"s"}</span>`,"Flag and attempt counts",answerHtml);
+      }).join("")
+      + (flaggedItems.length>12?'<div class="empty">Showing the 12 most frequently flagged questions.</div>':"")
+    : '<div class="empty">No questions have been flagged yet.</div>';
+}
+
+async function loadQuestionStats(){
+  const list=$("questionReviewList");
+  const summary=$("questionReviewSummary");
+  const flaggedList=$("flaggedQuestionsList");
+  const flaggedSummary=$("flaggedQuestionsSummary");
+  if(!(fbDb && currentUser?.role==="admin")) return;
+  try{
+    const {collection,getDocs}=await import("firebase/firestore");
+    const snap=await getDocs(collection(fbDb,"questionStats"));
+    questionStatsCache=snap.docs.map(d=>{
+      const data=d.data()||{};
+      return {
+        id:d.id,
+        topicId:data.topicId||"",
+        questionText:data.questionText||"",
+        manualCorrectCount:Number(data.manualCorrectCount)||0,
+        manualWrongCount:Number(data.manualWrongCount)||0,
+        flagCount:Number(data.flagCount)||0,
+        flaggedAnswers:Array.isArray(data.flaggedAnswers) ? data.flaggedAnswers : (Array.isArray(data.flaggedAnswersPreview) ? data.flaggedAnswersPreview : []),
+        totalAttempts:Number(data.totalAttempts)||0
+      };
+    });
+    renderQuestionStats();
+  }catch(e){
+    console.warn("question stats load failed",e);
+    if(summary) summary.textContent="Unavailable";
+    if(list) list.innerHTML='<div class="empty">Override counts could not be loaded. Check Firestore permissions.</div>';
+    if(flaggedSummary) flaggedSummary.textContent="Unavailable";
+    if(flaggedList) flaggedList.innerHTML='<div class="empty">Flag counts could not be loaded. Check Firestore permissions.</div>';
+  }
+}
+
 async function adminLoadAll(){
   if(!fbDb) return;
   const {collection,getDocs,doc,getDoc}=await import("firebase/firestore");
@@ -1364,8 +1497,10 @@ async function adminLoadAll(){
     const admins=allStudentsCache.filter(l=>l.role==="admin").length;
     $("adminCounts").textContent=`${students} students • ${admins} admin`;
     renderAdminList();
+    await loadQuestionStats();
   }catch{
     $("adminCounts").textContent="Loading class list…";
+    loadQuestionStats();
   }
 }
 
@@ -2138,6 +2273,14 @@ async function qSetOverride(qid, patch){
 
 function qzFor(code){ return qVisible().filter(q=>q.c===code); }
 function qzForStrand(st){ return qVisible().filter(q=>q.c[0]===st); }
+function qzQuestionCode(q){
+  const existing=String(q.i||"").trim();
+  if(/^[A-Za-z]+\d+-\d{2,}$/.test(existing)) return existing.toUpperCase();
+  const home=String(q.home||q.c||"Q").toUpperCase();
+  const homeQuestions=QUESTIONS.filter(item=>item.c===(q.home||q.c));
+  const index=homeQuestions.findIndex(item=>item.i===q.i);
+  return home+"-"+String(index>=0?index+1:1).padStart(2,"0");
+}
 function qzTopicScore(code){
   return qzTopicScoreFromState(code,qzState);
 }
@@ -2191,72 +2334,321 @@ function qzApplyFilter(pool){
   });
 }
 
-/* Answer checking deliberately has two lanes. Short numerical and algebraic
-   answers are checked automatically; explanations, proofs and multipart
-   responses are advisory because valid working can be phrased many ways. */
-function qzSuperscripts(s){
-  const map={"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9","⁻":"-","⁺":"+"};
-  return String(s).replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]+/g, m=>"^"+[...m].map(ch=>map[ch]).join(""));
+/* ============================================================================
+   answer-check.js — compare a typed maths answer with the stored one.
+
+   checkAnswer(userInput, storedAnswer) -> {
+     verdict: "correct" | "incorrect" | "unknown",
+     user, expected,
+     via
+   }
+
+   "unknown" is deliberate: prose and other answers the checker cannot judge
+   fall back to self-marking rather than being marked wrong automatically.
+   ========================================================================== */
+const _SUP = {'⁰':'0','¹':'1','²':'2','³':'3','⁴':'4','⁵':'5',
+              '⁶':'6','⁷':'7','⁸':'8','⁹':'9','⁻':'-','⁺':'+'};
+const _SUB = {'₀':'0','₁':'1','₂':'2','₃':'3','₄':'4','₅':'5',
+              '₆':'6','₇':'7','₈':'8','₉':'9'};
+const _VULGAR = {'½':'1/2','⅓':'1/3','⅔':'2/3','¼':'1/4','¾':'3/4',
+                 '⅕':'1/5','⅖':'2/5','⅗':'3/5','⅘':'4/5','⅙':'1/6',
+                 '⅚':'5/6','⅛':'1/8','⅜':'3/8','⅝':'5/8','⅞':'7/8'};
+
+/* units only stripped when they trail a number, so a lone "m" stays a variable */
+const _UNITS = '(?:cm|mm|km|m|kg|g|mg|ml|l|litres?|newtons?|n|s|secs?|seconds?|mins?|minutes?|'
+             + 'hours?|hrs?|days?|weeks?|months?|years?|mph|kph|people|students?|sheets?|sides?|'
+             + 'terms?|ways?|games?|times?|marks?|degrees?)';
+
+function normalise(input){
+  let s = String(input == null ? '' : input);
+
+  s = s.replace(/[−–—‒⁃]/g, '-');
+  s = s.replace(/[     ]/g, ' ');
+  s = s.replace(/[‘’‛]/g, "'").replace(/[“”]/g, '"');
+
+  s = s.replace(/[⁰¹²³⁴-⁹⁺⁻]+/g,
+                m => '^' + m.split('').map(c => _SUP[c]).join(''));
+  s = s.replace(/[₀-₉]+/g, m => '_' + m.split('').map(c => _SUB[c]).join(''));
+
+  s = s.replace(/(\d)\s*([¼-¾⅓-⅞])/g, (m,d,f) => d + ' ' + _VULGAR[f]);
+  s = s.replace(/[¼-¾⅓-⅞]/g, m => _VULGAR[m] || m);
+
+  s = s.replace(/[×⋅∙]/g, '*').replace(/÷/g, '/');
+  s = s.replace(/√/g, 'sqrt').replace(/∛/g, 'cbrt').replace(/π/g, 'pi');
+  s = s.replace(/≤/g, '<=').replace(/≥/g, '>=').replace(/≠/g, '!=');
+  s = s.replace(/≡/g, '=').replace(/∞/g, 'inf');
+  s = s.replace(/[£$€]/g, '');
+  s = s.replace(/°/g, '');
+  s = s.replace(/[★☆]/g, '');
+
+  s = s.toLowerCase();
+  s = s.replace(/(\d),(\d{3})(?![\d])/g, '$1$2');
+  s = s.replace(/\s*\^\s*/g, '^');
+  s = s.replace(/(\d)\s*[x*]\s*10\s*\^/g, '$1*10^');
+  s = s.replace(/(\d)\s*e\s*([+-]?\d+)(?![\w.])/g, '$1*10^$2');
+
+  s = s.replace(new RegExp('(\\d)\\s*' + _UNITS + '(\\^-?\\d+)?\\b', 'g'), '$1');
+  s = s.replace(/\bper\s+\w+/g, '');
+
+  s = s.replace(/\s+/g, ' ').trim();
+  s = s.replace(/[.,;]+$/, '');
+  return s;
 }
-function qzNormal(s){
-  return qzSuperscripts(String(s||"").toLowerCase())
-    .replace(/[−–—]/g,"-").replace(/[×·]/g,"*").replace(/÷/g,"/")
-    .replace(/\b(times|multiplied by)\b/g,"*").replace(/\s+/g,"")
-    .replace(/[,.!?;:]+$/g,"").replace(/\^\+/g,"^");
-}
-function qzNumeric(s){
-  let x=qzNormal(s).replace(/^\(?[a-z]\)?=/," ").trim();
-  x=x.replace(/(\d)x(?=10\^)/g,"$1*").replace(/^(?:£|\$)/,"");
-  let scale=1;
-  if(x.endsWith("%")){ scale=.01; x=x.slice(0,-1); }
-  x=x.replace(/(?:seconds?|secs?|s|minutes?|mins?|hours?|hrs?|cm|mm|km|metres?|meters?|m|kg|g|litres?|liters?|ml|degrees?|°)(?:\^?[23])?$/i,"");
-  const sci=x.match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))(?:\*?10\^?([+-]?\d+)|e([+-]?\d+))$/i);
-  if(sci) return Number(sci[1])*Math.pow(10,Number(sci[2]??sci[3]))*scale;
-  const mixed=x.match(/^([+-]?\d+)\s+([+-]?\d+)\/([+-]?\d+)$/);
-  if(mixed && Number(mixed[3])) return (Number(mixed[1])+Math.sign(Number(mixed[1])||1)*Number(mixed[2])/Number(mixed[3]))*scale;
-  const fraction=x.match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))\/([+-]?(?:\d+(?:\.\d*)?|\.\d+))$/);
-  if(fraction && Number(fraction[2])) return Number(fraction[1])/Number(fraction[2])*scale;
-  if(/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(x)) return Number(x)*scale;
+
+function _tight(s){ return normalise(s).replace(/\s+/g, ''); }
+
+function toNumber(v){
+  let s = normalise(v).replace(/%/g, '').replace(/\s*\/\s*/g, '/').trim();
+  let m;
+  if ((m = s.match(/^(-?\d+)\s+(\d+)\/(\d+)$/))){
+      const w = parseInt(m[1],10), sign = w < 0 ? -1 : 1;
+      return w + sign * parseInt(m[2],10)/parseInt(m[3],10);
+  }
+  s = s.replace(/\s+/g, '');
+  const NUM = '-?(?:\\d+(?:\\.\\d*)?|\\.\\d+)';
+  if (new RegExp('^' + NUM + '$').test(s))              return parseFloat(s);
+  if ((m = s.match(new RegExp('^(' + NUM + ')/(' + NUM + ')$'))))
+      return parseFloat(m[1]) / parseFloat(m[2]);
+  if ((m = s.match(new RegExp('^(' + NUM + ')\\*10\\^(-?\\d+)$'))))
+      return parseFloat(m[1]) * Math.pow(10, parseInt(m[2],10));
+  if ((m = s.match(new RegExp('^(' + NUM + ')?sqrt\\(?(\\d+(?:\\.\\d+)?)\\)?$'))))
+      return (m[1] === undefined ? 1 : parseFloat(m[1])) * Math.sqrt(parseFloat(m[2]));
+  if ((m = s.match(new RegExp('^(' + NUM + ')?pi$'))))
+      return (m[1] === undefined ? 1 : parseFloat(m[1])) * Math.PI;
   return null;
 }
-function qzManualReview(q){
-  return /\b(explain|show that|prove|justify|describe|sketch|draw|construct|compare|comment|give a reason)\b/i.test(q.q)
-    || /(^|\n)\s*\([a-z]\)/i.test(q.q) || /\n/.test(q.a) || q.a.length>90;
+
+function _decimals(v){
+  const m = String(v == null ? '' : v).match(/\.(\d+)/);
+  return m ? m[1].length : 0;
 }
-function qzCheckValue(given, expected){
-  const a=qzNormal(given), b=qzNormal(expected);
-  if(!a) return false;
-  if(a===b) return true;
-  const na=qzNumeric(given), nb=qzNumeric(expected);
-  if(na!==null && nb!==null){
-    const tolerance=Math.max(1e-9,Math.abs(nb)*1e-6);
-    return Math.abs(na-nb)<=tolerance;
+function _numEq(a, b, expectedRaw){
+  if (a === null || b === null) return false;
+  const scale = Math.max(1, Math.abs(a), Math.abs(b));
+  if (Math.abs(a - b) <= 1e-6 * scale) return true;
+  const d = _decimals(expectedRaw);
+  if (d > 0){
+    const f = Math.pow(10, d);
+    return Math.round(a * f) === Math.round(b * f);
   }
-  /* Accept a bare value when the mark scheme writes a simple variable label. */
-  const bareExpected=String(expected).replace(/^\s*[a-z]\s*=\s*/i,"");
-  if(bareExpected!==expected && a===qzNormal(bareExpected)) return true;
   return false;
+}
+
+function _parts(s){
+  return normalise(s)
+    .split(/\s+and\s+|\s*[,;]\s*|\s+or\s+/)
+    .map(p => p.trim()).filter(Boolean);
+}
+
+function _stripLabel(s){
+  return s.replace(/^[a-z][a-z0-9_]*\s*=\s*/, '');
+}
+
+function isUnmarkable(expected){
+  const raw = String(expected == null ? '' : expected);
+  if (/\n/.test(raw)) return true;
+  if (/\bor any\b|\beg\b|\bfor example\b/i.test(raw)) return true;
+  if (/[≈≡]|≈/.test(raw)) return true;
+  if (/^(yes|no)\b/i.test(raw.trim())) return true;
+  if (/[—–]\s*[a-z]/i.test(raw)) return true;
+  const prose = raw.match(/\b(because|since|so that|therefore|hence|which|whose|that the|must|should|would|explain|reason|correct|wrong|not the same|as radii|common|given|about|against|per|study|studies|plot|read|draw|clears|shows?)\b/gi);
+  if (prose && prose.length >= 1) return true;
+  const words = (raw.match(/[a-z]{3,}/gi) || [])
+                  .filter(w => !/^(cm|mm|km|kg|litres?|mins?|hours?|days?|years?|sqrt|pi|and|the)$/i.test(w));
+  return words.length >= 3;
+}
+
+/* "(a) 31.2  (b) 0.312  (c) 0.048" -> [{label:'a',text:'31.2'}, …]
+   Stored answers always use the "(a)" form, so that side stays strict.
+   Student input is parsed loosely: "a)", "a.", "a:", "A)" and bare lists. */
+function splitParts(s){
+  const raw = String(s == null ? '' : s);
+  if (!/\([a-d]\)/.test(raw)) return null;
+  const out = []; const re = /\(([a-d])\)\s*([\s\S]*?)(?=\([a-d]\)|$)/g; let m;
+  while ((m = re.exec(raw))){
+    const text = m[2].trim().replace(/[;,]+$/, '');
+    if (text) out.push({ label: m[1].toLowerCase(), text: text });
+  }
+  return out.length ? out : null;
+}
+
+const _LOOSE_LEAD = /^\(?\s*([a-d])\s*[\).:\-–]\s*/i;   // "(a)" "a)" "a." "a:" "a -"
+
+function splitPartsLoose(s, want){
+  const raw = String(s == null ? '' : s).trim();
+  if (!raw) return null;
+  // labelled anywhere in the string, e.g. "a) 31.2 b) 0.312 c) 0.048"
+  const re = /(?:^|[\s,;])\(?\s*([a-d])\s*[\).:]\s*/gi;
+  const idx = []; let m;
+  while ((m = re.exec(raw))) idx.push({ label: m[1].toLowerCase(), from: m.index, to: re.lastIndex });
+  if (idx.length === want){
+    const out = [];
+    for (let i = 0; i < idx.length; i++){
+      const text = raw.slice(idx[i].to, i+1 < idx.length ? idx[i+1].from : raw.length)
+                      .trim().replace(/[;,]+$/, '');
+      if (text) out.push({ label: idx[i].label, text: text });
+    }
+    if (out.length === want) return out;
+  }
+  // otherwise a plain list; strip any leading label from each piece
+  const flat = raw.split(/\s*[,;]\s*|\n+/).map(x => x.trim()).filter(Boolean);
+  if (flat.length !== want) return null;
+  return flat.map(t => {
+    const mm = t.match(_LOOSE_LEAD);
+    return { label: mm ? mm[1].toLowerCase() : null, text: mm ? t.slice(mm[0].length).trim() : t };
+  });
+}
+
+function checkAnswer(userInput, storedAnswer, opts){
+  const eParts = splitParts(storedAnswer);
+  if (eParts && eParts.length > 1){
+    const uParts = splitPartsLoose(userInput, eParts.length);
+    const fail = via => ({ verdict:'unknown', user:normalise(userInput),
+                           expected:normalise(storedAnswer), via:via });
+    if (!uParts) return fail('multipart-shape');
+    // match by label when the student used them, otherwise by position
+    const labelled = uParts.every(p => p.label);
+    const byLabel = {}; if (labelled) uParts.forEach(p => { byLabel[p.label] = p.text; });
+    let allCorrect = true;
+    for (let i = 0; i < eParts.length; i++){
+      const ep  = eParts[i];
+      const got = labelled ? byLabel[ep.label] : uParts[i].text;
+      if (got === undefined) return fail('multipart-labels');
+      const r = _checkOne(got, ep.text);
+      if (r.verdict === 'unknown')   return fail('multipart-prose');
+      if (r.verdict === 'incorrect') allCorrect = false;
+    }
+    return { verdict: allCorrect ? 'correct' : 'incorrect', user:normalise(userInput),
+             expected:normalise(storedAnswer), via:'multipart' };
+  }
+  return _checkOne(userInput, storedAnswer, opts);
+}
+
+function _checkOne(userInput, storedAnswer, opts){
+  opts = opts || {};
+  const out = { verdict:'unknown', user:normalise(userInput), expected:normalise(storedAnswer), via:null };
+
+  if (!out.user)                      { out.via = 'empty-input';  return out; }
+  if (isUnmarkable(storedAnswer))     { out.via = 'prose-answer'; return out; }
+
+  const un = toNumber(userInput), en = toNumber(storedAnswer);
+  if (un !== null && en !== null){
+    out.verdict = _numEq(un, en, storedAnswer) ? 'correct' : 'incorrect';
+    out.via = 'numeric';
+    return out;
+  }
+
+  if (_tight(userInput) === _tight(storedAnswer)){
+    out.verdict = 'correct'; out.via = 'exact'; return out;
+  }
+
+  if (_stripLabel(_tight(userInput)) === _stripLabel(_tight(storedAnswer))){
+    out.verdict = 'correct'; out.via = 'label-stripped'; return out;
+  }
+  const ul = toNumber(_stripLabel(_tight(userInput)));
+  const el = toNumber(_stripLabel(_tight(storedAnswer)));
+  if (ul !== null && el !== null){
+    out.verdict = _numEq(ul, el, storedAnswer) ? 'correct' : 'incorrect';
+    out.via = 'numeric-labelled';
+    return out;
+  }
+
+  const up = _parts(userInput), ep = _parts(storedAnswer);
+  if (ep.length > 1){
+    if (up.length !== ep.length){ out.verdict='incorrect'; out.via='part-count'; return out; }
+    const norm = p => { const n = toNumber(_stripLabel(p.replace(/\s+/g,'')));
+                        return n === null ? _stripLabel(p.replace(/\s+/g,'')) : n; };
+    const A = up.map(norm), B = ep.map(norm);
+    const used = new Array(B.length).fill(false);
+    const hit = a => {
+      for (let i=0;i<B.length;i++){
+        if (used[i]) continue;
+        const b = B[i];
+        const same = (typeof a === 'number' && typeof b === 'number') ? _numEq(a,b,String(b)) : a === b;
+        if (same){ used[i] = true; return true; }
+      }
+      return false;
+    };
+    out.verdict = A.every(hit) ? 'correct' : 'incorrect';
+    out.via = 'multi-value';
+    return out;
+  }
+
+  out.verdict = 'incorrect'; out.via = 'string';
+  return out;
+}
+
+if (typeof module !== 'undefined') module.exports = { normalise, toNumber, checkAnswer, isUnmarkable };
+
+const QZ_FRACTION_CHARS=Object.keys(_VULGAR);
+function qzHasFractionNotation(q,topic){
+  const content=`${q.q} ${q.a}`;
+  return QZ_FRACTION_CHARS.some(char=>content.includes(char))
+    || /\d+\s*\/\s*\d+/.test(content) || /\bfractions?\b/i.test(topic?.title||"");
+}
+function qzHasPowerNotation(q,topic){
+  return /[⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻^]/.test(`${q.q} ${q.a}`) || /\b(powers?|indices|exponents?)\b/i.test(topic?.title||"");
 }
 function qzFeedbackHtml(q){
   const fb=qzFeedback[q.i];
   if(!fb) return '<div class="qz-feedback" id="qzFeedback" role="status" aria-live="polite"></div>';
   if(fb.kind==="correct") return '<div class="qz-feedback correct show" id="qzFeedback" role="status" aria-live="polite"><strong>Correct</strong>Your answer matches the expected answer.</div>';
-  if(fb.kind==="review") return `<div class="qz-feedback review show" id="qzFeedback" role="status" aria-live="polite"><strong>Check your method</strong>This question can be answered in different valid ways. Compare yours with: <b>${qzEsc(q.a)}</b><div class="qz-feedback-actions"><button class="btn qz-btn-right" id="qzSelfRight">Mark as correct</button><button class="btn qz-btn-wrong" id="qzSelfWrong">Mark as wrong</button></div></div>`;
-  return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Not quite</strong>Expected answer: <b>${qzEsc(q.a)}</b><div class="qz-feedback-actions"><button class="btn" id="qzOverride">Mark as correct anyway</button></div></div>`;
+  if(fb.kind==="unknown") return `<div class="qz-feedback review show" id="qzFeedback" role="status" aria-live="polite"><strong>Check your answer</strong>This answer needs to be marked by you. Compare yours with: <b>${qzEsc(q.a)}</b><div class="qz-feedback-actions"><button class="btn qz-btn-right" id="qzSelfRight">Mark as correct</button><button class="btn qz-btn-wrong" id="qzSelfWrong">Mark as wrong</button></div></div>`;
+  return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Not quite</strong>Expected answer: <b>${qzEsc(q.a)}</b><div class="qz-flag-prompt">You think your answer was correct?</div><div class="qz-feedback-actions"><button class="btn qz-flag-button" id="qzFlag">Flag the Question</button></div></div>`;
+}
+async function qzRecordQuestionStat(q,kind,answer=""){
+  if(!(fbDb && currentUser && q)) return;
+  const {doc,setDoc,increment,serverTimestamp,arrayUnion}=await import("firebase/firestore");
+  const ref=doc(fbDb,"questionStats",qzQuestionCode(q));
+
+  // Keep flags anonymous and rule-friendly: only counters, a server timestamp,
+  // and the submitted answer with a plain ISO date string are written.
+  if(kind==="flag"){
+    await setDoc(ref,{
+      flagCount:increment(1),
+      lastFlaggedAt:serverTimestamp(),
+      flaggedAnswers:arrayUnion({
+        answer:String(answer||"").trim(),
+        at:new Date().toISOString()
+      })
+    },{merge:true});
+    return;
+  }
+
+  const payload={
+    questionCode:qzQuestionCode(q),
+    topicId:q.c,
+    subjectId:currentSubjectId,
+    questionText:q.q,
+    updatedAt:serverTimestamp()
+  };
+  if(kind==="attempt") payload.totalAttempts=increment(1);
+  if(kind==="manualCorrect"){
+    payload.manualCorrectCount=increment(1);
+    payload.lastOverrideAt=serverTimestamp();
+  }
+  if(kind==="manualWrong"){
+    payload.manualWrongCount=increment(1);
+    payload.lastOverrideAt=serverTimestamp();
+  }
+  await setDoc(ref,payload,{merge:true});
+}
+function qzTrackQuestionStat(q,kind){
+  qzRecordQuestionStat(q,kind).catch(e=>console.warn("question stat update failed",e));
 }
 function qzCheckAnswer(q){
   const input=$("qzInput");
   const given=(input?.value||"").trim();
   if(!given) return;
   qzDrafts[q.i]=given;
-  if(qzManualReview(q)){
-    qzFeedback[q.i]={kind:"review"};
+  qzTrackQuestionStat(q,"attempt");
+  const result=checkAnswer(given,q.a);
+  qzFeedback[q.i]={kind:result.verdict,via:result.via};
+  if(result.verdict==="unknown"){
     qzSave(); qzRender();
     return;
   }
-  const correct=qzCheckValue(given,q.a);
-  qzFeedback[q.i]={kind:correct?"correct":"incorrect"};
-  qzMark(q.i,correct?"c":"w",false);
+  qzMark(q.i,result.verdict==="correct"?"c":"w",false);
 }
 function qzRender(){
   const pool=qzPool();
@@ -2311,6 +2703,11 @@ function qzRender(){
     return;
   }
   const q=qzList[qzIdx], st=qzState[q.i]||{};
+  const questionCode=qzQuestionCode(q);
+  const topic=TOPICS.find(t=>t.id===q.c);
+  const topicQuestions=qzFor(q.c);
+  const topicPosition=Math.max(0,topicQuestions.findIndex(item=>item.i===q.i))+1;
+  const topicContext=`Question ${topicPosition} of ${topicQuestions.length} in ${q.c}`;
   const doneTag = st.s==="c" ? '<span class="qz-tag done-c">Got it right</span>'
                 : st.s==="w" ? '<span class="qz-tag done-w">Got it wrong</span>' : '';
   const qzPct=Math.round((qzIdx+1)/qzList.length*100);
@@ -2320,23 +2717,31 @@ function qzRender(){
         const statusClass=dotState==="c"?" right":dotState==="w"?" wrong":"";
         const currentClass=i===qzIdx?" current":"";
         const statusLabel=i===qzIdx?"current":dotState==="c"?"right":dotState==="w"?"wrong":"not attempted";
-        return `<i class="qz-dot${statusClass}${currentClass}" title="Question ${i+1}: ${statusLabel}"></i>`;
+        const dotCode=qzQuestionCode(dotQ);
+        return `<i class="qz-dot${statusClass}${currentClass}" title="${qzEsc(dotCode)} — ${statusLabel}" aria-label="${qzEsc(dotCode)}: ${statusLabel}"></i>`;
       }).join("")}</span>`
     : "";
+  const answerTip=(qzHasFractionNotation(q,topic) || qzHasPowerNotation(q,topic))
+    ? '<p class="qz-answer-tip">Tip: Type ^2 for ², ^3 for ³, 1/2 for ½, 1/4 for ¼, or 3 1/2 for 3½—we accept both forms.</p>'
+    : '';
   body.innerHTML = `
     <div class="qz-card">
       <div class="qz-card-progress" role="progressbar" aria-label="Question progress" aria-valuemin="1" aria-valuemax="${qzList.length}" aria-valuenow="${qzIdx+1}"><i style="width:${qzPct}%"></i></div>
       <div class="qz-meta">
-        <span class="qz-tag code">${q.c}</span>
-        <span class="qz-position" aria-label="Question ${qzIdx+1} of ${qzList.length}">Q${qzIdx+1} / ${qzList.length}</span>
+        <span class="qz-code" title="Permanent question code">${qzEsc(questionCode)}</span>
+        <span class="qz-topic-name">${qzEsc(topic?.title||q.c)}</span>
         <span class="qz-tag">${q.k} mark${q.k>1?"s":""}</span>
+        <button class="qz-star ${st.f?"on":""}" id="qzStar" title="Favourite this question">${st.f?"★":"☆"}</button>
+      </div>
+      <div class="qz-context" aria-label="${qzEsc(topicContext)}">
+        <span class="qz-context-position">${qzEsc(topicContext)}</span>
+        <span class="qz-context-sep" aria-hidden="true"></span>
         <span class="qz-tag">Grade ${q.g}</span>
         ${q.t==="N"?'<span class="qz-tag noncalc">Non-calculator</span>':''}
         ${doneTag}
         ${(st.first==="w" && st.s==="c")?'<span class="qz-tag firstwrong">wrong first time</span>':''}
         ${q.dep?'<span class="qz-tag done-w">Deprecated</span>':''}
         ${q.moved?`<span class="qz-tag" title="Moved by an admin from ${q.home}">moved from ${q.home}</span>`:''}
-        <button class="qz-star ${st.f?"on":""}" id="qzStar" title="Favourite this question">${st.f?"★":"☆"}</button>
       </div>
       ${qzAdminBar(q)}
       <p class="qz-question-label">Question</p>
@@ -2349,6 +2754,7 @@ function qzRender(){
         <div class="qz-final-field">
           <label class="qz-answer-label" for="qzInput">Final answer</label>
           <input class="qz-final-in" id="qzInput" type="text" placeholder="Final answer" autocomplete="off" value="${qzEsc(qzDrafts[q.i]||"")}">
+          ${answerTip}
         </div>
         <button class="btn btn-primary" id="qzCheck" ${(qzDrafts[q.i]||"").trim()?"":"disabled"}>Check answer</button>
       </div>
@@ -2360,15 +2766,11 @@ function qzRender(){
       <div class="qz-reveal" id="qzReveal">
         <div class="qz-block qz-correct"><div class="lab">Answer</div><div class="val">${qzEsc(q.a)}</div></div>
         <div class="qz-block"><div class="lab">Mark scheme</div><div class="val">${qzEsc(q.m)}</div></div>
-        ${qzManualReview(q)?`<div class="qz-mark">
-          <button class="btn qz-btn-right" id="qzRight">✓ Mark as correct</button>
-          <button class="btn qz-btn-wrong" id="qzWrong">✗ Mark as wrong</button>
-        </div>`:""}
       </div>
     </div>
     <div class="qz-nav" aria-label="Question navigation">
       <button class="btn" id="qzPrev" ${qzIdx===0?"disabled":""}>← Previous</button>
-      <div class="qz-countbox"><span class="qz-count">Question ${qzIdx+1} of ${qzList.length}</span>${qzDots}</div>
+      <div class="qz-countbox"><span class="qz-count">${qzEsc(topicContext)}</span>${qzDots}</div>
       <button class="btn" id="qzNext" ${qzIdx>=qzList.length-1 && !(qzScope.kind==="topic" && u===0)?"disabled":""}>${qzIdx>=qzList.length-1 && qzScope.kind==="topic" && u===0?"Finish →":"Next →"}</button>
     </div>`;
 
@@ -2397,12 +2799,24 @@ function qzRender(){
                                 $("qzHintBtn").textContent = h.classList.contains("show")?"Hide hint":"Show hint"; };
   $("qzStar").onclick   = ()=>{ const s=qzState[q.i]||{}; if(s.f) delete s.f; else s.f=1;
                                 qzState[q.i]=s; qzSave(); qzRender(); };
-  const manualRight=$("qzRight"), manualWrong=$("qzWrong"), selfRight=$("qzSelfRight"), selfWrong=$("qzSelfWrong"), override=$("qzOverride");
-  if(manualRight) manualRight.onclick=()=>{ delete qzFeedback[q.i]; qzMark(q.i,"c"); };
-  if(manualWrong) manualWrong.onclick=()=>{ delete qzFeedback[q.i]; qzMark(q.i,"w"); };
-  if(selfRight) selfRight.onclick=()=>{ delete qzFeedback[q.i]; qzMark(q.i,"c",false); };
-  if(selfWrong) selfWrong.onclick=()=>{ delete qzFeedback[q.i]; qzMark(q.i,"w",false); };
-  if(override) override.onclick=()=>{ delete qzFeedback[q.i]; qzMark(q.i,"c",false); };
+  const selfRight=$("qzSelfRight"), selfWrong=$("qzSelfWrong"), flag=$("qzFlag");
+  if(selfRight) selfRight.onclick=()=>{ qzTrackQuestionStat(q,"manualCorrect"); delete qzFeedback[q.i]; qzMark(q.i,"c",false); };
+  if(selfWrong) selfWrong.onclick=()=>{ qzTrackQuestionStat(q,"manualWrong"); delete qzFeedback[q.i]; qzMark(q.i,"w",false); };
+  if(flag) flag.onclick=async()=>{
+    const previousLabel=flag.textContent;
+    flag.disabled=true;
+    flag.textContent="Saving flag…";
+    try{
+      await qzRecordQuestionStat(q,"flag",qzDrafts[q.i]||"");
+      flag.textContent="Flagged";
+      showToast(`${qzQuestionCode(q)} flagged for admin review`);
+    }catch(e){
+      console.warn("question flag update failed",e);
+      flag.disabled=false;
+      flag.textContent=previousLabel;
+      showToast("Could not save the flag. Please try again.");
+    }
+  };
   $("qzPrev").onclick   = ()=>{ if(qzIdx>0){ qzIdx--; qzRender(); } };
   $("qzNext").onclick   = ()=>{ if(qzIdx<qzList.length-1){ qzIdx++; qzRender(); } else if(qzScope.kind==="topic" && u===0){ qzReviewingComplete=false; qzRender(); } };
 }
