@@ -236,6 +236,17 @@
   .invite-message{min-height:20px;font-size:12.8px;line-height:1.45;font-weight:600;color:var(--muted)}
   .invite-message.success{color:var(--green)}
   .invite-message.error{color:var(--red)}
+  .invite-result{display:none;margin-top:14px;padding:14px;border:1px solid #bfe9d9;border-radius:13px;background:var(--green-bg)}
+  .invite-result.show{display:grid;gap:10px}
+  .invite-result h3{margin:0;color:var(--green);font-size:14px}
+  .invite-result p{margin:0;color:var(--ink-2);font-size:12.8px;line-height:1.5}
+  .invite-credentials{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+  .invite-credential{min-width:0;padding:9px 10px;border:1px solid #cfe7de;border-radius:10px;background:#fff}
+  .invite-credential span{display:block;margin-bottom:3px;color:var(--muted);font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+  .invite-credential code{display:block;overflow-wrap:anywhere;color:var(--ink);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;font-weight:700}
+  .invite-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .invite-actions .btn{text-decoration:none}
+  @media(max-width:560px){.invite-credentials{grid-template-columns:1fr}.invite-actions .btn{width:100%;justify-content:center}}
   .mini-bar{height:5px;width:88px;background:#eef1fb;border-radius:999px;overflow:hidden}
   @media(max-width:560px){.student-row{align-items:flex-start;flex-direction:column}.student-row > div:last-child{width:100%;justify-content:space-between}.mini-bar{flex:1 1 auto;max-width:180px}}
   .mini-bar i{display:block;height:100%;background:var(--navy);border-radius:999px}
@@ -364,12 +375,95 @@
   @media(max-width:380px){
     .formula-grid{grid-template-columns:1fr}
   }
+
+
+/* == MODERN STUDENT DASHBOARD == */
+#view-student{animation:dashboard-in .32s ease both}
+#view-student .subject-bar{
+  margin:4px 0 22px;padding:11px 14px;border-radius:16px;
+  background:rgba(255,255,255,.88);border-color:rgba(208,215,239,.82);
+  box-shadow:0 8px 24px rgba(20,36,92,.06);backdrop-filter:blur(10px);
+}
+.student-hero{grid-template-columns:minmax(0,1.4fr) minmax(250px,.6fr);gap:14px;margin:0 0 18px}
+.welcome-card,.ring-card{border-radius:22px!important;border-color:rgba(208,215,239,.82);box-shadow:0 10px 30px rgba(20,36,92,.07)}
+.welcome-card{padding:24px;background:#fff}
+.welcome-card h2{font-size:29px;line-height:1.08}
+.encourage{margin-top:12px;padding:13px 15px;border-radius:14px;background:#f4f7ff;border-color:#dce4ff;color:#253b78}
+.kpis{gap:10px;margin-top:18px!important}
+.kpi{padding:13px 12px;border-radius:14px;background:#fafbfe;border-color:#e7eaf3;text-align:left}
+.kpi b{font-size:21px;letter-spacing:-.025em}.kpi span{display:block;margin-top:2px}
+.ring-card{padding:21px;background:#fbfcff}
+.ring{width:134px;height:134px;background:conic-gradient(var(--navy) calc(var(--p)*1%), #e4e9f8 calc(var(--p)*1%));box-shadow:0 10px 28px rgba(0,36,125,.12)}
+.ring::after{inset:11px}.ring span{font-size:27px}
+#view-student>.card{border-radius:22px!important;padding:18px!important;border-color:rgba(208,215,239,.82);box-shadow:0 10px 30px rgba(20,36,92,.06)!important}
+#view-student>.card .section-label{margin-bottom:14px;color:#4d587a}
+.strand-panel{padding:20px!important}
+.strand-panel-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:16px}
+.strand-panel-head .section-label{margin:0 0 5px!important}
+.strand-panel-head h2{margin:0;font-family:"Newsreader",serif;font-size:25px;line-height:1.08;font-weight:600;letter-spacing:-.025em}
+.strand-panel-head>p{margin:0;max-width:440px;color:var(--muted);font-size:12.8px;line-height:1.5;text-align:right}
+#view-student .student-strands{grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+#view-student .strand{position:relative;padding:15px;border-radius:16px;gap:11px;border-color:#e2e6f1;box-shadow:0 4px 14px rgba(20,36,92,.04);cursor:pointer;overflow:hidden}
+#view-student .strand:hover{transform:translateY(-2px);box-shadow:0 13px 28px rgba(20,36,92,.11);border-color:#bfcbed}
+#view-student .strand:focus-within{border-color:var(--navy);box-shadow:0 0 0 3px var(--navy-50),0 10px 24px rgba(20,36,92,.09)}
+#view-student .strand.is-active{border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy),0 10px 24px rgba(20,36,92,.10)}
+#view-student .strand-ic{width:36px;height:36px;border-radius:11px;font-size:13px;flex:0 0 36px}
+#view-student .strand-name{display:flex;align-items:center;gap:9px;min-width:0}
+#view-student .strand-name b{font-size:12.5px;letter-spacing:.01em;text-transform:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#view-student .strand-score{font-size:11.5px;color:var(--muted);font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+#view-student .bar{height:7px;background:#e9edf7}
+#view-student .strand-foot{display:flex;flex-direction:column;align-items:stretch;gap:9px;min-width:0;margin-top:1px;padding-top:11px;border-top:1px solid #e7eaf3}
+#view-student .strand-pct{font-size:11px;color:var(--muted);font-weight:700;white-space:nowrap}
+#view-student .strand-practice{appearance:none;border:1px solid var(--navy);background:var(--navy);color:#fff;font-weight:800;font-size:12px;line-height:1;padding:10px 13px;border-radius:11px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 13px rgba(0,36,125,.20);transition:transform .15s,box-shadow .15s,background .15s,border-color .15s}
+#view-student .strand-practice:hover{background:var(--navy-700);border-color:var(--navy-700);transform:translateY(-1px);box-shadow:0 8px 17px rgba(0,36,125,.25)}
+#view-student .strand-practice:active{transform:translateY(0);box-shadow:0 3px 8px rgba(0,36,125,.18)}
+#view-student .strand-practice:focus-visible{outline:3px solid var(--navy-100);outline-offset:2px}
+#view-student .toolbar{position:sticky;top:68px;z-index:25;padding:10px;margin:18px 0;border:1px solid rgba(208,215,239,.82);border-radius:18px;background:rgba(246,247,251,.90);backdrop-filter:blur(12px);box-shadow:0 8px 22px rgba(20,36,92,.06)}
+#view-student .search{border-radius:13px;min-height:38px}
+#view-student .chip{min-height:36px;padding:8px 12px}
+#view-student .strand-group{margin-top:26px}
+#view-student .strand-group-head{margin-bottom:11px}
+#view-student .strand-group-head h3{font-size:20px}
+#view-student .topics{gap:8px;background:transparent;border:0;border-radius:0;box-shadow:none;overflow:visible}
+#view-student .topic{border:1px solid #e2e6f1!important;border-left:4px solid transparent!important;border-radius:15px;padding:13px 14px;background:#fff;box-shadow:0 4px 14px rgba(20,36,92,.045)}
+#view-student .topic:hover{background:#fff;transform:translateY(-1px);border-color:#cfd7ee!important;box-shadow:0 9px 22px rgba(20,36,92,.08)}
+#view-student .topic.is-green{border-left-color:var(--green)!important;background:var(--green-row-bg)}
+#view-student .topic-title{font-size:14.2px}.btn-practice{padding:7px 12px;background:#f2f5ff}
+.qz-card,.qz-complete{border-radius:22px;box-shadow:0 14px 38px rgba(20,36,92,.09)}
+@keyframes dashboard-in{from{opacity:0}to{opacity:1}}
+@media(max-width:900px){
+  .student-hero{grid-template-columns:1fr}
+  #view-student .student-strands{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:640px){
+  .wrap{padding:18px 14px 64px}
+  #view-login.active{margin:0 -14px;padding:0 14px}
+  .strand-panel{padding:17px!important}
+  .strand-panel-head{align-items:start;flex-direction:column;gap:5px}
+  .strand-panel-head h2{font-size:23px}
+  .strand-panel-head>p{text-align:left}
+  #view-student .student-strands{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #view-student .strand{padding:13px}
+  #view-student .toolbar{position:static;padding:9px;border-radius:16px}
+  #view-student .search{max-width:none;flex-basis:100%}
+  .welcome-card{padding:19px}.welcome-card h2{font-size:25px}
+  .kpis{grid-template-columns:1fr 1fr}.kpi:last-child{grid-column:1/-1}
+  #view-student .topic{align-items:flex-start;flex-direction:column}
+  #view-student .topic-actions{width:100%;justify-content:flex-end}
+}
+@media(max-width:390px){
+  #view-student .student-strands{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){#view-student,#view-student .strand,#view-student .topic{animation:none!important;transition:none!important}}
+
 /* == QUIZ:BEGIN == */
-.qz-wrap{max-width:820px;margin:0 auto}
-.qz-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.qz-title{margin:0;font-family:"Newsreader",serif;font-size:23px;font-weight:600;letter-spacing:-.02em}
-.qz-sub{margin:3px 0 0;font-size:12.8px;color:var(--muted)}
-.qz-filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+#view-quiz.active{min-height:calc(100dvh - 64px);background:linear-gradient(180deg,#f4f6fc 0,#f8f9fc 240px)}
+.qz-wrap{max-width:900px;margin:0 auto;padding-top:34px}
+.qz-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.qz-eyebrow{margin:0 0 6px;font-size:10.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--navy)}
+.qz-title{margin:0;font-family:"Newsreader",serif;font-size:30px;line-height:1.05;font-weight:600;letter-spacing:-.025em}
+.qz-sub{margin:6px 0 0;font-size:13.2px;color:var(--muted);line-height:1.45}
+.qz-filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;padding:4px}
 .qz-chip{border:1px solid var(--line);background:#fff;color:var(--ink-2);padding:7px 13px;border-radius:999px;
   font-size:12.6px;font-weight:600;cursor:pointer;transition:.15s}
 .qz-chip:hover{border-color:var(--line-strong)}
@@ -379,22 +473,34 @@
   font-variant-numeric:tabular-nums}
 .qz-chip.on .qz-n{background:rgba(255,255,255,.22);color:#fff}
 .qz-chip.zero{opacity:.45}
-.qz-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:20px 20px 18px;overflow:hidden}
-.qz-card-progress{height:5px;margin:-20px -20px 16px;background:#e8ecfa}
+.qz-card{background:#fff;border:1px solid #dfe4f1;border-radius:24px;box-shadow:0 24px 60px rgba(17,35,90,.11),0 3px 10px rgba(17,35,90,.05);padding:28px 30px 25px;overflow:hidden}
+.qz-card-progress{height:6px;margin:-28px -30px 22px;background:#e8ecfa}
 .qz-card-progress i{display:block;height:100%;background:var(--navy);transition:width .2s ease}
-.qz-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:12px}
-.qz-tag{font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--bg-2);color:var(--ink-2)}
+.qz-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.qz-tag{font-size:11px;font-weight:700;letter-spacing:.025em;padding:6px 10px;border-radius:999px;border:1px solid #dfe4ef;background:#f8f9fc;color:var(--ink-2)}
 .qz-tag.code{background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)}
 .qz-tag.noncalc{background:var(--amber-bg);color:var(--amber);border-color:#f3ddba}
 .qz-tag.done-c{background:var(--green-bg);color:var(--green);border-color:#bfe9d9}
 .qz-tag.done-w{background:var(--red-bg);color:var(--red);border-color:#ffd0d9}
-.qz-star{margin-left:auto;background:none;border:0;font-size:21px;line-height:1;cursor:pointer;color:#cbd2e6;padding:2px 4px;transition:.15s}
-.qz-star:hover{transform:scale(1.15)} .qz-star.on{color:#f0a828}
-.qz-q{font-size:16.5px;line-height:1.6;white-space:pre-wrap;margin:0 0 16px;color:var(--ink)}
-.qz-ans-in{width:100%;min-height:88px;resize:none;overflow:hidden;padding:11px 12px;border:1px solid var(--line);border-radius:11px;font-size:14.5px;line-height:1.55;outline:0}
-.qz-ans-in:focus{border-color:var(--navy);box-shadow:0 0 0 4px var(--navy-50)}
-.qz-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
-.qz-feedback{display:none;margin-top:12px;padding:11px 13px;border-radius:11px;font-size:13.5px;line-height:1.5;border:1px solid var(--line)}
+.qz-star{margin-left:auto;width:35px;height:35px;border-radius:50%;background:#fff;border:1px solid var(--line);font-size:21px;line-height:1;cursor:pointer;color:#aeb8d2;padding:0;transition:.15s;display:grid;place-items:center}
+.qz-star:hover{transform:translateY(-1px);border-color:#c8d2ef;box-shadow:var(--shadow-sm)} .qz-star.on{color:#c88712;background:#fff9e8;border-color:#f0d18f}
+.qz-question-label{margin:0 0 8px;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.qz-q{font-family:"Newsreader",serif;font-size:25px;line-height:1.48;letter-spacing:-.012em;white-space:pre-wrap;margin:0 0 22px;color:#10172d;text-wrap:pretty}
+.qz-answer-label{display:block;margin:0 0 8px;font-size:12px;font-weight:800;color:var(--ink-2)}
+.qz-working{padding:14px;border:1px solid #e1e6f2;border-radius:16px;background:#f7f9fd;margin-bottom:16px}
+.qz-working .qz-answer-label{margin-bottom:7px}
+.qz-working-in{width:100%;min-height:148px;resize:none;overflow:hidden;padding:14px 15px;border:1.5px solid #d8deed;border-radius:13px;background:#fff;font-size:14.5px;line-height:1.6;outline:0;transition:border-color .16s,box-shadow .16s}
+.qz-working-in::placeholder,.qz-final-in::placeholder{color:#8a93aa}
+.qz-working-in:focus,.qz-final-in:focus{border-color:var(--navy);background:#fff;box-shadow:0 0 0 4px var(--navy-50)}
+.qz-final-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end}
+.qz-final-field{min-width:0}
+.qz-final-in{width:100%;min-height:50px;padding:12px 14px;border:1.5px solid #cdd5e8;border-radius:13px;background:#fff;font-size:15px;line-height:1.4;outline:0;transition:border-color .16s,box-shadow .16s}
+.qz-final-row #qzCheck{min-height:50px;padding:12px 22px;border-radius:13px;font-size:13px;font-weight:800;letter-spacing:.025em;box-shadow:0 7px 0 var(--navy-800),0 12px 22px rgba(0,36,125,.16);margin-bottom:7px}
+.qz-final-row #qzCheck:hover{transform:translateY(-1px);box-shadow:0 8px 0 var(--navy-800),0 14px 24px rgba(0,36,125,.18)}
+.qz-final-row #qzCheck:active{transform:translateY(5px);box-shadow:0 2px 0 var(--navy-800),0 5px 12px rgba(0,36,125,.14)}
+.qz-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px;align-items:center}
+.qz-actions #qzHintBtn{min-height:43px;background:#fff}
+.qz-feedback{display:none;margin-top:17px;padding:15px 16px;border-radius:14px;font-size:13.8px;line-height:1.55;border:1px solid var(--line);box-shadow:0 5px 15px rgba(20,36,92,.045)}
 .qz-feedback.show{display:block}
 .qz-feedback.correct{background:var(--green-bg);border-color:#bfe9d9;color:#075c48}
 .qz-feedback.incorrect{background:var(--red-bg);border-color:#ffd0d9;color:#8f1230}
@@ -419,7 +525,7 @@
 .qz-feedback-actions .btn.qz-btn-wrong:hover{
   background:var(--red-bg);border-color:#8f1230;
 }
-@media(max-width:520px){.qz-actions .btn{flex:1 1 auto;justify-content:center}.qz-actions #qzCheck{flex-basis:100%}.qz-feedback-actions .btn{flex:1 1 145px;justify-content:center}}
+@media(max-width:520px){.qz-final-row{grid-template-columns:1fr}.qz-final-row #qzCheck{width:100%;justify-content:center}.qz-actions .btn{flex:1 1 auto;justify-content:center}.qz-feedback-actions .btn{flex:1 1 145px;justify-content:center}}
 
 .qz-reveal{display:none;margin-top:15px;border-top:1px dashed var(--line-strong);padding-top:15px}
 .qz-reveal.show{display:block}
@@ -435,22 +541,42 @@
 .qz-btn-right:hover{filter:brightness(.94)}
 .qz-btn-wrong{background:var(--red);border-color:var(--red);color:#fff}
 .qz-btn-wrong:hover{filter:brightness(.94)}
-.qz-nav{position:sticky;bottom:max(12px, env(safe-area-inset-bottom));z-index:20;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;margin-top:15px;padding:10px 12px;background:#fff;border:1px solid var(--line-strong);border-radius:14px;box-shadow:0 8px 24px rgba(0,36,125,.14)}
-.qz-countbox{display:grid;place-items:center;gap:5px;min-width:0}
+.qz-nav{position:sticky;bottom:max(12px, env(safe-area-inset-bottom));z-index:20;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;margin-top:16px;padding:11px 13px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border:1px solid var(--line-strong);border-radius:16px;box-shadow:0 12px 30px rgba(0,36,125,.14)}
+.qz-countbox{display:grid;place-items:center;gap:6px;min-width:0}
 .qz-count{font-size:13px;color:var(--ink);font-weight:800;text-align:center;white-space:nowrap}
-.qz-dots{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;max-width:170px}
-.qz-dot{width:5px;height:5px;border-radius:50%;background:#d8ddef}
-.qz-dot.past{background:#8fa3df}.qz-dot.current{width:8px;height:8px;background:var(--navy);box-shadow:0 0 0 2px var(--navy-100)}
-@media(max-width:440px){.qz-nav{gap:7px;padding:9px 8px}.qz-nav .btn{padding:8px 10px}.qz-count{font-size:11.8px}.qz-dots{max-width:110px}}
+.qz-dots{display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;max-width:190px}
+.qz-dot{width:6px;height:6px;border-radius:50%;background:#d8ddef}
+.qz-dot.right{background:var(--green)}.qz-dot.wrong{background:var(--red)}
+.qz-dot.current{width:9px;height:9px;background:var(--navy);box-shadow:0 0 0 3px var(--navy-100)}
+@media(max-width:640px){
+  #view-quiz.active{background:#fff;min-height:calc(100dvh - 60px)}
+  .qz-wrap{width:100%;max-width:none;padding:16px 0 max(72px,env(safe-area-inset-bottom))}
+  .qz-head,.qz-filters{margin-left:16px;margin-right:16px}
+  .qz-head{align-items:flex-start}
+  .qz-title{font-size:27px}
+  .qz-card{border-left:0;border-right:0;border-radius:0;padding:24px 18px 26px;min-height:calc(100dvh - 252px);box-shadow:none}
+  .qz-card-progress{margin:-24px -18px 20px}
+  .qz-q{font-size:22px;line-height:1.5}
+  .qz-final-row{grid-template-columns:1fr}
+  .qz-final-row #qzCheck{width:100%;justify-content:center}
+  .qz-actions #qzHintBtn{flex:1 1 100%;justify-content:center}
+  .qz-nav{bottom:max(8px,env(safe-area-inset-bottom));margin:12px 10px 0;gap:7px;padding:9px 8px}
+  .qz-nav .btn{padding:8px 10px}
+  .qz-count{font-size:11.8px}.qz-dots{max-width:110px;gap:4px}
+}
 .qz-empty{background:#fff;border:1px dashed var(--line-strong);border-radius:var(--radius);padding:34px 22px;text-align:center;color:var(--muted);font-size:14px}
-.topic-actions{display:flex;align-items:center;gap:6px}
-.btn-practice{border:1px solid var(--navy-100);background:var(--navy-50);color:var(--navy);
-  padding:5px 11px;border-radius:999px;font-size:11.8px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.15s}
-.btn-practice:hover{background:var(--navy-100)}
-.btn-practice.complete{background:var(--green-bg);border-color:#bfe9d9;color:var(--green)}
+.topic-actions{display:flex;align-items:center;gap:7px;flex:0 0 auto}
+.btn-practice{border:1px solid var(--navy);background:var(--navy);color:#fff;
+  padding:9px 14px;border-radius:11px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;transition:transform .15s,box-shadow .15s,background .15s,border-color .15s;box-shadow:0 4px 11px rgba(0,36,125,.18)}
+.btn-practice:hover{background:var(--navy-700);border-color:var(--navy-700);transform:translateY(-1px);box-shadow:0 7px 15px rgba(0,36,125,.24)}
+.btn-practice:active{transform:translateY(0);box-shadow:0 2px 7px rgba(0,36,125,.16)}
+.btn-practice:focus-visible{outline:3px solid var(--navy-100);outline-offset:2px}
+.btn-practice.complete{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 4px 11px rgba(11,122,94,.20)}
+.btn-practice.complete:hover{background:#086c53;border-color:#086c53;box-shadow:0 7px 15px rgba(11,122,94,.24)}
+.btn-practice .qz-score,.btn-practice .qz-done{color:rgba(255,255,255,.84)}
 .qz-done{font-weight:800}
 .qz-tag.firstwrong{background:var(--amber-bg);color:var(--amber);border-color:#f3ddba}
-.qz-position{font-size:11px;font-weight:800;letter-spacing:.03em;padding:5px 10px;border-radius:999px;background:var(--navy);color:#fff;border:1px solid var(--navy);white-space:nowrap}
+.qz-position{font-size:11px;font-weight:800;letter-spacing:.03em;padding:6px 11px;border-radius:999px;background:var(--navy);color:#fff;border:1px solid var(--navy);white-space:nowrap;box-shadow:0 4px 10px rgba(0,36,125,.18)}
 .qz-admin{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 14px;padding:9px 11px;
   background:var(--bg-2);border:1px dashed var(--line-strong);border-radius:11px}
 .qz-adm-lab{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
@@ -483,7 +609,7 @@
       <div class="mark" style="background:#fff;color:var(--navy);font-family:'Newsreader',serif;font-weight:700;letter-spacing:-.02em">√</div>
       <div>
         <h1>GCSE Maths <span>Tracker</span></h1>
-        <p><span id="hdrMeta">GCSE Edexcel Maths Higher • 62 topics</span></p>
+        <p><span id="hdrMeta">GCSE Edexcel Maths Higher</span></p>
       </div>
     </div>
     <div class="top-actions">
@@ -547,8 +673,8 @@
           <p class="sub">Sign in to continue.</p>
           <div id="authMsg" class="auth-error"></div>
           <div style="display:grid;gap:11px;margin-top:12px">
-            <div class="field"><label>Email</label><input id="email" type="email" placeholder="you@school.com" autocomplete="email" /></div>
-            <div class="field"><label>Password</label><input id="password" type="password" placeholder="••••••••" autocomplete="current-password" /></div>
+            <div class="field"><label>Email</label><input id="email" name="email" type="email" placeholder="you@school.com" autocomplete="username" autocapitalize="none" spellcheck="false" /></div>
+            <div class="field"><label>Password</label><input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" autocapitalize="none" spellcheck="false" /></div>
             <button id="btnLogin" class="btn btn-primary" style="justify-content:center;padding:12px 14px;font-size:14px;border-radius:11px">Log in</button>
           </div>
         </div>
@@ -561,8 +687,9 @@
     <div class="subject-bar" id="studentSubjectBar">
       <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Subject</span>
       <select id="subjectSelectStudent" class="subject-select"></select>
-      <span id="studentSubjectMeta" class="hint" style="background:#fbfcff;border:1px solid var(--line);padding:4px 9px;border-radius:999px">GCSE Edexcel Maths Higher • 62 topics</span>
+      <span id="studentSubjectMeta" class="hint" style="background:#fbfcff;border:1px solid var(--line);padding:4px 9px;border-radius:999px">GCSE Edexcel Maths Higher</span>
     </div>
+
 
     <div class="student-hero">
       <div class="welcome-card">
@@ -583,29 +710,32 @@
 
       <div class="card ring-card">
         <div id="ring" class="ring" style="--p:0"><span id="ringTxt">0%</span></div>
-        <div style="margin-top:12px;font-weight:700;font-size:14px" id="ringLabel">0 / 62 completed</div>
+        <div style="margin-top:12px;font-weight:700;font-size:14px" id="ringLabel">No topics completed yet</div>
         <div class="hint" id="ringSub" style="margin-top:3px">Topics you have completed</div>
 
       </div>
     </div>
 
-    <div class="card" style="padding:14px 14px 12px">
-      <div class="section-label">Progress by strand</div>
-      <div id="strands" class="strands"></div>
-    </div>
+    <section class="card strand-panel" aria-labelledby="strandPanelTitle">
+      <div class="strand-panel-head">
+        <div>
+          <p class="section-label">Progress by strand</p>
+          <h2 id="strandPanelTitle">Choose where to practise</h2>
+        </div>
+        <p>Continue at the first unanswered question, then revisit anything you got wrong.</p>
+      </div>
+      <div id="strands" class="strands student-strands"></div>
+    </section>
 
     <div class="toolbar">
       <div class="search">🔎 <input id="search" placeholder="Search topic — e.g. trig, surds, vectors" /></div>
-      <button class="chip active" data-strand="all">All 62</button>
+      <button class="chip active" data-strand="all">All</button>
       <button class="chip" data-strand="N">Number</button>
       <button class="chip" data-strand="A">Algebra</button>
       <button class="chip" data-strand="R">Ratio</button>
       <button class="chip" data-strand="G">Geometry</button>
       <button class="chip" data-strand="P">Probability</button>
       <button class="chip" data-strand="S">Statistics</button>
-      <button class="chip" data-rag="todo">Not completed</button>
-      <button class="chip" data-rag="G">Completed</button>
-      <button id="btnClearFilters" class="btn" style="padding:7px 11px;background:#fff;color:var(--ink);border-color:var(--line)">Clear</button>
     </div>
 
     <div id="topicsMount"></div>
@@ -616,7 +746,7 @@
     <div class="admin-head">
       <div>
         <h2>Class dashboard</h2>
-        <p>Support every student from one calm place. Invite students by email, review completed topics and practice progress, and export for reports.</p>
+        <p>Invite students by email, review completed topics and practice progress, and export for reports.</p>
       </div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <span class="pill pill-admin" style="background:var(--navy);color:#fff;border-color:var(--navy)">Admin</span>
@@ -627,7 +757,7 @@
     <div class="subject-bar" id="adminSubjectBar">
       <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Subject</span>
       <select id="subjectSelectAdmin" class="subject-select"></select>
-      <span id="adminSubjectMeta" class="hint" style="background:#fff;border:1px solid var(--line);padding:4px 9px;border-radius:999px">GCSE Edexcel Maths Higher • 62 topics</span>
+      <span id="adminSubjectMeta" class="hint" style="background:#fff;border:1px solid var(--line);padding:4px 9px;border-radius:999px">GCSE Edexcel Maths Higher</span>
       <span class="hint">Switch subjects to view different progress</span>
     </div>
 
@@ -640,8 +770,24 @@
         </div>
         <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center">
           <button id="btnInviteStudent" class="btn btn-primary">Invite student</button>
-          <button id="btnResendInvite" class="btn" style="display:none">Resend invite</button>
           <span id="inviteMsg" class="invite-message" role="status" aria-live="polite"></span>
+        </div>
+        <div id="inviteResult" class="invite-result" aria-live="polite">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <h3 id="inviteResultTitle">Ready to invite</h3>
+            <span id="inviteResultStatus" class="student-status invited">Invite ready</span>
+          </div>
+          <p id="inviteResultCopy">Use the buttons below to share the invite privately.</p>
+          <p style="font-size:11.8px;color:var(--muted)"><strong>Active</strong> means this tracker has recorded a sign-in. Existing accounts without a tracker sign-in are shown as status unknown.</p>
+          <div class="invite-credentials">
+            <div class="invite-credential"><span>Login email</span><code id="inviteResultEmail"></code></div>
+            <div id="invitePasswordWrap" class="invite-credential"><span>Temporary password</span><code id="inviteResultPassword"></code></div>
+          </div>
+          <div class="invite-actions">
+            <button id="btnCopyInviteLink" class="btn" type="button">Copy invite link</button>
+            <button id="btnCopyTempPassword" class="btn" type="button">Copy temporary password</button>
+            <a id="btnEmailInvite" class="btn btn-primary" href="#">Send via Gmail</a>
+          </div>
         </div>
 
         <div style="margin-top:18px">
@@ -678,6 +824,7 @@
   <div class="wrap qz-wrap">
     <div class="qz-head">
       <div>
+        <p class="qz-eyebrow">Practice session</p>
         <h2 id="qzTitle" class="qz-title">Practice</h2>
         <p id="qzSub" class="qz-sub"></p>
       </div>
@@ -823,15 +970,14 @@ function updateSubjectGlobals(){
 
 function updateHeaderMeta(){
   const subj=getCurrentSubject();
-  const count=subj.topics.length;
   const hdr=$("hdrMeta");
-  if(hdr) hdr.textContent = `${subj.name} • ${count} topics`;
+  if(hdr) hdr.textContent = subj.name;
   const sMeta=$("studentSubjectMeta");
-  if(sMeta) sMeta.textContent = `${subj.shortName} • ${count} topics`;
+  if(sMeta) sMeta.textContent = subj.shortName;
   const aMeta=$("adminSubjectMeta");
-  if(aMeta) aMeta.textContent = `${subj.shortName} • ${count} topics`;
+  if(aMeta) aMeta.textContent = subj.shortName;
   const allChip=document.querySelector('.chip[data-strand="all"]');
-  if(allChip) allChip.textContent=`All ${count}`;
+  if(allChip) allChip.textContent="All";
 }
 
 function populateSubjectSelectors(){
@@ -859,11 +1005,15 @@ function handleSubjectSwitch(newId){
   const selS=$("subjectSelectStudent"); if(selS) selS.value=currentSubjectId;
   const selA=$("subjectSelectAdmin"); if(selA) selA.value=currentSubjectId;
   updateHeaderMeta();
-  filters.strand="all";
   adminFilters.strand="all";
-  document.querySelectorAll('.chip[data-strand]').forEach(x=>{
-    x.classList.toggle('active', x.dataset.strand==="all");
-  });
+  if(currentUser?.role==="student"){
+    applySmartDefaultStrand({resetOtherFilters:true});
+  }else{
+    filters.strand="all";
+    document.querySelectorAll('.chip[data-strand]').forEach(x=>{
+      x.classList.toggle('active', x.dataset.strand==="all");
+    });
+  }
   if(viewStudent.classList.contains("active")) renderStudent();
   if(viewAdmin.classList.contains("active")){
     renderAdminList();
@@ -881,6 +1031,8 @@ const $ = s=>document.getElementById(s);
 const viewLogin=$("view-login"), viewStudent=$("view-student"), viewAdmin=$("view-admin");
 const whoPill=$("whoPill"), btnLogout=$("btnLogout"), btnExport=$("btnExport");
 const toast=$("toast");
+let toastTimer=null;
+let authStatusTimer=null;
 function qzPracticeBtn(id){
   const s = qzTopicScore(id) || {c:0,w:0,u:0,n:0};
   const att   = s.c + s.w;
@@ -888,8 +1040,9 @@ function qzPracticeBtn(id){
   // Practice keeps its attempted-question tally; dashboard progress uses correct answers.
   const tally = ' <span class="qz-score">'+att+'/'+s.n+'</span>';
   const tick  = done ? ' <span class="qz-done" title="All questions correct">\u2713</span>' : '';
+  const action = done ? 'Review' : att>0 ? 'Continue' : 'Start practice';
   const btn = '<button class="btn-practice'+(done?' complete':'')+'" data-practice="'+id+
-         '" title="'+att+' of '+s.n+' attempted, '+s.c+' correct">Practice'+tally+tick+'</button>';
+         '" title="'+att+' of '+s.n+' attempted, '+s.c+' correct">'+action+tally+tick+'</button>';
   // only offer a reset once there is practice history to clear
   const dirty = att>0;
   const rst = dirty ? '<button class="btn-reset" data-reset="'+id+'" title="Reset this topic"'+
@@ -931,7 +1084,59 @@ function qzSyncAutoProgress(codes=TOPICS.map(t=>t.id)){
   }
   return changed;
 }
-function showToast(msg){ toast.textContent=msg; toast.classList.add("show"); setTimeout(()=>toast.classList.remove("show"),2200); }
+function clearToast(){
+  if(toastTimer){ clearTimeout(toastTimer); toastTimer=null; }
+  toast.classList.remove("show");
+  toast.textContent="";
+}
+function showToast(msg){
+  clearToast();
+  toast.textContent=msg;
+  toast.classList.add("show");
+  toastTimer=setTimeout(()=>{ toast.classList.remove("show"); toastTimer=null; },2200);
+}
+function clearLoginStatus(){
+  if(authStatusTimer){ clearTimeout(authStatusTimer); authStatusTimer=null; }
+  const msg=$("authMsg");
+  if(!msg) return;
+  msg.textContent="";
+  msg.classList.remove("show");
+  msg.style.background="";
+  msg.style.borderColor="";
+  msg.style.color="";
+}
+function showLoginStatus(text,{success=false,autoClearMs=0}={}){
+  clearLoginStatus();
+  const msg=$("authMsg");
+  if(!msg) return;
+  msg.textContent=text;
+  if(success){
+    msg.style.background="#eef2ff";
+    msg.style.borderColor="#d9e1ff";
+    msg.style.color="#00144a";
+  }
+  msg.classList.add("show");
+  if(autoClearMs){ authStatusTimer=setTimeout(clearLoginStatus,autoClearMs); }
+}
+function resetLoginForm(){
+  clearLoginStatus();
+  const email=$("email"), password=$("password"), btn=$("btnLogin");
+  if(email) email.value="";
+  if(password){
+    password.value="";
+    password.type="password";
+    password.autocomplete="current-password";
+  }
+  if(btn){ btn.disabled=false; btn.textContent="Log in"; }
+}
+function clearSignedOutUi(){
+  resetLoginForm();
+  clearToast();
+  const inviteMsg=$("inviteMsg");
+  if(inviteMsg){ inviteMsg.textContent=""; inviteMsg.className="invite-message"; }
+  const inviteResult=$("inviteResult");
+  if(inviteResult) inviteResult.classList.remove("show");
+}
 
 /* Firebase state */
 let fbApp=null, fbAuth=null, fbDb=null;
@@ -940,8 +1145,14 @@ let saveTimer=null;
 let selectedStudentUid=null;
 let allStudentsCache=[];
 
-function showView(name){
+function showView(name,{preserveAuthMessage=false}={}){
   document.body.classList.remove("auth-pending");
+  if(name==="login" && !preserveAuthMessage) resetLoginForm();
+  if(name!=="login"){
+    clearLoginStatus();
+    const password=$("password");
+    if(password) password.value="";
+  }
   viewLogin.classList.toggle("active", name==="login");
   viewStudent.classList.toggle("active", name==="student");
   viewAdmin.classList.toggle("active", name==="admin");
@@ -973,20 +1184,21 @@ async function initFirebase(){
       if(u){
         try{ await afterFirebaseLogin(u); }catch(err){
           console.error("after login failed", err);
-          const m=$("authMsg"); if(m){ m.textContent="Signed in — loading your dashboard…"; m.classList.add("show"); setTimeout(()=>m.classList.remove("show"),2200); }
+          showLoginStatus("Signed in — loading your dashboard…",{success:true,autoClearMs:2200});
           if(currentUser?.role==="admin") showView("admin"); else if(currentUser) showView("student");
         }
       }else{
         currentUser=null;
+        clearSignedOutUi();
         showView("login");
       }
     });
   }catch(e){
     console.error("Firebase init failed", e);
-    const msg=$("authMsg");
-    if(msg){ msg.textContent="We’re having trouble connecting right now. Please refresh to try again."; msg.classList.add("show"); }
+    clearSignedOutUi();
+    showLoginStatus("We’re having trouble connecting right now. Please refresh to try again.");
     populateSubjectSelectors();
-    showView("login");
+    showView("login",{preserveAuthMessage:true});
   }
 }
 
@@ -1010,7 +1222,7 @@ async function afterFirebaseLogin(fbUser){
       // sign-up, but that list is denied to non-admins, so it always threw
       // and fell through to "admin" — which the rules now reject outright.)
       const role="student";
-      profile={uid:fbUser.uid,email:fbUser.email||"",displayName:fbUser.displayName||fbUser.email?.split("@")[0]||"User",role,createdAt:serverTimestamp()};
+      profile={uid:fbUser.uid,email:fbUser.email||"",displayName:fbUser.displayName||"",role,createdAt:serverTimestamp()};
       try{ await setDoc(uref, profile, {merge:true}); }catch{}
       try{
         const pref=doc(fbDb,"progress",fbUser.uid);
@@ -1019,7 +1231,7 @@ async function afterFirebaseLogin(fbUser){
     }else{
       profile=snap.data();
     }
-    currentUser={uid:fbUser.uid,email:profile.email||fbUser.email,displayName:profile.displayName||fbUser.email?.split("@")[0],role:profile.role||"student"};
+    currentUser={uid:fbUser.uid,email:profile.email||fbUser.email,displayName:profile.displayName||fbUser.displayName||"",role:profile.role||"student"};
     // This timestamp lets the admin distinguish an emailed invitation from a
     // student who has completed the reset flow and signed in. It is best-effort
     // so older Firestore rules cannot block the dashboard from loading.
@@ -1071,6 +1283,7 @@ async function afterFirebaseLogin(fbUser){
       await Promise.all([qFetchOverrides(), qzFetchAll()]);
       console.info("[perf] quiz+overrides fetch %sms", Math.round(performance.now()-_t0)); }
     qzLoad();
+    if(currentUser.role==="student") applySmartDefaultStrand({resetOtherFilters:true});
     console.info("[perf] progress read %sms", Math.round(performance.now()-_tProg));
 
     sSet("gcse_last_user", JSON.stringify(currentUser));
@@ -1083,22 +1296,23 @@ async function afterFirebaseLogin(fbUser){
 
     if(currentUser.role==="admin"){
       showView("admin");
-      showToast(`Welcome, ${currentUser.displayName}`);
+      showToast(currentUser.displayName?`Welcome, ${currentUser.displayName}`:"Welcome back");
       adminLoadAll().catch(err=>{ console.error("adminLoadAll failed", err); $("adminCounts").textContent="Class list unavailable — check Firestore rules"; });
     }else{
       renderStudent();
       showView("student");
-      showToast(`Welcome, ${currentUser.displayName}`);
+      showToast(currentUser.displayName?`Welcome, ${currentUser.displayName}`:"Welcome back");
     }
   }catch(err){
     console.error("afterFirebaseLogin inner error", err);
     if(fbUser){
-      if(!currentUser) currentUser={uid:fbUser.uid,email:fbUser.email||"",displayName:fbUser.displayName||fbUser.email?.split("@")[0]||"User",role:"student"};
+      if(!currentUser) currentUser={uid:fbUser.uid,email:fbUser.email||"",displayName:fbUser.displayName||"",role:"student"};
       updateSubjectGlobals();
       populateSubjectSelectors();
+      applySmartDefaultStrand({resetOtherFilters:true});
       renderStudent();
       showView("student");
-      showToast(`Welcome, ${currentUser.displayName}`);
+      showToast(currentUser.displayName?`Welcome, ${currentUser.displayName}`:"Welcome back");
     }else{
       throw err;
     }
@@ -1133,11 +1347,21 @@ async function adminLoadAll(){
       const currentProg = progMap[currentSubjectId] || progMap[DEFAULT_SUBJECT_ID] || progFlat || {};
       const hasProgress = Object.keys(progMap).some(subjectId=>Object.keys(progMap[subjectId]||{}).length>0)
         || Object.keys(quizBySubject).some(subjectId=>Object.keys(quizBySubject[subjectId]||{}).length>0);
-      list.push({uid:d.id,email:u.email,displayName:u.displayName,role:u.role,invitedAt:u.invitedAt||null,invitedBy:u.invitedBy||null,lastLoginAt:u.lastLoginAt||null,hasProgress,progress:currentProg,progressBySubject:progMap,progressFlat:progFlat,quizBySubject});
+      list.push({uid:d.id,email:u.email,displayName:u.displayName,role:u.role,invitedAt:u.invitedAt||null,invitedBy:u.invitedBy||null,lastLoginAt:u.lastLoginAt||null,pendingAuthProfile:!!u.pendingAuthProfile,hasProgress,progress:currentProg,progressBySubject:progMap,progressFlat:progFlat,quizBySubject});
     }
-    allStudentsCache=list;
-    const students=list.filter(l=>l.role==="student").length;
-    const admins=list.filter(l=>l.role==="admin").length;
+    // A provisional profile may have been created for an Auth account whose UID
+    // cannot be looked up from the browser SDK. Once the real UID profile exists,
+    // prefer it and hide the provisional duplicate from the class list.
+    const byEmail=new Map();
+    for(const item of list){
+      const key=(item.email||item.uid).toLowerCase();
+      const previous=byEmail.get(key);
+      const preferItem=!previous || (previous.pendingAuthProfile && !item.pendingAuthProfile) || (!previous.lastLoginAt && !!item.lastLoginAt);
+      if(preferItem) byEmail.set(key,item);
+    }
+    allStudentsCache=Array.from(byEmail.values());
+    const students=allStudentsCache.filter(l=>l.role==="student").length;
+    const admins=allStudentsCache.filter(l=>l.role==="admin").length;
     $("adminCounts").textContent=`${students} students • ${admins} admin`;
     renderAdminList();
   }catch{
@@ -1148,32 +1372,30 @@ async function adminLoadAll(){
 /* Login */
 $("btnLogin").addEventListener("click", async ()=>{
   const email=$("email").value.trim(); const pass=$("password").value.trim();
-  const msg=$("authMsg"); msg.classList.remove("show");
+  clearLoginStatus();
   const btn=$("btnLogin");
-  if(!fbAuth){ msg.textContent="Just a moment — connecting…"; msg.classList.add("show"); return; }
-  if(!email||!pass){ msg.textContent="Please enter your email and password."; msg.classList.add("show"); return; }
+  if(!fbAuth){ showLoginStatus("Just a moment — connecting…"); return; }
+  if(!email||!pass){ showLoginStatus("Please enter your email and password."); return; }
   btn.disabled=true; btn.textContent="Signing in…";
   try{
     const {signInWithEmailAndPassword}=await import("firebase/auth");
     await signInWithEmailAndPassword(fbAuth,email,pass);
-    msg.textContent="Signed in — opening dashboard…"; msg.classList.add("show");
-    msg.style.background="#eef2ff"; msg.style.borderColor="#d9e1ff"; msg.style.color="#00144a";
+    showLoginStatus("Signed in — opening dashboard…",{success:true,autoClearMs:2200});
   }catch(e){
     console.error(e);
-    msg.style.background=""; msg.style.borderColor=""; msg.style.color="";
-    msg.textContent="We couldn’t log you in — please check your email and password."; msg.classList.add("show");
+    showLoginStatus("We couldn’t log you in — please check your email and password.");
   }finally{
     btn.disabled=false; btn.textContent="Log in";
   }
 });
 
 $("btnLogout").addEventListener("click", async ()=>{
+  clearSignedOutUi();
   try{ if(fbAuth){ const {signOut}=await import("firebase/auth"); await signOut(fbAuth); } }catch{}
   currentUser=null; currentProgress={}; selectedStudentUid=null; allProgressBySubject={}; qzReset();
   const va=$("view-admin"); if(va) va.classList.remove("is-detail");
   adminFilters={strand:"all", q:"", rag:null, todo:false};
   showView("login");
-  showToast("Signed out");
 });
 
 $("password").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); $("btnLogin").click(); } });
@@ -1195,6 +1417,30 @@ function encouragementFor(greens,total){
   if(pct<75) return `Great work — over half completed at ${pct}%. Focus on the remaining topics next.`;
   if(pct<100) return `Almost there — ${pct}% completed. A few more to finish and you’re set.`;
   return "Outstanding — all topics completed. Time to maintain and polish.";
+}
+
+function getSmartDefaultStrand(){
+  for(const strand of STRAND_ORDER){
+    const score=qzScoreForTopics(TOPICS.filter(t=>t.strand===strand));
+    if(score.n>0 && score.c<score.n) return strand;
+  }
+  return STRAND_ORDER[0] || "N";
+}
+
+function applySmartDefaultStrand({resetOtherFilters=false}={}){
+  filters.strand=getSmartDefaultStrand();
+  if(resetOtherFilters){
+    filters.rag=null;
+    filters.todo=false;
+    filters.q="";
+    const search=$("search");
+    if(search) search.value="";
+    document.querySelectorAll(".chip[data-rag]").forEach(x=>x.classList.remove("active"));
+  }
+  document.querySelectorAll('.chip[data-strand]').forEach(x=>{
+    x.classList.toggle('active', x.dataset.strand===filters.strand);
+  });
+  return filters.strand;
 }
 
 function handleStrandClick(s){
@@ -1253,28 +1499,40 @@ function handleAdminStrandClick(st, student){
 function renderStudent(){
   const subj=getCurrentSubject();
   const strandsEl=$("strands"); strandsEl.innerHTML="";
-  for(const s of STRAND_ORDER){
-    const strandTopics=TOPICS.filter(t=>t.strand===s);
-    const score=qzScoreForTopics(strandTopics);
-    const pct=score.n? Math.round(score.c/score.n*100):0;
+  const addPracticeCard=(s,label,topics)=>{
+    const strandScore=qzScoreForTopics(topics);
+    const pct=strandScore.n?Math.round(strandScore.c/strandScore.n*100):0;
     const div=document.createElement("div");
     div.className="card strand"+(filters.strand===s?" is-active":"");
-    div.setAttribute("role","button");
-    div.setAttribute("tabindex","0");
+    div.setAttribute("role","group");
     div.dataset.strand=s;
-    const labelName = STRAND_LABEL[s] ? STRAND_LABEL[s].split(" ")[0] : (subj.strands[s]||s);
-    div.title=`Filter to ${STRAND_LABEL[s]||subj.strands[s]||s} — click to show only ${s} topics`;
-    div.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[s]||s}</span><b>${labelName}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${score.c}/${score.n}</span></div><div class="bar"><i style="width:${pct}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${pct}% correct</div>`;
-    div.addEventListener("click", ()=>handleStrandClick(s));
-    div.addEventListener("keydown", (e)=>{
-      if(e.key==="Enter" || e.key===" "){ e.preventDefault(); handleStrandClick(s); }
+    div.title=`Filter to ${STRAND_LABEL[s]||subj.strands[s]||s}`;
+    div.innerHTML=`
+      <div class="strand-head">
+        <div class="strand-name"><span class="strand-ic">${STRAND_ICON[s]||s}</span><b>${label}</b></div>
+        <span class="strand-score">${strandScore.c}/${strandScore.n} completed</span>
+      </div>
+      <div class="bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
+      <div class="strand-foot">
+        <span class="strand-pct">${pct}% completed</span>
+        <button class="strand-practice" type="button" aria-label="Start ${label} practice">Practice now →</button>
+      </div>`;
+    div.addEventListener("click",(e)=>{ if(!e.target.closest(".strand-practice")) handleStrandClick(s); });
+    const practice=div.querySelector(".strand-practice");
+    practice.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      qzOpen({kind:"strand",id:s});
     });
     strandsEl.appendChild(div);
+  };
+  for(const s of STRAND_ORDER){
+    const labelName=STRAND_LABEL[s]?STRAND_LABEL[s].split(" ")[0]:(subj.strands[s]||s);
+    addPracticeCard(s,labelName,TOPICS.filter(t=>t.strand===s));
   }
   const score=qzScoreForTopics(TOPICS);
   const completedTopics=qzPracticeCompleteCount();
   const pct=score.n? Math.round(score.c/score.n*100):0;
-  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${score.c} / ${score.n} correct`; $("ringSub").textContent="Questions you have got right"; $("kpiG").textContent=score.c; $("kpiA").textContent=completedTopics; $("kpiR").textContent=score.n-score.c;
+  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${score.c} / ${score.n} completed`; $("ringSub").textContent="Questions completed"; $("kpiG").textContent=score.c; $("kpiA").textContent=completedTopics; $("kpiR").textContent=score.n-score.c;
   if($("studentName")) $("studentName").textContent=currentUser?.displayName||"student";
   if($("welcomeTitle")) $("welcomeTitle").textContent = score.c? `Keep going, ${currentUser?.displayName||"you"} — ${pct}% completed` : `Welcome, ${currentUser?.displayName||"you"}`;
   if($("encourageMsg")) $("encourageMsg").textContent = encouragementFor(completedTopics,TOPICS.length);
@@ -1293,7 +1551,7 @@ function renderStudent(){
     if(!topics.length) continue;
     const completedInStrand=allStrandTopics.filter(t=>qzTopicComplete(qzTopicScore(t.id))).length;
     const g=document.createElement("div"); g.className="strand-group"; g.dataset.strand=s;
-    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[s]||s}</span> ${STRAND_LABEL[s]||subj.strands[s]||s}</h3><small>${completedInStrand}/${allStrandTopics.length} topics completed from correct answers</small> <button class="btn-practice" data-practice-strand="${s}">Practice all ${s}</button></div>`;
+    g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[s]||s}</span> ${STRAND_LABEL[s]||subj.strands[s]||s}</h3><small>${completedInStrand}/${allStrandTopics.length} topics completed</small> <button class="btn-practice" data-practice-strand="${s}">Practice all ${s}</button></div>`;
     const sb=g.querySelector("[data-practice-strand]");
     if(sb) sb.addEventListener("click",(e)=>{ e.stopPropagation(); qzOpen({kind:"strand", id:s}); });
     const list=document.createElement("div"); list.className="topics";
@@ -1322,18 +1580,23 @@ function renderStudent(){
     g.appendChild(list); mount.appendChild(g);
   }
   if(!mount.children.length){
-    mount.innerHTML=`<div class="empty">No topics match — clear filters to see all ${TOPICS.length}.</div>`;
+    mount.innerHTML=`<div class="empty">No topics match — clear filters to see the full topic list.</div>`;
   }
 }
 function renderStudentKPIsOnly(){
   const score=qzScoreForTopics(TOPICS); const completedTopics=qzPracticeCompleteCount();
   const pct=score.n? Math.round(score.c/score.n*100):0;
-  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${score.c} / ${score.n} correct`; $("ringSub").textContent="Questions you have got right"; $("kpiG").textContent=score.c; $("kpiA").textContent=completedTopics; $("kpiR").textContent=score.n-score.c;
+  $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${score.c} / ${score.n} completed`; $("ringSub").textContent="Questions completed"; $("kpiG").textContent=score.c; $("kpiA").textContent=completedTopics; $("kpiR").textContent=score.n-score.c;
   if($("encourageMsg")) $("encourageMsg").textContent = encouragementFor(completedTopics,TOPICS.length);
   if($("welcomeTitle") && currentUser) $("welcomeTitle").textContent = `Keep going, ${currentUser.displayName||"you"} — ${pct}% completed`;
-  document.querySelectorAll("#strands .strand").forEach((el,i)=>{
-    const s=STRAND_ORDER[i]; const score=qzScoreForTopics(TOPICS.filter(t=>t.strand===s)); const p=score.n?Math.round(score.c/score.n*100):0; el.querySelector(".bar i").style.width=p+"%"; el.querySelector(".strand-head span:last-child").textContent=score.c+"/"+score.n;
-    const label=el.querySelector("div:last-child"); if(label) label.textContent = p+"% correct";
+  document.querySelectorAll("#strands .strand").forEach(el=>{
+    const s=el.dataset.strand;
+    const topics=s==="all"?TOPICS:TOPICS.filter(t=>t.strand===s);
+    const strandScore=qzScoreForTopics(topics);
+    const p=strandScore.n?Math.round(strandScore.c/strandScore.n*100):0;
+    el.querySelector(".bar i").style.width=p+"%";
+    el.querySelector(".strand-score").textContent=strandScore.c+"/"+strandScore.n+" completed";
+    el.querySelector(".strand-pct").textContent=p+"% completed";
   });
 }
 function scheduleSave(){
@@ -1363,16 +1626,6 @@ document.querySelectorAll(".chip[data-strand]").forEach(c=>c.addEventListener("c
   document.querySelectorAll(".chip[data-strand]").forEach(x=>x.classList.remove("active"));
   c.classList.add("active"); filters.strand=c.dataset.strand; renderStudent();
 }));
-document.querySelectorAll(".chip[data-rag]").forEach(c=>c.addEventListener("click", ()=>{
-  const isActive=c.classList.contains("active");
-  document.querySelectorAll(".chip[data-rag]").forEach(x=>x.classList.remove("active"));
-  if(!isActive){ c.classList.add("active"); if(c.dataset.rag==="todo"){ filters.todo=true; filters.rag=null; }else{ filters.todo=false; filters.rag=c.dataset.rag; } }else{ filters.todo=false; filters.rag=null; }
-  renderStudent();
-}));
-$("btnClearFilters").addEventListener("click", ()=>{
-  filters={strand:"all",rag:null,q:"",todo:false}; $("search").value=""; document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active")); document.querySelector('.chip[data-strand="all"]').classList.add("active"); renderStudent();
-});
-
 /* Admin rendering */
 function renderAdminList(){
   const list=$("studentsList"); if(!list) return; list.innerHTML="";
@@ -1382,11 +1635,11 @@ function renderAdminList(){
     const quizState=(s.quizBySubject&&s.quizBySubject[currentSubjectId])||{};
     const score=qzScoreForTopics(TOPICS,quizState);
     const pct=score.n?Math.round(score.c/score.n*100):0;
-    const isActive=!!s.lastLoginAt || !!s.hasProgress;
-    const status=isActive?"Active":"Invited";
+    const hasTrackerActivity=!!s.lastLoginAt || !!s.hasProgress;
+    const status=hasTrackerActivity?"Active":"Not yet seen in this tracker";
     const row=document.createElement("button"); row.type="button"; row.className="student-row"+(selectedStudentUid===s.uid?" active":"");
     row.dataset.uid=s.uid; row.style.width="100%"; row.style.textAlign="left"; row.style.cursor="pointer";
-    row.innerHTML=`<div class="student-row-main"><b style="font-size:13.2px">${s.displayName||s.email}</b><div class="student-row-meta"><span>${s.email}</span><span class="student-status ${isActive?"active":"invited"}">${status}</span><span>• ${score.c}/${score.n} questions correct in ${getCurrentSubject().shortName}</span></div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill" style="background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)">${pct}%</span></div>`;
+    row.innerHTML=`<div class="student-row-main"><b style="font-size:13.2px">${s.displayName||"Name not provided"}</b><div class="student-row-meta"><span>${s.email}</span><span class="student-status ${hasTrackerActivity?"active":"invited"}">${status}</span><span>• ${score.c}/${score.n} questions completed in ${getCurrentSubject().shortName}</span></div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill" style="background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)">${pct}%</span></div>`;
     const activate=()=>{ selectedStudentUid=s.uid; document.querySelectorAll(".student-row").forEach(r=>r.classList.remove("active")); row.classList.add("active"); renderAdminDetail(s); };
     row.addEventListener("click", activate);
     list.appendChild(row);
@@ -1404,7 +1657,7 @@ function renderAdminDetail(s, keepFullscreen=false){
     adminFilters={strand:"all", q:($("adminSearch")?.value||"").toLowerCase().trim(), rag:null, todo:false};
     if($("adminSearch")) $("adminSearch").value = adminFilters.q;
   }
-  $("detailName").textContent=s.displayName||s.email; $("detailEmail").textContent=s.email + ` • ${getCurrentSubject().name}`;
+  $("detailName").textContent=s.displayName||"Name not provided"; $("detailEmail").textContent=s.email + ` • ${getCurrentSubject().name}`;
   const quizState=(s.quizBySubject&&s.quizBySubject[currentSubjectId])||{};
   const score=qzScoreForTopics(TOPICS,quizState); const pct=score.n?Math.round(score.c/score.n*100):0;
   $("detailBar").style.width=pct+"%"; $("detailPct").textContent=`${score.c}/${score.n} • ${pct}%`;
@@ -1413,7 +1666,7 @@ function renderAdminDetail(s, keepFullscreen=false){
   for(const st of STRAND_ORDER){
     const strandTopics=TOPICS.filter(t=>t.strand===st); const strandScore=qzScoreForTopics(strandTopics,quizState); const p=strandScore.n?Math.round(strandScore.c/strandScore.n*100):0;
     const d=document.createElement("div"); d.className="card strand"+(adminFilters.strand===st?" is-active":""); d.dataset.strand=st; d.setAttribute("role","button"); d.tabIndex=0; d.title=`Filter to ${STRAND_LABEL[st]||st} — click to show only ${st} topics`;
-    d.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[st]||st}</span><b>${(STRAND_LABEL[st]||st).split(" ")[0]}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${strandScore.c}/${strandScore.n}</span></div><div class="bar"><i style="width:${p}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${p}% correct</div>`;
+    d.innerHTML=`<div class="strand-head"><div style="display:flex;align-items:center;gap:8px"><span class="strand-ic">${STRAND_ICON[st]||st}</span><b>${(STRAND_LABEL[st]||st).split(" ")[0]}</b></div><span style="font-size:11px;color:var(--muted);font-weight:700">${strandScore.c}/${strandScore.n} completed</span></div><div class="bar"><i style="width:${p}%"></i></div><div style="font-size:11px;color:var(--muted);font-weight:600">${p}% completed</div>`;
     d.addEventListener("click", ()=>handleAdminStrandClick(st, s));
     d.addEventListener("keydown", (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); handleAdminStrandClick(st, s); }});
     strandsEl.appendChild(d);
@@ -1463,7 +1716,7 @@ function renderAdminDetail(s, keepFullscreen=false){
     g.appendChild(list); mount.appendChild(g);
   }
   if(!any){
-    mount.innerHTML=`<div class="empty">No topics match — clear search or click All to see all ${TOPICS.length}.</div>`;
+    mount.innerHTML=`<div class="empty">No topics match — clear search or click All to see the full topic list.</div>`;
   }
 
   const backBtn=$("btnAdminBack");
@@ -1497,126 +1750,230 @@ function renderAdminDetail(s, keepFullscreen=false){
   }
 }
 
-let resendInviteEmail="";
-function inviteContinueUrl(){
-  // On GitHub Pages, preserve the exact repository path. The fallback is the
-  // authorized GitHub Pages domain configured in Firebase Authentication.
-  return window.location.hostname==="singhalavi.github.io"
-    ? window.location.href.split(/[?#]/)[0]
-    : "https://singhalavi.github.io/";
-}
+const TRACKER_INVITE_URL="https://singhalavi.github.io/gcse-tracker/";
+let latestInvite=null;
 function randomTemporaryPassword(){
   const alphabet="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
-  const bytes=new Uint32Array(20); crypto.getRandomValues(bytes);
+  const bytes=new Uint32Array(16); crypto.getRandomValues(bytes);
   return "Aa1!"+Array.from(bytes,n=>alphabet[n%alphabet.length]).join("");
+}
+function inviteDisplayName(name,email){
+  return name.trim() || email.split("@")[0];
 }
 function setInviteMessage(text,type=""){
   const msg=$("inviteMsg");
   msg.textContent=text;
   msg.className="invite-message"+(type?" "+type:"");
 }
-async function sendInviteReset(email){
-  const {sendPasswordResetEmail}=await import("firebase/auth");
-  await sendPasswordResetEmail(fbAuth,email,{url:inviteContinueUrl(),handleCodeInApp:false});
+function hideInviteResult(){
+  latestInvite=null;
+  $("inviteResult").classList.remove("show");
+  $("btnEmailInvite").removeAttribute("href");
 }
-function offerResend(email,message){
-  resendInviteEmail=email;
-  setInviteMessage(message,"error");
-  const btn=$("btnResendInvite"); btn.style.display=""; btn.textContent=`Resend invite to ${email}`;
+function inviteEmailText(name,email,password,isExisting){
+  const greeting=name?`Hi ${name},`:"Hello,";
+  const signInDetails=password
+    ? `Email: ${email}\nTemporary password: ${password}\n\nPlease keep this password private.`
+    : `Email: ${email}\nUse the password already set for this account.`;
+  return `${greeting}
+
+You’ve been invited to join GCSE Maths Tracker.
+
+Go to ${TRACKER_INVITE_URL} and log in with:
+${signInDetails}
+
+Happy practising!`;
 }
+function showInviteResult({name,email,password=null,isExisting=false,isActive=false}){
+  latestInvite={name,email,password,isExisting};
+  const accountLabel=name||email;
+  $("inviteResultTitle").textContent=isExisting
+    ? `Account already exists for ${accountLabel} — ready to invite`
+    : `Account created for ${accountLabel} — ready to invite`;
+  const status=$("inviteResultStatus");
+  status.textContent=isActive?"Active":(isExisting?"Login status unknown":"Invite ready");
+  status.className=`student-status ${isActive?"active":"invited"}`;
+  $("inviteResultCopy").textContent=isExisting
+    ? "This account is already set up. Share the tracker link; the student can sign in with their existing password."
+    : "Share the tracker link and temporary password privately using the options below.";
+  $("inviteResultEmail").textContent=email;
+  $("inviteResultPassword").textContent=password||"";
+  $("invitePasswordWrap").style.display=password?"":"none";
+  $("btnCopyTempPassword").style.display=password?"":"none";
+  const subject="You’ve been invited to GCSE Maths Tracker";
+  const body=inviteEmailText(name,email,password,isExisting);
+  $("btnEmailInvite").href=`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  $("inviteResult").classList.add("show");
+}
+async function copyInviteValue(value,successMessage){
+  try{
+    if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(value); }
+    else{
+      const helper=document.createElement("textarea");
+      helper.value=value; helper.setAttribute("readonly","");
+      helper.style.cssText="position:fixed;opacity:0;pointer-events:none";
+      document.body.appendChild(helper); helper.select();
+      if(!document.execCommand("copy")) throw new Error("Copy unavailable");
+      helper.remove();
+    }
+    showToast(successMessage);
+  }catch(e){
+    console.warn("copy failed",e);
+    setInviteMessage("Copying is unavailable here. Select the details above and copy them manually.","error");
+  }
+}
+function inviteErrorIsNetwork(e){
+  return e?.code==="auth/network-request-failed" || e?.code==="firestore/unavailable" || e?.code==="unavailable" || e instanceof TypeError;
+}
+async function findUserProfileByEmail(email){
+  const {collection,getDocs,query,where,limit}=await import("firebase/firestore");
+  const snap=await getDocs(query(collection(fbDb,"users"),where("email","==",email),limit(5)));
+  const docs=snap.docs.map(d=>({id:d.id,data:d.data()}));
+  return docs.find(x=>!x.data.pendingAuthProfile) || docs[0] || null;
+}
+async function pendingProfileId(email){
+  const bytes=new TextEncoder().encode(email);
+  const digest=await crypto.subtle.digest("SHA-256",bytes);
+  return "pending_"+Array.from(new Uint8Array(digest)).slice(0,12).map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+async function ensureExistingStudentProfile(profile,email,displayName){
+  const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
+  if(profile?.data?.role==="admin"){
+    const err=new Error("That email belongs to an administrator."); err.code="invite/admin-account"; throw err;
+  }
+  const id=profile?.id || await pendingProfileId(email);
+  const existing=profile?.data||{};
+  const payload={
+    uid:id,
+    role:"student",
+    email,
+    displayName:existing.displayName||displayName,
+    invitedBy:currentUser.uid
+  };
+  if(!existing.invitedAt) payload.invitedAt=serverTimestamp();
+  if(!profile) payload.pendingAuthProfile=true;
+  await setDoc(doc(fbDb,"users",id),payload,{merge:true});
+  if(!profile){
+    await setDoc(doc(fbDb,"progress",id),{subjects:{},updatedAt:serverTimestamp()},{merge:true});
+  }
+  return {id,data:{...existing,...payload}};
+}
+async function finishExistingInvite(profile,email,displayName){
+  let readyProfile=profile;
+  try{ readyProfile=await ensureExistingStudentProfile(profile,email,displayName); }
+  catch(e){
+    if(e?.code==="invite/admin-account" || e?.code==="permission-denied" || e?.code==="firestore/permission-denied") throw e;
+    if(inviteErrorIsNetwork(e)) throw e;
+    console.warn("Existing account profile could not be completed until sign-in",e);
+  }
+  const data=readyProfile?.data||profile?.data||{};
+  const isActive=!!data.lastLoginAt;
+  showInviteResult({name:data.displayName||displayName,email,isExisting:true,isActive});
+  setInviteMessage(`Account already exists for ${data.displayName||displayName} — ready to invite.`,"success");
+  showToast("Existing account ready to invite");
+  await adminLoadAll().catch(loadErr=>console.warn("student list refresh unavailable",loadErr));
+}
+
+$("btnCopyInviteLink").addEventListener("click",()=>copyInviteValue(TRACKER_INVITE_URL,"Invite link copied"));
+$("btnCopyTempPassword").addEventListener("click",()=>{
+  if(latestInvite?.password) copyInviteValue(latestInvite.password,"Temporary password copied");
+});
 
 $("btnInviteStudent").addEventListener("click", async ()=>{
-  const name=$("newName").value.trim(), email=$("newEmail").value.trim().toLowerCase();
+  const email=$("newEmail").value.trim().toLowerCase();
+  const displayName=inviteDisplayName($("newName").value,email);
   const button=$("btnInviteStudent");
-  $("btnResendInvite").style.display="none"; resendInviteEmail=""; setInviteMessage("");
+  hideInviteResult(); setInviteMessage("");
   if(!email){ setInviteMessage("Enter the student’s email address.","error"); $("newEmail").focus(); return; }
   if(!$("newEmail").checkValidity()){ setInviteMessage("Enter a valid email address.","error"); $("newEmail").focus(); return; }
-  if(!fbApp||!fbAuth||!fbDb){ setInviteMessage("Connecting — please wait a moment.","error"); return; }
+  if(currentUser?.email && currentUser.email.toLowerCase()===email){
+    setInviteMessage("You’re signed in with this email. Use a different address for the student.","error");
+    $("newEmail").focus(); return;
+  }
+  if(!fbApp||!fbAuth||!fbDb){ setInviteMessage("We couldn’t connect. Check your connection and click Retry invite.","error"); button.textContent="Retry invite"; return; }
 
-  let secApp=null, secAuth=null;
-  button.disabled=true; button.textContent="Sending invite…";
+  let secApp=null, secAuth=null, retryNeeded=false;
+  const temporaryPassword=randomTemporaryPassword();
+  button.disabled=true; button.textContent="Checking account…";
   try{
-    const {initializeApp,deleteApp}=await import("firebase/app");
-    const {getAuth,createUserWithEmailAndPassword,updateProfile,signOut}=await import("firebase/auth");
+    let profile=await findUserProfileByEmail(email);
+    if(profile){
+      await finishExistingInvite(profile,email,displayName);
+      $("newName").value=""; $("newEmail").value="";
+      return;
+    }
+
+    const {fetchSignInMethodsForEmail}=await import("firebase/auth");
+    const methods=await fetchSignInMethodsForEmail(fbAuth,email);
+    if(methods.length){
+      await finishExistingInvite(null,email,displayName);
+      $("newName").value=""; $("newEmail").value="";
+      return;
+    }
+
+    const {initializeApp}=await import("firebase/app");
+    const {getAuth,createUserWithEmailAndPassword,updateProfile}=await import("firebase/auth");
     const {getFirestore,doc,setDoc,serverTimestamp}=await import("firebase/firestore");
     secApp=initializeApp(firebaseConfig,"InviteStudent"+Date.now());
     secAuth=getAuth(secApp);
     const secDb=getFirestore(secApp);
-    const cred=await createUserWithEmailAndPassword(secAuth,email,randomTemporaryPassword());
-    const displayName=name||email.split("@")[0];
+    button.textContent="Creating account…";
+    const cred=await createUserWithEmailAndPassword(secAuth,email,temporaryPassword);
     try{ await updateProfile(cred.user,{displayName}); }catch{}
 
-    // Create the student's records through the secondary app while it is
-    // authenticated as that student. Standard owner-based Firestore rules
-    // reject the old main-app write because the admin's uid differs from the
-    // new document uid; that stopped the flow before any email was sent.
     await setDoc(doc(secDb,"users",cred.user.uid),{
       uid:cred.user.uid,
       role:"student",
       email,
       displayName,
-      createdAt:serverTimestamp()
+      createdAt:serverTimestamp(),
+      invitedAt:serverTimestamp(),
+      invitedBy:currentUser.uid
     },{merge:true});
     await setDoc(doc(secDb,"progress",cred.user.uid),{subjects:{},updatedAt:serverTimestamp()},{merge:true});
 
-    // Invitation metadata is optional. Keep it best-effort so stricter rules
-    // cannot prevent a valid account and password-set email from being sent.
-    try{
-      await setDoc(doc(fbDb,"users",cred.user.uid),{
-        invitedAt:serverTimestamp(),
-        invitedBy:currentUser.uid
-      },{merge:true});
-    }catch(metaErr){ console.warn("invite metadata unavailable",metaErr); }
-
-    await sendInviteReset(email);
-    setInviteMessage(`Invite sent to ${email} — the account now appears below and they’ll get an email to set their password.`,"success");
-    showToast(`Invite sent to ${email}`);
+    showInviteResult({name:displayName,email,password:temporaryPassword,isExisting:false,isActive:false});
+    setInviteMessage(`Account created for ${displayName} — ready to invite.`,"success");
+    showToast(`Account created for ${displayName}`);
     $("newName").value=""; $("newEmail").value="";
     await adminLoadAll().catch(loadErr=>console.warn("student list refresh unavailable",loadErr));
-    try{ await signOut(secAuth); }catch{}
   }catch(e){
     console.error("student invite failed",e);
     if(e?.code==="auth/email-already-in-use"){
       try{
-        await sendInviteReset(email);
-        setInviteMessage(`An account already exists for ${email}. A fresh password-set email has been sent.`,"success");
-        showToast(`Invite resent to ${email}`);
-        await adminLoadAll().catch(()=>{});
-      }catch(sendErr){
-        console.error("existing account invite failed",sendErr);
-        offerResend(email,"An account already exists, but the password-set email could not be sent. Try resending it.");
+        const profile=await findUserProfileByEmail(email);
+        await finishExistingInvite(profile,email,displayName);
+        $("newName").value=""; $("newEmail").value="";
+      }catch(profileErr){
+        console.error("existing account profile check failed",profileErr);
+        if(profileErr?.code==="invite/admin-account") setInviteMessage("That email belongs to an administrator and can’t be invited as a student.","error");
+        else if(profileErr?.code==="permission-denied" || profileErr?.code==="firestore/permission-denied"){
+          retryNeeded=true; setInviteMessage("The account exists, but Firebase blocked its student profile. Check the Firestore rules, then click Retry invite.","error");
+        }else if(inviteErrorIsNetwork(profileErr)){
+          retryNeeded=true; setInviteMessage("The account exists, but we couldn’t check its profile. Check your connection and click Retry invite.","error");
+        }else{
+          showInviteResult({name:displayName,email,isExisting:true,isActive:false});
+          setInviteMessage(`Account already exists for ${displayName} — ready to invite.`,"success");
+        }
       }
+    }else if(e?.code==="invite/admin-account"){
+      setInviteMessage("That email belongs to an administrator and can’t be invited as a student.","error");
     }else if(e?.code==="auth/invalid-email"){
       setInviteMessage("Enter a valid email address.","error");
-    }else if(e?.code==="auth/unauthorized-continue-uri"){
-      setInviteMessage("The invite link domain is not authorized in Firebase Authentication.","error");
+    }else if(e?.code==="auth/weak-password"){
+      setInviteMessage("Firebase rejected the generated password. Click Retry invite.","error"); retryNeeded=true;
+    }else if(inviteErrorIsNetwork(e)){
+      setInviteMessage("We couldn’t reach Firebase. Check your connection and click Retry invite.","error"); retryNeeded=true;
     }else if(e?.code==="permission-denied" || e?.code==="firestore/permission-denied"){
-      setInviteMessage("Firebase blocked the student profile. Check that signed-in users may create their own student profile in Firestore rules, then try again.","error");
+      setInviteMessage("Firebase blocked the student profile. Check the Firestore rules, then click Retry invite.","error"); retryNeeded=true;
     }else{
-      setInviteMessage("The invite was not completed. No success message was shown — please try again.","error");
+      setInviteMessage("We couldn’t finish the invite. Click Retry invite.","error"); retryNeeded=true;
     }
   }finally{
     if(secAuth){ try{ const {signOut}=await import("firebase/auth"); await signOut(secAuth); }catch{} }
     if(secApp){ try{ const {deleteApp}=await import("firebase/app"); await deleteApp(secApp); }catch{} }
-    button.disabled=false; button.textContent="Invite student";
+    button.disabled=false; button.textContent=retryNeeded?"Retry invite":"Invite student";
   }
-});
-
-$("btnResendInvite").addEventListener("click", async ()=>{
-  const email=resendInviteEmail||$("newEmail").value.trim().toLowerCase();
-  const button=$("btnResendInvite");
-  if(!email) return;
-  button.disabled=true; button.textContent="Resending…";
-  try{
-    await sendInviteReset(email);
-    setInviteMessage(`Invite sent to ${email} — they’ll get an email to set their password.`,"success");
-    showToast(`Invite resent to ${email}`);
-    button.style.display="none"; resendInviteEmail="";
-  }catch(e){
-    console.error("resend invite failed",e);
-    setInviteMessage(e?.code==="auth/invalid-email"?"Enter a valid email address.":"The invite email could not be resent. Please try again.","error");
-    button.textContent=`Resend invite to ${email}`;
-  }finally{ button.disabled=false; }
 });
 
 $("newEmail").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); $("btnInviteStudent").click(); } });
@@ -1687,7 +2044,7 @@ const QUESTIONS = [{"i":"N1-01","c":"N1","q":"Work out 0.006 × 0.45","a":"0.002
    (un-favouriting, or a reset) would survive in Firestore forever. */
 let qzBySubject = {}, qzState = {}, qzScope = null, qzFilter = "all",
     qzList = [], qzIdx = 0, qzSaveTimer = null, qzDirty = false,
-    qzReviewingComplete = false, qzFeedback = {}, qzDrafts = {};
+    qzReviewingComplete = false, qzFeedback = {}, qzDrafts = {}, qzWorking = {};
 
 function qzKey(){ return "gcse_quiz_"+(currentUser?.uid||"demo")+"_"+currentSubjectId; }
 function qzSetSaveState(t){ const el=$("saveState"); if(el) el.textContent=t; }
@@ -1736,7 +2093,7 @@ function qzSave(){
   qzSaveTimer = setTimeout(qzFlush, 800);
 }
 
-function qzReset(){ qzBySubject={}; qzState={}; qzFeedback={}; qzDrafts={}; qzDirty=false; qOverrides={}; qRebuild(); }
+function qzReset(){ qzBySubject={}; qzState={}; qzFeedback={}; qzDrafts={}; qzWorking={}; qzDirty=false; qOverrides={}; qRebuild(); }
 /* -------------------------------------------------------------- content layer
    QIDs are treated as OPAQUE and permanent. The topic a question belongs to is
    metadata, not part of its identity, so an admin can move it without orphaning
@@ -1785,20 +2142,22 @@ function qzTopicScore(code){
   return qzTopicScoreFromState(code,qzState);
 }
 
-function qzOpen(scope){
-  qzScope = scope; qzFilter = "all"; qzIdx = 0; qzReviewingComplete = false;
-  document.querySelectorAll(".qz-chip").forEach(c=>c.classList.toggle("on", c.dataset.f==="all"));
+function qzOpen(scope, initialFilter="all"){
+  qzScope = scope; qzFilter = initialFilter; qzIdx = 0; qzReviewingComplete = false;
+  document.querySelectorAll(".qz-chip").forEach(c=>c.classList.toggle("on", c.dataset.f===initialFilter));
 
   // Smart resume: continue at the first untouched question. Once every
-  // question has an answer, revisit the first one still marked wrong. A fully
-  // correct topic stays in completion mode instead of jumping back to Q1.
-  const resumePool=qzPool();
-  const firstUnattempted=resumePool.findIndex(q=>!qzState[q.i]?.s);
-  if(firstUnattempted>=0){
-    qzIdx=firstUnattempted;
-  }else{
-    const firstWrong=resumePool.findIndex(q=>qzState[q.i]?.s==="w");
-    if(firstWrong>=0){ qzIdx=firstWrong; qzReviewingComplete=true; }
+  // question has an answer, revisit the first one still marked wrong. Focused
+  // quick starts begin at the first result in their filtered queue.
+  if(initialFilter==="all"){
+    const resumePool=qzPool();
+    const firstUnattempted=resumePool.findIndex(q=>!qzState[q.i]?.s);
+    if(firstUnattempted>=0){
+      qzIdx=firstUnattempted;
+    }else{
+      const firstWrong=resumePool.findIndex(q=>qzState[q.i]?.s==="w");
+      if(firstWrong>=0){ qzIdx=firstWrong; qzReviewingComplete=true; }
+    }
   }
 
   const subj=getCurrentSubject();
@@ -1806,6 +2165,9 @@ function qzOpen(scope){
     const t=TOPICS.find(x=>x.id===scope.id);
     $("qzTitle").textContent = scope.id+" — "+(t?t.title:"");
     $("qzSub").textContent = t?t.exam:"";
+  }else if(scope.kind==="all"){
+    $("qzTitle").textContent = initialFilter==="mistakes" ? "Review mistakes" : initialFilter==="unattempted" ? "Not attempted" : "All topics — practice";
+    $("qzSub").textContent = initialFilter==="mistakes" ? "Got wrong or wrong first time" : initialFilter==="unattempted" ? "Questions you have not attempted yet" : "Continue from your first unanswered question";
   }else{
     $("qzTitle").textContent = (subj.strands[scope.id]||scope.id)+" — all topics";
     $("qzSub").textContent = STRAND_LABEL[scope.id]||"";
@@ -1813,6 +2175,7 @@ function qzOpen(scope){
   showView("quiz"); qzRender();
 }
 function qzPool(){
+  if(qzScope.kind==="all") return qVisible();
   return qzScope.kind==="topic" ? qzFor(qzScope.id) : qzForStrand(qzScope.id);
 }
 function qzApplyFilter(pool){
@@ -1822,6 +2185,7 @@ function qzApplyFilter(pool){
     if(qzFilter==="wrong")       return st.s==="w";
     if(qzFilter==="correct")     return st.s==="c";
     if(qzFilter==="firstwrong")  return st.first==="w";
+    if(qzFilter==="mistakes")    return st.s==="w" || st.first==="w";
     if(qzFilter==="fav")         return !!st.f;
     return true;
   });
@@ -1951,7 +2315,13 @@ function qzRender(){
                 : st.s==="w" ? '<span class="qz-tag done-w">Got it wrong</span>' : '';
   const qzPct=Math.round((qzIdx+1)/qzList.length*100);
   const qzDots=qzList.length<=16
-    ? `<span class="qz-dots" aria-hidden="true">${qzList.map((_,i)=>`<i class="qz-dot${i<qzIdx?' past':''}${i===qzIdx?' current':''}"></i>`).join("")}</span>`
+    ? `<span class="qz-dots" aria-label="Question status">${qzList.map((dotQ,i)=>{
+        const dotState=qzState[dotQ.i]?.s;
+        const statusClass=dotState==="c"?" right":dotState==="w"?" wrong":"";
+        const currentClass=i===qzIdx?" current":"";
+        const statusLabel=i===qzIdx?"current":dotState==="c"?"right":dotState==="w"?"wrong":"not attempted";
+        return `<i class="qz-dot${statusClass}${currentClass}" title="Question ${i+1}: ${statusLabel}"></i>`;
+      }).join("")}</span>`
     : "";
   body.innerHTML = `
     <div class="qz-card">
@@ -1969,11 +2339,20 @@ function qzRender(){
         <button class="qz-star ${st.f?"on":""}" id="qzStar" title="Favourite this question">${st.f?"★":"☆"}</button>
       </div>
       ${qzAdminBar(q)}
+      <p class="qz-question-label">Question</p>
       <p class="qz-q">${qzEsc(q.q)}</p>
-      <textarea class="qz-ans-in" id="qzInput" rows="3" placeholder="Write your answer here (optional — compare it after revealing the answer)" autocomplete="off">${qzEsc(qzDrafts[q.i]||"")}</textarea>
-      <div class="qz-actions">
+      <div class="qz-working">
+        <label class="qz-answer-label" for="qzWorking">Working</label>
+        <textarea class="qz-working-in" id="qzWorking" rows="5" placeholder="Your working / calculations..." autocomplete="off">${qzEsc(qzWorking[q.i]||"")}</textarea>
+      </div>
+      <div class="qz-final-row">
+        <div class="qz-final-field">
+          <label class="qz-answer-label" for="qzInput">Final answer</label>
+          <input class="qz-final-in" id="qzInput" type="text" placeholder="Final answer" autocomplete="off" value="${qzEsc(qzDrafts[q.i]||"")}">
+        </div>
         <button class="btn btn-primary" id="qzCheck" ${(qzDrafts[q.i]||"").trim()?"":"disabled"}>Check answer</button>
-        <button class="btn" id="qzShow">Show answer</button>
+      </div>
+      <div class="qz-actions">
         <button class="btn" id="qzHintBtn">Show hint</button>
       </div>
       ${qzFeedbackHtml(q)}
@@ -1993,23 +2372,27 @@ function qzRender(){
       <button class="btn" id="qzNext" ${qzIdx>=qzList.length-1 && !(qzScope.kind==="topic" && u===0)?"disabled":""}>${qzIdx>=qzList.length-1 && qzScope.kind==="topic" && u===0?"Finish →":"Next →"}</button>
     </div>`;
 
-  const mv=$("qzMove"), dp=$("qzDep"), answerInput=$("qzInput"), checkBtn=$("qzCheck");
+  const mv=$("qzMove"), dp=$("qzDep"), workingInput=$("qzWorking"), answerInput=$("qzInput"), checkBtn=$("qzCheck");
   if(mv) mv.onchange = async ()=>{ await qSetOverride(q.i,{c:mv.value}); qzRender(); renderStudent(); };
   if(dp) dp.onclick   = async ()=>{ await qSetOverride(q.i,{dep:!q.dep});  qzRender(); renderStudent(); };
-  const growAnswer=()=>{ if(!answerInput) return; answerInput.style.height="auto"; answerInput.style.height=Math.max(88,answerInput.scrollHeight)+"px"; };
+  const growWorking=()=>{ if(!workingInput) return; workingInput.style.height="auto"; workingInput.style.height=Math.max(148,workingInput.scrollHeight)+"px"; };
+  if(workingInput){
+    growWorking();
+    workingInput.oninput=()=>{
+      qzWorking[q.i]=workingInput.value;
+      growWorking();
+    };
+  }
   if(answerInput){
-    growAnswer();
     answerInput.oninput=()=>{
       qzDrafts[q.i]=answerInput.value;
       checkBtn.disabled=!answerInput.value.trim();
       delete qzFeedback[q.i];
       const feedbackEl=$("qzFeedback"); if(feedbackEl){ feedbackEl.className="qz-feedback"; feedbackEl.innerHTML=""; }
-      growAnswer();
     };
-
+    answerInput.onkeydown=e=>{ if(e.key==="Enter" && answerInput.value.trim()){ e.preventDefault(); qzCheckAnswer(q); } };
   }
   checkBtn.onclick=()=>qzCheckAnswer(q);
-  $("qzShow").onclick   = ()=>{ $("qzReveal").classList.add("show"); $("qzShow").disabled=true; };
   $("qzHintBtn").onclick= ()=>{ const h=$("qzHint"); h.classList.toggle("show");
                                 $("qzHintBtn").textContent = h.classList.contains("show")?"Hide hint":"Show hint"; };
   $("qzStar").onclick   = ()=>{ const s=qzState[q.i]||{}; if(s.f) delete s.f; else s.f=1;
@@ -2068,8 +2451,9 @@ async function qzResetTopic(code){
   if(!await qzConfirm("Reset "+qzEsc(what)+"?", body, "Reset")) return;
 
   for(const q of pool){
+    delete qzFeedback[q.i]; delete qzDrafts[q.i]; delete qzWorking[q.i];
     const st=qzState[q.i]; if(!st) continue;
-    delete st.s; delete st.first; delete qzFeedback[q.i]; delete qzDrafts[q.i];
+    delete st.s; delete st.first;
     if(!st.f) delete qzState[q.i];          // drop empty entries, keep the doc small
   }
   for(const c of new Set(pool.map(q=>q.c))) delete currentProgress[c];
@@ -2079,7 +2463,7 @@ async function qzResetTopic(code){
   showToast(code+" reset — start again whenever you like");
 }
 
-function qzEsc(s){ return String(s).replace(/[&<>]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])); }
+function qzEsc(s){ return String(s).replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])); }
 function qzMark(qid, res, advance=true){
   const s=qzState[qid]||{};
   if(!s.first) s.first=res;   // how it went the very first time, so "wrong first
