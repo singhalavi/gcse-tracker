@@ -483,10 +483,70 @@
 }
 @media(prefers-reduced-motion:reduce){#view-student,#view-student .strand,#view-student .topic{animation:none!important;transition:none!important}}
 
+
+/* == XP, BATCHES & LEADERBOARD == */
+.xp-header{margin-top:16px;padding-top:15px;border-top:1px solid var(--line)}
+.xp-header-line{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px}
+.xp-header-line b{font-size:13.5px;color:var(--navy)}
+.xp-header-line span{font-size:11.5px;color:var(--muted);font-weight:700;font-variant-numeric:tabular-nums}
+.xp-track{height:9px;border-radius:999px;background:#e8ecf7;overflow:hidden}
+.xp-track i{display:block;height:100%;width:0;background:var(--navy);border-radius:999px;transition:width .35s ease}
+.xp-mini{display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;background:#fff7df;border:1px solid #ecd38f;color:#765100;font-size:10.5px;font-weight:800;white-space:nowrap}
+.leaderboard-card{margin:0 0 18px;padding:20px;border-radius:22px;background:var(--navy);color:#fff;box-shadow:0 14px 34px rgba(0,36,125,.18)}
+.leaderboard-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.leaderboard-head h2{margin:0;font-family:"Newsreader",serif;font-size:25px;font-weight:600}
+.leaderboard-head p{margin:4px 0 0;color:rgba(255,255,255,.72);font-size:12.5px}
+.leaderboard-controls{display:flex;gap:8px;flex-wrap:wrap}
+.leaderboard-controls select{min-width:170px;max-width:260px;padding:9px 12px;border:1px solid rgba(255,255,255,.28);border-radius:10px;background:#fff;color:var(--ink);font-size:12.5px;font-weight:700}
+.leaderboard-list{display:grid;gap:7px}
+.leader-row{display:grid;grid-template-columns:34px 38px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13)}
+.leader-row.me{background:#fff;color:var(--navy);border-color:#fff;box-shadow:0 7px 18px rgba(0,0,0,.13)}
+.leader-rank{font-weight:800;text-align:center;font-variant-numeric:tabular-nums}
+.leader-avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.16);font-size:11px;font-weight:800;letter-spacing:.03em}
+.leader-row.me .leader-avatar{background:var(--navy-50)}
+.leader-name{min-width:0;font-size:13px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.leader-name small{display:block;margin-top:2px;color:rgba(255,255,255,.66);font-size:10.5px;font-weight:600}
+.leader-row.me .leader-name small{color:var(--muted)}
+.leader-xp{text-align:right;white-space:nowrap;font-size:13px;font-weight:800}
+.leader-xp small{display:block;margin-top:2px;color:rgba(255,255,255,.66);font-size:10px;font-weight:600}
+.leader-row.me .leader-xp small{color:var(--muted)}
+.leader-empty{padding:18px;text-align:center;color:rgba(255,255,255,.76);border:1px dashed rgba(255,255,255,.25);border-radius:12px;font-size:12.5px}
+.xp-toast{position:fixed;right:18px;top:78px;z-index:100;display:grid;gap:6px;pointer-events:none}
+.xp-toast-item{padding:11px 14px;border-radius:12px;background:#fff7df;color:#5f4300;border:1px solid #e9c969;box-shadow:0 12px 30px rgba(38,31,0,.18);font-size:13px;font-weight:800;animation:xp-pop .24s ease both}
+@keyframes xp-pop{from{opacity:0;transform:translateY(-8px) scale(.96)}to{opacity:1;transform:none}}
+.batch-section{margin:0 0 14px;padding:16px;border-radius:var(--radius-lg)}
+.batch-section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:13px}
+.batch-section-head h3{margin:0;font-family:"Newsreader",serif;font-size:22px;font-weight:600}
+.batch-section-head p{margin:4px 0 0;color:var(--muted);font-size:12.5px;line-height:1.45}
+.batch-create{display:grid;grid-template-columns:minmax(170px,.8fr) minmax(240px,1.2fr) auto;gap:9px;align-items:end;padding:13px;border-radius:14px;background:#f8f9fd;border:1px solid var(--line)}
+.batch-subject-options{display:flex;gap:7px;flex-wrap:wrap;align-items:center;min-height:42px}
+.batch-subject-option{border:1px solid var(--line-strong);background:#fff;color:var(--ink-2);padding:8px 10px;border-radius:10px;font-size:11.5px;font-weight:700;cursor:pointer}
+.batch-subject-option.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.batch-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:12px}
+.batch-card{appearance:none;text-align:left;padding:13px;border:1px solid var(--line);border-radius:13px;background:#fff;cursor:pointer;transition:.14s;min-width:0}
+.batch-card:hover,.batch-card.active{border-color:var(--navy);box-shadow:0 7px 18px rgba(0,36,125,.10)}
+.batch-card b{display:block;color:var(--ink);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.batch-card span{display:block;margin-top:4px;color:var(--muted);font-size:11.2px;line-height:1.35}
+.batch-detail{display:none;margin-top:12px;padding:15px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.batch-detail.show{display:block}
+.batch-detail-top{display:grid;grid-template-columns:minmax(160px,.7fr) minmax(220px,1.3fr) auto;gap:9px;align-items:end}
+.batch-manage-grid{display:grid;grid-template-columns:minmax(230px,.85fr) minmax(0,1.15fr);gap:14px;margin-top:15px;padding-top:15px;border-top:1px solid var(--line)}
+.batch-member-list{display:grid;gap:6px;margin-top:9px;max-height:285px;overflow:auto}
+.batch-member-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fbfcff}
+.batch-member-row b{font-size:12.4px}.batch-member-row span{display:block;color:var(--muted);font-size:10.8px;margin-top:1px}
+.batch-member-row .btn{padding:6px 9px;font-size:11px}
+.admin-leaderboard{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.admin-leader-row{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:9px;align-items:center;padding:10px 11px;border-bottom:1px solid var(--line)}
+.admin-leader-row:last-child{border-bottom:0}.admin-leader-row b{font-size:12.5px}.admin-leader-row small{display:block;color:var(--muted);font-size:10.6px;margin-top:2px}.admin-leader-score{text-align:right;font-size:12px;font-weight:800;color:var(--navy)}
+.admin-leader-score small{max-width:280px;white-space:normal}
+@media(max-width:860px){.batch-create,.batch-detail-top{grid-template-columns:1fr 1fr}.batch-create>.btn,.batch-detail-top>.batch-detail-actions{grid-column:1/-1}.batch-list{grid-template-columns:repeat(2,minmax(0,1fr))}.batch-manage-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.leaderboard-card{padding:16px;margin-left:-2px;margin-right:-2px}.leaderboard-controls,.leaderboard-controls select{width:100%;max-width:none}.leader-row{grid-template-columns:28px 34px minmax(0,1fr) auto;padding:9px 8px;gap:7px}.batch-create,.batch-detail-top,.batch-list{grid-template-columns:1fr}.batch-create>.btn,.batch-detail-top>.batch-detail-actions{grid-column:auto}.xp-toast{left:14px;right:14px;top:72px}.xp-toast-item{text-align:center}}
+@media(prefers-reduced-motion:reduce){.xp-toast-item{animation:none}.xp-track i{transition:none}}
+
 /* == QUIZ:BEGIN == */
 #view-quiz.active{min-height:calc(100dvh - 64px);background:linear-gradient(180deg,#f4f6fc 0,#f8f9fc 240px)}
-.qz-wrap{max-width:900px;margin:0 auto;padding-top:8px}
-.qz-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.qz-wrap{max-width:900px;margin:0 auto;padding-top:6px}
+.qz-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 10px}
 .qz-eyebrow{margin:0 0 6px;font-size:10.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--navy)}
 .qz-title{margin:0;font-family:"Newsreader",serif;font-size:30px;line-height:1.05;font-weight:600;letter-spacing:-.025em}
 .qz-sub{margin:6px 0 0;font-size:13.2px;color:var(--muted);line-height:1.45}
@@ -553,6 +613,7 @@
 .qz-flag-prompt{margin-top:10px;font-weight:700;color:#76132c}
 .qz-feedback-actions .qz-flag-button{background:#fff;color:#8f1230;border-color:var(--red)}
 .qz-feedback-actions .qz-flag-button:hover{background:var(--red-bg);border-color:#8f1230}
+.qz-answer-cost-note{align-self:center;font-size:12px;font-weight:600;color:var(--muted)}
 .qz-feedback-actions .btn.qz-btn-wrong{
   background:#fff;color:#8f1230;border-color:var(--red);
 }
@@ -584,7 +645,7 @@
 .qz-dot.current{width:9px;height:9px;background:var(--navy);box-shadow:0 0 0 3px var(--navy-100)}
 @media(max-width:640px){
   #view-quiz.active{background:#fff;min-height:calc(100dvh - 60px)}
-  .qz-wrap{width:100%;max-width:none;padding:8px 0 max(72px,env(safe-area-inset-bottom))}
+  .qz-wrap{width:100%;max-width:none;padding:6px 0 max(72px,env(safe-area-inset-bottom))}
   .qz-head,.qz-filters{margin-left:16px;margin-right:16px}
   .qz-head{align-items:flex-start;margin-bottom:8px}
   .qz-title{font-size:27px}
@@ -739,6 +800,10 @@
             <span id="saveState" class="hint" style="background:#fbfcff;border:1px solid var(--line);padding:4px 9px;border-radius:999px">Saved</span>
           </div>
           <h2 id="welcomeTitle">Your checklist</h2>
+          <div class="xp-header" aria-label="XP progress">
+            <div class="xp-header-line"><b id="xpLevelText">Level 1 · 0 XP</b><span id="xpNextText">150 XP to Level 2</span></div>
+            <div class="xp-track" role="progressbar" aria-label="Progress to next level" aria-valuemin="0" aria-valuemax="150" aria-valuenow="0"><i id="xpLevelBar"></i></div>
+          </div>
           <div id="encourageMsg" class="encourage">Complete the practice questions to update each topic automatically. The tally shows how far through the questions you are.</div>
         </div>
         <div class="kpis" style="margin-top:14px">
@@ -755,6 +820,17 @@
 
       </div>
     </div>
+
+    <section id="studentLeaderboard" class="leaderboard-card" aria-labelledby="studentLeaderboardTitle" hidden>
+      <div class="leaderboard-head">
+        <div><h2 id="studentLeaderboardTitle">Leaderboard</h2><p id="studentLeaderboardMeta">Ranked within your batch by XP.</p></div>
+        <div class="leaderboard-controls">
+          <select id="studentBatchSelect" aria-label="Choose batch"></select>
+          <select id="studentLeaderboardSubject" aria-label="Filter leaderboard by subject" hidden></select>
+        </div>
+      </div>
+      <div id="studentLeaderboardList" class="leaderboard-list"></div>
+    </section>
 
     <section class="card strand-panel" aria-labelledby="strandPanelTitle">
       <div class="strand-panel-head">
@@ -828,6 +904,22 @@
             <button id="btnCopyEmailContent" class="btn btn-primary" type="button">Copy email content</button>
           </div>
         </div>
+
+        <section class="question-review" aria-labelledby="batchesTitle">
+          <div class="batch-section-head">
+            <div><h3 id="batchesTitle">Batches</h3><p>Group students for assigned subjects and batch leaderboards.</p></div>
+            <span id="batchCount" class="pill">0 batches</span>
+          </div>
+          <div class="batch-create">
+            <div class="field"><label for="batchName">Batch name</label><input id="batchName" placeholder="Year 11 Set 1" autocomplete="off"></div>
+            <div class="field"><label>Subjects</label><div id="batchCreateSubjects" class="batch-subject-options" aria-label="Select subjects"></div></div>
+            <button id="btnCreateBatch" class="btn btn-primary" type="button">Create batch</button>
+          </div>
+          <div class="field" style="margin-top:9px"><label for="batchDescription">Description <span style="font-weight:500;color:var(--muted)">(optional)</span></label><input id="batchDescription" placeholder="Revision group, timetable or notes" autocomplete="off"></div>
+          <div id="batchMessage" class="invite-message" role="status" aria-live="polite"></div>
+          <div id="batchList" class="batch-list"><div class="empty">Loading batches…</div></div>
+          <div id="batchDetail" class="batch-detail"></div>
+        </section>
 
         <div style="margin-top:18px">
           <div class="section-label">Students</div>
@@ -903,6 +995,43 @@
 <!-- QUIZ:END -->
 
 <div id="toast" class="toast">Saved</div>
+<div id="xpToast" class="xp-toast" aria-live="polite" aria-atomic="false"></div>
+
+
+<!--
+FIRESTORE RULES ADDITION (merge these matches into the existing
+match /databases/{database}/documents block):
+
+function isBatchMember(batchId) {
+  return signedIn()
+    && exists(/databases/$(database)/documents/batches/$(batchId))
+    && request.auth.uid in get(/databases/$(database)/documents/batches/$(batchId)).data.studentUids;
+}
+
+match /batches/{batchId} {
+  allow read: if signedIn() && (isAdmin() || request.auth.uid in resource.data.studentUids);
+  allow create, update, delete: if isAdmin();
+
+  match /members/{uid} {
+    allow read: if signedIn() && (isAdmin() || isBatchMember(batchId));
+    allow create, update: if isAdmin() || (isSelf(uid)
+      && request.resource.data.uid == uid
+      && request.resource.data.keys().hasOnly([
+        'uid','publicName','initials','xpTotal','bySubject','byType','updatedAt'
+      ]));
+    allow delete: if isAdmin();
+  }
+}
+
+match /progress/{uid} {
+  allow read, write: if isSelf(uid) || isAdmin();
+  match /{document=**} { allow read, write: if isSelf(uid) || isAdmin(); }
+}
+
+Firestore cannot grant field-level read access to only progress.xp. To avoid
+exposing a student's full progress document, batch peers read the safe XP cache
+at batches/{batchId}/members/{uid}; each student may update only their own cache.
+-->
 
 <script type="importmap">
 {
@@ -1096,17 +1225,18 @@ function qzPracticeBtn(id){
   const s = qzTopicScore(id) || {c:0,w:0,u:0,n:0};
   const att   = s.c + s.w;
   const done  = qzTopicComplete(s);
-  // Practice keeps its attempted-question tally; dashboard progress uses correct answers.
-  const tally = ' <span class="qz-score">'+att+'/'+s.n+'</span>';
+  // Topic progress is correct-only. Attempts still drive resume/reset behaviour.
+  const tally = ' <span class="qz-score">'+s.c+'/'+s.n+'</span>';
   const tick  = done ? ' <span class="qz-done" title="All questions correct">\u2713</span>' : '';
+  const xpBadge = done && completedXpTopics.includes(xpTopicKey(currentSubjectId,id)) ? ' <span class="xp-mini">+50 XP</span>' : '';
   const action = done ? 'Review' : att>0 ? 'Continue' : 'Start practice';
   const btn = '<button class="btn-practice'+(done?' complete':'')+'" data-practice="'+id+
-         '" title="'+att+' of '+s.n+' attempted, '+s.c+' correct">'+action+tally+tick+'</button>';
+         '" title="'+s.c+' of '+s.n+' correct">'+action+tally+tick+'</button>';
   // only offer a reset once there is practice history to clear
   const dirty = att>0;
   const rst = dirty ? '<button class="btn-reset" data-reset="'+id+'" title="Reset this topic"'+
               ' aria-label="Reset this topic">\u21ba</button>' : '';
-  return btn + rst;
+  return xpBadge + btn + rst;
 }
 /* A topic is complete only when every active question is marked correct. */
 function qzTopicComplete(s){
@@ -1205,6 +1335,17 @@ let saveTimer=null;
 let selectedStudentUid=null;
 let allStudentsCache=[];
 let questionStatsCache=[];
+let xpState={total:0,bySubject:{},history:[]};
+let streakState={currentCorrectStreak:0,bestCorrectStreak:0,currentDailyStreak:0,bestDailyStreak:0,lastActiveDate:"",lastActiveDates:[]};
+let completedXpTopics=[];
+let revealedQuestions=[];
+let studentBatchesCache=[];
+let adminBatchesCache=[];
+let selectedStudentBatchId="";
+let selectedAdminBatchId="";
+let leaderboardSubjectFilter="all";
+let xpToastQueue=[];
+let xpToastBusy=false;
 let authSignOutMessage=null;
 
 function showView(name,{preserveAuthMessage=false}={}){
@@ -1231,6 +1372,344 @@ function showView(name,{preserveAuthMessage=false}={}){
       : `${currentUser.displayName||currentUser.email} • ${currentUser.role} • ${getCurrentSubject().shortName}`;
     whoPill.className="pill "+(currentUser.role==="admin"?"pill-admin":"pill-student");
   }
+}
+
+
+const XP_VALUES={correct:10,topic:50,correctStreak:25,daily3:30,daily7:100};
+const XP_LABELS={correct:"Correct!",topic:"Topic completed",correctStreak:"5 correct in a row",daily3:"3-day streak",daily7:"7-day streak",reveal:"Answer revealed"};
+
+function cleanXp(raw){
+  const value=raw&&typeof raw==="object"?raw:{};
+  return {
+    total:Number(value.total)||0,
+    bySubject:value.bySubject&&typeof value.bySubject==="object"?{...value.bySubject}:{},
+    history:Array.isArray(value.history)?value.history.slice(-500):[]
+  };
+}
+function cleanStreaks(raw){
+  const value=raw&&typeof raw==="object"?raw:{};
+  return {
+    currentCorrectStreak:0,
+    bestCorrectStreak:Number(value.bestCorrectStreak)||0,
+    currentDailyStreak:Number(value.currentDailyStreak)||0,
+    bestDailyStreak:Number(value.bestDailyStreak)||0,
+    lastActiveDate:String(value.lastActiveDate||""),
+    lastActiveDates:Array.isArray(value.lastActiveDates)?value.lastActiveDates.slice(-45):[]
+  };
+}
+function localDayKey(date=new Date()){
+  const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,"0"),d=String(date.getDate()).padStart(2,"0");
+  return `${y}-${m}-${d}`;
+}
+function dayGap(a,b){
+  if(!a||!b) return null;
+  const [ay,am,ad]=a.split("-").map(Number),[by,bm,bd]=b.split("-").map(Number);
+  return Math.round((Date.UTC(by,bm-1,bd)-Date.UTC(ay,am-1,ad))/86400000);
+}
+function xpTopicKey(subjectId,topicId){ return `${subjectId}:${topicId}`; }
+function xpByType(xp=xpState){
+  const out={correct:0,topic:0,correctStreak:0,daily3:0,daily7:0};
+  for(const item of xp?.history||[]) if(out[item.type]!==undefined) out[item.type]+=Number(item.points)||0;
+  return out;
+}
+function publicStudentName(name,email=""){
+  const source=String(name||email.split("@")[0]||"Student").trim();
+  const parts=source.split(/\s+/).filter(Boolean);
+  return parts.length>1?`${parts[0]} ${parts.at(-1)[0].toUpperCase()}.`:parts[0]||"Student";
+}
+function studentInitials(name){
+  return String(name||"S").split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]?.toUpperCase()).join("")||"S";
+}
+function xpForSubjects(xp,subjectIds,filter="all"){
+  const by=xp?.bySubject||{};
+  if(filter!=="all") return Number(by[filter])||0;
+  if(Array.isArray(subjectIds)&&subjectIds.length) return subjectIds.reduce((sum,id)=>sum+(Number(by[id])||0),0);
+  return Number(xp?.total)||0;
+}
+function showXpToast(points,label){
+  xpToastQueue.push({points,label});
+  if(xpToastBusy) return;
+  const run=()=>{
+    const next=xpToastQueue.shift();
+    if(!next){ xpToastBusy=false; return; }
+    xpToastBusy=true;
+    const host=$("xpToast"), item=document.createElement("div");
+    item.className="xp-toast-item";
+    item.textContent=next.points<0?`${next.points} XP - ${next.label}`:`+${next.points} XP — ${next.label}`;
+    host.appendChild(item);
+    setTimeout(()=>{ item.remove(); setTimeout(run,120); },1900);
+  };
+  run();
+}
+function getLevel(totalXP){
+  const total=Math.max(0,Number(totalXP)||0);
+  const thresholds=[150,200,250,300,350,400,450,500,550];
+  let level=1,xpIntoLevel=total,totalForNextLevel=0;
+  while(true){
+    const xpNeededForNext=level<=thresholds.length?thresholds[level-1]:600;
+    totalForNextLevel+=xpNeededForNext;
+    if(xpIntoLevel<xpNeededForNext){
+      return {level,xpIntoLevel,xpNeededForNext,totalForNextLevel};
+    }
+    xpIntoLevel-=xpNeededForNext;
+    level+=1;
+  }
+}
+function renderXpHeader(){
+  const total=Number(xpState.total)||0;
+  const {level,xpIntoLevel,xpNeededForNext}=getLevel(total);
+  if($("xpLevelText")) $("xpLevelText").textContent=`Level ${level} · ${total} XP`;
+  if($("xpNextText")) $("xpNextText").textContent=`${xpNeededForNext-xpIntoLevel} XP to Level ${level+1}`;
+  if($("xpLevelBar")){
+    $("xpLevelBar").style.width=`${Math.min(100,(xpIntoLevel/xpNeededForNext)*100)}%`;
+    $("xpLevelBar").parentElement.setAttribute("aria-valuenow",String(xpIntoLevel));
+    $("xpLevelBar").parentElement.setAttribute("aria-valuemax",String(xpNeededForNext));
+  }
+}
+async function syncOwnLeaderboardCache(){
+  if(!(fbDb&&currentUser?.uid&&studentBatchesCache.length)) return;
+  const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
+  const publicName=publicStudentName(currentUser.displayName,currentUser.email);
+  const payload={uid:currentUser.uid,publicName,initials:studentInitials(publicName),xpTotal:Number(xpState.total)||0,bySubject:{...(xpState.bySubject||{})},byType:xpByType(),updatedAt:serverTimestamp()};
+  await Promise.all(studentBatchesCache.map(batch=>setDoc(doc(fbDb,"batches",batch.id,"members",currentUser.uid),payload,{merge:true}).catch(e=>console.warn("leaderboard cache update failed",e))));
+  for(const batch of studentBatchesCache){
+    const i=(batch.members||[]).findIndex(m=>m.uid===currentUser.uid);
+    const local={...payload,updatedAt:new Date().toISOString()};
+    if(i>=0) batch.members[i]=local; else (batch.members||(batch.members=[])).push(local);
+  }
+  renderStudentLeaderboard();
+}
+async function persistXp(){
+  if(!(fbDb&&currentUser?.uid)) return;
+  try{
+    const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
+    await setDoc(doc(fbDb,"progress",currentUser.uid),{
+      xp:xpState,streaks:streakState,completedTopics:completedXpTopics,revealedQuestions,updatedAt:serverTimestamp()
+    },{merge:true});
+    await syncOwnLeaderboardCache();
+  }catch(e){ console.warn("XP save failed",e); }
+}
+function addXpEvent(type,points,topicId,events,questionId=""){
+  xpState.total=(Number(xpState.total)||0)+points;
+  xpState.bySubject[currentSubjectId]=(Number(xpState.bySubject[currentSubjectId])||0)+points;
+  xpState.history.push({type,points,at:new Date().toISOString(),topicId:topicId||"",subjectId:currentSubjectId,...(questionId?{questionId}:{})});
+  if(xpState.history.length>500) xpState.history=xpState.history.slice(-500);
+  events.push({points,label:XP_LABELS[type]||"XP earned"});
+}
+function revealedQuestionKey(question){ return `${currentSubjectId}:${qzQuestionCode(question)}`; }
+async function revealAnswer(question){
+  if(!question) return;
+  const key=revealedQuestionKey(question);
+  const alreadyRevealed=revealedQuestions.includes(key);
+  if(!alreadyRevealed){
+    if((Number(xpState.total)||0)<5){
+      showToast("Earn at least 5 XP to reveal answers");
+      return;
+    }
+    xpState.total=(Number(xpState.total)||0)-5;
+    xpState.bySubject[currentSubjectId]=Math.max(0,(Number(xpState.bySubject[currentSubjectId])||0)-5);
+    xpState.history.push({type:"reveal",points:-5,at:new Date().toISOString(),topicId:question.c||"",subjectId:currentSubjectId,questionId:qzQuestionCode(question)});
+    if(xpState.history.length>500) xpState.history=xpState.history.slice(-500);
+    revealedQuestions.push(key);
+    showXpToast(-5,XP_LABELS.reveal);
+  }
+  qzFeedback[question.i]={...(qzFeedback[question.i]||{}),answerShown:true};
+  renderXpHeader();
+  renderStudentLeaderboard();
+  qzRender();
+  if(!alreadyRevealed) await persistXp();
+}
+async function awardXpForMark(question,result,previous,topicWasComplete){
+  if(!question) return;
+  const events=[];
+  if(result==="w"){
+    streakState.currentCorrectStreak=0;
+    await persistXp();
+    return;
+  }
+  const questionId=qzQuestionCode(question);
+  const alreadyAwarded=(xpState.history||[]).some(item=>item.type==="correct"&&item.subjectId===currentSubjectId&&item.questionId===questionId);
+  if(previous==="c"||alreadyAwarded) return;
+  streakState.currentCorrectStreak=(Number(streakState.currentCorrectStreak)||0)+1;
+  streakState.bestCorrectStreak=Math.max(Number(streakState.bestCorrectStreak)||0,streakState.currentCorrectStreak);
+  addXpEvent("correct",XP_VALUES.correct,question.c,events,questionId);
+  if(streakState.currentCorrectStreak===5) addXpEvent("correctStreak",XP_VALUES.correctStreak,question.c,events);
+
+  const today=localDayKey();
+  if(streakState.lastActiveDate!==today){
+    const gap=dayGap(streakState.lastActiveDate,today);
+    streakState.currentDailyStreak=gap===1?(Number(streakState.currentDailyStreak)||0)+1:1;
+    streakState.bestDailyStreak=Math.max(Number(streakState.bestDailyStreak)||0,streakState.currentDailyStreak);
+    streakState.lastActiveDate=today;
+    streakState.lastActiveDates=[...new Set([...(streakState.lastActiveDates||[]),today])].slice(-45);
+    if(streakState.currentDailyStreak===3) addXpEvent("daily3",XP_VALUES.daily3,question.c,events);
+    if(streakState.currentDailyStreak===7) addXpEvent("daily7",XP_VALUES.daily7,question.c,events);
+  }
+
+  const completedNow=qzTopicComplete(qzTopicScore(question.c));
+  const completedKey=xpTopicKey(currentSubjectId,question.c);
+  if(!topicWasComplete&&completedNow&&!completedXpTopics.includes(completedKey)){
+    completedXpTopics.push(completedKey);
+    addXpEvent("topic",XP_VALUES.topic,question.c,events);
+  }
+  renderXpHeader();
+  renderStudentLeaderboard();
+  events.forEach(event=>showXpToast(event.points,event.label));
+  await persistXp();
+}
+
+async function loadStudentBatches(){
+  studentBatchesCache=[];
+  if(!(fbDb&&currentUser?.uid&&currentUser.role==="student")){ renderStudentLeaderboard(); return; }
+  try{
+    const {collection,getDocs,query,where}=await import("firebase/firestore");
+    const snap=await getDocs(query(collection(fbDb,"batches"),where("studentUids","array-contains",currentUser.uid)));
+    studentBatchesCache=await Promise.all(snap.docs.map(async d=>{
+      const memberSnap=await getDocs(collection(fbDb,"batches",d.id,"members"));
+      return {id:d.id,...d.data(),members:memberSnap.docs.map(md=>({uid:md.id,...md.data()}))};
+    }));
+    if(!studentBatchesCache.some(b=>b.id===selectedStudentBatchId)) selectedStudentBatchId=studentBatchesCache[0]?.id||"";
+    await syncOwnLeaderboardCache();
+  }catch(e){ console.warn("student batches load failed",e); renderStudentLeaderboard(true); }
+}
+function renderStudentLeaderboard(unavailable=false){
+  const card=$("studentLeaderboard"),batchSelect=$("studentBatchSelect"),subjectSelect=$("studentLeaderboardSubject"),list=$("studentLeaderboardList");
+  if(!card||!batchSelect||!subjectSelect||!list) return;
+  if(!studentBatchesCache.length){ card.hidden=true; return; }
+  card.hidden=false;
+  batchSelect.innerHTML=studentBatchesCache.map(b=>`<option value="${qzEsc(b.id)}">${qzEsc(b.name||"Untitled batch")}</option>`).join("");
+  batchSelect.value=selectedStudentBatchId||studentBatchesCache[0].id;
+  batchSelect.hidden=studentBatchesCache.length<=1;
+  const batch=studentBatchesCache.find(b=>b.id===batchSelect.value)||studentBatchesCache[0];
+  selectedStudentBatchId=batch.id;
+  if($("studentLeaderboardMeta")) $("studentLeaderboardMeta").textContent=`${batch.name||"Your batch"} · ranked by XP`;
+  const subjects=(batch.subjectIds||[]).filter(id=>SUBJECTS.some(s=>s.id===id));
+  if(subjects.length>1){
+    subjectSelect.hidden=false;
+    subjectSelect.innerHTML=`<option value="all">All assigned subjects</option>`+subjects.map(id=>`<option value="${qzEsc(id)}">${qzEsc(SUBJECTS.find(s=>s.id===id)?.shortName||id)}</option>`).join("");
+    if(leaderboardSubjectFilter!=="all"&&!subjects.includes(leaderboardSubjectFilter)) leaderboardSubjectFilter="all";
+    subjectSelect.value=leaderboardSubjectFilter;
+  }else{ subjectSelect.hidden=true; leaderboardSubjectFilter="all"; }
+  if(unavailable){ list.innerHTML='<div class="leader-empty">Leaderboard is unavailable until the batch rules are published.</div>'; return; }
+  const rows=(batch.members||[]).map(m=>({...m,score:xpForSubjects({total:m.xpTotal,bySubject:m.bySubject},subjects,leaderboardSubjectFilter)})).sort((a,b)=>b.score-a.score||(a.publicName||"").localeCompare(b.publicName||""));
+  if(!rows.length){ list.innerHTML='<div class="leader-empty">No XP has been recorded for this batch yet.</div>'; return; }
+  list.innerHTML=rows.map((m,i)=>{ const {level}=getLevel(Number(m.xpTotal)||0); return `<div class="leader-row ${m.uid===currentUser?.uid?"me":""}"><div class="leader-rank">${i+1}</div><div class="leader-avatar">${qzEsc(m.initials||studentInitials(m.publicName))}</div><div class="leader-name">${qzEsc(m.publicName||"Student")}${m.uid===currentUser?.uid?" <span>(you)</span>":""}<small>Level ${level}</small></div><div class="leader-xp">${m.score} XP<small>${leaderboardSubjectFilter==="all"?"batch total":(SUBJECTS.find(s=>s.id===leaderboardSubjectFilter)?.shortName||"subject")}</small></div></div>`; }).join("");
+}
+
+function batchSubjectButtons(selected,mode){
+  return SUBJECTS.map((subject,i)=>`<button type="button" class="batch-subject-option ${selected.includes(subject.id)?"on":""}" aria-pressed="${selected.includes(subject.id)}" data-${mode}-subject="${qzEsc(subject.id)}">${qzEsc(subject.shortName)}</button>`).join("");
+}
+function initBatchControls(){
+  const host=$("batchCreateSubjects");
+  if(host) host.innerHTML=batchSubjectButtons([DEFAULT_SUBJECT_ID],"create");
+}
+async function loadAdminBatches(){
+  if(!(fbDb&&currentUser?.role==="admin")) return;
+  try{
+    const {collection,getDocs}=await import("firebase/firestore");
+    const snap=await getDocs(collection(fbDb,"batches"));
+    adminBatchesCache=await Promise.all(snap.docs.map(async d=>{
+      const members=await getDocs(collection(fbDb,"batches",d.id,"members"));
+      return {id:d.id,...d.data(),members:members.docs.map(md=>({uid:md.id,...md.data()}))};
+    }));
+    adminBatchesCache.sort((a,b)=>(a.name||"").localeCompare(b.name||""));
+    if(selectedAdminBatchId&&!adminBatchesCache.some(b=>b.id===selectedAdminBatchId)) selectedAdminBatchId="";
+    renderAdminBatches();
+  }catch(e){ console.warn("batches load failed",e); if($("batchList")) $("batchList").innerHTML='<div class="empty">Batches could not be loaded. Publish the Firestore rules shown in the HTML comment.</div>'; }
+}
+function renderAdminBatches(){
+  const list=$("batchList"),detail=$("batchDetail"); if(!list||!detail) return;
+  $("batchCount").textContent=`${adminBatchesCache.length} batch${adminBatchesCache.length===1?"":"es"}`;
+  list.innerHTML=adminBatchesCache.length?adminBatchesCache.map(b=>`<button type="button" class="batch-card ${b.id===selectedAdminBatchId?"active":""}" data-batch-id="${qzEsc(b.id)}"><b>${qzEsc(b.name||"Untitled batch")}</b><span>${(b.studentUids||[]).length} member${(b.studentUids||[]).length===1?"":"s"} · ${(b.subjectIds||[]).map(id=>SUBJECTS.find(s=>s.id===id)?.shortName||id).join(", ")||"No subjects"}</span></button>`).join(""):'<div class="empty">No batches yet. Create the first one above.</div>';
+  list.querySelectorAll("[data-batch-id]").forEach(btn=>btn.onclick=()=>{ selectedAdminBatchId=btn.dataset.batchId; renderAdminBatches(); });
+  const batch=adminBatchesCache.find(b=>b.id===selectedAdminBatchId);
+  if(!batch){ detail.classList.remove("show"); detail.innerHTML=""; return; }
+  detail.classList.add("show");
+  const selectedSubjects=(batch.subjectIds||[]).filter(id=>SUBJECTS.some(s=>s.id===id));
+  const memberIds=new Set(batch.studentUids||[]);
+  const students=allStudentsCache.filter(s=>s.role==="student").sort((a,b)=>(a.displayName||a.email||"").localeCompare(b.displayName||b.email||""));
+  const leader=students.filter(s=>memberIds.has(s.uid)).map(s=>{
+    const cached=(batch.members||[]).find(m=>m.uid===s.uid)||{};
+    const xp=s.xp||{total:cached.xpTotal||0,bySubject:cached.bySubject||{},history:[]};
+    return {...s,xp,score:xpForSubjects(xp,selectedSubjects,"all"),byType:Object.keys(cached.byType||{}).length?cached.byType:xpByType(xp)};
+  }).sort((a,b)=>b.score-a.score||(a.displayName||"").localeCompare(b.displayName||""));
+  detail.innerHTML=`
+    <div class="batch-detail-top">
+      <div class="field"><label for="batchEditName">Batch name</label><input id="batchEditName" value="${qzEsc(batch.name||"")}"></div>
+      <div class="field"><label for="batchEditDescription">Description</label><input id="batchEditDescription" value="${qzEsc(batch.description||"")}" placeholder="Optional"></div>
+      <div class="batch-detail-actions" style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn btn-primary" id="btnSaveBatch">Save</button><button class="btn" id="btnDeleteBatch" style="color:var(--red)">Delete</button></div>
+    </div>
+    <div class="field" style="margin-top:11px"><label>Assigned subjects</label><div id="batchEditSubjects" class="batch-subject-options">${batchSubjectButtons(selectedSubjects,"edit")}</div></div>
+    <div class="batch-manage-grid">
+      <div>
+        <div class="section-label">Manage students</div>
+        <div class="search" style="max-width:none;min-width:0"><span aria-hidden="true">⌕</span><input id="batchStudentSearch" placeholder="Search existing students"></div>
+        <div id="batchMemberList" class="batch-member-list"></div>
+      </div>
+      <div>
+        <div class="section-label">Batch leaderboard</div>
+        <div id="adminBatchLeaderboard" class="admin-leaderboard">${leader.length?leader.map((s,i)=>{ const t=s.byType||{}; return `<div class="admin-leader-row"><b>${i+1}</b><div><b>${qzEsc(s.displayName||s.email||"Student")}</b><small>${qzEsc(s.email||"")}</small></div><div class="admin-leader-score">${s.score} XP<small>Correct ${Number(t.correct)||0} · Topics ${Number(t.topic)||0} · 5-row ${Number(t.correctStreak)||0} · 3-day ${Number(t.daily3)||0} · 7-day ${Number(t.daily7)||0}</small></div></div>`;}).join(""):'<div class="empty">Add students to see this leaderboard.</div>'}</div>
+      </div>
+    </div>`;
+  const renderMembers=()=>{
+    const q=($("batchStudentSearch")?.value||"").trim().toLowerCase();
+    const filtered=students.filter(s=>!q||`${s.displayName||""} ${s.email||""}`.toLowerCase().includes(q));
+    $("batchMemberList").innerHTML=filtered.length?filtered.map(s=>`<div class="batch-member-row"><div><b>${qzEsc(s.displayName||"Name not provided")}</b><span>${qzEsc(s.email||"")}</span></div><button class="btn ${memberIds.has(s.uid)?"":"btn-primary"}" data-batch-member="${qzEsc(s.uid)}" data-member-action="${memberIds.has(s.uid)?"remove":"add"}">${memberIds.has(s.uid)?"Remove":"Add"}</button></div>`).join(""):'<div class="empty">No matching students.</div>';
+    $("batchMemberList").querySelectorAll("[data-batch-member]").forEach(btn=>btn.onclick=()=>toggleBatchMember(batch,btn.dataset.batchMember,btn.dataset.memberAction==="add"));
+  };
+  renderMembers();
+  $("batchStudentSearch").oninput=renderMembers;
+  $("batchEditSubjects").querySelectorAll("[data-edit-subject]").forEach(btn=>btn.onclick=()=>{ btn.classList.toggle("on"); btn.setAttribute("aria-pressed",String(btn.classList.contains("on"))); });
+  $("btnSaveBatch").onclick=()=>saveBatchEdits(batch);
+  $("btnDeleteBatch").onclick=()=>deleteBatch(batch);
+}
+async function createBatch(){
+  const name=($("batchName")?.value||"").trim(),description=($("batchDescription")?.value||"").trim();
+  const subjectIds=[...document.querySelectorAll("[data-create-subject].on")].map(x=>x.dataset.createSubject);
+  if(!name){ $("batchMessage").textContent="Enter a batch name."; $("batchMessage").className="invite-message error"; return; }
+  if(!subjectIds.length){ $("batchMessage").textContent="Choose at least one subject."; $("batchMessage").className="invite-message error"; return; }
+  const button=$("btnCreateBatch"); button.disabled=true;
+  try{
+    const {collection,addDoc,serverTimestamp}=await import("firebase/firestore");
+    const ref=await addDoc(collection(fbDb,"batches"),{name,subjectIds,studentUids:[],createdBy:currentUser.uid,createdAt:serverTimestamp(),description});
+    selectedAdminBatchId=ref.id; $("batchName").value=""; $("batchDescription").value="";
+    $("batchMessage").textContent=`${name} created.`; $("batchMessage").className="invite-message success";
+    await loadAdminBatches();
+  }catch(e){ console.warn("batch create failed",e); $("batchMessage").textContent="Could not create the batch. Check Firestore rules."; $("batchMessage").className="invite-message error"; }
+  finally{ button.disabled=false; }
+}
+async function saveBatchEdits(batch){
+  const name=($("batchEditName")?.value||"").trim();
+  const subjectIds=[...document.querySelectorAll("[data-edit-subject].on")].map(x=>x.dataset.editSubject);
+  if(!name||!subjectIds.length){ showToast("Batch needs a name and at least one subject"); return; }
+  try{
+    const {doc,updateDoc,serverTimestamp}=await import("firebase/firestore");
+    await updateDoc(doc(fbDb,"batches",batch.id),{name,description:($("batchEditDescription")?.value||"").trim(),subjectIds,updatedAt:serverTimestamp()});
+    showToast("Batch saved"); await loadAdminBatches();
+  }catch(e){ console.warn("batch save failed",e); showToast("Could not save batch"); }
+}
+async function toggleBatchMember(batch,uid,add){
+  const student=allStudentsCache.find(s=>s.uid===uid); if(!student) return;
+  try{
+    const {doc,updateDoc,setDoc,deleteDoc,arrayUnion,arrayRemove,serverTimestamp}=await import("firebase/firestore");
+    await updateDoc(doc(fbDb,"batches",batch.id),{studentUids:add?arrayUnion(uid):arrayRemove(uid),updatedAt:serverTimestamp()});
+    const memberRef=doc(fbDb,"batches",batch.id,"members",uid);
+    if(add){
+      const publicName=publicStudentName(student.displayName,student.email),xp=student.xp||{total:0,bySubject:{},history:[]};
+      await setDoc(memberRef,{uid,publicName,initials:studentInitials(publicName),xpTotal:Number(xp.total)||0,bySubject:{...(xp.bySubject||{})},byType:xpByType(xp),updatedAt:serverTimestamp()},{merge:true});
+    }else await deleteDoc(memberRef);
+    showToast(add?"Student added to batch":"Student removed from batch"); await loadAdminBatches();
+  }catch(e){ console.warn("batch member update failed",e); showToast("Could not update batch membership"); }
+}
+async function deleteBatch(batch){
+  if(!await qzConfirm(`Delete ${qzEsc(batch.name||"this batch")}?`,'<div style="font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:14px">Students keep their progress and XP. Only this batch and its leaderboard are removed.</div>',"Delete batch")) return;
+  try{
+    const {doc,deleteDoc,collection,getDocs}=await import("firebase/firestore");
+    const members=await getDocs(collection(fbDb,"batches",batch.id,"members"));
+    await Promise.all(members.docs.map(m=>deleteDoc(m.ref)));
+    await deleteDoc(doc(fbDb,"batches",batch.id));
+    selectedAdminBatchId=""; showToast("Batch deleted"); await loadAdminBatches();
+  }catch(e){ console.warn("batch delete failed",e); showToast("Could not delete batch"); }
 }
 
 async function initFirebase(){
@@ -1365,12 +1844,20 @@ async function afterFirebaseLogin(fbUser){
     const _tProg=performance.now();
 
     let rawMap={};
+    xpState=cleanXp(null);
+    streakState=cleanStreaks(null);
+    completedXpTopics=[];
+    revealedQuestions=[];
     try{
       const pref=doc(fbDb,"progress",fbUser.uid);
       const ps=await getDoc(pref);
       if(ps.exists()){
         const data=ps.data();
         if(data.subjects && typeof data.subjects==="object") rawMap=data.subjects;
+        xpState=cleanXp(data.xp);
+        streakState=cleanStreaks(data.streaks);
+        completedXpTopics=Array.isArray(data.completedTopics)?data.completedTopics.slice():[];
+        revealedQuestions=Array.isArray(data.revealedQuestions)?data.revealedQuestions.slice():[];
       }
     }catch(e){ console.warn("progress load failed", e); }
 
@@ -1397,7 +1884,10 @@ async function afterFirebaseLogin(fbUser){
       await Promise.all([qFetchOverrides(), qzFetchAll()]);
       console.info("[perf] quiz+overrides fetch %sms", Math.round(performance.now()-_t0)); }
     qzLoad();
-    if(currentUser.role==="student") applySmartDefaultStrand({resetOtherFilters:true});
+    if(currentUser.role==="student"){
+      applySmartDefaultStrand({resetOtherFilters:true});
+      await loadStudentBatches();
+    }
     console.info("[perf] progress read %sms", Math.round(performance.now()-_tProg));
 
     sSet("gcse_last_user", JSON.stringify(currentUser));
@@ -1542,6 +2032,7 @@ async function adminLoadAll(){
       let progMap={};
       let progFlat={};
       let quizBySubject={};
+      let xp=cleanXp(null), streaks=cleanStreaks(null), completedTopics=[];
       try{
         const [ps,quizSnap]=await Promise.all([
           getDoc(doc(fbDb,"progress",d.id)),
@@ -1550,6 +2041,8 @@ async function adminLoadAll(){
         if(ps.exists()){
           const data=ps.data();
           if(data.subjects && typeof data.subjects==="object") progMap=data.subjects;
+          xp=cleanXp(data.xp); streaks=cleanStreaks(data.streaks);
+          completedTopics=Array.isArray(data.completedTopics)?data.completedTopics.slice():[];
         }
         quizSnap.forEach(qd=>{ const data=qd.data()||{}; quizBySubject[qd.id]=data.q||{}; });
       }catch{}
@@ -1559,7 +2052,7 @@ async function adminLoadAll(){
       const currentProg = progMap[currentSubjectId] || progMap[DEFAULT_SUBJECT_ID] || progFlat || {};
       const hasProgress = Object.keys(progMap).some(subjectId=>Object.keys(progMap[subjectId]||{}).length>0)
         || Object.keys(quizBySubject).some(subjectId=>Object.keys(quizBySubject[subjectId]||{}).length>0);
-      list.push({uid:d.id,email:u.email,displayName:u.displayName,role:u.role,invitedAt:u.invitedAt||null,invitedBy:u.invitedBy||null,lastLoginAt:u.lastLoginAt||null,pendingAuthProfile:!!u.pendingAuthProfile,hasProgress,progress:currentProg,progressBySubject:progMap,progressFlat:progFlat,quizBySubject});
+      list.push({uid:d.id,email:u.email,displayName:u.displayName,role:u.role,invitedAt:u.invitedAt||null,invitedBy:u.invitedBy||null,lastLoginAt:u.lastLoginAt||null,pendingAuthProfile:!!u.pendingAuthProfile,hasProgress,progress:currentProg,progressBySubject:progMap,progressFlat:progFlat,quizBySubject,xp,streaks,completedTopics});
     }
     // A provisional profile may have been created for an Auth account whose UID
     // cannot be looked up from the browser SDK. Once the real UID profile exists,
@@ -1576,7 +2069,7 @@ async function adminLoadAll(){
     const admins=allStudentsCache.filter(l=>l.role==="admin").length;
     $("adminCounts").textContent=`${students} students • ${admins} admin`;
     renderAdminList();
-    await loadQuestionStats();
+    await Promise.all([loadQuestionStats(),loadAdminBatches()]);
   }catch{
     $("adminCounts").textContent="Loading class list…";
     loadQuestionStats();
@@ -1765,6 +2258,8 @@ function handleAdminStrandClick(st, student){
 }
 
 function renderStudent(){
+  renderXpHeader();
+  renderStudentLeaderboard();
   const subj=getCurrentSubject();
   const strandsEl=$("strands"); strandsEl.innerHTML="";
   const addPracticeCard=(s,label,topics)=>{
@@ -1852,6 +2347,8 @@ function renderStudent(){
   }
 }
 function renderStudentKPIsOnly(){
+  renderXpHeader();
+  renderStudentLeaderboard();
   const score=qzScoreForTopics(TOPICS); const completedTopics=qzPracticeCompleteCount();
   const pct=score.n? Math.round(score.c/score.n*100):0;
   $("ring").style.setProperty("--p", pct); $("ringTxt").textContent=pct+"%"; $("ringLabel").textContent=`${score.c} / ${score.n} completed`; $("ringSub").textContent="Questions completed"; $("kpiG").textContent=score.c; $("kpiA").textContent=completedTopics; $("kpiR").textContent=score.n-score.c;
@@ -1877,10 +2374,11 @@ function scheduleSave(){
   saveTimer=setTimeout(async ()=>{
     try{
       if(fbDb && currentUser){
-        const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
-        // full overwrite: with merge:true a topic removed from the map would never
-        // be deleted server-side, so an unticked topic came back on refresh
-        await setDoc(doc(fbDb,"progress",currentUser.uid),{subjects:allProgressBySubject, updatedAt:serverTimestamp()});
+        const {doc,updateDoc,setDoc,serverTimestamp}=await import("firebase/firestore");
+        const ref=doc(fbDb,"progress",currentUser.uid);
+        // updateDoc replaces the complete subjects map without deleting XP/streak fields.
+        try{ await updateDoc(ref,{subjects:allProgressBySubject,updatedAt:serverTimestamp()}); }
+        catch{ await setDoc(ref,{subjects:allProgressBySubject,xp:xpState,streaks:streakState,completedTopics:completedXpTopics,revealedQuestions,updatedAt:serverTimestamp()}); }
       }
       $("saveState").textContent="Saved ✓";
       showToast("Progress saved");
@@ -2037,14 +2535,29 @@ function hideInviteResult(){
   latestInvite=null;
   $("inviteResult").classList.remove("show");
 }
-function inviteEmailText(name){
+function inviteEmailText(name,email,adminName){
   const greeting=name?`Hi ${name},`:"Hello,";
+  const signature=String(adminName||"").trim()||"Avi";
   return `${greeting}
 
-You've been invited to GCSE Maths Tracker. Go to ${TRACKER_INVITE_URL}. Click Log in, then Forgot password to set your own password. Or check your email for the password setup link.`;
+You've been invited to join GCSE Maths Tracker - your personalised Edexcel Higher practice space.
+
+Here's how to get started:
+• Go to: ${TRACKER_INVITE_URL}
+• Click "Continue with Google" to sign in instantly (recommended), OR click Log in then Forgot password to set your own password
+• Start practising - your progress saves automatically
+
+Your login email: ${email}
+
+If you have any trouble, just reply to this email.
+
+Happy practising!
+
+- ${signature}`;
 }
 function showInviteResult({name,email,isExisting=false,isActive=false,resetEmailSent=false}){
-  const emailText=inviteEmailText(name);
+  const adminName=currentUser && currentUser.displayName ? currentUser.displayName : "";
+  const emailText=inviteEmailText(name,email,adminName);
   latestInvite={name,email,isExisting,emailText};
   const accountLabel=name||email;
   $("inviteResultTitle").textContent=isExisting
@@ -2273,7 +2786,7 @@ $("btnResetStudent").addEventListener("click", async ()=>{
   });
   if(!proceed) return;
   try{
-    const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
+    const {doc,updateDoc,serverTimestamp}=await import("firebase/firestore");
     const s=allStudentsCache.find(x=>x.uid===selectedStudentUid);
     if(s){
       if(s.progressBySubject) s.progressBySubject[currentSubjectId]={};
@@ -2282,7 +2795,7 @@ $("btnResetStudent").addEventListener("click", async ()=>{
     }
     const progMap = s?.progressBySubject||{};
     progMap[currentSubjectId]={};
-    await setDoc(doc(fbDb,"progress",selectedStudentUid),{subjects:progMap, updatedAt:serverTimestamp()});
+    await updateDoc(doc(fbDb,"progress",selectedStudentUid),{subjects:progMap, updatedAt:serverTimestamp()});
     // clear practice stats for this subject as well: correct/wrong, first-attempt
     // history and favourites all live in the quiz doc
     const {deleteDoc}=await import("firebase/firestore");
@@ -2734,12 +3247,19 @@ function qzHasFractionNotation(q,topic){
 function qzHasPowerNotation(q,topic){
   return /[⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻^]/.test(`${q.q} ${q.a}`) || /\b(powers?|indices|exponents?)\b/i.test(topic?.title||"");
 }
+function qzAnswerRevealAction(q,fb){
+  if(fb?.answerShown) return "";
+  const alreadyRevealed=revealedQuestions.includes(revealedQuestionKey(q));
+  if(alreadyRevealed) return '<div class="qz-feedback-actions"><button class="btn" id="qzShowAnswer">Show answer</button></div>';
+  if((Number(xpState.total)||0)>=5) return '<div class="qz-feedback-actions"><button class="btn" id="qzShowAnswer">Show answer (-5 XP)</button></div>';
+  return '<div class="qz-feedback-actions"><button class="btn" type="button" disabled>Show answer (-5 XP)</button><span class="qz-answer-cost-note">Earn at least 5 XP to reveal answers</span></div>';
+}
 function qzFeedbackHtml(q){
   const fb=qzFeedback[q.i];
   if(!fb) return '<div class="qz-feedback" id="qzFeedback" role="status" aria-live="polite"></div>';
-  if(fb.kind==="correct") return '<div class="qz-feedback correct show" id="qzFeedback" role="status" aria-live="polite"><strong>Correct</strong>Your answer matches the expected answer.</div>';
+  if(fb.kind==="correct") return `<div class="qz-feedback correct show" id="qzFeedback" role="status" aria-live="polite"><strong>Correct</strong>Your answer matches the expected answer. <b>${qzEsc(q.a)}</b></div>`;
   if(fb.kind==="unknown") return `<div class="qz-feedback review show" id="qzFeedback" role="status" aria-live="polite"><strong>Check your answer</strong>This answer needs to be marked by you. Compare yours with: <b>${qzEsc(q.a)}</b><div class="qz-feedback-actions"><button class="btn qz-btn-right" id="qzSelfRight">Mark as correct</button><button class="btn qz-btn-wrong" id="qzSelfWrong">Mark as wrong</button></div></div>`;
-  return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Not quite</strong>Expected answer: <b>${qzEsc(q.a)}</b><div class="qz-flag-prompt">You think your answer was correct?</div><div class="qz-feedback-actions"><button class="btn qz-flag-button" id="qzFlag">Flag the Question</button></div></div>`;
+  return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Not quite</strong><div class="qz-flag-prompt">You think your answer was correct?</div><div class="qz-feedback-actions"><button class="btn qz-flag-button" id="qzFlag">Flag the Question</button></div>${qzAnswerRevealAction(q,fb)}</div>`;
 }
 async function qzRecordQuestionStat(q,kind,answer=""){
   if(!(fbDb && currentUser && q)) return;
@@ -2813,7 +3333,7 @@ function qzRender(){
   qzList = qzApplyFilter(pool);
   if(qzIdx >= qzList.length) qzIdx = Math.max(0, qzList.length-1);
   const body=$("qzBody");
-  const topicFinished = qzScope.kind==="topic" && pool.length>0 && u===0;
+  const topicFinished = qzScope.kind==="topic" && pool.length>0 && c===pool.length;
   if(topicFinished && !qzReviewingComplete){
     const topicIndex=TOPICS.findIndex(t=>t.id===qzScope.id);
     const nextTopic=TOPICS.slice(topicIndex+1).find(t=>qzFor(t.id).length>0);
@@ -2855,7 +3375,7 @@ function qzRender(){
   const topicContext=`Question ${topicPosition} of ${topicQuestions.length} in ${q.c}`;
   const doneTag = st.s==="c" ? '<span class="qz-tag done-c">Got it right</span>'
                 : st.s==="w" ? '<span class="qz-tag done-w">Got it wrong</span>' : '';
-  const qzPct=Math.round((qzIdx+1)/qzList.length*100);
+  const qzPct=pool.length?Math.round(c/pool.length*100):0;
   const qzDots=qzList.length<=16
     ? `<span class="qz-dots" aria-label="Question status">${qzList.map((dotQ,i)=>{
         const dotState=qzState[dotQ.i]?.s;
@@ -2871,7 +3391,7 @@ function qzRender(){
     : '';
   body.innerHTML = `
     <div class="qz-card">
-      <div class="qz-card-progress" role="progressbar" aria-label="Question progress" aria-valuemin="1" aria-valuemax="${qzList.length}" aria-valuenow="${qzIdx+1}"><i style="width:${qzPct}%"></i></div>
+      <div class="qz-card-progress" role="progressbar" aria-label="Correct-answer progress" aria-valuemin="0" aria-valuemax="${pool.length}" aria-valuenow="${c}"><i style="width:${qzPct}%"></i></div>
       <div class="qz-meta">
         <span class="qz-code" title="Permanent question code">${qzEsc(questionCode)}</span>
         <span class="qz-topic-name">${qzEsc(topic?.title||q.c)}</span>
@@ -2908,7 +3428,7 @@ function qzRender(){
       </div>
       ${qzFeedbackHtml(q)}
       <div class="qz-hintbox" id="qzHint">${qzEsc(q.h)}</div>
-      <div class="qz-reveal" id="qzReveal">
+      <div class="qz-reveal ${qzFeedback[q.i]?.answerShown?"show":""}" id="qzReveal">
         <div class="qz-block qz-correct"><div class="lab">Answer</div><div class="val">${qzEsc(q.a)}</div></div>
         <div class="qz-block"><div class="lab">Mark scheme</div><div class="val">${qzEsc(q.m)}</div></div>
       </div>
@@ -2916,7 +3436,7 @@ function qzRender(){
     <div class="qz-nav" aria-label="Question navigation">
       <button class="btn" id="qzPrev" ${qzIdx===0?"disabled":""}>← Previous</button>
       <div class="qz-countbox"><span class="qz-count">${qzEsc(topicContext)}</span>${qzDots}</div>
-      <button class="btn" id="qzNext" ${qzIdx>=qzList.length-1 && !(qzScope.kind==="topic" && u===0)?"disabled":""}>${qzIdx>=qzList.length-1 && qzScope.kind==="topic" && u===0?"Finish →":"Next →"}</button>
+      <button class="btn" id="qzNext" ${qzIdx>=qzList.length-1 && !(qzScope.kind==="topic" && c===pool.length)?"disabled":""}>${qzIdx>=qzList.length-1 && qzScope.kind==="topic" && c===pool.length?"Finish →":"Next →"}</button>
     </div>`;
 
   const mv=$("qzMove"), dp=$("qzDep"), workingInput=$("qzWorking"), answerInput=$("qzInput"), checkBtn=$("qzCheck");
@@ -2936,6 +3456,7 @@ function qzRender(){
       checkBtn.disabled=!answerInput.value.trim();
       delete qzFeedback[q.i];
       const feedbackEl=$("qzFeedback"); if(feedbackEl){ feedbackEl.className="qz-feedback"; feedbackEl.innerHTML=""; }
+      $("qzReveal")?.classList.remove("show");
     };
     answerInput.onkeydown=e=>{ if(e.key==="Enter" && answerInput.value.trim()){ e.preventDefault(); qzCheckAnswer(q); } };
   }
@@ -2944,7 +3465,8 @@ function qzRender(){
                                 $("qzHintBtn").textContent = h.classList.contains("show")?"Hide hint":"Show hint"; };
   $("qzStar").onclick   = ()=>{ const s=qzState[q.i]||{}; if(s.f) delete s.f; else s.f=1;
                                 qzState[q.i]=s; qzSave(); qzRender(); };
-  const selfRight=$("qzSelfRight"), selfWrong=$("qzSelfWrong"), flag=$("qzFlag");
+  const selfRight=$("qzSelfRight"), selfWrong=$("qzSelfWrong"), flag=$("qzFlag"), showAnswer=$("qzShowAnswer");
+  if(showAnswer) showAnswer.onclick=()=>revealAnswer(q);
   if(selfRight) selfRight.onclick=()=>{ qzTrackQuestionStat(q,"manualCorrect"); delete qzFeedback[q.i]; qzMark(q.i,"c",false); };
   if(selfWrong) selfWrong.onclick=()=>{ qzTrackQuestionStat(q,"manualWrong"); delete qzFeedback[q.i]; qzMark(q.i,"w",false); };
   if(flag) flag.onclick=async()=>{
@@ -2963,7 +3485,7 @@ function qzRender(){
     }
   };
   $("qzPrev").onclick   = ()=>{ if(qzIdx>0){ qzIdx--; qzRender(); } };
-  $("qzNext").onclick   = ()=>{ if(qzIdx<qzList.length-1){ qzIdx++; qzRender(); } else if(qzScope.kind==="topic" && u===0){ qzReviewingComplete=false; qzRender(); } };
+  $("qzNext").onclick   = ()=>{ if(qzIdx<qzList.length-1){ qzIdx++; qzRender(); } else if(qzScope.kind==="topic" && c===pool.length){ qzReviewingComplete=false; qzRender(); } };
 }
 function qzAdminBar(q){
   if(!qIsAdmin()) return "";
@@ -3025,17 +3547,20 @@ async function qzResetTopic(code){
 function qzEsc(s){ return String(s).replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])); }
 function qzMark(qid, res, advance=true){
   const s=qzState[qid]||{};
+  const previous=s.s;
+  const question=QEFF.find(q=>q.i===qid);
+  const topicWasComplete=question?qzTopicComplete(qzTopicScore(question.c)):false;
   if(!s.first) s.first=res;   // how it went the very first time, so "wrong first
   s.s=res;                    // time" survives a later correction
   qzState[qid]=s; qzSave();
-  const question=QEFF.find(q=>q.i===qid);
   if(question && qzSyncAutoProgress([question.c])) scheduleSave();
+  if(currentUser?.role==="student") awardXpForMark(question,res,previous,topicWasComplete);
   showToast(res==="c" ? "Saved as correct" : "Saved as wrong — it'll come back in the Wrong filter");
   // stay in place if filtering would remove this question, otherwise advance
   // On "all" we step forward. On a filtered list the question drops out, so the
   // same index already lands on the next one once qzRender re-derives the list.
   if(advance && qzFilter==="all" && qzIdx < qzList.length-1) qzIdx++;
-  if(!advance && qzScope?.kind==="topic" && qzPool().every(q=>(qzState[q.i]||{}).s)) qzReviewingComplete=true;
+  if(!advance && qzScope?.kind==="topic" && qzPool().every(q=>(qzState[q.i]||{}).s==="c")) qzReviewingComplete=true;
   qzRender();
 }
 /* == QUIZ:END == */
@@ -3056,6 +3581,11 @@ document.addEventListener("click",(e)=>{
   if(e.target.id==="qzBack"){ showView("student"); renderStudent(); }
 });
 /* == QUIZ:END == */
+initBatchControls();
+document.querySelectorAll("[data-create-subject]").forEach(btn=>btn.addEventListener("click",()=>{ btn.classList.toggle("on"); btn.setAttribute("aria-pressed",String(btn.classList.contains("on"))); }));
+$("btnCreateBatch")?.addEventListener("click",createBatch);
+$("studentBatchSelect")?.addEventListener("change",e=>{ selectedStudentBatchId=e.target.value; leaderboardSubjectFilter="all"; renderStudentLeaderboard(); });
+$("studentLeaderboardSubject")?.addEventListener("change",e=>{ leaderboardSubjectFilter=e.target.value; renderStudentLeaderboard(); });
 populateSubjectSelectors();
 initFirebase();
 </script>
