@@ -105,6 +105,11 @@
   .auth-error.show{display:block}
   .hint{font-size:12.7px;color:var(--muted);line-height:1.5}
   .divider{height:1px;background:var(--line);margin:14px 0}
+  .auth-divider{display:flex;align-items:center;gap:12px;margin:3px 0;color:var(--muted);font-size:12px;font-weight:600}
+  .auth-divider::before,.auth-divider::after{content:"";height:1px;background:var(--line);flex:1}
+  .google-signin{width:100%;justify-content:center;padding:11px 14px;border-radius:11px;background:#fff;color:#202124;border-color:#dadce0;font-size:14px;box-shadow:none}
+  .google-signin:hover{background:#f8fafd;border-color:#c7cbd1;box-shadow:0 2px 8px rgba(60,64,67,.14)}
+  .google-signin svg{width:18px;height:18px;flex:0 0 18px}
   .view{display:none}
   .view.active{display:block}
   .auth-loading{display:none;min-height:calc(100vh - 150px);align-items:center;justify-content:center;gap:10px;color:var(--muted);font-size:13px;font-weight:600}
@@ -240,10 +245,11 @@
   .invite-result.show{display:grid;gap:10px}
   .invite-result h3{margin:0;color:var(--green);font-size:14px}
   .invite-result p{margin:0;color:var(--ink-2);font-size:12.8px;line-height:1.5}
-  .invite-credentials{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+  .invite-credentials{display:grid;grid-template-columns:1fr;gap:8px}
   .invite-credential{min-width:0;padding:9px 10px;border:1px solid #cfe7de;border-radius:10px;background:#fff}
   .invite-credential span{display:block;margin-bottom:3px;color:var(--muted);font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
   .invite-credential code{display:block;overflow-wrap:anywhere;color:var(--ink);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;font-weight:700}
+  .invite-email-preview{margin:0;padding:11px 12px;border:1px solid #cfe7de;border-radius:10px;background:#fff;color:var(--ink-2);font:500 12.5px/1.55 "DM Sans",ui-sans-serif,system-ui,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere}
   .invite-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .invite-actions .btn{text-decoration:none}
   .question-review{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
@@ -704,6 +710,12 @@
             <div class="field"><label>Email</label><input id="email" name="email" type="email" placeholder="you@school.com" autocomplete="username" autocapitalize="none" spellcheck="false" /></div>
             <div class="field"><label>Password</label><input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" autocapitalize="none" spellcheck="false" /></div>
             <button id="btnLogin" class="btn btn-primary" style="justify-content:center;padding:12px 14px;font-size:14px;border-radius:11px">Log in</button>
+            <button id="btnForgotPassword" class="btn" type="button" style="justify-content:center;border:0;background:transparent;color:var(--navy);padding:6px 10px;box-shadow:none">Forgot password?</button>
+            <div class="auth-divider" aria-hidden="true"><span>or</span></div>
+            <button id="btnGoogleSignIn" class="btn google-signin" type="button">
+              <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path fill="#4285F4" d="M17.64 9.205c0-.638-.057-1.252-.164-1.841H9v3.482h4.844a4.14 4.14 0 0 1-1.797 2.716v2.258h2.909c1.702-1.567 2.684-3.875 2.684-6.615Z"/><path fill="#34A853" d="M9 18c2.43 0 4.468-.806 5.956-2.18l-2.909-2.258c-.806.54-1.835.859-3.047.859-2.344 0-4.328-1.585-5.037-3.714H.956v2.332A9 9 0 0 0 9 18Z"/><path fill="#FBBC05" d="M3.963 10.707A5.41 5.41 0 0 1 3.682 9c0-.592.102-1.168.281-1.707V4.961H.956A9 9 0 0 0 0 9c0 1.452.347 2.827.956 4.039l3.007-2.332Z"/><path fill="#EA4335" d="M9 3.579c1.322 0 2.508.454 3.441 1.346l2.581-2.581C13.464.892 11.426 0 9 0A9 9 0 0 0 .956 4.961l3.007 2.332C4.672 5.164 6.656 3.579 9 3.579Z"/></svg>
+              <span>Continue with Google</span>
+            </button>
           </div>
         </div>
       </div>
@@ -805,16 +817,15 @@
             <h3 id="inviteResultTitle">Ready to invite</h3>
             <span id="inviteResultStatus" class="student-status invited">Invite ready</span>
           </div>
-          <p id="inviteResultCopy">Use the buttons below to share the invite privately.</p>
+          <p id="inviteResultCopy">Copy the email content below and share privately. Student will set their own password on first login.</p>
           <p style="font-size:11.8px;color:var(--muted)"><strong>Active</strong> means this tracker has recorded a sign-in. Existing accounts without a tracker sign-in are shown as status unknown.</p>
           <div class="invite-credentials">
             <div class="invite-credential"><span>Login email</span><code id="inviteResultEmail"></code></div>
-            <div id="invitePasswordWrap" class="invite-credential"><span>Temporary password</span><code id="inviteResultPassword"></code></div>
           </div>
+          <pre id="inviteEmailPreview" class="invite-email-preview"></pre>
           <div class="invite-actions">
             <button id="btnCopyInviteLink" class="btn" type="button">Copy invite link</button>
-            <button id="btnCopyTempPassword" class="btn" type="button">Copy temporary password</button>
-            <a id="btnEmailInvite" class="btn btn-primary" href="#">Send via Gmail</a>
+            <button id="btnCopyEmailContent" class="btn btn-primary" type="button">Copy email content</button>
           </div>
         </div>
 
@@ -1168,7 +1179,7 @@ function showLoginStatus(text,{success=false,autoClearMs=0}={}){
 }
 function resetLoginForm(){
   clearLoginStatus();
-  const email=$("email"), password=$("password"), btn=$("btnLogin");
+  const email=$("email"), password=$("password"), btn=$("btnLogin"), googleBtn=$("btnGoogleSignIn");
   if(email) email.value="";
   if(password){
     password.value="";
@@ -1176,6 +1187,7 @@ function resetLoginForm(){
     password.autocomplete="current-password";
   }
   if(btn){ btn.disabled=false; btn.textContent="Log in"; }
+  if(googleBtn){ googleBtn.disabled=false; googleBtn.querySelector("span").textContent="Continue with Google"; }
 }
 function clearSignedOutUi(){
   resetLoginForm();
@@ -1193,6 +1205,7 @@ let saveTimer=null;
 let selectedStudentUid=null;
 let allStudentsCache=[];
 let questionStatsCache=[];
+let authSignOutMessage=null;
 
 function showView(name,{preserveAuthMessage=false}={}){
   document.body.classList.remove("auth-pending");
@@ -1237,9 +1250,12 @@ async function initFirebase(){
           if(currentUser?.role==="admin") showView("admin"); else if(currentUser) showView("student");
         }
       }else{
+        const signedOutMessage=authSignOutMessage;
+        authSignOutMessage=null;
         currentUser=null;
         clearSignedOutUi();
-        showView("login");
+        showView("login",{preserveAuthMessage:!!signedOutMessage});
+        if(signedOutMessage) showLoginStatus(signedOutMessage);
       }
     });
   }catch(e){
@@ -1257,28 +1273,77 @@ async function afterFirebaseLogin(fbUser){
   try{
     const {doc,getDoc,setDoc,serverTimestamp}=await import("firebase/firestore");
     const uref=doc(fbDb,"users",fbUser.uid);
+    const email=(fbUser.email||"").trim().toLowerCase();
+    const isGoogleUser=(fbUser.providerData||[]).some(provider=>provider.providerId==="google.com");
     let snap;
-    // Distinguish "read was denied" from "document genuinely absent" — both
-    // used to surface as profileFound=false, which is not the same problem.
+    // Read both the signed-in UID and any invite/profile with the same email.
+    // Google sign-in is invite-only: a Google identity alone never creates a
+    // student profile unless one of these checks proves an invitation exists.
     let readErr=null;
     try{ snap=await getDoc(uref); }
     catch(e){ readErr=e; snap={exists:()=>false}; }
+    const ownProfile=(snap.exists && snap.exists()) ? snap.data() : null;
+    let emailMatch=null, emailLookupErr=null;
+    if(email){
+      try{ emailMatch=await findUserProfileByEmail(email,{pendingOnly:isGoogleUser}); }
+      catch(e){ emailLookupErr=e; }
+    }
+
     let profile;
-    if(!snap.exists || !snap.exists()){
-      // Role is never self-assigned. Security rules only allow creating a
-      // profile with role "student"; an admin is promoted by hand in the
-      // Firebase console. (The old code probed /users to detect the first
-      // sign-up, but that list is denied to non-admins, so it always threw
-      // and fell through to "admin" — which the rules now reject outright.)
-      const role="student";
-      profile={uid:fbUser.uid,email:fbUser.email||"",displayName:fbUser.displayName||"",role,createdAt:serverTimestamp()};
-      try{ await setDoc(uref, profile, {merge:true}); }catch{}
+    if(isGoogleUser){
+      const ownAllowed=ownProfile && (ownProfile.role==="admin" || ownProfile.role==="student" || ownProfile.pendingAuthProfile===true);
+      const matchedStudent=emailMatch?.data && (emailMatch.data.role==="student" || emailMatch.data.pendingAuthProfile===true);
+      if(!ownAllowed && !matchedStudent){
+        const err=new Error((readErr || emailLookupErr)
+          ? "We couldn’t verify your invitation. Please try again."
+          : "This email hasn't been invited. Ask your teacher to invite you first.");
+        err.code=(readErr || emailLookupErr) ? "auth/invite-check-failed" : "auth/uninvited-google";
+        throw err;
+      }
+
+      const source=ownAllowed ? ownProfile : emailMatch.data;
+      const role=ownProfile?.role==="admin" ? "admin" : "student";
+      profile={
+        ...source,
+        uid:fbUser.uid,
+        role,
+        email:email || source.email || "",
+        displayName:fbUser.displayName || source.displayName || "",
+        pendingAuthProfile:false,
+        lastLoginAt:serverTimestamp()
+      };
+      if(!source.createdAt) profile.createdAt=serverTimestamp();
+      await setDoc(uref,profile,{merge:true});
+
+      // Mark a provisional email invite as linked when the current rules allow
+      // it. The real UID profile above is authoritative even if this cleanup is
+      // denied by tighter student permissions.
+      if(emailMatch && emailMatch.id!==fbUser.uid && emailMatch.data.pendingAuthProfile){
+        try{
+          await setDoc(doc(fbDb,"users",emailMatch.id),{
+            pendingAuthProfile:false,
+            linkedUid:fbUser.uid,
+            lastLoginAt:serverTimestamp()
+          },{merge:true});
+        }catch(e){ console.warn("pending invite cleanup unavailable",e); }
+      }
       try{
         const pref=doc(fbDb,"progress",fbUser.uid);
-        await setDoc(pref,{subjects:{}, updatedAt:serverTimestamp()});
+        const prefSnap=await getDoc(pref);
+        if(!prefSnap.exists()) await setDoc(pref,{subjects:{},updatedAt:serverTimestamp()});
+      }catch(e){ console.warn("Google student progress setup unavailable",e); }
+    }else if(!ownProfile){
+      // Email/password accounts are created by the admin invite flow. Preserve
+      // the existing first-login setup for those already-created Auth users.
+      const role="student";
+      profile={uid:fbUser.uid,email,displayName:fbUser.displayName||"",role,createdAt:serverTimestamp()};
+      try{ await setDoc(uref,profile,{merge:true}); }catch{}
+      try{
+        const pref=doc(fbDb,"progress",fbUser.uid);
+        await setDoc(pref,{subjects:{},updatedAt:serverTimestamp()});
       }catch{}
     }else{
-      profile=snap.data();
+      profile=ownProfile;
     }
     currentUser={uid:fbUser.uid,email:profile.email||fbUser.email,displayName:profile.displayName||fbUser.displayName||"",role:profile.role||"student"};
     // This timestamp lets the admin distinguish an emailed invitation from a
@@ -1354,6 +1419,20 @@ async function afterFirebaseLogin(fbUser){
     }
   }catch(err){
     console.error("afterFirebaseLogin inner error", err);
+    if(err?.code==="auth/uninvited-google" || err?.code==="auth/invite-check-failed"){
+      authSignOutMessage=err.message;
+      currentUser=null;
+      try{
+        const {signOut}=await import("firebase/auth");
+        await signOut(fbAuth);
+      }catch(signOutErr){
+        console.error("Google sign-out after invite check failed",signOutErr);
+        clearSignedOutUi();
+        showView("login",{preserveAuthMessage:true});
+        showLoginStatus(authSignOutMessage);
+      }
+      return;
+    }
     if(fbUser){
       if(!currentUser) currentUser={uid:fbUser.uid,email:fbUser.email||"",displayName:fbUser.displayName||"",role:"student"};
       updateSubjectGlobals();
@@ -1521,6 +1600,60 @@ $("btnLogin").addEventListener("click", async ()=>{
     showLoginStatus("We couldn’t log you in — please check your email and password.");
   }finally{
     btn.disabled=false; btn.textContent="Log in";
+  }
+});
+
+$("btnGoogleSignIn").addEventListener("click", async ()=>{
+  const button=$("btnGoogleSignIn");
+  const label=button.querySelector("span");
+  clearLoginStatus();
+  if(!fbAuth){ showLoginStatus("Just a moment — connecting…"); return; }
+  button.disabled=true;
+  label.textContent="Opening Google…";
+  try{
+    const {GoogleAuthProvider,signInWithPopup}=await import("firebase/auth");
+    const provider=new GoogleAuthProvider();
+    provider.setCustomParameters({prompt:"select_account"});
+    await signInWithPopup(fbAuth,provider);
+    showLoginStatus("Signed in — checking your invitation…",{success:true});
+  }catch(e){
+    console.error("Google sign-in failed",e);
+    if(e?.code==="auth/popup-blocked"){
+      showLoginStatus("Google sign-in was blocked. Allow pop-ups for this site, then try again.");
+    }else if(e?.code==="auth/popup-closed-by-user" || e?.code==="auth/cancelled-popup-request"){
+      showLoginStatus("Google sign-in was cancelled. Please try again when you’re ready.");
+    }else if(e?.code==="auth/account-exists-with-different-credential"){
+      showLoginStatus("This email currently uses password sign-in. Log in with your email and password.");
+    }else if(e?.code==="auth/operation-not-allowed"){
+      showLoginStatus("Google sign-in isn’t enabled yet. Ask your teacher to enable the Google provider in Firebase.");
+    }else if(e?.code==="auth/unauthorized-domain"){
+      showLoginStatus("Google sign-in isn’t authorised for this website yet. Ask your teacher to add this domain in Firebase.");
+    }else{
+      showLoginStatus("We couldn’t sign you in with Google. Please try again.");
+    }
+  }finally{
+    button.disabled=false;
+    label.textContent="Continue with Google";
+  }
+});
+
+$("btnForgotPassword").addEventListener("click", async ()=>{
+  const email=$("email").value.trim().toLowerCase();
+  const button=$("btnForgotPassword");
+  clearLoginStatus();
+  if(!email){ showLoginStatus("Enter your email first, then choose Forgot password."); $("email").focus(); return; }
+  if(!$("email").checkValidity()){ showLoginStatus("Enter a valid email address first."); $("email").focus(); return; }
+  if(!fbAuth){ showLoginStatus("We couldn’t connect. Please refresh and try again."); return; }
+  button.disabled=true; button.textContent="Sending password setup…";
+  try{
+    const {sendPasswordResetEmail}=await import("firebase/auth");
+    await sendPasswordResetEmail(fbAuth,email,{url:TRACKER_INVITE_URL});
+    showLoginStatus("Password setup email sent. Check your inbox and spam folder.",{success:true});
+  }catch(e){
+    console.error("password reset failed",e);
+    showLoginStatus("We couldn’t send the password setup email. Check the address and try again.");
+  }finally{
+    button.disabled=false; button.textContent="Forgot password?";
   }
 });
 
@@ -1887,7 +2020,7 @@ function renderAdminDetail(s, keepFullscreen=false){
 
 const TRACKER_INVITE_URL="https://singhalavi.github.io/gcse-tracker/";
 let latestInvite=null;
-function randomTemporaryPassword(){
+function randomInternalPassword(){
   const alphabet="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
   const bytes=new Uint32Array(16); crypto.getRandomValues(bytes);
   return "Aa1!"+Array.from(bytes,n=>alphabet[n%alphabet.length]).join("");
@@ -1903,41 +2036,26 @@ function setInviteMessage(text,type=""){
 function hideInviteResult(){
   latestInvite=null;
   $("inviteResult").classList.remove("show");
-  $("btnEmailInvite").removeAttribute("href");
 }
-function inviteEmailText(name,email,password,isExisting){
+function inviteEmailText(name){
   const greeting=name?`Hi ${name},`:"Hello,";
-  const signInDetails=password
-    ? `Email: ${email}\nTemporary password: ${password}\n\nPlease keep this password private.`
-    : `Email: ${email}\nUse the password already set for this account.`;
   return `${greeting}
 
-You’ve been invited to join GCSE Maths Tracker.
-
-Go to ${TRACKER_INVITE_URL} and log in with:
-${signInDetails}
-
-Happy practising!`;
+You've been invited to GCSE Maths Tracker. Go to ${TRACKER_INVITE_URL}. Click Log in, then Forgot password to set your own password. Or check your email for the password setup link.`;
 }
-function showInviteResult({name,email,password=null,isExisting=false,isActive=false}){
-  latestInvite={name,email,password,isExisting};
+function showInviteResult({name,email,isExisting=false,isActive=false,resetEmailSent=false}){
+  const emailText=inviteEmailText(name);
+  latestInvite={name,email,isExisting,emailText};
   const accountLabel=name||email;
   $("inviteResultTitle").textContent=isExisting
-    ? `Account already exists for ${accountLabel} — ready to invite`
-    : `Account created for ${accountLabel} — ready to invite`;
+    ? `Account already exists for ${accountLabel} — share the tracker link`
+    : `Account created — ${accountLabel} can set their own password via the reset link or Forgot password on login`;
   const status=$("inviteResultStatus");
-  status.textContent=isActive?"Active":(isExisting?"Login status unknown":"Invite ready");
+  status.textContent=isActive?"Active":(resetEmailSent?"Password setup sent":(isExisting?"Login status unknown":"Invite ready"));
   status.className=`student-status ${isActive?"active":"invited"}`;
-  $("inviteResultCopy").textContent=isExisting
-    ? "This account is already set up. Share the tracker link; the student can sign in with their existing password."
-    : "Share the tracker link and temporary password privately using the options below.";
+  $("inviteResultCopy").textContent="Copy the email content below and share privately. Student will set their own password on first login.";
   $("inviteResultEmail").textContent=email;
-  $("inviteResultPassword").textContent=password||"";
-  $("invitePasswordWrap").style.display=password?"":"none";
-  $("btnCopyTempPassword").style.display=password?"":"none";
-  const subject="You’ve been invited to GCSE Maths Tracker";
-  const body=inviteEmailText(name,email,password,isExisting);
-  $("btnEmailInvite").href=`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  $("inviteEmailPreview").textContent=emailText;
   $("inviteResult").classList.add("show");
 }
 async function copyInviteValue(value,successMessage){
@@ -1960,9 +2078,12 @@ async function copyInviteValue(value,successMessage){
 function inviteErrorIsNetwork(e){
   return e?.code==="auth/network-request-failed" || e?.code==="firestore/unavailable" || e?.code==="unavailable" || e instanceof TypeError;
 }
-async function findUserProfileByEmail(email){
+async function findUserProfileByEmail(email,{pendingOnly=false}={}){
   const {collection,getDocs,query,where,limit}=await import("firebase/firestore");
-  const snap=await getDocs(query(collection(fbDb,"users"),where("email","==",email),limit(5)));
+  const constraints=[where("email","==",email)];
+  if(pendingOnly) constraints.push(where("pendingAuthProfile","==",true));
+  constraints.push(limit(5));
+  const snap=await getDocs(query(collection(fbDb,"users"),...constraints));
   const docs=snap.docs.map(d=>({id:d.id,data:d.data()}));
   return docs.find(x=>!x.data.pendingAuthProfile) || docs[0] || null;
 }
@@ -1993,6 +2114,10 @@ async function ensureExistingStudentProfile(profile,email,displayName){
   }
   return {id,data:{...existing,...payload}};
 }
+async function sendPasswordSetupEmail(email){
+  const {sendPasswordResetEmail}=await import("firebase/auth");
+  await sendPasswordResetEmail(fbAuth,email,{url:TRACKER_INVITE_URL});
+}
 async function finishExistingInvite(profile,email,displayName){
   let readyProfile=profile;
   try{ readyProfile=await ensureExistingStudentProfile(profile,email,displayName); }
@@ -2003,15 +2128,24 @@ async function finishExistingInvite(profile,email,displayName){
   }
   const data=readyProfile?.data||profile?.data||{};
   const isActive=!!data.lastLoginAt;
-  showInviteResult({name:data.displayName||displayName,email,isExisting:true,isActive});
-  setInviteMessage(`Account already exists for ${data.displayName||displayName} — ready to invite.`,"success");
-  showToast("Existing account ready to invite");
+  let resetEmailSent=false;
+  try{
+    await sendPasswordSetupEmail(email);
+    resetEmailSent=true;
+  }catch(e){
+    console.warn("password setup email unavailable; copied invite explains Forgot password",e);
+  }
+  showInviteResult({name:data.displayName||displayName,email,isExisting:true,isActive,resetEmailSent});
+  setInviteMessage(resetEmailSent
+    ? `Account already exists for ${data.displayName||displayName}. Password setup email sent.`
+    : `Account already exists for ${data.displayName||displayName}. Copy the email content to share the login steps.`,"success");
+  showToast(resetEmailSent?"Password setup email sent":"Existing account ready to invite");
   await adminLoadAll().catch(loadErr=>console.warn("student list refresh unavailable",loadErr));
 }
 
 $("btnCopyInviteLink").addEventListener("click",()=>copyInviteValue(TRACKER_INVITE_URL,"Invite link copied"));
-$("btnCopyTempPassword").addEventListener("click",()=>{
-  if(latestInvite?.password) copyInviteValue(latestInvite.password,"Temporary password copied");
+$("btnCopyEmailContent").addEventListener("click",()=>{
+  if(latestInvite?.emailText) copyInviteValue(latestInvite.emailText,"Email content copied");
 });
 
 $("btnInviteStudent").addEventListener("click", async ()=>{
@@ -2028,7 +2162,7 @@ $("btnInviteStudent").addEventListener("click", async ()=>{
   if(!fbApp||!fbAuth||!fbDb){ setInviteMessage("We couldn’t connect. Check your connection and click Retry invite.","error"); button.textContent="Retry invite"; return; }
 
   let secApp=null, secAuth=null, retryNeeded=false;
-  const temporaryPassword=randomTemporaryPassword();
+  const internalPassword=randomInternalPassword();
   button.disabled=true; button.textContent="Checking account…";
   try{
     let profile=await findUserProfileByEmail(email);
@@ -2053,7 +2187,7 @@ $("btnInviteStudent").addEventListener("click", async ()=>{
     secAuth=getAuth(secApp);
     const secDb=getFirestore(secApp);
     button.textContent="Creating account…";
-    const cred=await createUserWithEmailAndPassword(secAuth,email,temporaryPassword);
+    const cred=await createUserWithEmailAndPassword(secAuth,email,internalPassword);
     try{ await updateProfile(cred.user,{displayName}); }catch{}
 
     await setDoc(doc(secDb,"users",cred.user.uid),{
@@ -2067,9 +2201,20 @@ $("btnInviteStudent").addEventListener("click", async ()=>{
     },{merge:true});
     await setDoc(doc(secDb,"progress",cred.user.uid),{subjects:{},updatedAt:serverTimestamp()},{merge:true});
 
-    showInviteResult({name:displayName,email,password:temporaryPassword,isExisting:false,isActive:false});
-    setInviteMessage(`Account created for ${displayName} — ready to invite.`,"success");
-    showToast(`Account created for ${displayName}`);
+    let resetEmailSent=false;
+    try{
+      button.textContent="Sending password setup…";
+      await sendPasswordSetupEmail(email);
+      resetEmailSent=true;
+    }catch(emailErr){
+      console.warn("password setup email unavailable; copied invite explains Forgot password",emailErr);
+    }
+
+    showInviteResult({name:displayName,email,isExisting:false,isActive:false,resetEmailSent});
+    setInviteMessage(resetEmailSent
+      ? `Account created for ${displayName}. Password setup email sent.`
+      : `Account created for ${displayName}. Copy the email content so they can set their password from Log in.`,"success");
+    showToast(resetEmailSent?`Password setup sent to ${displayName}`:`Account created for ${displayName}`);
     $("newName").value=""; $("newEmail").value="";
     await adminLoadAll().catch(loadErr=>console.warn("student list refresh unavailable",loadErr));
   }catch(e){
@@ -2096,7 +2241,7 @@ $("btnInviteStudent").addEventListener("click", async ()=>{
     }else if(e?.code==="auth/invalid-email"){
       setInviteMessage("Enter a valid email address.","error");
     }else if(e?.code==="auth/weak-password"){
-      setInviteMessage("Firebase rejected the generated password. Click Retry invite.","error"); retryNeeded=true;
+      setInviteMessage("Firebase couldn’t create the account securely. Click Retry invite.","error"); retryNeeded=true;
     }else if(inviteErrorIsNetwork(e)){
       setInviteMessage("We couldn’t reach Firebase. Check your connection and click Retry invite.","error"); retryNeeded=true;
     }else if(e?.code==="permission-denied" || e?.code==="firestore/permission-denied"){
