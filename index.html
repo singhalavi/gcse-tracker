@@ -999,33 +999,51 @@
 
 
 <!--
-FIRESTORE RULES ADDITION (merge these matches into the existing
-match /databases/{database}/documents block):
+FIRESTORE RULES (copy and publish in Firebase Console):
 
-function isBatchMember(batchId) {
-  return signedIn()
-    && exists(/databases/$(database)/documents/batches/$(batchId))
-    && request.auth.uid in get(/databases/$(database)/documents/batches/$(batchId)).data.studentUids;
-}
-
-match /batches/{batchId} {
-  allow read: if signedIn() && (isAdmin() || request.auth.uid in resource.data.studentUids);
-  allow create, update, delete: if isAdmin();
-
-  match /members/{uid} {
-    allow read: if signedIn() && (isAdmin() || isBatchMember(batchId));
-    allow create, update: if isAdmin() || (isSelf(uid)
-      && request.resource.data.uid == uid
-      && request.resource.data.keys().hasOnly([
-        'uid','publicName','initials','xpTotal','bySubject','byType','updatedAt'
-      ]));
-    allow delete: if isAdmin();
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn()  { return request.auth != null; }
+    function isSelf(uid) { return signedIn() && request.auth.uid == uid; }
+    function isAdmin()   {
+      return signedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    function isBatchMember(batchId) {
+      return signedIn()
+        && exists(/databases/$(database)/documents/batches/$(batchId))
+        && request.auth.uid in get(/databases/$(database)/documents/batches/$(batchId)).data.studentUids;
+    }
+    match /users/{uid} {
+      allow read: if isSelf(uid) || isAdmin();
+      allow create: if (isSelf(uid) && request.resource.data.uid == uid && request.resource.data.role == 'student') || isAdmin();
+      allow update: if isAdmin() || (isSelf(uid) && request.resource.data.role == resource.data.role);
+      allow delete: if isAdmin();
+    }
+    match /progress/{uid} {
+      allow read, write: if isSelf(uid) || isAdmin();
+      match /{document=**} { allow read, write: if isSelf(uid) || isAdmin(); }
+    }
+    match /content/{subjectId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+    match /questionStats/{docId} {
+      allow read: if isAdmin();
+      allow create, update: if signedIn();
+    }
+    match /batches/{batchId} {
+      allow read: if signedIn() && (isAdmin() || request.auth.uid in resource.data.studentUids);
+      allow create, update, delete: if isAdmin();
+      match /members/{uid} {
+        allow read: if signedIn() && (isAdmin() || isBatchMember(batchId));
+        allow create, update: if isAdmin() || (isSelf(uid) && request.resource.data.uid == uid);
+        allow delete: if isAdmin();
+      }
+    }
   }
-}
-
-match /progress/{uid} {
-  allow read, write: if isSelf(uid) || isAdmin();
-  match /{document=**} { allow read, write: if isSelf(uid) || isAdmin(); }
 }
 
 Firestore cannot grant field-level read access to only progress.xp. To avoid
@@ -1046,6 +1064,17 @@ at batches/{batchId}/members/{uid}; each student may update only their own cache
 const memStore = new Map();
 function sGet(k){ try{ const v=localStorage.getItem(k); return v==null? memStore.get(k) ?? null : v }catch{ return memStore.get(k) ?? null } }
 function sSet(k,v){ try{ localStorage.setItem(k,v) }catch{} memStore.set(k,v) }
+function sRemove(k){ try{ localStorage.removeItem(k) }catch{} memStore.delete(k) }
+function clearQuizCacheForUid(uid){
+  if(!uid) return;
+  const prefix="gcse_quiz_"+uid+"_";
+  try{
+    const keys=[];
+    for(let i=0;i<localStorage.length;i++){ const key=localStorage.key(i); if(key&&key.startsWith(prefix)) keys.push(key); }
+    keys.forEach(key=>localStorage.removeItem(key));
+  }catch{}
+  for(const key of [...memStore.keys()]) if(key.startsWith(prefix)) memStore.delete(key);
+}
 
 const firebaseConfig = {
   apiKey: "AIzaSyDQezBfveMLjTfWXUfikGWGiuIfkv2VHl0",
@@ -1347,10 +1376,16 @@ let leaderboardSubjectFilter="all";
 let xpToastQueue=[];
 let xpToastBusy=false;
 let authSignOutMessage=null;
+let authLoadGeneration=0;
 
 function showView(name,{preserveAuthMessage=false}={}){
   document.body.classList.remove("auth-pending");
   if(name==="login" && !preserveAuthMessage) resetLoginForm();
+  // Do not carry account-specific view caches across an admin/student switch.
+  if(name==="admin"){
+    studentBatchesCache=[];
+    selectedStudentBatchId="";
+  }
   if(name!=="login"){
     clearLoginStatus();
     const password=$("password");
@@ -1467,7 +1502,7 @@ function renderXpHeader(){
   }
 }
 async function syncOwnLeaderboardCache(){
-  if(!(fbDb&&currentUser?.uid&&studentBatchesCache.length)) return;
+  if(!(fbDb&&currentUser?.uid&&currentUser.role==="student"&&studentBatchesCache.length)) return;
   const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
   const publicName=publicStudentName(currentUser.displayName,currentUser.email);
   const payload={uid:currentUser.uid,publicName,initials:studentInitials(publicName),xpTotal:Number(xpState.total)||0,bySubject:{...(xpState.bySubject||{})},byType:xpByType(),updatedAt:serverTimestamp()};
@@ -1480,7 +1515,7 @@ async function syncOwnLeaderboardCache(){
   renderStudentLeaderboard();
 }
 async function persistXp(){
-  if(!(fbDb&&currentUser?.uid)) return;
+  if(!(fbDb&&currentUser?.uid&&currentUser.role==="student")) return;
   try{
     const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
     await setDoc(doc(fbDb,"progress",currentUser.uid),{
@@ -1499,6 +1534,12 @@ function addXpEvent(type,points,topicId,events,questionId=""){
 function revealedQuestionKey(question){ return `${currentSubjectId}:${qzQuestionCode(question)}`; }
 async function revealAnswer(question){
   if(!question) return;
+  // Admin practice is for testing only: reveal without changing or persisting XP.
+  if(currentUser?.role==="admin"){
+    qzFeedback[question.i]={...(qzFeedback[question.i]||{}),answerShown:true};
+    qzRender();
+    return;
+  }
   const key=revealedQuestionKey(question);
   const alreadyRevealed=revealedQuestions.includes(key);
   if(!alreadyRevealed){
@@ -1520,7 +1561,7 @@ async function revealAnswer(question){
   if(!alreadyRevealed) await persistXp();
 }
 async function awardXpForMark(question,result,previous,topicWasComplete){
-  if(!question) return;
+  if(!question || currentUser?.role==="admin") return;
   const events=[];
   if(result==="w"){
     streakState.currentCorrectStreak=0;
@@ -1730,8 +1771,16 @@ async function initFirebase(){
         }
       }else{
         const signedOutMessage=authSignOutMessage;
+        const signedOutUid=currentUser?.uid||"";
         authSignOutMessage=null;
+        authLoadGeneration++;
+        if(saveTimer){ clearTimeout(saveTimer); saveTimer=null; }
+        if(qzSaveTimer){ clearTimeout(qzSaveTimer); qzSaveTimer=null; }
+        clearQuizCacheForUid(signedOutUid);
         currentUser=null;
+        currentProgress={}; allProgressBySubject={}; qzBySubject={}; qzReset();
+        xpState=cleanXp(null); streakState=cleanStreaks(null); completedXpTopics=[]; revealedQuestions=[];
+        allStudentsCache=[]; studentBatchesCache=[]; adminBatchesCache=[]; selectedStudentUid=null;
         clearSignedOutUi();
         showView("login",{preserveAuthMessage:!!signedOutMessage});
         if(signedOutMessage) showLoginStatus(signedOutMessage);
@@ -1747,6 +1796,26 @@ async function initFirebase(){
 }
 
 async function afterFirebaseLogin(fbUser){
+  const loginGeneration=++authLoadGeneration;
+  // Authentication can change accounts without reloading this tab. Clear every
+  // account-owned in-memory value and pending write before reading the new UID.
+  if(saveTimer){ clearTimeout(saveTimer); saveTimer=null; }
+  if(qzSaveTimer){ clearTimeout(qzSaveTimer); qzSaveTimer=null; }
+  qzReset();
+  allProgressBySubject={};
+  currentProgress={};
+  qzBySubject={};
+  xpState=cleanXp(null);
+  streakState=cleanStreaks(null);
+  completedXpTopics=[];
+  revealedQuestions=[];
+  allStudentsCache=[];
+  studentBatchesCache=[];
+  adminBatchesCache=[];
+  selectedStudentUid=null;
+  selectedStudentBatchId="";
+  selectedAdminBatchId="";
+  currentUser=null;
   if(!fbDb) return;
   const _tLogin=performance.now();
   try{
@@ -1824,6 +1893,7 @@ async function afterFirebaseLogin(fbUser){
     }else{
       profile=ownProfile;
     }
+    if(loginGeneration!==authLoadGeneration) return;
     currentUser={uid:fbUser.uid,email:profile.email||fbUser.email,displayName:profile.displayName||fbUser.displayName||"",role:profile.role||"student"};
     // This timestamp lets the admin distinguish an emailed invitation from a
     // student who has completed the reset flow and signed in. It is best-effort
@@ -1874,6 +1944,7 @@ async function afterFirebaseLogin(fbUser){
       }catch{}
     }
 
+    if(loginGeneration!==authLoadGeneration || currentUser?.uid!==fbUser.uid) return;
     allProgressBySubject = rawMap||{};
     currentProgress = allProgressBySubject[currentSubjectId] || allProgressBySubject[DEFAULT_SUBJECT_ID] || {};
     // These two are independent, so fetch them concurrently rather than in
@@ -1883,6 +1954,7 @@ async function afterFirebaseLogin(fbUser){
     { const _t0=performance.now();
       await Promise.all([qFetchOverrides(), qzFetchAll()]);
       console.info("[perf] quiz+overrides fetch %sms", Math.round(performance.now()-_t0)); }
+    if(loginGeneration!==authLoadGeneration || currentUser?.uid!==fbUser.uid) return;
     qzLoad();
     if(currentUser.role==="student"){
       applySmartDefaultStrand({resetOtherFilters:true});
@@ -1908,6 +1980,7 @@ async function afterFirebaseLogin(fbUser){
       showToast(currentUser.displayName?`Welcome, ${currentUser.displayName}`:"Welcome back");
     }
   }catch(err){
+    if(loginGeneration!==authLoadGeneration) return;
     console.error("afterFirebaseLogin inner error", err);
     if(err?.code==="auth/uninvited-google" || err?.code==="auth/invite-check-failed"){
       authSignOutMessage=err.message;
@@ -2152,8 +2225,14 @@ $("btnForgotPassword").addEventListener("click", async ()=>{
 
 $("btnLogout").addEventListener("click", async ()=>{
   clearSignedOutUi();
+  const signingOutUid=currentUser?.uid||"";
+  if(saveTimer){ clearTimeout(saveTimer); saveTimer=null; }
+  if(qzSaveTimer){ clearTimeout(qzSaveTimer); qzSaveTimer=null; }
+  clearQuizCacheForUid(signingOutUid);
   try{ if(fbAuth){ const {signOut}=await import("firebase/auth"); await signOut(fbAuth); } }catch{}
-  currentUser=null; currentProgress={}; selectedStudentUid=null; allProgressBySubject={}; qzReset();
+  currentUser=null; currentProgress={}; selectedStudentUid=null; allProgressBySubject={}; qzBySubject={}; qzReset();
+  xpState=cleanXp(null); streakState=cleanStreaks(null); completedXpTopics=[]; revealedQuestions=[];
+  allStudentsCache=[]; studentBatchesCache=[]; adminBatchesCache=[];
   const va=$("view-admin"); if(va) va.classList.remove("is-detail");
   adminFilters={strand:"all", q:"", rag:null, todo:false};
   showView("login");
@@ -2258,6 +2337,10 @@ function handleAdminStrandClick(st, student){
 }
 
 function renderStudent(){
+  // A student view must never retain the previous admin account's class data.
+  allStudentsCache=[];
+  adminBatchesCache=[];
+  selectedStudentUid=null;
   renderXpHeader();
   renderStudentLeaderboard();
   const subj=getCurrentSubject();
@@ -2366,19 +2449,40 @@ function renderStudentKPIsOnly(){
 }
 function scheduleSave(){
   $("saveState").textContent="Saving…";
+  const saveUid=currentUser?.uid||"";
+  const saveRole=currentUser?.role||"";
   allProgressBySubject[currentSubjectId]=currentProgress;
-  sSet("gcse_progress_"+(currentUser?.uid||"demo")+"_all", JSON.stringify(allProgressBySubject));
-  sSet("gcse_progress_"+(currentUser?.uid||"demo"), JSON.stringify(currentProgress));
+  if(saveUid){
+    sSet("gcse_progress_"+saveUid+"_all", JSON.stringify(allProgressBySubject));
+    sSet("gcse_progress_"+saveUid, JSON.stringify(currentProgress));
+  }
   sSet("gcse_current_subject", currentSubjectId);
   if(saveTimer) clearTimeout(saveTimer);
   saveTimer=setTimeout(async ()=>{
     try{
-      if(fbDb && currentUser){
-        const {doc,updateDoc,setDoc,serverTimestamp}=await import("firebase/firestore");
-        const ref=doc(fbDb,"progress",currentUser.uid);
-        // updateDoc replaces the complete subjects map without deleting XP/streak fields.
-        try{ await updateDoc(ref,{subjects:allProgressBySubject,updatedAt:serverTimestamp()}); }
-        catch{ await setDoc(ref,{subjects:allProgressBySubject,xp:xpState,streaks:streakState,completedTopics:completedXpTopics,revealedQuestions,updatedAt:serverTimestamp()}); }
+      // A timer from a previous login must never write under the new account.
+      if(fbDb && currentUser && currentUser.uid===saveUid){
+        const {doc,getDoc,setDoc,serverTimestamp}=await import("firebase/firestore");
+        const uid=currentUser.uid;
+        const localSubjects={...allProgressBySubject};
+        const ref=doc(fbDb,"progress",uid);
+        const existingSnap=await getDoc(ref);
+        const existingData=existingSnap.exists() ? (existingSnap.data()||{}) : {};
+        const mergedSubjects={...((existingData.subjects && typeof existingData.subjects==="object") ? existingData.subjects : {})};
+        for(const [subjectId,value] of Object.entries(localSubjects)){
+          if(value===undefined) delete mergedSubjects[subjectId];
+          else mergedSubjects[subjectId]=value;
+        }
+        const payload={subjects:mergedSubjects,updatedAt:serverTimestamp()};
+        if(!existingSnap.exists() && saveRole!=="admin") Object.assign(payload,{
+          xp:xpState,
+          streaks:streakState,
+          completedTopics:completedXpTopics,
+          revealedQuestions
+        });
+        await setDoc(ref,payload,{merge:true});
+        // Keep any edits made while the read/write was in flight.
+        allProgressBySubject={...mergedSubjects,...allProgressBySubject};
       }
       $("saveState").textContent="Saved ✓";
       showToast("Progress saved");
@@ -2695,15 +2799,14 @@ $("btnInviteStudent").addEventListener("click", async ()=>{
 
     const {initializeApp}=await import("firebase/app");
     const {getAuth,createUserWithEmailAndPassword,updateProfile}=await import("firebase/auth");
-    const {getFirestore,doc,setDoc,serverTimestamp}=await import("firebase/firestore");
+    const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
     secApp=initializeApp(firebaseConfig,"InviteStudent"+Date.now());
     secAuth=getAuth(secApp);
-    const secDb=getFirestore(secApp);
     button.textContent="Creating account…";
     const cred=await createUserWithEmailAndPassword(secAuth,email,internalPassword);
     try{ await updateProfile(cred.user,{displayName}); }catch{}
 
-    await setDoc(doc(secDb,"users",cred.user.uid),{
+    await setDoc(doc(fbDb,"users",cred.user.uid),{
       uid:cred.user.uid,
       role:"student",
       email,
@@ -2712,7 +2815,7 @@ $("btnInviteStudent").addEventListener("click", async ()=>{
       invitedAt:serverTimestamp(),
       invitedBy:currentUser.uid
     },{merge:true});
-    await setDoc(doc(secDb,"progress",cred.user.uid),{subjects:{},updatedAt:serverTimestamp()},{merge:true});
+    await setDoc(doc(fbDb,"progress",cred.user.uid),{subjects:{},updatedAt:serverTimestamp()},{merge:true});
 
     let resetEmailSent=false;
     try{
@@ -2833,60 +2936,84 @@ const QUESTIONS = [{"i":"N1-01","c":"N1","q":"Work out 0.006 × 0.45","a":"0.002
 
    Stored at  progress/{uid}/quiz/{subjectId}  as {q:{...}, summary:{...}},
    mirroring the existing progress/{uid}/subjects/{subjectId} pattern.
-   Written as a FULL overwrite, not a merge: with merge:true a deleted key
-   (un-favouriting, or a reset) would survive in Firestore forever. */
+   Before each write, cloud and local question maps are merged with the local
+   tab winning on overlapping IDs, so an older tab cannot erase newer answers. */
 let qzBySubject = {}, qzState = {}, qzScope = null, qzFilter = "all",
     qzList = [], qzIdx = 0, qzSaveTimer = null, qzDirty = false,
     qzReviewingComplete = false, qzFeedback = {}, qzDrafts = {}, qzWorking = {};
 
-function qzKey(){ return "gcse_quiz_"+(currentUser?.uid||"demo")+"_"+currentSubjectId; }
+function qzKey(){ return currentUser?.uid ? "gcse_quiz_"+currentUser.uid+"_"+currentSubjectId : null; }
 function qzSetSaveState(t){ const el=$("saveState"); if(el) el.textContent=t; }
 
 async function qzFetchAll(){
   qzBySubject = {};
-  if(!(fbDb && currentUser)) return;
+  if(!(fbDb && currentUser?.uid)) return;
+  const uid=currentUser.uid;
   try{
     const {collection,getDocs}=await import("firebase/firestore");
-    const snap=await getDocs(collection(fbDb,"progress",currentUser.uid,"quiz"));
-    snap.forEach(d=>{ const v=d.data()||{}; qzBySubject[d.id] = v.q || {}; });
+    const snap=await getDocs(collection(fbDb,"progress",uid,"quiz"));
+    if(currentUser?.uid!==uid) return;
+    const loaded={};
+    snap.forEach(d=>{ const v=d.data()||{}; loaded[d.id] = v.q || {}; });
+    qzBySubject=loaded;
   }catch(e){ console.warn("quiz load failed", e); }
 }
 
 function qzLoad(){
-  if(qzBySubject[currentSubjectId]){
-    qzState = qzBySubject[currentSubjectId];
-  }else{
-    let local={};
-    try{ local = JSON.parse(sGet(qzKey())||"{}"); }catch{ local={}; }
-    qzState = local; qzBySubject[currentSubjectId] = local;
-    // first sign-in on a device that already has local history: push it up once
-    if(Object.keys(local).length && fbDb && currentUser) qzFlush();
-  }
+  let local={};
+  const key=qzKey();
+  try{ local = key ? JSON.parse(sGet(key)||"{}") : {}; }catch{ local={}; }
+  const cloud=(qzBySubject[currentSubjectId] && typeof qzBySubject[currentSubjectId]==="object")
+    ? qzBySubject[currentSubjectId] : {};
+  // Merge both copies so an older empty cloud document cannot erase answers
+  // that this browser has already recorded. Local wins only for overlapping IDs.
+  qzState={...cloud,...local};
+  qzBySubject[currentSubjectId]=qzState;
+  if(Object.keys(local).length && fbDb && currentUser) qzFlush();
   // Topic completion is derived from practice results, never set manually.
   if(qzSyncAutoProgress()) scheduleSave();
 }
 
 async function qzFlush(){
   if(!(fbDb && currentUser)){ qzDirty=false; qzSetSaveState("Saved locally"); return; }
+  const uid=currentUser.uid, subjectId=currentSubjectId;
+  const localQ={...qzState};
   try{
-    const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
-    // One document, one write. The per-topic summary is derived from q on
-    // read, so storing it would just be a second copy to keep in sync.
-    await setDoc(doc(fbDb,"progress",currentUser.uid,"quiz",currentSubjectId),
-                 {q:qzState, updatedAt:serverTimestamp()});
+    const {doc,getDoc,setDoc,serverTimestamp}=await import("firebase/firestore");
+    const ref=doc(fbDb,"progress",uid,"quiz",subjectId);
+    const existingSnap=await getDoc(ref);
+    const existingData=existingSnap.exists() ? (existingSnap.data()||{}) : {};
+    const mergedQ={...((existingData.q && typeof existingData.q==="object") ? existingData.q : {})};
+    for(const [qid,value] of Object.entries(localQ)){
+      if(value===undefined) delete mergedQ[qid];
+      else mergedQ[qid]=value;
+    }
+    if(currentUser?.uid!==uid) return;
+    // Preserve question keys saved by newer tabs; this tab wins only where it
+    // has an explicit value. The per-topic summary is derived from q on read.
+    await setDoc(ref,{q:mergedQ,updatedAt:serverTimestamp()});
+    const latestLocal=(subjectId===currentSubjectId && qzState && typeof qzState==="object") ? qzState : {};
+    const latestMerged={...mergedQ,...latestLocal};
+    qzBySubject[subjectId]=latestMerged;
+    if(subjectId===currentSubjectId) qzState=latestMerged;
+    sSet("gcse_quiz_"+uid+"_"+subjectId,JSON.stringify(latestMerged));
     qzDirty=false; qzSetSaveState("Saved ✓");
   }catch(e){ console.warn("quiz save failed", e); qzSetSaveState("Saved locally"); }
 }
 
 function qzSave(){
-  sSet(qzKey(), JSON.stringify(qzState));
+  const key=qzKey();
+  if(key) sSet(key, JSON.stringify(qzState));
   qzBySubject[currentSubjectId] = qzState;
   qzDirty = true; qzSetSaveState("Saving…");
   if(qzSaveTimer) clearTimeout(qzSaveTimer);
   qzSaveTimer = setTimeout(qzFlush, 800);
 }
 
-function qzReset(){ qzBySubject={}; qzState={}; qzFeedback={}; qzDrafts={}; qzWorking={}; qzDirty=false; qOverrides={}; qRebuild(); }
+function qzReset(){
+  if(qzSaveTimer){ clearTimeout(qzSaveTimer); qzSaveTimer=null; }
+  qzBySubject={}; qzState={}; qzFeedback={}; qzDrafts={}; qzWorking={}; qzDirty=false; qOverrides={}; qRebuild();
+}
 /* -------------------------------------------------------------- content layer
    QIDs are treated as OPAQUE and permanent. The topic a question belongs to is
    metadata, not part of its identity, so an admin can move it without orphaning
@@ -3249,6 +3376,7 @@ function qzHasPowerNotation(q,topic){
 }
 function qzAnswerRevealAction(q,fb){
   if(fb?.answerShown) return "";
+  if(currentUser?.role==="admin") return '<div class="qz-feedback-actions"><button class="btn" id="qzShowAnswer">Show answer</button></div>';
   const alreadyRevealed=revealedQuestions.includes(revealedQuestionKey(q));
   if(alreadyRevealed) return '<div class="qz-feedback-actions"><button class="btn" id="qzShowAnswer">Show answer</button></div>';
   if((Number(xpState.total)||0)>=5) return '<div class="qz-feedback-actions"><button class="btn" id="qzShowAnswer">Show answer (-5 XP)</button></div>';
@@ -3262,7 +3390,8 @@ function qzFeedbackHtml(q){
   return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Not quite</strong><div class="qz-flag-prompt">You think your answer was correct?</div><div class="qz-feedback-actions"><button class="btn qz-flag-button" id="qzFlag">Flag the Question</button></div>${qzAnswerRevealAction(q,fb)}</div>`;
 }
 async function qzRecordQuestionStat(q,kind,answer=""){
-  if(!(fbDb && currentUser && q)) return;
+  // Admin practice is read/test activity and must not change shared student stats.
+  if(!(fbDb && currentUser?.role==="student" && q)) return;
   const {doc,setDoc,increment,serverTimestamp,arrayUnion}=await import("firebase/firestore");
   const ref=doc(fbDb,"questionStats",qzQuestionCode(q));
 
