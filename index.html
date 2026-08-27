@@ -212,7 +212,19 @@
   .topic-main{flex:1 1 auto;min-width:0}
   .topic-title{font-size:13.8px;font-weight:600;line-height:1.35;margin:0;color:var(--ink);text-wrap:pretty}
   .topic-meta{font-size:11.8px;color:var(--muted);margin-top:2px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  @media(max-width:640px){ .topic-meta{white-space:normal} }
+  .admin-topic-stats{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:6px;color:var(--ink-2);font-size:11.5px;line-height:1.35;font-weight:600;font-variant-numeric:tabular-nums}
+  .admin-topic-stats b{color:var(--navy);font-weight:800}
+  .admin-topic-stats .wrong{color:var(--red)}
+  .admin-topic-stats .unattempted{color:var(--muted)}
+  .admin-topic-stats .sep{color:#aeb5c9;font-weight:500}
+  .admin-topic-status{font-size:11.6px;font-weight:700;padding:5px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);white-space:nowrap;flex:0 0 auto}
+  .admin-topic-status.is-complete{background:var(--green-bg);color:var(--green);border-color:#bfe9d9}
+  @media(max-width:640px){
+    .topic-meta{white-space:normal}
+    .admin-topic-stats{font-size:11.2px;gap:4px}
+    #view-admin .topic{align-items:flex-start;flex-direction:column}
+    #view-admin .admin-topic-status{margin-left:66px}
+  }
   .admin-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:2px 0 16px}
   .admin-head h2{margin:0;font-family:"Newsreader",serif;font-size:28px;font-weight:600;letter-spacing:-.02em}
   .admin-head p{margin:6px 0 0;color:var(--muted);font-size:13.4px;line-height:1.5;max-width:52ch}
@@ -2564,12 +2576,14 @@ function renderAdminDetail(s, keepFullscreen=false){
     g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[st]||st}</span> ${STRAND_LABEL[st]||st}</h3><small>${sgCompleted}/${allStrandTopics.length} topics completed • ${topics.length} shown</small></div>`;
     const list=document.createElement("div"); list.className="topics";
     for(const t of topics){
-      const completed=qzTopicComplete(qzTopicScoreFromState(t.id,quizState));
+      const topicScore=qzTopicScoreFromState(t.id,quizState) || {c:0,w:0,u:0,n:0};
+      const completed=qzTopicComplete(topicScore);
+      const attempted=topicScore.c+topicScore.w;
+      const topicPct=topicScore.n?Math.round(topicScore.c/topicScore.n*100):0;
       const el=document.createElement("div");
       el.className="topic"+(completed?" is-green":"");
       el.dataset.id=t.id; el.dataset.strand=t.strand;
       const check = completed ? `✓` : ``;
-      const pillColor = completed? "var(--green-bg)" : "#fff";
       const pillText = completed ? "Completed" : "Not completed";
       el.innerHTML=`
         <div class="topic-left">
@@ -2578,9 +2592,15 @@ function renderAdminDetail(s, keepFullscreen=false){
           <div class="topic-main">
             <p class="topic-title">${t.title}</p>
             <div class="topic-meta">${t.exam}</div>
+            <div class="admin-topic-stats" aria-label="${topicScore.c} of ${topicScore.n} correct; ${attempted} attempted; ${topicScore.w} wrong; ${topicScore.u} unattempted; ${topicPct} percent">
+              <span><b>${topicScore.c}/${topicScore.n}</b> correct</span><span class="sep">•</span>
+              <span>${attempted} attempted (${topicScore.c} right, <span class="wrong">${topicScore.w} wrong</span>)</span><span class="sep">•</span>
+              <span class="unattempted">${topicScore.u} unattempted</span><span class="sep">•</span>
+              <span><b>${topicPct}%</b></span>
+            </div>
           </div>
         </div>
-        <span style="font-size:11.6px;font-weight:700;padding:5px 10px;border-radius:999px;background:${pillColor};border:1px solid var(--line);white-space:nowrap;flex:0 0 auto">${pillText}</span>`;
+        <span class="admin-topic-status${completed?" is-complete":""}">${pillText}</span>`;
       list.appendChild(el);
     }
     g.appendChild(list); mount.appendChild(g);
