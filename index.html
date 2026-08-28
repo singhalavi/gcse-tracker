@@ -216,6 +216,7 @@
   .admin-topic-stats b{color:var(--navy);font-weight:800}
   .admin-topic-stats .wrong{color:var(--red)}
   .admin-topic-stats .unattempted{color:var(--muted)}
+  .admin-topic-stats .firstwrong-pill{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;background:var(--amber-bg);border:1px solid #f3ddba;color:var(--amber);font-size:10.8px;font-weight:800;white-space:nowrap}
   .admin-topic-stats .sep{color:#aeb5c9;font-weight:500}
   .admin-topic-status{font-size:11.6px;font-weight:700;padding:5px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);white-space:nowrap;flex:0 0 auto}
   .admin-topic-status.is-complete{background:var(--green-bg);color:var(--green);border-color:#bfe9d9}
@@ -1289,9 +1290,14 @@ function qzPracticeCompleteCount(state=qzState){
 function qzTopicScoreFromState(code,state={}){
   const all=(typeof QEFF!=="undefined" ? QEFF : []).filter(q=>!q.dep && q.c===code);
   if(!all.length) return null;
-  let c=0,w=0;
-  for(const q of all){ const result=state[q.i]?.s; if(result==="c") c++; else if(result==="w") w++; }
-  return {c,w,u:all.length-c-w,n:all.length};
+  let c=0,w=0,fw=0;
+  for(const q of all){
+    const questionState=state[q.i];
+    const result=questionState?.s;
+    if(result==="c") c++; else if(result==="w") w++;
+    if(questionState?.first==="w") fw++;
+  }
+  return {c,w,fw,u:all.length-c-w,n:all.length};
 }
 function qzScoreForTopics(topics,state=qzState){
   return topics.reduce((sum,t)=>{
@@ -2576,7 +2582,7 @@ function renderAdminDetail(s, keepFullscreen=false){
     g.innerHTML=`<div class="strand-group-head"><h3><span class="strand-ic" style="width:26px;height:26px;font-size:12px">${STRAND_ICON[st]||st}</span> ${STRAND_LABEL[st]||st}</h3><small>${sgCompleted}/${allStrandTopics.length} topics completed • ${topics.length} shown</small></div>`;
     const list=document.createElement("div"); list.className="topics";
     for(const t of topics){
-      const topicScore=qzTopicScoreFromState(t.id,quizState) || {c:0,w:0,u:0,n:0};
+      const topicScore=qzTopicScoreFromState(t.id,quizState) || {c:0,w:0,fw:0,u:0,n:0};
       const completed=qzTopicComplete(topicScore);
       const attempted=topicScore.c+topicScore.w;
       const topicPct=topicScore.n?Math.round(topicScore.c/topicScore.n*100):0;
@@ -2592,10 +2598,11 @@ function renderAdminDetail(s, keepFullscreen=false){
           <div class="topic-main">
             <p class="topic-title">${t.title}</p>
             <div class="topic-meta">${t.exam}</div>
-            <div class="admin-topic-stats" aria-label="${topicScore.c} of ${topicScore.n} correct; ${attempted} attempted; ${topicScore.w} wrong; ${topicScore.u} unattempted; ${topicPct} percent">
+            <div class="admin-topic-stats" aria-label="${topicScore.c} of ${topicScore.n} correct; ${attempted} attempted; ${topicScore.w} wrong; ${topicScore.fw} wrong first time; ${topicScore.u} unattempted; ${topicPct} percent">
               <span><b>${topicScore.c}/${topicScore.n}</b> correct</span><span class="sep">•</span>
-              <span>${attempted} attempted (${topicScore.c} right, <span class="wrong">${topicScore.w} wrong</span>)</span><span class="sep">•</span>
-              <span class="unattempted">${topicScore.u} unattempted</span><span class="sep">•</span>
+              <span>${attempted} attempted (${topicScore.c} right, <span class="wrong">${topicScore.w} wrong</span>)</span>
+              ${topicScore.fw>0?`<span class="sep">•</span><span class="firstwrong-pill">${topicScore.fw} wrong first time</span>`:""}
+              <span class="sep">•</span><span class="unattempted">${topicScore.u} unattempted</span><span class="sep">•</span>
               <span><b>${topicPct}%</b></span>
             </div>
           </div>
@@ -3191,6 +3198,10 @@ function normalise(input){
   s = s.replace(/\s*\^\s*/g, '^');
   s = s.replace(/(\d)\s*[x*]\s*10\s*\^/g, '$1*10^');
   s = s.replace(/(\d)\s*e\s*([+-]?\d+)(?![\w.])/g, '$1*10^$2');
+  // Treat x as multiplication only when it sits between digits. Lookarounds
+  // ensure chained forms such as 2x3x7 convert every separator without
+  // changing algebraic x in 5x, 36x^7 or words.
+  s = s.replace(/(?<=\d)\s*x\s*(?=\d)/g, '*');
 
   s = s.replace(new RegExp('(\\d)\\s*' + _UNITS + '(\\^-?\\d+)?\\b', 'g'), '$1');
   s = s.replace(/\bper\s+\w+/g, '');
