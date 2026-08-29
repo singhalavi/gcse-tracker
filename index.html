@@ -3375,13 +3375,20 @@ function _checkOne(userInput, storedAnswer, opts){
     const norm = p => { const n = toNumber(_stripLabel(p.replace(/\s+/g,'')));
                         return n === null ? _stripLabel(p.replace(/\s+/g,'')) : n; };
     const A = up.map(norm), B = ep.map(norm);
+    const same = (a,b) => (typeof a === 'number' && typeof b === 'number')
+      ? _numEq(a,b,String(b)) : a === b;
+
+    if (/ascending|descending/i.test(opts.questionText || '')){
+      out.verdict = A.every((a,i) => same(a,B[i])) ? 'correct' : 'incorrect';
+      out.via = 'multi-value-ordered';
+      return out;
+    }
+
     const used = new Array(B.length).fill(false);
     const hit = a => {
       for (let i=0;i<B.length;i++){
         if (used[i]) continue;
-        const b = B[i];
-        const same = (typeof a === 'number' && typeof b === 'number') ? _numEq(a,b,String(b)) : a === b;
-        if (same){ used[i] = true; return true; }
+        if (same(a,B[i])){ used[i] = true; return true; }
       }
       return false;
     };
@@ -3467,7 +3474,7 @@ function qzCheckAnswer(q){
   if(!given) return;
   qzDrafts[q.i]=given;
   qzTrackQuestionStat(q,"attempt");
-  const result=checkAnswer(given,q.a);
+  const result=checkAnswer(given,q.a,{questionText:q.q});
   qzFeedback[q.i]={kind:result.verdict,via:result.via};
   if(result.verdict==="unknown"){
     qzSave(); qzRender();
