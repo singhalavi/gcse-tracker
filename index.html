@@ -540,20 +540,50 @@
 .batch-card:hover,.batch-card.active{border-color:var(--navy);box-shadow:0 7px 18px rgba(0,36,125,.10)}
 .batch-card b{display:block;color:var(--ink);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .batch-card span{display:block;margin-top:4px;color:var(--muted);font-size:11.2px;line-height:1.35}
-.batch-detail{display:none;margin-top:12px;padding:15px;border:1px solid var(--line);border-radius:14px;background:#fff}
-.batch-detail.show{display:block}
-.batch-detail-top{display:grid;grid-template-columns:minmax(160px,.7fr) minmax(220px,1.3fr) auto;gap:9px;align-items:end}
-.batch-manage-grid{display:grid;grid-template-columns:minmax(230px,.85fr) minmax(0,1.15fr);gap:14px;margin-top:15px;padding-top:15px;border-top:1px solid var(--line)}
-.batch-member-list{display:grid;gap:6px;margin-top:9px;max-height:285px;overflow:auto}
-.batch-member-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fbfcff}
-.batch-member-row b{font-size:12.4px}.batch-member-row span{display:block;color:var(--muted);font-size:10.8px;margin-top:1px}
-.batch-member-row .btn{padding:6px 9px;font-size:11px}
-.admin-leaderboard{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
-.admin-leader-row{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:9px;align-items:center;padding:10px 11px;border-bottom:1px solid var(--line)}
-.admin-leader-row:last-child{border-bottom:0}.admin-leader-row b{font-size:12.5px}.admin-leader-row small{display:block;color:var(--muted);font-size:10.6px;margin-top:2px}.admin-leader-score{text-align:right;font-size:12px;font-weight:800;color:var(--navy)}
-.admin-leader-score small{max-width:280px;white-space:normal}
-@media(max-width:860px){.batch-create,.batch-detail-top{grid-template-columns:1fr 1fr}.batch-create>.btn,.batch-detail-top>.batch-detail-actions{grid-column:1/-1}.batch-list{grid-template-columns:repeat(2,minmax(0,1fr))}.batch-manage-grid{grid-template-columns:1fr}}
-@media(max-width:560px){.leaderboard-card{padding:16px;margin-left:-2px;margin-right:-2px}.leaderboard-controls,.leaderboard-controls select{width:100%;max-width:none}.leader-row{grid-template-columns:28px 34px minmax(0,1fr) auto;padding:9px 8px;gap:7px}.batch-create,.batch-detail-top,.batch-list{grid-template-columns:1fr}.batch-create>.btn,.batch-detail-top>.batch-detail-actions{grid-column:auto}.xp-toast{left:14px;right:14px;top:72px}.xp-toast-item{text-align:center}}
+body.batch-focus{overflow:hidden}
+body.batch-focus .toast,body.batch-focus .xp-toast{z-index:150}
+.batch-detail{display:none}
+.batch-detail.show{display:block;position:fixed;inset:0;z-index:120;background:var(--bg);overflow-y:auto;overscroll-behavior:contain}
+.batch-focus-shell{min-height:100%;background:var(--bg)}
+.batch-focus-header{position:sticky;top:0;z-index:3;background:var(--navy);color:#fff;box-shadow:0 8px 24px rgba(0,20,74,.18)}
+.batch-focus-header-inner{max-width:1240px;margin:0 auto;padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.batch-focus-heading{min-width:0}
+.batch-focus-kicker{margin:0 0 3px;color:rgba(255,255,255,.72);font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+.batch-focus-heading h2{margin:0;font-family:"Newsreader",serif;font-size:28px;line-height:1.05;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.batch-focus-heading p{margin:4px 0 0;color:rgba(255,255,255,.72);font-size:12.5px}
+.batch-focus-header .btn{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.28);box-shadow:none}
+.batch-focus-header .btn:hover{background:rgba(255,255,255,.17);border-color:rgba(255,255,255,.4)}
+.batch-focus-main{max-width:1240px;margin:0 auto;padding:26px 26px 48px}
+.batch-settings{padding:20px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-sm)}
+.batch-detail-top{display:grid;grid-template-columns:minmax(190px,.7fr) minmax(260px,1.3fr) auto;gap:12px;align-items:end}
+.batch-settings-bottom{display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,280px);gap:16px;align-items:end;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.batch-filter-select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);font-size:13px;font-weight:700}
+.batch-filter-select:focus{outline:0;border-color:var(--navy);box-shadow:0 0 0 4px var(--navy-50)}
+.batch-manage-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr);gap:18px;margin-top:18px;align-items:start}
+.batch-pane{padding:20px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-sm);min-width:0}
+.batch-pane-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:13px}
+.batch-pane-head h3{margin:0;font-family:"Newsreader",serif;font-size:22px;font-weight:600}
+.batch-pane-head p{margin:4px 0 0;color:var(--muted);font-size:12.3px;line-height:1.45}
+.batch-pane-head .pill{font-variant-numeric:tabular-nums}
+.batch-member-list{display:grid;gap:8px;margin-top:10px}
+.batch-roster-row{display:grid;grid-template-columns:minmax(160px,1fr) minmax(250px,1.3fr) auto;gap:14px;align-items:center;padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:#fbfcff}
+.batch-roster-name{min-width:0}
+.batch-roster-name b{display:block;font-size:13.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.batch-roster-name span{display:block;color:var(--muted);font-size:11px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.batch-xp-breakdown{min-width:0;color:var(--muted);font-size:11.2px;line-height:1.45}
+.batch-xp-breakdown strong{display:block;color:var(--navy);font-size:14px;margin-bottom:2px}
+.batch-add-section{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.batch-add-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px;max-height:310px;overflow:auto;padding-right:3px}
+.batch-member-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 11px;border:1px solid var(--line);border-radius:11px;background:#fbfcff;min-width:0}
+.batch-member-row>div{min-width:0}.batch-member-row b{display:block;font-size:12.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.batch-member-row span{display:block;color:var(--muted);font-size:10.8px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.batch-member-row .btn,.batch-roster-row .btn{padding:7px 10px;font-size:11px}
+.admin-leaderboard{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fff}
+.admin-leader-row{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:10px;align-items:center;padding:13px 12px;border-bottom:1px solid var(--line)}
+.admin-leader-row:first-child{background:var(--navy-50)}
+.admin-leader-row:last-child{border-bottom:0}.admin-leader-row b{font-size:12.8px}.admin-leader-row small{display:block;color:var(--muted);font-size:10.8px;margin-top:2px}.admin-leader-score{text-align:right;font-size:13px;font-weight:800;color:var(--navy)}
+.admin-leader-score small{max-width:290px;white-space:normal;font-weight:600;line-height:1.4}
+@media(max-width:900px){.batch-create,.batch-detail-top{grid-template-columns:1fr 1fr}.batch-create>.btn,.batch-detail-top>.batch-detail-actions{grid-column:1/-1}.batch-list{grid-template-columns:repeat(2,minmax(0,1fr))}.batch-manage-grid{grid-template-columns:1fr}.batch-add-list{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.batch-focus-header-inner{padding:13px 14px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:11px}.batch-focus-header .pill{display:none}.batch-focus-header .btn{padding:8px 10px}.batch-focus-heading h2{font-size:22px}.batch-focus-heading p{display:none}.batch-focus-main{padding:14px 14px 32px}.batch-settings,.batch-pane{padding:15px;border-radius:15px}.batch-settings-bottom,.batch-roster-row{grid-template-columns:1fr}.batch-roster-row .btn{justify-self:start}.batch-add-list{grid-template-columns:1fr}.batch-create,.batch-detail-top,.batch-list{grid-template-columns:1fr}.batch-create>.btn,.batch-detail-top>.batch-detail-actions{grid-column:auto}.batch-detail-actions .btn{flex:1 1 auto;justify-content:center}}
+@media(max-width:560px){.leaderboard-card{padding:16px;margin-left:-2px;margin-right:-2px}.leaderboard-controls,.leaderboard-controls select{width:100%;max-width:none}.leader-row{grid-template-columns:28px 34px minmax(0,1fr) auto;padding:9px 8px;gap:7px}.xp-toast{left:14px;right:14px;top:72px}.xp-toast-item{text-align:center}}
 @media(prefers-reduced-motion:reduce){.xp-toast-item{animation:none}.xp-track i{transition:none}}
 
 /* == QUIZ:BEGIN == */
@@ -937,9 +967,6 @@
         <div style="margin-top:18px">
           <div class="section-label">Students</div>
           <div id="studentsList" class="students-list"></div>
-          <div style="margin-top:12px">
-            <button id="btnResetStudent" class="btn">Reset selected progress</button>
-          </div>
         </div>
 
         <section class="question-review" aria-labelledby="questionReviewTitle">
@@ -1390,6 +1417,7 @@ let studentBatchesCache=[];
 let adminBatchesCache=[];
 let selectedStudentBatchId="";
 let selectedAdminBatchId="";
+let adminBatchSubjectFilter="all";
 let leaderboardSubjectFilter="all";
 let xpToastQueue=[];
 let xpToastBusy=false;
@@ -1412,6 +1440,7 @@ function showView(name,{preserveAuthMessage=false}={}){
   viewLogin.classList.toggle("active", name==="login");
   viewStudent.classList.toggle("active", name==="student");
   viewAdmin.classList.toggle("active", name==="admin");
+  document.body.classList.toggle("batch-focus",name==="admin"&&!!selectedAdminBatchId);
   const vq=document.getElementById("view-quiz"); if(vq) vq.classList.toggle("active", name==="quiz");
   if(name==="student" && currentUser && typeof renderStudent==="function") renderStudent();
   const isLogged = name!=="login";
@@ -1676,49 +1705,104 @@ async function loadAdminBatches(){
     renderAdminBatches();
   }catch(e){ console.warn("batches load failed",e); if($("batchList")) $("batchList").innerHTML='<div class="empty">Batches could not be loaded. Publish the Firestore rules shown in the HTML comment.</div>'; }
 }
+function xpByTypeForScope(xp,subjectIds,filter,fallback={}){
+  const types={correct:0,topic:0,correctStreak:0,daily3:0,daily7:0};
+  const history=Array.isArray(xp?.history)?xp.history:[];
+  const allowed=filter!=="all"?[filter]:(subjectIds||[]);
+  if(history.length){
+    for(const item of history){
+      if(types[item.type]===undefined) continue;
+      if(allowed.length&&item.subjectId&&!allowed.includes(item.subjectId)) continue;
+      types[item.type]+=Number(item.points)||0;
+    }
+    return types;
+  }
+  for(const key of Object.keys(types)) types[key]=Number(fallback?.[key])||0;
+  return types;
+}
 function renderAdminBatches(){
   const list=$("batchList"),detail=$("batchDetail"); if(!list||!detail) return;
   $("batchCount").textContent=`${adminBatchesCache.length} batch${adminBatchesCache.length===1?"":"es"}`;
   list.innerHTML=adminBatchesCache.length?adminBatchesCache.map(b=>`<button type="button" class="batch-card ${b.id===selectedAdminBatchId?"active":""}" data-batch-id="${qzEsc(b.id)}"><b>${qzEsc(b.name||"Untitled batch")}</b><span>${(b.studentUids||[]).length} member${(b.studentUids||[]).length===1?"":"s"} · ${(b.subjectIds||[]).map(id=>SUBJECTS.find(s=>s.id===id)?.shortName||id).join(", ")||"No subjects"}</span></button>`).join(""):'<div class="empty">No batches yet. Create the first one above.</div>';
-  list.querySelectorAll("[data-batch-id]").forEach(btn=>btn.onclick=()=>{ selectedAdminBatchId=btn.dataset.batchId; renderAdminBatches(); });
+  list.querySelectorAll("[data-batch-id]").forEach(btn=>btn.onclick=()=>{
+    selectedAdminBatchId=btn.dataset.batchId;
+    adminBatchSubjectFilter="all";
+    renderAdminBatches();
+    requestAnimationFrame(()=>$("btnCloseBatch")?.focus());
+  });
   const batch=adminBatchesCache.find(b=>b.id===selectedAdminBatchId);
-  if(!batch){ detail.classList.remove("show"); detail.innerHTML=""; return; }
+  document.body.classList.toggle("batch-focus",!!batch);
+  if(!batch){ detail.classList.remove("show"); detail.removeAttribute("aria-label"); detail.innerHTML=""; return; }
   detail.classList.add("show");
+  detail.setAttribute("role","region");
+  detail.setAttribute("aria-label",`${batch.name||"Batch"} management`);
   const selectedSubjects=(batch.subjectIds||[]).filter(id=>SUBJECTS.some(s=>s.id===id));
+  if(adminBatchSubjectFilter!=="all"&&!selectedSubjects.includes(adminBatchSubjectFilter)) adminBatchSubjectFilter="all";
+  const filterLabel=adminBatchSubjectFilter==="all"?"All assigned subjects":(SUBJECTS.find(s=>s.id===adminBatchSubjectFilter)?.shortName||"Selected subject");
   const memberIds=new Set(batch.studentUids||[]);
   const students=allStudentsCache.filter(s=>s.role==="student").sort((a,b)=>(a.displayName||a.email||"").localeCompare(b.displayName||b.email||""));
-  const leader=students.filter(s=>memberIds.has(s.uid)).map(s=>{
+  const members=students.filter(s=>memberIds.has(s.uid)).map(s=>{
     const cached=(batch.members||[]).find(m=>m.uid===s.uid)||{};
     const xp=s.xp||{total:cached.xpTotal||0,bySubject:cached.bySubject||{},history:[]};
-    return {...s,xp,score:xpForSubjects(xp,selectedSubjects,"all"),byType:Object.keys(cached.byType||{}).length?cached.byType:xpByType(xp)};
-  }).sort((a,b)=>b.score-a.score||(a.displayName||"").localeCompare(b.displayName||""));
+    return {...s,xp,score:xpForSubjects(xp,selectedSubjects,adminBatchSubjectFilter),byType:xpByTypeForScope(xp,selectedSubjects,adminBatchSubjectFilter,cached.byType||{})};
+  });
+  const leader=[...members].sort((a,b)=>b.score-a.score||(a.displayName||a.email||"").localeCompare(b.displayName||b.email||""));
+  const available=students.filter(s=>!memberIds.has(s.uid));
+  const typeLine=t=>`Question XP ${Number(t.correct)||0} · Topic XP ${Number(t.topic)||0} · 5-in-a-row ${Number(t.correctStreak)||0} · 3-day ${Number(t.daily3)||0} · 7-day ${Number(t.daily7)||0}`;
   detail.innerHTML=`
-    <div class="batch-detail-top">
-      <div class="field"><label for="batchEditName">Batch name</label><input id="batchEditName" value="${qzEsc(batch.name||"")}"></div>
-      <div class="field"><label for="batchEditDescription">Description</label><input id="batchEditDescription" value="${qzEsc(batch.description||"")}" placeholder="Optional"></div>
-      <div class="batch-detail-actions" style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn btn-primary" id="btnSaveBatch">Save</button><button class="btn" id="btnDeleteBatch" style="color:var(--red)">Delete</button></div>
-    </div>
-    <div class="field" style="margin-top:11px"><label>Assigned subjects</label><div id="batchEditSubjects" class="batch-subject-options">${batchSubjectButtons(selectedSubjects,"edit")}</div></div>
-    <div class="batch-manage-grid">
-      <div>
-        <div class="section-label">Manage students</div>
-        <div class="search" style="max-width:none;min-width:0"><span aria-hidden="true">⌕</span><input id="batchStudentSearch" placeholder="Search existing students"></div>
-        <div id="batchMemberList" class="batch-member-list"></div>
-      </div>
-      <div>
-        <div class="section-label">Batch leaderboard</div>
-        <div id="adminBatchLeaderboard" class="admin-leaderboard">${leader.length?leader.map((s,i)=>{ const t=s.byType||{}; return `<div class="admin-leader-row"><b>${i+1}</b><div><b>${qzEsc(s.displayName||s.email||"Student")}</b><small>${qzEsc(s.email||"")}</small></div><div class="admin-leader-score">${s.score} XP<small>Correct ${Number(t.correct)||0} · Topics ${Number(t.topic)||0} · 5-row ${Number(t.correctStreak)||0} · 3-day ${Number(t.daily3)||0} · 7-day ${Number(t.daily7)||0}</small></div></div>`;}).join(""):'<div class="empty">Add students to see this leaderboard.</div>'}</div>
-      </div>
+    <div class="batch-focus-shell">
+      <header class="batch-focus-header">
+        <div class="batch-focus-header-inner">
+          <button class="btn" id="btnCloseBatch" type="button">← Back to batches</button>
+          <div class="batch-focus-heading">
+            <div class="batch-focus-kicker">Batch management</div>
+            <h2>${qzEsc(batch.name||"Untitled batch")}</h2>
+            <p>${members.length} student${members.length===1?"":"s"} · ${qzEsc(filterLabel)}</p>
+          </div>
+          <span class="pill pill-admin">${members.length} member${members.length===1?"":"s"}</span>
+        </div>
+      </header>
+      <main class="batch-focus-main">
+        <section class="batch-settings" aria-label="Batch settings">
+          <div class="batch-detail-top">
+            <div class="field"><label for="batchEditName">Batch name</label><input id="batchEditName" value="${qzEsc(batch.name||"")}"></div>
+            <div class="field"><label for="batchEditDescription">Description</label><input id="batchEditDescription" value="${qzEsc(batch.description||"")}" placeholder="Optional"></div>
+            <div class="batch-detail-actions" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-primary" id="btnSaveBatch">Save changes</button><button class="btn" id="btnDeleteBatch" style="color:var(--red)">Delete batch</button></div>
+          </div>
+          <div class="batch-settings-bottom">
+            <div class="field"><label>Assigned subjects</label><div id="batchEditSubjects" class="batch-subject-options">${batchSubjectButtons(selectedSubjects,"edit")}</div></div>
+            <div class="field"><label for="adminBatchSubjectFilter">View XP for</label><select id="adminBatchSubjectFilter" class="batch-filter-select"><option value="all">All assigned subjects</option>${selectedSubjects.map(id=>`<option value="${qzEsc(id)}" ${adminBatchSubjectFilter===id?"selected":""}>${qzEsc(SUBJECTS.find(s=>s.id===id)?.shortName||id)}</option>`).join("")}</select></div>
+          </div>
+        </section>
+        <div class="batch-manage-grid">
+          <section class="batch-pane" aria-labelledby="batchStudentsHeading">
+            <div class="batch-pane-head"><div><h3 id="batchStudentsHeading">Students in this batch</h3><p>Full names and XP earned in ${qzEsc(filterLabel.toLowerCase())}.</p></div><span class="pill">${members.length} student${members.length===1?"":"s"}</span></div>
+            <div id="batchRosterList" class="batch-member-list">${members.length?members.map(s=>`<div class="batch-roster-row"><div class="batch-roster-name"><b>${qzEsc(s.displayName||"Name not provided")}</b><span>${qzEsc(s.email||"")}</span></div><div class="batch-xp-breakdown"><strong>${s.score} XP</strong>${qzEsc(typeLine(s.byType||{}))}</div><button class="btn" data-batch-member="${qzEsc(s.uid)}" data-member-action="remove">Remove</button></div>`).join(""):'<div class="empty">No students are in this batch yet.</div>'}</div>
+            <div class="batch-add-section">
+              <div class="batch-pane-head"><div><h3 style="font-size:19px">Add students</h3><p>Search invited students and add them to this batch.</p></div></div>
+              <div class="search" style="max-width:none;min-width:0"><span aria-hidden="true">⌕</span><input id="batchStudentSearch" placeholder="Search by full name or email"></div>
+              <div id="batchAvailableList" class="batch-add-list"></div>
+            </div>
+          </section>
+          <section class="batch-pane" aria-labelledby="batchLeaderboardHeading">
+            <div class="batch-pane-head"><div><h3 id="batchLeaderboardHeading">Leaderboard</h3><p>Ranked by ${qzEsc(filterLabel.toLowerCase())} XP.</p></div></div>
+            <div id="adminBatchLeaderboard" class="admin-leaderboard">${leader.length?leader.map((s,i)=>`<div class="admin-leader-row"><b>${i+1}</b><div><b>${qzEsc(s.displayName||s.email||"Student")}</b><small>${qzEsc(s.email||"")}</small></div><div class="admin-leader-score">${s.score} XP<small>${qzEsc(typeLine(s.byType||{}))}</small></div></div>`).join(""):'<div class="empty">Add students to see this leaderboard.</div>'}</div>
+          </section>
+        </div>
+      </main>
     </div>`;
-  const renderMembers=()=>{
+  const renderAvailable=()=>{
     const q=($("batchStudentSearch")?.value||"").trim().toLowerCase();
-    const filtered=students.filter(s=>!q||`${s.displayName||""} ${s.email||""}`.toLowerCase().includes(q));
-    $("batchMemberList").innerHTML=filtered.length?filtered.map(s=>`<div class="batch-member-row"><div><b>${qzEsc(s.displayName||"Name not provided")}</b><span>${qzEsc(s.email||"")}</span></div><button class="btn ${memberIds.has(s.uid)?"":"btn-primary"}" data-batch-member="${qzEsc(s.uid)}" data-member-action="${memberIds.has(s.uid)?"remove":"add"}">${memberIds.has(s.uid)?"Remove":"Add"}</button></div>`).join(""):'<div class="empty">No matching students.</div>';
-    $("batchMemberList").querySelectorAll("[data-batch-member]").forEach(btn=>btn.onclick=()=>toggleBatchMember(batch,btn.dataset.batchMember,btn.dataset.memberAction==="add"));
+    const filtered=available.filter(s=>!q||`${s.displayName||""} ${s.email||""}`.toLowerCase().includes(q));
+    $("batchAvailableList").innerHTML=filtered.length?filtered.map(s=>`<div class="batch-member-row"><div><b>${qzEsc(s.displayName||"Name not provided")}</b><span>${qzEsc(s.email||"")}</span></div><button class="btn btn-primary" data-batch-member="${qzEsc(s.uid)}" data-member-action="add">Add</button></div>`).join(""):`<div class="empty">${available.length?"No matching students.":"Every invited student is already in this batch."}</div>`;
+    $("batchAvailableList").querySelectorAll("[data-batch-member]").forEach(btn=>btn.onclick=()=>toggleBatchMember(batch,btn.dataset.batchMember,true));
   };
-  renderMembers();
-  $("batchStudentSearch").oninput=renderMembers;
+  renderAvailable();
+  $("batchStudentSearch").oninput=renderAvailable;
+  $("batchRosterList").querySelectorAll("[data-batch-member]").forEach(btn=>btn.onclick=()=>toggleBatchMember(batch,btn.dataset.batchMember,false));
   $("batchEditSubjects").querySelectorAll("[data-edit-subject]").forEach(btn=>btn.onclick=()=>{ btn.classList.toggle("on"); btn.setAttribute("aria-pressed",String(btn.classList.contains("on"))); });
+  $("adminBatchSubjectFilter").onchange=e=>{ adminBatchSubjectFilter=e.target.value; renderAdminBatches(); requestAnimationFrame(()=>$("adminBatchSubjectFilter")?.focus()); };
+  $("btnCloseBatch").onclick=()=>{ selectedAdminBatchId=""; adminBatchSubjectFilter="all"; renderAdminBatches(); requestAnimationFrame(()=>$("batchList")?.scrollIntoView({block:"nearest"})); };
   $("btnSaveBatch").onclick=()=>saveBatchEdits(batch);
   $("btnDeleteBatch").onclick=()=>deleteBatch(batch);
 }
@@ -2901,45 +2985,6 @@ $("btnInviteStudent").addEventListener("click", async ()=>{
 
 $("newEmail").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); $("btnInviteStudent").click(); } });
 
-$("btnResetStudent").addEventListener("click", async ()=>{
-  if(!selectedStudentUid){ showToast("Select a student first"); return; }
-  const row = allStudentsCache.find(x=>x.uid===selectedStudentUid);
-  const name = row?.displayName||row?.email||"this student";
-  const proceed = await new Promise(res=>{
-    const overlay=document.createElement("div");
-    overlay.style.cssText="position:fixed;inset:0;z-index:95;background:rgba(0,15,70,.44);display:grid;place-items:center;padding:16px;backdrop-filter:blur(4px)";
-    overlay.innerHTML=`<div style="background:#fff;border:1px solid #e6e9f2;border-radius:16px;padding:18px;max-width:360px;width:100%;box-shadow:0 18px 44px rgba(0,36,125,.22)"><div style="font-weight:700;margin-bottom:6px;color:var(--ink)">Reset everything for ${name} in ${getCurrentSubject().shortName}?</div><div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5">It will clear your progress markers i.e. completed, wrong counts.</div><div style="display:flex;gap:8px;justify-content:flex-end"><button id="cNo" class="btn">Keep progress</button><button id="cYes" class="btn btn-primary" style="background:#d31a44;border-color:#d31a44">Reset everything</button></div></div>`;
-    document.body.appendChild(overlay);
-    overlay.querySelector("#cNo").addEventListener("click", ()=>{ overlay.remove(); res(false); });
-    overlay.querySelector("#cYes").addEventListener("click", ()=>{ overlay.remove(); res(true); });
-    overlay.addEventListener("click", e=>{ if(e.target===overlay){ overlay.remove(); res(false);} });
-  });
-  if(!proceed) return;
-  try{
-    const {doc,updateDoc,serverTimestamp}=await import("firebase/firestore");
-    const s=allStudentsCache.find(x=>x.uid===selectedStudentUid);
-    if(s){
-      if(s.progressBySubject) s.progressBySubject[currentSubjectId]={};
-      if(s.quizBySubject) s.quizBySubject[currentSubjectId]={};
-      s.progress={};
-    }
-    const progMap = s?.progressBySubject||{};
-    progMap[currentSubjectId]={};
-    await updateDoc(doc(fbDb,"progress",selectedStudentUid),{subjects:progMap, updatedAt:serverTimestamp()});
-    // clear practice stats for this subject as well: correct/wrong, first-attempt
-    // history and favourites all live in the quiz doc
-    const {deleteDoc}=await import("firebase/firestore");
-    try{ await deleteDoc(doc(fbDb,"progress",selectedStudentUid,"quiz",currentSubjectId)); }
-    catch(e){ console.warn("quiz reset failed", e); }
-    if(selectedStudentUid===currentUser?.uid){   // resetting yourself: drop the in-memory copy too
-      qzState={}; qzBySubject[currentSubjectId]={};
-      try{ sSet(qzKey(), "{}"); }catch{}
-    }
-    renderAdminList(); if(s) renderAdminDetail(s);
-    showToast("Progress and practice stats reset for "+getCurrentSubject().shortName);
-  }catch{ showToast("Reset didn’t work — please try again"); }
-});
-
 $("btnExport").addEventListener("click", ()=>{
   const subj=getCurrentSubject();
   const rows=[["uid","email","displayName","role","subjectId","subjectName","correctQuestions","wrongQuestions","unattemptedQuestions","totalQuestions","pctCorrect","topicsCompleted"]];
@@ -3664,11 +3709,11 @@ function qzAdminBar(q){
       <span class="qz-qid">${q.i}</span>
     </div>`;
 }
-/* Promise-based confirm, same look as the admin reset dialog. */
+/* Reusable promise-based confirmation dialog. */
 function qzConfirm(title, bodyHtml, yesLabel){
   return new Promise(res=>{
     const o=document.createElement("div");
-    o.style.cssText="position:fixed;inset:0;z-index:95;background:rgba(0,15,70,.44);display:grid;"+
+    o.style.cssText="position:fixed;inset:0;z-index:200;background:rgba(0,15,70,.44);display:grid;"+
                     "place-items:center;padding:16px;backdrop-filter:blur(4px)";
     o.innerHTML='<div style="background:#fff;border:1px solid #e6e9f2;border-radius:16px;padding:18px;'+
       'max-width:380px;width:100%;box-shadow:0 18px 44px rgba(0,36,125,.22)">'+
