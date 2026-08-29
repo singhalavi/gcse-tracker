@@ -269,6 +269,8 @@
   .question-review-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:9px}
   .question-review-head .section-label{margin:0}
   .question-review-summary{font-size:11.5px;color:var(--muted);font-weight:700}
+  .question-review-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 9px}
+  .question-review-actions .btn{padding:7px 11px;font-size:12.4px}
   .question-review-list{display:grid;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
   .question-review-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;padding:11px 12px;border-bottom:1px solid var(--line)}
   .question-review-row:last-child{border-bottom:0}
@@ -581,9 +583,73 @@ body.batch-focus .toast,body.batch-focus .xp-toast{z-index:150}
 .admin-leader-row:first-child{background:var(--navy-50)}
 .admin-leader-row:last-child{border-bottom:0}.admin-leader-row b{font-size:12.8px}.admin-leader-row small{display:block;color:var(--muted);font-size:10.8px;margin-top:2px}.admin-leader-score{text-align:right;font-size:13px;font-weight:800;color:var(--navy)}
 .admin-leader-score small{max-width:290px;white-space:normal;font-weight:600;line-height:1.4}
+.admin-practice-section{padding:18px;margin:0 0 16px;border-radius:var(--radius-lg)}
+.admin-practice-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.admin-practice-head h3{margin:0;font-family:"Newsreader",serif;font-size:23px;font-weight:600}
+.admin-practice-head p{margin:4px 0 0;color:var(--muted);font-size:12.7px;line-height:1.45}
+.admin-practice-actions,.admin-practice-summary{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.admin-practice-content{display:none;margin-top:16px}
+.admin-practice-loading{display:none;padding:28px 16px;border:1px dashed var(--line-strong);border-radius:14px;text-align:center;color:var(--muted);font-size:13px;font-weight:600;background:#fbfcff}
+.admin-practice-loading.show{display:block}
+#btnCloseQuestionBank,.admin-practice-summary{display:none}
+.question-bank-batch-controls{display:grid;grid-template-columns:minmax(180px,260px) minmax(180px,240px) auto minmax(140px,1fr);gap:10px;align-items:end;margin-bottom:14px;padding:13px 14px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow-sm)}
+.question-bank-batch-controls .field{gap:5px}
+.question-bank-batch-controls .chip{min-height:42px;justify-content:center}
+.question-bank-batch-status{align-self:center;color:var(--muted);font-size:11.8px;line-height:1.4;font-weight:600}
+.question-bank-batch-results{display:grid;gap:8px}
+.question-bank-batch-results[hidden]{display:none !important}
+.question-bank-batch-summary{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:2px}
+.question-bank-batch-summary h4{margin:0;font-family:"Newsreader",serif;font-size:20px;font-weight:600}
+.question-bank-batch-summary span{color:var(--muted);font-size:11.8px;font-weight:700}
+.admin-question-strand{margin-top:18px}
+.admin-question-strand:first-child{margin-top:8px}
+.admin-question-strand-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 9px}
+.admin-question-strand-head h5{margin:0;font-family:"Newsreader",serif;font-size:19px;font-weight:600;color:var(--ink)}
+.admin-question-strand-head span{font-size:11px;color:var(--muted);font-weight:700}
+.admin-question-topic{margin-bottom:11px;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden;box-shadow:var(--shadow-sm)}
+.admin-question-topic-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;background:#f8f9fd;border-bottom:1px solid var(--line)}
+.admin-question-topic-title{display:flex;align-items:center;gap:8px;min-width:0}
+.admin-question-topic-title b{font-size:11px;font-weight:800;letter-spacing:.05em;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 8px;flex:0 0 auto}
+.admin-question-topic-title span{font-size:13px;font-weight:700;line-height:1.3;color:var(--ink);min-width:0}
+.admin-question-topic-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex:0 0 auto}
+.admin-question-topic-count{font-size:10.8px;font-weight:800;color:var(--navy);background:var(--navy-50);border:1px solid var(--navy-100);border-radius:999px;padding:4px 8px;white-space:nowrap}
+.admin-topic-open{min-height:34px;padding:7px 12px;border-radius:10px;font-size:11.8px;box-shadow:0 4px 12px rgba(0,36,125,.18)}
+.admin-question-topic-list{display:grid}
+.admin-question-topic-list .batch-wrong-row{border:0;border-radius:0;border-bottom:1px solid var(--line);background:#fff;box-shadow:none}
+.admin-question-topic-list .batch-wrong-row:last-child{border-bottom:0}
+.admin-question-topic-list .batch-wrong-row:hover{background:var(--navy-50);border-color:var(--line)}
+#adminPracticeStrands{grid-template-columns:repeat(6,minmax(0,1fr));margin-bottom:14px}
+#adminPracticeStrands .strand{cursor:pointer}
+.admin-practice-topics{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.admin-practice-topics .topic{cursor:default}
+#view-admin.question-bank-open .admin-head,#view-admin.question-bank-open .admin-grid{display:none !important}
+#view-admin.question-bank-open .admin-practice-section{min-height:calc(100dvh - 150px);margin:0;border:0;box-shadow:none;background:transparent;padding:4px 0 40px}
+#view-admin.question-bank-open .admin-practice-head{padding-bottom:14px;border-bottom:1px solid var(--line)}
+#view-admin.question-bank-open .admin-practice-content{display:block}
+#view-admin.question-bank-open .admin-practice-summary,#view-admin.question-bank-open #btnCloseQuestionBank{display:flex}
+#view-admin.question-bank-open #btnOpenQuestionBank{display:none}
+#view-admin.question-bank-open #adminSubjectBar{margin-top:0}
+body.question-bank-focus .wrap{padding-top:16px}
+.batch-question-review{margin-top:18px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-sm)}
+.batch-review-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.batch-review-controls p{margin:4px 0 0;color:var(--muted);font-size:12.3px;line-height:1.45}
+.batch-review-toggle{display:inline-flex;align-items:center;gap:7px}
+.batch-review-toggle .qz-n{background:rgba(0,36,125,.08);color:var(--navy);padding:2px 7px;border-radius:999px;font-size:10.5px}
+.batch-review-toggle.active .qz-n{background:rgba(255,255,255,.2);color:#fff}
+.batch-wrong-list{display:grid;gap:8px;margin-top:14px}
+.batch-wrong-list[hidden]{display:none}
+.batch-wrong-row{appearance:none;width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;text-align:left;padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:#fbfcff;color:var(--ink);cursor:pointer}
+.batch-wrong-row:hover{border-color:var(--navy);background:var(--navy-50);box-shadow:var(--shadow-sm)}
+.batch-wrong-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.batch-wrong-title b{color:var(--navy);font-size:13px}
+.batch-wrong-topic{color:var(--muted);font-size:11.4px;font-weight:700}
+.batch-wrong-text{font-size:12.5px;line-height:1.42;color:var(--ink-2);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.batch-wrong-count{align-self:start;padding:5px 9px;border-radius:999px;background:var(--amber-bg);border:1px solid #f3ddba;color:var(--amber);font-size:10.8px;font-weight:800;white-space:nowrap}
+.question-bank-question-count{align-self:start;padding:5px 9px;border-radius:999px;background:var(--navy-50);border:1px solid var(--navy-100);color:var(--navy);font-size:10.8px;font-weight:800;white-space:nowrap}
+@media(max-width:1000px){#adminPracticeStrands{grid-template-columns:repeat(3,minmax(0,1fr))}.question-bank-batch-controls{grid-template-columns:repeat(2,minmax(220px,1fr))}.question-bank-batch-controls .chip,.question-bank-batch-status{grid-column:1/-1}}
 @media(max-width:900px){.batch-create,.batch-detail-top{grid-template-columns:1fr 1fr}.batch-create>.btn,.batch-detail-top>.batch-detail-actions{grid-column:1/-1}.batch-list{grid-template-columns:repeat(2,minmax(0,1fr))}.batch-manage-grid{grid-template-columns:1fr}.batch-add-list{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.batch-focus-header-inner{padding:13px 14px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:11px}.batch-focus-header .pill{display:none}.batch-focus-header .btn{padding:8px 10px}.batch-focus-heading h2{font-size:22px}.batch-focus-heading p{display:none}.batch-focus-main{padding:14px 14px 32px}.batch-settings,.batch-pane{padding:15px;border-radius:15px}.batch-settings-bottom,.batch-roster-row{grid-template-columns:1fr}.batch-roster-row .btn{justify-self:start}.batch-add-list{grid-template-columns:1fr}.batch-create,.batch-detail-top,.batch-list{grid-template-columns:1fr}.batch-create>.btn,.batch-detail-top>.batch-detail-actions{grid-column:auto}.batch-detail-actions .btn{flex:1 1 auto;justify-content:center}}
-@media(max-width:560px){.leaderboard-card{padding:16px;margin-left:-2px;margin-right:-2px}.leaderboard-controls,.leaderboard-controls select{width:100%;max-width:none}.leader-row{grid-template-columns:28px 34px minmax(0,1fr) auto;padding:9px 8px;gap:7px}.xp-toast{left:14px;right:14px;top:72px}.xp-toast-item{text-align:center}}
+@media(max-width:640px){#adminPracticeStrands{grid-template-columns:repeat(2,minmax(0,1fr))}.question-bank-batch-controls{grid-template-columns:1fr;align-items:stretch}.question-bank-batch-controls .chip{width:100%;white-space:normal}.question-bank-batch-status{grid-column:auto}.admin-question-topic-head{align-items:flex-start;flex-direction:column}.admin-question-topic-actions{width:100%;justify-content:space-between}.admin-topic-open{min-height:38px;padding:8px 14px}.batch-wrong-row{grid-template-columns:1fr}.batch-wrong-count{justify-self:start}.batch-focus-header-inner{padding:13px 14px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:11px}.batch-focus-header .pill{display:none}.batch-focus-header .btn{padding:8px 10px}.batch-focus-heading h2{font-size:22px}.batch-focus-heading p{display:none}.batch-focus-main{padding:14px 14px 32px}.batch-settings,.batch-pane{padding:15px;border-radius:15px}.batch-settings-bottom,.batch-roster-row{grid-template-columns:1fr}.batch-roster-row .btn{justify-self:start}.batch-add-list{grid-template-columns:1fr}.batch-create,.batch-detail-top,.batch-list{grid-template-columns:1fr}.batch-create>.btn,.batch-detail-top>.batch-detail-actions{grid-column:auto}.batch-detail-actions .btn{flex:1 1 auto;justify-content:center}}
+@media(max-width:560px){#adminPracticeStrands{grid-template-columns:1fr}.admin-practice-section{padding:15px}.leaderboard-card{padding:16px;margin-left:-2px;margin-right:-2px}.leaderboard-controls,.leaderboard-controls select{width:100%;max-width:none}.leader-row{grid-template-columns:28px 34px minmax(0,1fr) auto;padding:9px 8px;gap:7px}.xp-toast{left:14px;right:14px;top:72px}.xp-toast-item{text-align:center}}
 @media(prefers-reduced-motion:reduce){.xp-toast-item{animation:none}.xp-track i{transition:none}}
 
 /* == QUIZ:BEGIN == */
@@ -920,6 +986,53 @@ body.batch-focus .toast,body.batch-focus .xp-toast{z-index:150}
       <span class="hint">Switch subjects to view different progress</span>
     </div>
 
+    <section id="adminPractice" class="card admin-practice-section" aria-labelledby="adminPracticeTitle">
+      <div class="admin-practice-head">
+        <div>
+          <div class="section-label">Admin practice</div>
+          <h3 id="adminPracticeTitle">Question Bank</h3>
+          <p>Practice questions yourself in a focused view.</p>
+        </div>
+        <div class="admin-practice-actions">
+          <div class="admin-practice-summary" aria-label="Question Bank progress">
+            <span id="adminPracticeXp" class="pill">0 XP</span>
+            <span id="adminPracticeProgress" class="pill">0 / 0 completed</span>
+          </div>
+          <button id="btnCloseQuestionBank" class="btn" type="button">← Back to Admin</button>
+          <button id="btnOpenQuestionBank" class="btn btn-primary" type="button">Open Question Bank</button>
+        </div>
+      </div>
+      <div id="adminPracticeLoading" class="admin-practice-loading" role="status" aria-live="polite">Loading your question progress…</div>
+      <div id="adminPracticeContent" class="admin-practice-content">
+        <div class="question-bank-batch-controls" aria-label="Question Bank filters">
+          <div class="field">
+            <label for="adminPracticeBatchSelect">Batch</label>
+            <select id="adminPracticeBatchSelect" class="batch-filter-select">
+              <option value="">Select a batch</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="adminPracticeTopicSelect">Topic Filter</label>
+            <select id="adminPracticeTopicSelect" class="batch-filter-select">
+              <option value="all">All Topics</option>
+              <option value="N">Number</option>
+              <option value="A">Algebra</option>
+              <option value="R">Ratio</option>
+              <option value="G">Geometry</option>
+              <option value="P">Probability</option>
+              <option value="S">Statistics</option>
+            </select>
+          </div>
+          <button id="adminPracticeBatchWrongToggle" type="button" class="chip batch-review-toggle" aria-pressed="false">Show only wrong first time in this batch</button>
+          <div id="adminPracticeBatchStatus" class="question-bank-batch-status" role="status" aria-live="polite">All questions are shown.</div>
+        </div>
+        <div id="adminPracticeDefaultBrowse" class="question-bank-batch-results">
+          <div id="adminPracticeTopics"></div>
+        </div>
+        <div id="adminPracticeBatchResults" class="question-bank-batch-results" hidden></div>
+      </div>
+    </section>
+
     <div class="admin-grid">
       <div class="card panel">
         <div class="section-label">Invite student</div>
@@ -971,21 +1084,29 @@ body.batch-focus .toast,body.batch-focus .xp-toast{z-index:150}
 
         <section class="question-review" aria-labelledby="questionReviewTitle">
           <div class="question-review-head">
-            <div id="questionReviewTitle" class="section-label">Needs review (marked correct manually)</div>
-            <span id="questionReviewSummary" class="question-review-summary">Loading…</span>
+            <div id="questionReviewTitle" class="section-label">To review</div>
+            <span id="questionReviewSummary" class="question-review-summary">0 to review (click to load)</span>
+          </div>
+          <div class="question-review-actions">
+            <button id="loadReviewBtn" class="btn" type="button">Show to-review questions</button>
+            <button id="reviewMoreBtn" class="btn" type="button" style="display:none">Show more details</button>
           </div>
           <div id="questionReviewList" class="question-review-list">
-            <div class="empty">Loading manual override counts…</div>
+            <div class="empty">Counts only. Load the questions when you need to review them.</div>
           </div>
         </section>
 
         <section class="question-review" aria-labelledby="flaggedQuestionsTitle">
           <div class="question-review-head">
             <div id="flaggedQuestionsTitle" class="section-label">Flagged questions</div>
-            <span id="flaggedQuestionsSummary" class="question-review-summary">Loading…</span>
+            <span id="flaggedQuestionsSummary" class="question-review-summary">0 flagged (click to load)</span>
+          </div>
+          <div class="question-review-actions">
+            <button id="loadFlaggedBtn" class="btn" type="button">Show flagged questions</button>
+            <button id="flaggedMoreBtn" class="btn" type="button" style="display:none">Show more details</button>
           </div>
           <div id="flaggedQuestionsList" class="question-review-list">
-            <div class="empty">Loading flagged question counts…</div>
+            <div class="empty">Counts only. Load the questions when you need to review them.</div>
           </div>
         </section>
       </div>
@@ -1248,17 +1369,23 @@ function populateSubjectSelectors(){
   updateHeaderMeta();
 }
 
-function handleSubjectSwitch(newId){
+async function handleSubjectSwitch(newId){
   if(!newId || newId===currentSubjectId) return;
   const found=SUBJECTS.find(s=>s.id===newId);
   if(!found) return;
-  allProgressBySubject[currentSubjectId]=currentProgress;
-  if(currentUser) sSet("gcse_progress_"+currentUser.uid+"_all", JSON.stringify(allProgressBySubject));
+  const practiceReady=currentUser?.role==="student" || (currentUser?.role==="admin" && adminQuestionBankLoaded);
+  if(practiceReady){
+    allProgressBySubject[currentSubjectId]=currentProgress;
+    if(currentUser) sSet("gcse_progress_"+currentUser.uid+"_all", JSON.stringify(allProgressBySubject));
+  }
   currentSubjectId=newId;
   sSet("gcse_current_subject", currentSubjectId);
   updateSubjectGlobals();
-  currentProgress = allProgressBySubject[currentSubjectId] || {};
-  qzLoad();
+  if(practiceReady){
+    currentProgress=allProgressBySubject[currentSubjectId]||{};
+    if(currentUser?.role==="admin") await qFetchOverrides();
+    qzLoad();
+  }
   const selS=$("subjectSelectStudent"); if(selS) selS.value=currentSubjectId;
   const selA=$("subjectSelectAdmin"); if(selA) selA.value=currentSubjectId;
   updateHeaderMeta();
@@ -1273,13 +1400,18 @@ function handleSubjectSwitch(newId){
   }
   if(viewStudent.classList.contains("active")) renderStudent();
   if(viewAdmin.classList.contains("active")){
+    if(adminQuestionBankOpen){
+      adminPracticeTopicFilter="all";
+      if(adminPracticeBatchWrongOnly&&adminPracticeBatchId) await ensureAdminPracticeBatchData();
+      renderAdminPractice();
+    }
     renderAdminList();
     if(selectedStudentUid){
       const stu=allStudentsCache.find(x=>x.uid===selectedStudentUid);
       if(stu) renderAdminDetail(stu);
     }
   }
-  scheduleSave();
+  if(practiceReady) scheduleSave();
   showToast(`Switched to ${found.name}`);
 }
 
@@ -1393,9 +1525,27 @@ function resetLoginForm(){
   if(btn){ btn.disabled=false; btn.textContent="Log in"; }
   if(googleBtn){ googleBtn.disabled=false; googleBtn.querySelector("span").textContent="Continue with Google"; }
 }
+function resetQuestionStatsUi(){
+  questionStatsCache=[];
+  questionStatsLoaded={flagged:false,review:false};
+  questionStatsExpanded={flagged:false,review:false};
+  questionStatsLoading={flagged:false,review:false};
+  const states=[
+    {summary:"questionReviewSummary",list:"questionReviewList",load:"loadReviewBtn",more:"reviewMoreBtn",text:"0 to review (click to load)",loadText:"Show to-review questions"},
+    {summary:"flaggedQuestionsSummary",list:"flaggedQuestionsList",load:"loadFlaggedBtn",more:"flaggedMoreBtn",text:"0 flagged (click to load)",loadText:"Show flagged questions"}
+  ];
+  states.forEach(state=>{
+    const summary=$(state.summary), list=$(state.list), load=$(state.load), more=$(state.more);
+    if(summary) summary.textContent=state.text;
+    if(list) list.innerHTML='<div class="empty">Counts only. Load the questions when you need to review them.</div>';
+    if(load){ load.disabled=false; load.textContent=state.loadText; }
+    if(more){ more.style.display="none"; more.textContent="Show more details"; }
+  });
+}
 function clearSignedOutUi(){
   resetLoginForm();
   clearToast();
+  resetQuestionStatsUi();
   const inviteMsg=$("inviteMsg");
   if(inviteMsg){ inviteMsg.textContent=""; inviteMsg.className="invite-message"; }
   const inviteResult=$("inviteResult");
@@ -1409,6 +1559,9 @@ let saveTimer=null;
 let selectedStudentUid=null;
 let allStudentsCache=[];
 let questionStatsCache=[];
+let questionStatsLoaded={flagged:false,review:false};
+let questionStatsExpanded={flagged:false,review:false};
+let questionStatsLoading={flagged:false,review:false};
 let xpState={total:0,bySubject:{},history:[]};
 let streakState={currentCorrectStreak:0,bestCorrectStreak:0,currentDailyStreak:0,bestDailyStreak:0,lastActiveDate:"",lastActiveDates:[]};
 let completedXpTopics=[];
@@ -1418,6 +1571,21 @@ let adminBatchesCache=[];
 let selectedStudentBatchId="";
 let selectedAdminBatchId="";
 let adminBatchSubjectFilter="all";
+let adminBatchWrongFirstOnly=false;
+let adminBatchesLoaded=false;
+let adminClassDataLoaded=false;
+let adminPracticeBatchId="";
+let adminPracticeBatchWrongOnly=false;
+let adminPracticeTopicFilter="all";
+let adminPracticeBatchLoading=false;
+let adminPracticeBatchError="";
+let adminPracticeStrand="";
+let adminQuestionBankOpen=false;
+let adminQuestionBankLoaded=false;
+let adminQuestionBankLoading=false;
+let adminStarterXpGranted=false;
+let adminStarterXpAddedThisLoad=false;
+let qzReturnView="student";
 let leaderboardSubjectFilter="all";
 let xpToastQueue=[];
 let xpToastBusy=false;
@@ -1441,8 +1609,10 @@ function showView(name,{preserveAuthMessage=false}={}){
   viewStudent.classList.toggle("active", name==="student");
   viewAdmin.classList.toggle("active", name==="admin");
   document.body.classList.toggle("batch-focus",name==="admin"&&!!selectedAdminBatchId);
+  document.body.classList.toggle("question-bank-focus",name==="admin"&&adminQuestionBankOpen);
   const vq=document.getElementById("view-quiz"); if(vq) vq.classList.toggle("active", name==="quiz");
   if(name==="student" && currentUser && typeof renderStudent==="function") renderStudent();
+  if(name==="admin" && currentUser && adminQuestionBankOpen && typeof renderAdminPractice==="function") renderAdminPractice();
   const isLogged = name!=="login";
   if(name==="quiz"){ btnLogout.style.display=""; whoPill.style.display=""; }
   btnLogout.style.display=isLogged?"":"none";
@@ -1562,15 +1732,32 @@ async function syncOwnLeaderboardCache(){
   renderStudentLeaderboard();
 }
 async function persistXp(){
-  if(!(fbDb&&currentUser?.uid&&currentUser.role==="student")) return;
+  if(!(fbDb&&currentUser?.uid&&(currentUser.role==="student"||currentUser.role==="admin"))) return;
   try{
     const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
     await setDoc(doc(fbDb,"progress",currentUser.uid),{
-      xp:xpState,streaks:streakState,completedTopics:completedXpTopics,revealedQuestions,updatedAt:serverTimestamp()
+      xp:xpState,streaks:streakState,completedTopics:completedXpTopics,revealedQuestions,adminStarterXpGranted,updatedAt:serverTimestamp()
     },{merge:true});
     await syncOwnLeaderboardCache();
   }catch(e){ console.warn("XP save failed",e); }
 }
+async function ensureAdminStarterXp(){
+  adminStarterXpAddedThisLoad=false;
+  if(!(fbDb && currentUser?.uid && currentUser.role==="admin") || adminStarterXpGranted) return;
+  adminStarterXpGranted=true;
+  const current=Math.max(0,Number(xpState.total)||0);
+  if(current<1000){
+    const points=1000-current;
+    xpState.total=1000;
+    xpState.history.push({type:"adminStarter",points,reason:"Admin starter XP",at:new Date().toISOString(),subjectId:currentSubjectId});
+    if(xpState.history.length>500) xpState.history=xpState.history.slice(-500);
+    adminStarterXpAddedThisLoad=true;
+    renderXpHeader();
+    showXpToast(points,"Admin starter XP");
+  }
+  await persistXp();
+}
+
 function addXpEvent(type,points,topicId,events,questionId=""){
   xpState.total=(Number(xpState.total)||0)+points;
   xpState.bySubject[currentSubjectId]=(Number(xpState.bySubject[currentSubjectId])||0)+points;
@@ -1581,12 +1768,6 @@ function addXpEvent(type,points,topicId,events,questionId=""){
 function revealedQuestionKey(question){ return `${currentSubjectId}:${qzQuestionCode(question)}`; }
 async function revealAnswer(question){
   if(!question) return;
-  // Admin practice is for testing only: reveal without changing or persisting XP.
-  if(currentUser?.role==="admin"){
-    qzFeedback[question.i]={...(qzFeedback[question.i]||{}),answerShown:true};
-    qzRender();
-    return;
-  }
   const key=revealedQuestionKey(question);
   const alreadyRevealed=revealedQuestions.includes(key);
   if(!alreadyRevealed){
@@ -1604,11 +1785,12 @@ async function revealAnswer(question){
   qzFeedback[question.i]={...(qzFeedback[question.i]||{}),answerShown:true};
   renderXpHeader();
   renderStudentLeaderboard();
+  if(currentUser?.role==="admin") renderAdminPractice();
   qzRender();
   if(!alreadyRevealed) await persistXp();
 }
 async function awardXpForMark(question,result,previous,topicWasComplete){
-  if(!question || currentUser?.role==="admin") return;
+  if(!question || !currentUser || (currentUser.role!=="student" && currentUser.role!=="admin")) return;
   const events=[];
   if(result==="w"){
     streakState.currentCorrectStreak=0;
@@ -1642,6 +1824,7 @@ async function awardXpForMark(question,result,previous,topicWasComplete){
   }
   renderXpHeader();
   renderStudentLeaderboard();
+  if(currentUser?.role==="admin") renderAdminPractice();
   events.forEach(event=>showXpToast(event.points,event.label));
   await persistXp();
 }
@@ -1701,9 +1884,12 @@ async function loadAdminBatches(){
       return {id:d.id,...d.data(),members:members.docs.map(md=>({uid:md.id,...md.data()}))};
     }));
     adminBatchesCache.sort((a,b)=>(a.name||"").localeCompare(b.name||""));
+    adminBatchesLoaded=true;
     if(selectedAdminBatchId&&!adminBatchesCache.some(b=>b.id===selectedAdminBatchId)) selectedAdminBatchId="";
+    if(adminPracticeBatchId&&!adminBatchesCache.some(b=>b.id===adminPracticeBatchId)) adminPracticeBatchId="";
     renderAdminBatches();
-  }catch(e){ console.warn("batches load failed",e); if($("batchList")) $("batchList").innerHTML='<div class="empty">Batches could not be loaded. Publish the Firestore rules shown in the HTML comment.</div>'; }
+    if(adminQuestionBankOpen&&adminQuestionBankLoaded) renderAdminPractice();
+  }catch(e){ adminBatchesLoaded=false; console.warn("batches load failed",e); if($("batchList")) $("batchList").innerHTML='<div class="empty">Batches could not be loaded. Publish the Firestore rules shown in the HTML comment.</div>'; }
 }
 function xpByTypeForScope(xp,subjectIds,filter,fallback={}){
   const types={correct:0,topic:0,correctStreak:0,daily3:0,daily7:0};
@@ -1727,6 +1913,7 @@ function renderAdminBatches(){
   list.querySelectorAll("[data-batch-id]").forEach(btn=>btn.onclick=()=>{
     selectedAdminBatchId=btn.dataset.batchId;
     adminBatchSubjectFilter="all";
+    adminBatchWrongFirstOnly=false;
     renderAdminBatches();
     requestAnimationFrame(()=>$("btnCloseBatch")?.focus());
   });
@@ -1747,6 +1934,17 @@ function renderAdminBatches(){
     return {...s,xp,score:xpForSubjects(xp,selectedSubjects,adminBatchSubjectFilter),byType:xpByTypeForScope(xp,selectedSubjects,adminBatchSubjectFilter,cached.byType||{})};
   });
   const leader=[...members].sort((a,b)=>b.score-a.score||(a.displayName||a.email||"").localeCompare(b.displayName||b.email||""));
+  const reviewSubjectIds=adminBatchSubjectFilter==="all"?selectedSubjects:[adminBatchSubjectFilter];
+  const batchWrongFirst=[];
+  if(reviewSubjectIds.includes(currentSubjectId)){
+    for(const q of QEFF.filter(item=>!item.dep)){
+      const wrongCount=members.reduce((count,student)=>count+(student.quizBySubject?.[currentSubjectId]?.[q.i]?.first==="w"?1:0),0);
+      if(wrongCount){
+        batchWrongFirst.push({q,wrongCount});
+      }
+    }
+    batchWrongFirst.sort((a,b)=>b.wrongCount-a.wrongCount || qzQuestionCode(a.q).localeCompare(qzQuestionCode(b.q)));
+  }
   const available=students.filter(s=>!memberIds.has(s.uid));
   const typeLine=t=>`Question XP ${Number(t.correct)||0} · Topic XP ${Number(t.topic)||0} · 5-in-a-row ${Number(t.correctStreak)||0} · 3-day ${Number(t.daily3)||0} · 7-day ${Number(t.daily7)||0}`;
   detail.innerHTML=`
@@ -1774,6 +1972,16 @@ function renderAdminBatches(){
             <div class="field"><label for="adminBatchSubjectFilter">View XP for</label><select id="adminBatchSubjectFilter" class="batch-filter-select"><option value="all">All assigned subjects</option>${selectedSubjects.map(id=>`<option value="${qzEsc(id)}" ${adminBatchSubjectFilter===id?"selected":""}>${qzEsc(SUBJECTS.find(s=>s.id===id)?.shortName||id)}</option>`).join("")}</select></div>
           </div>
         </section>
+        <section class="batch-question-review" aria-labelledby="batchQuestionReviewHeading">
+          <div class="batch-review-controls">
+            <div><h3 id="batchQuestionReviewHeading" style="margin:0;font-family:Newsreader,serif;font-size:22px;font-weight:600">Batch question review</h3><p>Use first-attempt results already loaded for this batch. Open a question to work through it together.</p></div>
+            <button id="batchWrongFirstToggle" type="button" class="chip batch-review-toggle${adminBatchWrongFirstOnly?" active":""}" aria-pressed="${adminBatchWrongFirstOnly}">Wrong first time in this batch <span class="qz-n">${batchWrongFirst.length}</span></button>
+          </div>
+          <div id="batchWrongFirstList" class="batch-wrong-list" ${adminBatchWrongFirstOnly?"":"hidden"}>${adminBatchWrongFirstOnly?(batchWrongFirst.length?batchWrongFirst.map(item=>{
+            const topic=TOPICS.find(t=>t.id===item.q.c);
+            return `<button type="button" class="batch-wrong-row" data-batch-question="${qzEsc(item.q.i)}"><div><div class="batch-wrong-title"><b>${qzEsc(qzQuestionCode(item.q))}</b><span class="batch-wrong-topic">${qzEsc(topic?.title||item.q.c)}</span></div><div class="batch-wrong-text">${qzEsc(item.q.q)}</div></div><span class="batch-wrong-count">${item.wrongCount} student${item.wrongCount===1?"":"s"} wrong first time</span></button>`;
+          }).join(""):'<div class="empty">No students in this batch got a question wrong on their first attempt for this subject.</div>'):""}</div>
+        </section>
         <div class="batch-manage-grid">
           <section class="batch-pane" aria-labelledby="batchStudentsHeading">
             <div class="batch-pane-head"><div><h3 id="batchStudentsHeading">Students in this batch</h3><p>Full names and XP earned in ${qzEsc(filterLabel.toLowerCase())}.</p></div><span class="pill">${members.length} student${members.length===1?"":"s"}</span></div>
@@ -1791,6 +1999,11 @@ function renderAdminBatches(){
         </div>
       </main>
     </div>`;
+  $("batchWrongFirstToggle").onclick=()=>{ adminBatchWrongFirstOnly=!adminBatchWrongFirstOnly; renderAdminBatches(); requestAnimationFrame(()=>$('batchWrongFirstToggle')?.focus()); };
+  $("batchWrongFirstList")?.querySelectorAll("[data-batch-question]").forEach(button=>button.onclick=()=>{
+    const question=QEFF.find(item=>item.i===button.dataset.batchQuestion);
+    if(question) qzOpen({kind:"topic",id:question.c,questionId:question.i});
+  });
   const renderAvailable=()=>{
     const q=($("batchStudentSearch")?.value||"").trim().toLowerCase();
     const filtered=available.filter(s=>!q||`${s.displayName||""} ${s.email||""}`.toLowerCase().includes(q));
@@ -1802,7 +2015,7 @@ function renderAdminBatches(){
   $("batchRosterList").querySelectorAll("[data-batch-member]").forEach(btn=>btn.onclick=()=>toggleBatchMember(batch,btn.dataset.batchMember,false));
   $("batchEditSubjects").querySelectorAll("[data-edit-subject]").forEach(btn=>btn.onclick=()=>{ btn.classList.toggle("on"); btn.setAttribute("aria-pressed",String(btn.classList.contains("on"))); });
   $("adminBatchSubjectFilter").onchange=e=>{ adminBatchSubjectFilter=e.target.value; renderAdminBatches(); requestAnimationFrame(()=>$("adminBatchSubjectFilter")?.focus()); };
-  $("btnCloseBatch").onclick=()=>{ selectedAdminBatchId=""; adminBatchSubjectFilter="all"; renderAdminBatches(); requestAnimationFrame(()=>$("batchList")?.scrollIntoView({block:"nearest"})); };
+  $("btnCloseBatch").onclick=()=>{ selectedAdminBatchId=""; adminBatchSubjectFilter="all"; adminBatchWrongFirstOnly=false; renderAdminBatches(); requestAnimationFrame(()=>$("batchList")?.scrollIntoView({block:"nearest"})); };
   $("btnSaveBatch").onclick=()=>saveBatchEdits(batch);
   $("btnDeleteBatch").onclick=()=>deleteBatch(batch);
 }
@@ -1881,7 +2094,10 @@ async function initFirebase(){
         clearQuizCacheForUid(signedOutUid);
         currentUser=null;
         currentProgress={}; allProgressBySubject={}; qzBySubject={}; qzReset();
-        xpState=cleanXp(null); streakState=cleanStreaks(null); completedXpTopics=[]; revealedQuestions=[];
+        xpState=cleanXp(null); streakState=cleanStreaks(null); completedXpTopics=[]; revealedQuestions=[]; adminStarterXpGranted=false;
+        adminQuestionBankOpen=false; adminQuestionBankLoaded=false; adminQuestionBankLoading=false;
+        adminPracticeBatchId=""; adminPracticeBatchWrongOnly=false; adminPracticeTopicFilter="all"; adminPracticeBatchLoading=false; adminPracticeBatchError="";
+        adminBatchesLoaded=false; adminClassDataLoaded=false;
         allStudentsCache=[]; studentBatchesCache=[]; adminBatchesCache=[]; selectedStudentUid=null;
         clearSignedOutUi();
         showView("login",{preserveAuthMessage:!!signedOutMessage});
@@ -1911,6 +2127,19 @@ async function afterFirebaseLogin(fbUser){
   streakState=cleanStreaks(null);
   completedXpTopics=[];
   revealedQuestions=[];
+  adminStarterXpGranted=false;
+  adminQuestionBankOpen=false;
+  adminQuestionBankLoaded=false;
+  adminQuestionBankLoading=false;
+  adminPracticeBatchId="";
+  adminPracticeBatchWrongOnly=false;
+  adminPracticeTopicFilter="all";
+  adminPracticeBatchLoading=false;
+  adminPracticeBatchError="";
+  adminBatchesLoaded=false;
+  adminClassDataLoaded=false;
+  viewAdmin?.classList.remove("question-bank-open");
+  document.body.classList.remove("question-bank-focus");
   allStudentsCache=[];
   studentBatchesCache=[];
   adminBatchesCache=[];
@@ -1977,11 +2206,13 @@ async function afterFirebaseLogin(fbUser){
           },{merge:true});
         }catch(e){ console.warn("pending invite cleanup unavailable",e); }
       }
-      try{
-        const pref=doc(fbDb,"progress",fbUser.uid);
-        const prefSnap=await getDoc(pref);
-        if(!prefSnap.exists()) await setDoc(pref,{subjects:{},updatedAt:serverTimestamp()});
-      }catch(e){ console.warn("Google student progress setup unavailable",e); }
+      if(role==="student"){
+        try{
+          const pref=doc(fbDb,"progress",fbUser.uid);
+          const prefSnap=await getDoc(pref);
+          if(!prefSnap.exists()) await setDoc(pref,{subjects:{},updatedAt:serverTimestamp()});
+        }catch(e){ console.warn("Google student progress setup unavailable",e); }
+      }
     }else if(!ownProfile){
       // Email/password accounts are created by the admin invite flow. Preserve
       // the existing first-login setup for those already-created Auth users.
@@ -2020,53 +2251,64 @@ async function afterFirebaseLogin(fbUser){
     streakState=cleanStreaks(null);
     completedXpTopics=[];
     revealedQuestions=[];
-    try{
-      const pref=doc(fbDb,"progress",fbUser.uid);
-      const ps=await getDoc(pref);
-      if(ps.exists()){
-        const data=ps.data();
-        if(data.subjects && typeof data.subjects==="object") rawMap=data.subjects;
-        xpState=cleanXp(data.xp);
-        streakState=cleanStreaks(data.streaks);
-        completedXpTopics=Array.isArray(data.completedTopics)?data.completedTopics.slice():[];
-        revealedQuestions=Array.isArray(data.revealedQuestions)?data.revealedQuestions.slice():[];
-      }
-    }catch(e){ console.warn("progress load failed", e); }
 
-    if(!Object.keys(rawMap).length){
-      try{
-        const cachedAll=sGet("gcse_progress_"+fbUser.uid+"_all");
-        if(cachedAll){ const parsed=JSON.parse(cachedAll); if(parsed && typeof parsed==="object") rawMap=parsed; }
-      }catch{}
-    }
-    if(!Object.keys(rawMap).length){
-      try{
-        const cached=sGet("gcse_progress_"+fbUser.uid);
-        if(cached){ const parsed=JSON.parse(cached); if(parsed && typeof parsed==="object" && Object.keys(parsed).length) rawMap[DEFAULT_SUBJECT_ID]=parsed; }
-      }catch{}
-    }
-
-    if(loginGeneration!==authLoadGeneration || currentUser?.uid!==fbUser.uid) return;
-    allProgressBySubject = rawMap||{};
-    currentProgress = allProgressBySubject[currentSubjectId] || allProgressBySubject[DEFAULT_SUBJECT_ID] || {};
-    // These two are independent, so fetch them concurrently rather than in
-    // series. They must both finish before qzLoad(): if the cloud copy has not
-    // arrived, qzLoad() falls back to localStorage and pushes that up as a full
-    // overwrite, which would clobber newer stats saved on another device.
-    { const _t0=performance.now();
-      await Promise.all([qFetchOverrides(), qzFetchAll()]);
-      console.info("[perf] quiz+overrides fetch %sms", Math.round(performance.now()-_t0)); }
-    if(loginGeneration!==authLoadGeneration || currentUser?.uid!==fbUser.uid) return;
-    qzLoad();
+    // Student practice data is part of the student landing experience. Admin
+    // Question Bank data is deliberately deferred until Open Question Bank is
+    // clicked, so the default class dashboard makes no admin progress/quiz/XP reads.
     if(currentUser.role==="student"){
+      try{
+        const pref=doc(fbDb,"progress",fbUser.uid);
+        const ps=await getDoc(pref);
+        if(ps.exists()){
+          const data=ps.data();
+          if(data.subjects && typeof data.subjects==="object") rawMap=data.subjects;
+          xpState=cleanXp(data.xp);
+          streakState=cleanStreaks(data.streaks);
+          completedXpTopics=Array.isArray(data.completedTopics)?data.completedTopics.slice():[];
+          revealedQuestions=Array.isArray(data.revealedQuestions)?data.revealedQuestions.slice():[];
+        }
+      }catch(e){ console.warn("progress load failed", e); }
+
+      if(!Object.keys(rawMap).length){
+        try{
+          const cachedAll=sGet("gcse_progress_"+fbUser.uid+"_all");
+          if(cachedAll){ const parsed=JSON.parse(cachedAll); if(parsed && typeof parsed==="object") rawMap=parsed; }
+        }catch{}
+      }
+      if(!Object.keys(rawMap).length){
+        try{
+          const cached=sGet("gcse_progress_"+fbUser.uid);
+          if(cached){ const parsed=JSON.parse(cached); if(parsed && typeof parsed==="object" && Object.keys(parsed).length) rawMap[DEFAULT_SUBJECT_ID]=parsed; }
+        }catch{}
+      }
+
+      if(loginGeneration!==authLoadGeneration || currentUser?.uid!==fbUser.uid) return;
+      allProgressBySubject=rawMap||{};
+      currentProgress=allProgressBySubject[currentSubjectId]||allProgressBySubject[DEFAULT_SUBJECT_ID]||{};
+      // These two are independent, so fetch them concurrently rather than in
+      // series. They must both finish before qzLoad() to avoid stale overwrites.
+      { const _t0=performance.now();
+        await Promise.all([qFetchOverrides(),qzFetchAll()]);
+        console.info("[perf] quiz+overrides fetch %sms",Math.round(performance.now()-_t0)); }
+      if(loginGeneration!==authLoadGeneration || currentUser?.uid!==fbUser.uid) return;
+      qzLoad();
       applySmartDefaultStrand({resetOtherFilters:true});
       await loadStudentBatches();
+    }else{
+      allProgressBySubject={};
+      currentProgress={};
+      qzBySubject={};
+      qzState={};
+      qOverrides={};
+      qRebuild();
     }
     console.info("[perf] progress read %sms", Math.round(performance.now()-_tProg));
 
     sSet("gcse_last_user", JSON.stringify(currentUser));
-    sSet("gcse_progress_"+currentUser.uid+"_all", JSON.stringify(allProgressBySubject));
-    sSet("gcse_progress_"+currentUser.uid, JSON.stringify(currentProgress));
+    if(currentUser.role==="student"){
+      sSet("gcse_progress_"+currentUser.uid+"_all", JSON.stringify(allProgressBySubject));
+      sSet("gcse_progress_"+currentUser.uid, JSON.stringify(currentProgress));
+    }
     sSet("gcse_current_subject", currentSubjectId);
 
     updateSubjectGlobals();
@@ -2074,7 +2316,7 @@ async function afterFirebaseLogin(fbUser){
 
     if(currentUser.role==="admin"){
       showView("admin");
-      showToast(currentUser.displayName?`Welcome, ${currentUser.displayName}`:"Welcome back");
+      showToast(adminStarterXpAddedThisLoad?"Starter 1000 XP added":(currentUser.displayName?`Welcome, ${currentUser.displayName}`:"Welcome back"));
       adminLoadAll().catch(err=>{ console.error("adminLoadAll failed", err); $("adminCounts").textContent="Class list unavailable — check Firestore rules"; });
     }else{
       renderStudent();
@@ -2112,12 +2354,34 @@ async function afterFirebaseLogin(fbUser){
   }
 }
 
-function renderQuestionStats(){
-  const reviewList=$("questionReviewList");
-  const reviewSummary=$("questionReviewSummary");
-  const flaggedList=$("flaggedQuestionsList");
-  const flaggedSummary=$("flaggedQuestionsSummary");
-  if(!reviewList || !reviewSummary || !flaggedList || !flaggedSummary) return;
+function questionStatsItem(d){
+  const data=d.data()||{};
+  return {
+    id:d.id,
+    topicId:data.topicId||"",
+    questionText:data.questionText||"",
+    manualCorrectCount:Number(data.manualCorrectCount)||0,
+    manualWrongCount:Number(data.manualWrongCount)||0,
+    flagCount:Number(data.flagCount)||0,
+    flaggedAnswers:Array.isArray(data.flaggedAnswers) ? data.flaggedAnswers : (Array.isArray(data.flaggedAnswersPreview) ? data.flaggedAnswersPreview : []),
+    totalAttempts:Number(data.totalAttempts)||0
+  };
+}
+
+function mergeQuestionStats(items){
+  const byId=new Map(questionStatsCache.map(item=>[item.id,item]));
+  items.forEach(item=>byId.set(item.id,item));
+  questionStatsCache=Array.from(byId.values());
+}
+
+function renderQuestionStats(type,expanded=questionStatsExpanded[type]){
+  if(type!=="flagged" && type!=="review") return;
+  questionStatsExpanded[type]=!!expanded;
+  const isFlagged=type==="flagged";
+  const list=$(isFlagged?"flaggedQuestionsList":"questionReviewList");
+  const summary=$(isFlagged?"flaggedQuestionsSummary":"questionReviewSummary");
+  const moreBtn=$(isFlagged?"flaggedMoreBtn":"reviewMoreBtn");
+  if(!list || !summary || !moreBtn) return;
 
   const rowFor=(item,countHtml,countLabel,detailHtml="")=>{
     const q=QEFF.find(question=>qzQuestionCode(question)===item.id) || QUESTIONS.find(question=>question.i===item.id);
@@ -2136,65 +2400,109 @@ function renderQuestionStats(){
     </div>`;
   };
 
-  const reviewItems=questionStatsCache
-    .filter(item=>item.manualCorrectCount>0)
-    .sort((a,b)=>b.manualCorrectCount-a.manualCorrectCount || b.totalAttempts-a.totalAttempts);
-  reviewSummary.textContent=reviewItems.length ? `${reviewItems.length} to review` : "No overrides yet";
-  reviewList.innerHTML=reviewItems.length
-    ? reviewItems.slice(0,12).map(item=>rowFor(item,`<span class="question-review-count correct">${item.manualCorrectCount} marked correct</span>`,"Manual-correct and attempt counts")).join("")
-      + (reviewItems.length>12?'<div class="empty">Showing the 12 most frequently overridden questions.</div>':"")
-    : '<div class="empty">No answers have been marked correct manually yet.</div>';
-
-  const flaggedItems=questionStatsCache
-    .filter(item=>item.flagCount>0)
-    .sort((a,b)=>b.flagCount-a.flagCount || b.totalAttempts-a.totalAttempts);
-  flaggedSummary.textContent=flaggedItems.length ? `${flaggedItems.length} flagged` : "No flags yet";
-  flaggedList.innerHTML=flaggedItems.length
-    ? flaggedItems.slice(0,12).map(item=>{
-        const answers=(item.flaggedAnswers||[]).slice().sort((a,b)=>{
-          const time=value=>(value?.toMillis?.() ?? Date.parse(value||"")) || 0;
-          return time(b.at)-time(a.at);
-        }).slice(0,3);
-        const answerHtml=answers.length
-          ? `<div class="question-review-answers" aria-label="Recent flagged answers">${answers.map(entry=>`<div class="question-review-answer">“${qzEsc(entry.answer||"(blank)")}”</div>`).join("")}</div>`
-          : '<div class="question-review-answers"><div class="question-review-answer"><span>No saved answer is available for this earlier flag.</span></div></div>';
-        return rowFor(item,`<span class="question-review-count wrong">${item.flagCount} flag${item.flagCount===1?"":"s"}</span>`,"Flag and attempt counts",answerHtml);
-      }).join("")
-      + (flaggedItems.length>12?'<div class="empty">Showing the 12 most frequently flagged questions.</div>':"")
-    : '<div class="empty">No questions have been flagged yet.</div>';
+  if(isFlagged){
+    const items=questionStatsCache
+      .filter(item=>item.flagCount>0)
+      .sort((a,b)=>b.flagCount-a.flagCount || b.totalAttempts-a.totalAttempts);
+    const visible=items.slice(0,12);
+    summary.textContent=items.length ? `${items.length} flagged` : "No flags yet";
+    list.innerHTML=visible.length
+      ? visible.map(item=>{
+          const answers=(item.flaggedAnswers||[]).slice().sort((a,b)=>{
+            const time=value=>(value?.toMillis?.() ?? Date.parse(value||"")) || 0;
+            return time(b.at)-time(a.at);
+          });
+          const visibleAnswers=expanded ? answers : answers.slice(0,3);
+          const answerHtml=visibleAnswers.length
+            ? `<div class="question-review-answers" aria-label="${expanded?"All":"Recent"} flagged answers">${visibleAnswers.map(entry=>`<div class="question-review-answer">“${qzEsc(entry.answer||"(blank)")}”</div>`).join("")}</div>`
+            : '<div class="question-review-answers"><div class="question-review-answer"><span>No saved answer is available for this earlier flag.</span></div></div>';
+          return rowFor(item,`<span class="question-review-count wrong">${item.flagCount} flag${item.flagCount===1?"":"s"}</span>`,"Flag and attempt counts",answerHtml);
+        }).join("")
+        + (items.length>12?'<div class="empty">Showing the 12 most frequently flagged questions.</div>':"")
+      : '<div class="empty">No questions have been flagged yet.</div>';
+    const hasMoreAnswers=visible.some(item=>(item.flaggedAnswers||[]).length>3);
+    moreBtn.style.display=hasMoreAnswers?"":"none";
+  }else{
+    const items=questionStatsCache
+      .filter(item=>item.manualCorrectCount>0)
+      .sort((a,b)=>b.manualCorrectCount-a.manualCorrectCount || b.totalAttempts-a.totalAttempts);
+    const visible=expanded ? items : items.slice(0,12);
+    summary.textContent=items.length ? `${items.length} to review` : "No overrides yet";
+    list.innerHTML=visible.length
+      ? visible.map(item=>rowFor(item,`<span class="question-review-count correct">${item.manualCorrectCount} marked correct</span>`,"Manual-correct and attempt counts")).join("")
+        + (!expanded && items.length>12?'<div class="empty">Showing the 12 most frequently overridden questions.</div>':"")
+      : '<div class="empty">No answers have been marked correct manually yet.</div>';
+    moreBtn.style.display=items.length>12?"":"none";
+  }
+  moreBtn.textContent=expanded?"Show fewer details":"Show more details";
 }
 
-async function loadQuestionStats(){
-  const list=$("questionReviewList");
-  const summary=$("questionReviewSummary");
-  const flaggedList=$("flaggedQuestionsList");
+async function loadQuestionStatsCounts(){
+  const reviewSummary=$("questionReviewSummary");
   const flaggedSummary=$("flaggedQuestionsSummary");
   if(!(fbDb && currentUser?.role==="admin")) return;
+  if(reviewSummary) reviewSummary.textContent="Counting…";
+  if(flaggedSummary) flaggedSummary.textContent="Counting…";
   try{
-    const {collection,getDocs}=await import("firebase/firestore");
-    const snap=await getDocs(collection(fbDb,"questionStats"));
-    questionStatsCache=snap.docs.map(d=>{
-      const data=d.data()||{};
-      return {
-        id:d.id,
-        topicId:data.topicId||"",
-        questionText:data.questionText||"",
-        manualCorrectCount:Number(data.manualCorrectCount)||0,
-        manualWrongCount:Number(data.manualWrongCount)||0,
-        flagCount:Number(data.flagCount)||0,
-        flaggedAnswers:Array.isArray(data.flaggedAnswers) ? data.flaggedAnswers : (Array.isArray(data.flaggedAnswersPreview) ? data.flaggedAnswersPreview : []),
-        totalAttempts:Number(data.totalAttempts)||0
-      };
-    });
-    renderQuestionStats();
+    const firestore=await import("firebase/firestore");
+    const {collection,query,where,getDocs}=firestore;
+    const countMatching=async field=>{
+      const q=query(collection(fbDb,"questionStats"),where(field,">",0));
+      if(typeof firestore.getCountFromServer==="function"){
+        const result=await firestore.getCountFromServer(q);
+        return Number(result.data().count)||0;
+      }
+      const result=await getDocs(q);
+      return result.size;
+    };
+    const [reviewCount,flaggedCount]=await Promise.all([
+      countMatching("manualCorrectCount"),
+      countMatching("flagCount")
+    ]);
+    if(reviewSummary) reviewSummary.textContent=`${reviewCount} to review (click to load)`;
+    if(flaggedSummary) flaggedSummary.textContent=`${flaggedCount} flagged (click to load)`;
   }catch(e){
-    console.warn("question stats load failed",e);
-    if(summary) summary.textContent="Unavailable";
-    if(list) list.innerHTML='<div class="empty">Override counts could not be loaded. Check Firestore permissions.</div>';
-    if(flaggedSummary) flaggedSummary.textContent="Unavailable";
-    if(flaggedList) flaggedList.innerHTML='<div class="empty">Flag counts could not be loaded. Check Firestore permissions.</div>';
+    console.warn("question stats count load failed",e);
+    if(reviewSummary) reviewSummary.textContent="Count unavailable (click to load)";
+    if(flaggedSummary) flaggedSummary.textContent="Count unavailable (click to load)";
   }
 }
+
+async function loadQuestionStatsFull(type){
+  if(!(fbDb && currentUser?.role==="admin")) return;
+  if(type!=="flagged" && type!=="review") return;
+  if(questionStatsLoading[type]) return;
+  const isFlagged=type==="flagged";
+  const field=isFlagged?"flagCount":"manualCorrectCount";
+  const button=$(isFlagged?"loadFlaggedBtn":"loadReviewBtn");
+  const list=$(isFlagged?"flaggedQuestionsList":"questionReviewList");
+  const summary=$(isFlagged?"flaggedQuestionsSummary":"questionReviewSummary");
+  questionStatsLoading[type]=true;
+  if(button){ button.disabled=true; button.textContent=isFlagged?"Loading flagged questions…":"Loading to-review questions…"; }
+  if(list) list.innerHTML='<div class="empty">Loading question details…</div>';
+  try{
+    const {collection,getDocs,query,where}=await import("firebase/firestore");
+    const snap=await getDocs(query(collection(fbDb,"questionStats"),where(field,">",0)));
+    mergeQuestionStats(snap.docs.map(questionStatsItem));
+    questionStatsLoaded[type]=true;
+    questionStatsExpanded[type]=false;
+    renderQuestionStats(type,false);
+    if(button) button.textContent=isFlagged?"Refresh flagged questions":"Refresh to-review questions";
+  }catch(e){
+    console.warn(`question stats ${type} load failed`,e);
+    if(summary) summary.textContent="Unavailable";
+    if(list) list.innerHTML=`<div class="empty">${isFlagged?"Flagged":"To-review"} questions could not be loaded. Check Firestore permissions.</div>`;
+    if(button) button.textContent=isFlagged?"Retry flagged questions":"Retry to-review questions";
+  }finally{
+    questionStatsLoading[type]=false;
+    if(button) button.disabled=false;
+  }
+}
+
+$("loadFlaggedBtn")?.addEventListener("click",()=>loadQuestionStatsFull("flagged"));
+$("loadReviewBtn")?.addEventListener("click",()=>loadQuestionStatsFull("review"));
+$("flaggedMoreBtn")?.addEventListener("click",()=>renderQuestionStats("flagged",!questionStatsExpanded.flagged));
+$("reviewMoreBtn")?.addEventListener("click",()=>renderQuestionStats("review",!questionStatsExpanded.review));
 
 async function adminLoadAll(){
   if(!fbDb) return;
@@ -2208,19 +2516,23 @@ async function adminLoadAll(){
       let progFlat={};
       let quizBySubject={};
       let xp=cleanXp(null), streaks=cleanStreaks(null), completedTopics=[];
-      try{
-        const [ps,quizSnap]=await Promise.all([
-          getDoc(doc(fbDb,"progress",d.id)),
-          getDocs(collection(fbDb,"progress",d.id,"quiz"))
-        ]);
-        if(ps.exists()){
-          const data=ps.data();
-          if(data.subjects && typeof data.subjects==="object") progMap=data.subjects;
-          xp=cleanXp(data.xp); streaks=cleanStreaks(data.streaks);
-          completedTopics=Array.isArray(data.completedTopics)?data.completedTopics.slice():[];
-        }
-        quizSnap.forEach(qd=>{ const data=qd.data()||{}; quizBySubject[qd.id]=data.q||{}; });
-      }catch{}
+      // The class dashboard needs student records only. Skipping admin-owned
+      // progress here keeps Question Bank progress and XP fully lazy-loaded.
+      if(u.role==="student"){
+        try{
+          const [ps,quizSnap]=await Promise.all([
+            getDoc(doc(fbDb,"progress",d.id)),
+            getDocs(collection(fbDb,"progress",d.id,"quiz"))
+          ]);
+          if(ps.exists()){
+            const data=ps.data();
+            if(data.subjects && typeof data.subjects==="object") progMap=data.subjects;
+            xp=cleanXp(data.xp); streaks=cleanStreaks(data.streaks);
+            completedTopics=Array.isArray(data.completedTopics)?data.completedTopics.slice():[];
+          }
+          quizSnap.forEach(qd=>{ const data=qd.data()||{}; quizBySubject[qd.id]=data.q||{}; });
+        }catch{}
+      }
       if(!Object.keys(progMap).length && Object.keys(progFlat).length){
         progMap[DEFAULT_SUBJECT_ID]=progFlat;
       }
@@ -2239,15 +2551,17 @@ async function adminLoadAll(){
       const preferItem=!previous || (previous.pendingAuthProfile && !item.pendingAuthProfile) || (!previous.lastLoginAt && !!item.lastLoginAt);
       if(preferItem) byEmail.set(key,item);
     }
-    allStudentsCache=Array.from(byEmail.values());
+    allStudentsCache=Array.from(byEmail.values()).map(item=>({...item,_quizLoadedAll:true}));
+    adminClassDataLoaded=true;
     const students=allStudentsCache.filter(l=>l.role==="student").length;
     const admins=allStudentsCache.filter(l=>l.role==="admin").length;
     $("adminCounts").textContent=`${students} students • ${admins} admin`;
     renderAdminList();
-    await Promise.all([loadQuestionStats(),loadAdminBatches()]);
+    await Promise.all([loadQuestionStatsCounts(),loadAdminBatches()]);
   }catch{
+    adminClassDataLoaded=false;
     $("adminCounts").textContent="Loading class list…";
-    loadQuestionStats();
+    loadQuestionStatsCounts();
   }
 }
 
@@ -2333,7 +2647,12 @@ $("btnLogout").addEventListener("click", async ()=>{
   clearQuizCacheForUid(signingOutUid);
   try{ if(fbAuth){ const {signOut}=await import("firebase/auth"); await signOut(fbAuth); } }catch{}
   currentUser=null; currentProgress={}; selectedStudentUid=null; allProgressBySubject={}; qzBySubject={}; qzReset();
-  xpState=cleanXp(null); streakState=cleanStreaks(null); completedXpTopics=[]; revealedQuestions=[];
+  xpState=cleanXp(null); streakState=cleanStreaks(null); completedXpTopics=[]; revealedQuestions=[]; adminStarterXpGranted=false;
+  adminQuestionBankOpen=false; adminQuestionBankLoaded=false; adminQuestionBankLoading=false;
+  adminPracticeBatchId=""; adminPracticeBatchWrongOnly=false; adminPracticeTopicFilter="all"; adminPracticeBatchLoading=false; adminPracticeBatchError="";
+  adminBatchesLoaded=false; adminClassDataLoaded=false;
+  viewAdmin?.classList.remove("question-bank-open");
+  document.body.classList.remove("question-bank-focus");
   allStudentsCache=[]; studentBatchesCache=[]; adminBatchesCache=[];
   const va=$("view-admin"); if(va) va.classList.remove("is-detail");
   adminFilters={strand:"all", q:"", rag:null, todo:false};
@@ -2598,6 +2917,265 @@ document.querySelectorAll(".chip[data-strand]").forEach(c=>c.addEventListener("c
   document.querySelectorAll(".chip[data-strand]").forEach(x=>x.classList.remove("active"));
   c.classList.add("active"); filters.strand=c.dataset.strand; renderStudent();
 }));
+async function loadAdminQuestionBankData(){
+  if(adminQuestionBankLoaded || adminQuestionBankLoading || currentUser?.role!=="admin") return;
+  adminQuestionBankLoading=true;
+  const loading=$("adminPracticeLoading"), content=$("adminPracticeContent"), subjectSelect=$("subjectSelectAdmin");
+  loading?.classList.add("show");
+  if(loading) loading.textContent="Loading your question progress…";
+  if(content) content.style.display="none";
+  if(subjectSelect) subjectSelect.disabled=true;
+  const uid=currentUser.uid;
+  try{
+    const {doc,getDoc}=await import("firebase/firestore");
+    const [progressSnap]=await Promise.all([
+      getDoc(doc(fbDb,"progress",uid)),
+      qFetchOverrides(),
+      qzFetchAll()
+    ]);
+    if(currentUser?.uid!==uid || !adminQuestionBankOpen) return;
+    const data=progressSnap.exists()?(progressSnap.data()||{}):{};
+    allProgressBySubject=data.subjects&&typeof data.subjects==="object"?data.subjects:{};
+    currentProgress=allProgressBySubject[currentSubjectId]||{};
+    xpState=cleanXp(data.xp);
+    streakState=cleanStreaks(data.streaks);
+    completedXpTopics=Array.isArray(data.completedTopics)?data.completedTopics.slice():[];
+    revealedQuestions=Array.isArray(data.revealedQuestions)?data.revealedQuestions.slice():[];
+    adminStarterXpGranted=!!data.adminStarterXpGranted;
+    qzLoad();
+    await ensureAdminStarterXp();
+    adminQuestionBankLoaded=true;
+    adminPracticeStrand=getSmartDefaultStrand();
+    loading?.classList.remove("show");
+    if(content) content.style.display="block";
+    renderAdminPractice();
+  }catch(e){
+    console.warn("Question Bank load failed",e);
+    if(loading){
+      loading.classList.add("show");
+      loading.textContent="Question Bank could not be loaded. Check your connection and try again.";
+    }
+    const openBtn=$("btnOpenQuestionBank");
+    if(openBtn){ openBtn.textContent="Retry Question Bank"; openBtn.style.display="inline-flex"; }
+  }finally{
+    adminQuestionBankLoading=false;
+    if(subjectSelect) subjectSelect.disabled=false;
+  }
+}
+
+function openAdminQuestionBank(){
+  if(currentUser?.role!=="admin") return;
+  adminQuestionBankOpen=true;
+  viewAdmin.classList.add("question-bank-open");
+  document.body.classList.add("question-bank-focus");
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(adminQuestionBankLoaded){
+    const content=$("adminPracticeContent");
+    if(content) content.style.display="block";
+    renderAdminPractice();
+  }else{
+    loadAdminQuestionBankData();
+  }
+}
+
+function closeAdminQuestionBank(){
+  adminQuestionBankOpen=false;
+  viewAdmin.classList.remove("question-bank-open");
+  document.body.classList.remove("question-bank-focus");
+  const loading=$("adminPracticeLoading"), content=$("adminPracticeContent");
+  loading?.classList.remove("show");
+  if(content) content.style.display="none";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function ensureAdminPracticeBatchList(){
+  if(adminBatchesLoaded || !(fbDb&&currentUser?.role==="admin")) return;
+  const {collection,getDocs}=await import("firebase/firestore");
+  const snap=await getDocs(collection(fbDb,"batches"));
+  adminBatchesCache=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.name||"").localeCompare(b.name||""));
+  adminBatchesLoaded=true;
+}
+
+async function ensureAdminPracticeBatchData(){
+  if(!(fbDb&&currentUser?.role==="admin")) return;
+  adminPracticeBatchLoading=true;
+  adminPracticeBatchError="";
+  renderAdminPractice();
+  try{
+    await ensureAdminPracticeBatchList();
+    const batch=adminBatchesCache.find(item=>item.id===adminPracticeBatchId);
+    if(!batch) return;
+    const memberIds=[...new Set([...(batch.studentUids||[]),...(batch.members||[]).map(member=>member.uid)].filter(Boolean))];
+    const missing=memberIds.filter(uid=>{
+      const cached=allStudentsCache.find(student=>student.uid===uid);
+      return !cached || (!cached._quizLoadedAll && !(cached._quizLoadedSubjects||[]).includes(currentSubjectId));
+    });
+    if(missing.length){
+      const {doc,getDoc}=await import("firebase/firestore");
+      const loaded=await Promise.all(missing.map(async uid=>{
+        const [profileSnap,quizSnap]=await Promise.all([
+          getDoc(doc(fbDb,"users",uid)),
+          getDoc(doc(fbDb,"progress",uid,"quiz",currentSubjectId))
+        ]);
+        const profile=profileSnap.exists()?(profileSnap.data()||{}):{};
+        const quiz=quizSnap.exists()?((quizSnap.data()||{}).q||{}):{};
+        return {uid,email:profile.email||"",displayName:profile.displayName||"",role:profile.role||"student",quiz};
+      }));
+      loaded.forEach(item=>{
+        const index=allStudentsCache.findIndex(student=>student.uid===item.uid);
+        const previous=index>=0?allStudentsCache[index]:{};
+        const next={...previous,...item,quizBySubject:{...(previous.quizBySubject||{}),[currentSubjectId]:item.quiz},_quizLoadedSubjects:[...new Set([...(previous._quizLoadedSubjects||[]),currentSubjectId])]};
+        if(index>=0) allStudentsCache[index]=next; else allStudentsCache.push(next);
+      });
+    }
+  }catch(e){
+    console.warn("Question Bank batch filter load failed",e);
+    adminPracticeBatchError="Batch results could not be loaded. Check your connection and Firestore permissions.";
+  }finally{
+    adminPracticeBatchLoading=false;
+    renderAdminPractice();
+  }
+}
+
+function adminPracticeQuestionStrand(question){
+  if(!question) return "";
+  const topic=TOPICS.find(item=>String(item.id)===String(question.c));
+  return topic&&STRAND_ORDER.includes(topic.strand)?topic.strand:"";
+}
+
+function adminPracticeBatchMembers(batch){
+  if(!batch) return [];
+  const memberIds=new Set([...(batch.studentUids||[]),...(batch.members||[]).map(member=>member.uid)].filter(Boolean));
+  return allStudentsCache.filter(student=>memberIds.has(student.uid));
+}
+
+function adminPracticeWrongFirstCount(question,batch){
+  return adminPracticeBatchMembers(batch).reduce((count,student)=>{
+    const state=student.quizBySubject?.[currentSubjectId]?.[question.i];
+    return count+(state?.first==="w"?1:0);
+  },0);
+}
+
+// This is the single source of truth for both the visible question list and its count.
+function adminPracticeGetFilteredQuestions(){
+  let questions=QEFF.filter(question=>!question.dep);
+  if(adminPracticeTopicFilter!=="all"){
+    questions=questions.filter(question=>adminPracticeQuestionStrand(question)===adminPracticeTopicFilter);
+  }
+  if(adminPracticeBatchWrongOnly&&adminPracticeBatchId){
+    const batch=adminBatchesCache.find(item=>item.id===adminPracticeBatchId);
+    if(!batch||(batch.subjectIds||[]).includes(currentSubjectId)===false) return [];
+    questions=questions.filter(question=>adminPracticeWrongFirstCount(question,batch)>0);
+  }
+  return questions;
+}
+
+function adminPracticeQuestionGroupsMarkup(questions,{batch=null,showWrongCounts=false}={}){
+  if(!questions.length) return '<div class="empty">No questions match these filters.</div>';
+  const questionIds=new Set(questions.map(question=>question.i));
+  return STRAND_ORDER.map(strand=>{
+    const topicGroups=TOPICS.filter(topic=>topic.strand===strand).map(topic=>{
+      const topicQuestions=QEFF.filter(question=>!question.dep&&String(question.c)===String(topic.id)&&questionIds.has(question.i));
+      if(!topicQuestions.length) return "";
+      const rows=topicQuestions.map(question=>{
+        const endBadge=showWrongCounts
+          ? `<span class="batch-wrong-count">${adminPracticeWrongFirstCount(question,batch)} student${adminPracticeWrongFirstCount(question,batch)===1?"":"s"} wrong first time</span>`
+          : `<span class="question-bank-question-count">${question.k} mark${question.k===1?"":"s"}</span>`;
+        return `<button type="button" class="batch-wrong-row" data-admin-practice-question="${qzEsc(question.i)}"><div><div class="batch-wrong-title"><b>${qzEsc(qzQuestionCode(question))}</b></div><div class="batch-wrong-text">${qzEsc(question.q)}</div></div>${endBadge}</button>`;
+      }).join("");
+      return `<section class="admin-question-topic" aria-labelledby="admin-topic-${qzEsc(topic.id)}"><div class="admin-question-topic-head"><div class="admin-question-topic-title"><b>${qzEsc(topic.id)}</b><span id="admin-topic-${qzEsc(topic.id)}">${qzEsc(topic.title)}</span></div><div class="admin-question-topic-actions"><span class="admin-question-topic-count">${topicQuestions.length} question${topicQuestions.length===1?"":"s"}</span><button type="button" class="btn btn-primary admin-topic-open" data-admin-open-topic="${qzEsc(topic.id)}" aria-label="Open ${qzEsc(topic.id)} ${qzEsc(topic.title)} as a sequential practice session">Open topic</button></div></div><div class="admin-question-topic-list">${rows}</div></section>`;
+    }).join("");
+    if(!topicGroups) return "";
+    const strandCount=questions.filter(question=>adminPracticeQuestionStrand(question)===strand).length;
+    return `<section class="admin-question-strand"><div class="admin-question-strand-head"><h5>${qzEsc(getCurrentSubject().strands[strand]||strand)}</h5><span>${strandCount} question${strandCount===1?"":"s"}</span></div>${topicGroups}</section>`;
+  }).join("");
+}
+
+function bindAdminPracticeQuestionActions(mount){
+  if(!mount) return;
+  mount.querySelectorAll("[data-admin-practice-question]").forEach(button=>button.onclick=()=>{
+    const question=QEFF.find(item=>item.i===button.dataset.adminPracticeQuestion);
+    if(question) qzOpen({kind:"topic",id:question.c,questionId:question.i});
+  });
+  mount.querySelectorAll("[data-admin-open-topic]").forEach(button=>button.onclick=()=>{
+    const topicId=button.dataset.adminOpenTopic;
+    const topicQuestions=adminPracticeGetFilteredQuestions().filter(question=>String(question.c)===String(topicId));
+    if(!topicQuestions.length) return;
+    qzOpen({kind:"topic",id:topicId,questionId:topicQuestions[0].i,questionIds:topicQuestions.map(question=>question.i)});
+  });
+}
+
+function renderAdminPracticeQuestionGroups(mount,questions,options={}){
+  if(!mount) return;
+  const topicLabel=adminPracticeTopicFilter==="all"?"All questions":(getCurrentSubject().strands[adminPracticeTopicFilter]||adminPracticeTopicFilter);
+  mount.innerHTML=`<div class="question-bank-batch-summary"><h4>${qzEsc(topicLabel)}</h4><span>${questions.length} question${questions.length===1?"":"s"}</span></div>${adminPracticeQuestionGroupsMarkup(questions,options)}`;
+  bindAdminPracticeQuestionActions(mount);
+}
+
+function renderAdminPracticeBatchFilter(filteredQuestions){
+  const select=$("adminPracticeBatchSelect"),topicSelect=$("adminPracticeTopicSelect"),toggle=$("adminPracticeBatchWrongToggle"),status=$("adminPracticeBatchStatus");
+  const defaultBrowse=$("adminPracticeDefaultBrowse"),results=$("adminPracticeBatchResults");
+  if(!select||!topicSelect||!toggle||!status||!defaultBrowse||!results) return;
+  if(adminPracticeBatchId&&!adminBatchesCache.some(batch=>batch.id===adminPracticeBatchId)) adminPracticeBatchId="";
+  if(adminPracticeTopicFilter!=="all"&&!STRAND_ORDER.includes(adminPracticeTopicFilter)) adminPracticeTopicFilter="all";
+  const questions=Array.isArray(filteredQuestions)?filteredQuestions:adminPracticeGetFilteredQuestions();
+  const placeholder=adminBatchesLoaded?(adminBatchesCache.length?"Select a batch":"No batches available"):"Select a batch";
+  select.innerHTML=`<option value="">${placeholder}</option>`+adminBatchesCache.map(batch=>`<option value="${qzEsc(batch.id)}">${qzEsc(batch.name||"Untitled batch")}</option>`).join("");
+  select.value=adminPracticeBatchId;
+  topicSelect.value=adminPracticeTopicFilter;
+  select.disabled=adminPracticeBatchLoading;
+  toggle.disabled=adminPracticeBatchLoading;
+  toggle.classList.toggle("active",adminPracticeBatchWrongOnly);
+  toggle.setAttribute("aria-pressed",String(adminPracticeBatchWrongOnly));
+
+  const topicLabel=adminPracticeTopicFilter==="all"?"All Topics":(getCurrentSubject().strands[adminPracticeTopicFilter]||adminPracticeTopicFilter);
+  if(!adminPracticeBatchWrongOnly){
+    defaultBrowse.hidden=false;
+    results.hidden=true;
+    results.innerHTML="";
+    status.textContent=`${questions.length} question${questions.length===1?"":"s"} · ${topicLabel}. Batch results load only when the wrong-first filter is used.`;
+    return;
+  }
+  defaultBrowse.hidden=true;
+  results.hidden=false;
+  if(adminPracticeBatchLoading){
+    status.textContent="Loading batch first-attempt results…";
+    results.innerHTML='<div class="empty">Loading batch results…</div>';
+    return;
+  }
+  if(adminPracticeBatchError){
+    status.textContent=adminPracticeBatchError;
+    results.innerHTML='<div class="empty">Could not load this batch. Turn the filter off and try again.</div>';
+    return;
+  }
+  const batch=adminBatchesCache.find(item=>item.id===adminPracticeBatchId);
+  if(!batch){
+    status.textContent="Choose a batch to show first-attempt mistakes.";
+    results.innerHTML='<div class="empty">Select a batch above to see its wrong-first questions.</div>';
+    return;
+  }
+  const subjectAssigned=(batch.subjectIds||[]).includes(currentSubjectId);
+  const rows=subjectAssigned?questions:[];
+  status.textContent=subjectAssigned?`${rows.length} ${topicLabel.toLowerCase()} question${rows.length===1?"":"s"} found for ${batch.name||"this batch"}.`:`${getCurrentSubject().shortName} is not assigned to this batch.`;
+  results.innerHTML=`<div class="question-bank-batch-summary"><h4>Wrong first time · ${qzEsc(batch.name||"Batch")}</h4><span>${qzEsc(topicLabel)} · ${rows.length} question${rows.length===1?"":"s"}</span></div>`+
+    (rows.length?adminPracticeQuestionGroupsMarkup(rows,{batch,showWrongCounts:true}):`<div class="empty">${subjectAssigned?`No ${topicLabel.toLowerCase()} questions were answered incorrectly on the first attempt in this batch.`:"Switch subject or assign this subject to the batch to review its questions."}</div>`);
+  bindAdminPracticeQuestionActions(results);
+}
+
+function renderAdminPractice(){
+  if(currentUser?.role!=="admin" || !adminQuestionBankOpen || !adminQuestionBankLoaded) return;
+  const topicsEl=$("adminPracticeTopics");
+  if(!topicsEl) return;
+  const total=qzScoreForTopics(TOPICS);
+  const {level}=getLevel(Number(xpState.total)||0);
+  $("adminPracticeXp").textContent=`Level ${level} · ${Number(xpState.total)||0} XP`;
+  $("adminPracticeProgress").textContent=`${total.c} / ${total.n} completed`;
+  const filteredQuestions=adminPracticeGetFilteredQuestions();
+  // Rebuild the default list on every filter change, even when it is temporarily hidden.
+  renderAdminPracticeQuestionGroups(topicsEl,filteredQuestions);
+  renderAdminPracticeBatchFilter(filteredQuestions);
+}
+
 /* Admin rendering */
 function renderAdminList(){
   const list=$("studentsList"); if(!list) return; list.innerHTML="";
@@ -3143,6 +3721,7 @@ function qzTopicScore(code){
 }
 
 function qzOpen(scope, initialFilter="all"){
+  qzReturnView=currentUser?.role==="admin"?"admin":"student";
   qzScope = scope; qzFilter = initialFilter; qzIdx = 0; qzReviewingComplete = false;
   document.querySelectorAll(".qz-chip").forEach(c=>c.classList.toggle("on", c.dataset.f===initialFilter));
 
@@ -3151,12 +3730,18 @@ function qzOpen(scope, initialFilter="all"){
   // quick starts begin at the first result in their filtered queue.
   if(initialFilter==="all"){
     const resumePool=qzPool();
-    const firstUnattempted=resumePool.findIndex(q=>!qzState[q.i]?.s);
-    if(firstUnattempted>=0){
-      qzIdx=firstUnattempted;
+    const targetIndex=scope.questionId?resumePool.findIndex(q=>q.i===scope.questionId):-1;
+    if(targetIndex>=0){
+      qzIdx=targetIndex;
+      qzReviewingComplete=true;
     }else{
-      const firstWrong=resumePool.findIndex(q=>qzState[q.i]?.s==="w");
-      if(firstWrong>=0){ qzIdx=firstWrong; qzReviewingComplete=true; }
+      const firstUnattempted=resumePool.findIndex(q=>!qzState[q.i]?.s);
+      if(firstUnattempted>=0){
+        qzIdx=firstUnattempted;
+      }else{
+        const firstWrong=resumePool.findIndex(q=>qzState[q.i]?.s==="w");
+        if(firstWrong>=0){ qzIdx=firstWrong; qzReviewingComplete=true; }
+      }
     }
   }
 
@@ -3175,6 +3760,10 @@ function qzOpen(scope, initialFilter="all"){
   showView("quiz"); qzRender();
 }
 function qzPool(){
+  if(Array.isArray(qzScope?.questionIds)){
+    const visibleById=new Map(qVisible().map(question=>[question.i,question]));
+    return qzScope.questionIds.map(id=>visibleById.get(id)).filter(Boolean);
+  }
   if(qzScope.kind==="all") return qVisible();
   return qzScope.kind==="topic" ? qzFor(qzScope.id) : qzForStrand(qzScope.id);
 }
@@ -3459,11 +4048,20 @@ function qzHasPowerNotation(q,topic){
 }
 function qzAnswerRevealAction(q,fb){
   if(fb?.answerShown) return "";
-  if(currentUser?.role==="admin") return '<div class="qz-feedback-actions"><button class="btn" id="qzShowAnswer">Show answer</button></div>';
   const alreadyRevealed=revealedQuestions.includes(revealedQuestionKey(q));
   if(alreadyRevealed) return '<div class="qz-feedback-actions"><button class="btn" id="qzShowAnswer">Show answer</button></div>';
   if((Number(xpState.total)||0)>=5) return '<div class="qz-feedback-actions"><button class="btn" id="qzShowAnswer">Show answer (-5 XP)</button></div>';
   return '<div class="qz-feedback-actions"><button class="btn" type="button" disabled>Show answer (-5 XP)</button><span class="qz-answer-cost-note">Earn at least 5 XP to reveal answers</span></div>';
+}
+function qzReturnToDashboard(){
+  if(qzReturnView==="admin"){
+    showView("admin");
+    renderAdminPractice();
+    if(selectedAdminBatchId) renderAdminBatches();
+  }else{
+    showView("student");
+    renderStudent();
+  }
 }
 function qzFeedbackHtml(q){
   const fb=qzFeedback[q.i];
@@ -3473,7 +4071,7 @@ function qzFeedbackHtml(q){
   return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Not quite</strong><div class="qz-flag-prompt">You think your answer was correct?</div><div class="qz-feedback-actions"><button class="btn qz-flag-button" id="qzFlag">Flag the Question</button></div>${qzAnswerRevealAction(q,fb)}</div>`;
 }
 async function qzRecordQuestionStat(q,kind,answer=""){
-  // Admin practice is read/test activity and must not change shared student stats.
+  // Admin self-practice saves under the admin UID but does not alter the shared student-review counters.
   if(!(fbDb && currentUser?.role==="student" && q)) return;
   const {doc,setDoc,increment,serverTimestamp,arrayUnion}=await import("firebase/firestore");
   const ref=doc(fbDb,"questionStats",qzQuestionCode(q));
@@ -3571,7 +4169,7 @@ function qzRender(){
       document.querySelectorAll(".qz-chip").forEach(ch=>ch.classList.toggle("on", ch.dataset.f==="all"));
       qzRender();
     };
-    $("qzCompleteBack").onclick=()=>{ showView("student"); renderStudent(); };
+    $("qzCompleteBack").onclick=qzReturnToDashboard;
     if(nextTopic) $("qzNextTopic").onclick=()=>qzOpen({kind:"topic",id:nextTopic.id});
     return;
   }
@@ -3766,7 +4364,7 @@ function qzMark(qid, res, advance=true){
   s.s=res;                    // time" survives a later correction
   qzState[qid]=s; qzSave();
   if(question && qzSyncAutoProgress([question.c])) scheduleSave();
-  if(currentUser?.role==="student") awardXpForMark(question,res,previous,topicWasComplete);
+  if(currentUser?.role==="student" || currentUser?.role==="admin") awardXpForMark(question,res,previous,topicWasComplete);
   showToast(res==="c" ? "Saved as correct" : "Saved as wrong — it'll come back in the Wrong filter");
   // stay in place if filtering would remove this question, otherwise advance
   // On "all" we step forward. On a filtered list the question drops out, so the
@@ -3790,9 +4388,49 @@ document.addEventListener("click",(e)=>{
     document.querySelectorAll(".qz-chip").forEach(c=>c.classList.toggle("on", c===chip));
     qzRender(); return;
   }
-  if(e.target.id==="qzBack"){ showView("student"); renderStudent(); }
+  if(e.target.id==="qzBack"){ qzReturnToDashboard(); }
 });
 /* == QUIZ:END == */
+$("btnOpenQuestionBank")?.addEventListener("click",openAdminQuestionBank);
+$("btnCloseQuestionBank")?.addEventListener("click",closeAdminQuestionBank);
+$("adminPracticeBatchSelect")?.addEventListener("focus",async()=>{
+  if(adminBatchesLoaded||adminPracticeBatchLoading) return;
+  adminPracticeBatchLoading=true; adminPracticeBatchError=""; renderAdminPractice();
+  try{ await ensureAdminPracticeBatchList(); }
+  catch(e){ console.warn("Question Bank batch list load failed",e); adminPracticeBatchError="Batches could not be loaded. Check your connection and Firestore permissions."; }
+  finally{ adminPracticeBatchLoading=false; renderAdminPractice(); }
+});
+$("adminPracticeBatchSelect")?.addEventListener("change",async e=>{
+  adminPracticeBatchId=e.target.value;
+  adminPracticeBatchError="";
+  renderAdminPractice();
+  if(adminPracticeBatchWrongOnly&&adminPracticeBatchId) await ensureAdminPracticeBatchData();
+});
+$("adminPracticeTopicSelect")?.addEventListener("change",e=>{
+  adminPracticeTopicFilter=e.target.value;
+  renderAdminPractice();
+});
+$("adminPracticeBatchWrongToggle")?.addEventListener("click",async()=>{
+  if(adminPracticeBatchWrongOnly){
+    adminPracticeBatchWrongOnly=false;
+    renderAdminPractice();
+    return;
+  }
+  if(!adminBatchesLoaded){
+    adminPracticeBatchLoading=true; adminPracticeBatchError=""; renderAdminPractice();
+    try{ await ensureAdminPracticeBatchList(); }
+    catch(e){ console.warn("Question Bank batch list load failed",e); adminPracticeBatchError="Batches could not be loaded. Check your connection and Firestore permissions."; }
+    finally{ adminPracticeBatchLoading=false; renderAdminPractice(); }
+  }
+  if(!adminPracticeBatchId){
+    renderAdminPractice();
+    $("adminPracticeBatchSelect")?.focus();
+    return;
+  }
+  adminPracticeBatchWrongOnly=true;
+  renderAdminPractice();
+  await ensureAdminPracticeBatchData();
+});
 initBatchControls();
 document.querySelectorAll("[data-create-subject]").forEach(btn=>btn.addEventListener("click",()=>{ btn.classList.toggle("on"); btn.setAttribute("aria-pressed",String(btn.classList.contains("on"))); }));
 $("btnCreateBatch")?.addEventListener("click",createBatch);
