@@ -687,6 +687,8 @@ body.question-bank-focus .wrap{padding-top:16px}
 .qz-star:hover{transform:translateY(-1px);border-color:#c8d2ef;box-shadow:var(--shadow-sm)} .qz-star.on{color:#c88712;background:#fff9e8;border-color:#f0d18f}
 .qz-question-label{margin:0 0 8px;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .qz-q{font-family:"Newsreader",serif;font-size:25px;line-height:1.48;letter-spacing:-.012em;white-space:pre-wrap;margin:0 0 22px;color:#10172d;text-wrap:pretty}
+.qz-question-tip{display:flex;align-items:flex-start;gap:8px;margin:-10px 0 20px;padding:10px 12px;border-radius:11px;background:#f5f7fc;border:1px solid #e2e7f2;color:var(--ink-2);font-size:12.6px;line-height:1.45}
+.qz-question-tip strong{color:var(--navy);font-weight:800;white-space:nowrap}
 .qz-answer-label{display:block;margin:0 0 8px;font-size:12px;font-weight:800;color:var(--ink-2)}
 .qz-working{padding:14px;border:1px solid #e1e6f2;border-radius:16px;background:#f7f9fd;margin-bottom:16px}
 .qz-working .qz-answer-label{margin-bottom:7px}
@@ -3668,12 +3670,17 @@ function qzReset(){
    QIDs are treated as OPAQUE and permanent. The topic a question belongs to is
    metadata, not part of its identity, so an admin can move it without orphaning
    anyone's stats. Admin edits live in  content/{subjectId}.overrides  as
-   {qid:{c:"N4", dep:true}} and are layered over the embedded bank at load. */
+   {qid:{c:"N4", dep:true, tip:"Optional helper"}} and are layered over the
+   embedded bank at load. */
+const TIPS = {
+  "N8-08":"Enter as HCF = ???, LCM = ???"
+};
 let qOverrides = {}, QEFF = [];
 function qRebuild(){
   QEFF = QUESTIONS.map(q=>{
     const o = qOverrides[q.i] || {};
-    return {i:q.i, c:o.c||q.c, q:q.q, a:q.a, m:q.m, h:q.h, g:q.g, k:q.k, t:q.t,
+    const tip = typeof o.tip==="string" ? o.tip.trim() : (TIPS[q.i]||"");
+    return {i:q.i, c:o.c||q.c, q:q.q, a:q.a, m:q.m, h:q.h, tip, g:q.g, k:q.k, t:q.t,
             dep:!!o.dep, moved:!!(o.c && o.c!==q.c), home:q.c};
   });
 }
@@ -3694,7 +3701,8 @@ async function qFetchOverrides(){
 }
 async function qSetOverride(qid, patch){
   const o = Object.assign({}, qOverrides[qid]||{}, patch);
-  if(o.c===undefined && !o.dep) delete qOverrides[qid]; else qOverrides[qid]=o;
+  const hasTip=typeof o.tip==="string" && !!o.tip.trim();
+  if(o.c===undefined && !o.dep && !hasTip) delete qOverrides[qid]; else qOverrides[qid]=o;
   qRebuild();
   if(!(fbDb && currentUser)){ showToast("Signed out — change not saved"); return; }
   try{
@@ -3886,12 +3894,33 @@ function _numEq(a, b, expectedRaw){
 
 function _parts(s){
   return normalise(s)
-    .split(/\s+and\s+|\s*[,;]\s*|\s+or\s+/)
+    .split(/\s+and\s+|\s*[,;]\s*|\s+or\s+|\s+(?=(?:hcf|lcm|gcd)\b\s*[:=]?)|\s+(?=[a-z][a-z0-9_]*\s*[:=])/i)
     .map(p => p.trim()).filter(Boolean);
 }
 
 function _stripLabel(s){
-  return s.replace(/^[a-z][a-z0-9_]*\s*=\s*/, '');
+  return s.replace(/^[a-z][a-z0-9_]*\s*[:=]\s*/, '');
+}
+
+function _labelledNumber(s,label){
+  // HCF/LCM answers must keep their labels, using either '=' or ':'.
+  const re=new RegExp('\\b'+label+'\\s*[:=]\\s*(-?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\b','i');
+  const m=String(s == null ? '' : s).match(re);
+  return m ? toNumber(m[1]) : null;
+}
+
+function _checkHcfLcm(userInput,storedAnswer){
+  if(!/\bhcf\b/i.test(String(storedAnswer)) || !/\blcm\b/i.test(String(storedAnswer))) return null;
+  const expectedHcf=_labelledNumber(storedAnswer,'hcf');
+  const expectedLcm=_labelledNumber(storedAnswer,'lcm');
+  if(expectedHcf===null || expectedLcm===null) return null;
+
+  // Match by label rather than position. A comma, whitespace or newline may
+  // separate the two labelled parts, and their order does not change meaning.
+  const userHcf=_labelledNumber(userInput,'hcf');
+  const userLcm=_labelledNumber(userInput,'lcm');
+  if(userHcf===null || userLcm===null) return false;
+  return _numEq(userHcf,expectedHcf,String(expectedHcf)) && _numEq(userLcm,expectedLcm,String(expectedLcm));
 }
 
 function isUnmarkable(expected){
@@ -3981,14 +4010,23 @@ function _checkOne(userInput, storedAnswer, opts){
   if (!out.user)                      { out.via = 'empty-input';  return out; }
   if (isUnmarkable(storedAnswer))     { out.via = 'prose-answer'; return out; }
 
+  const hcfLcmMatch=_checkHcfLcm(userInput,storedAnswer);
+  if(hcfLcmMatch!==null){
+    out.verdict=hcfLcmMatch?'correct':'incorrect';
+    out.via='hcf-lcm';
+    return out;
+  }
+
+  const userTight=_tight(userInput), expectedTight=_tight(storedAnswer);
+  const bothSimpleFractions=/^-?\d+\/\d+$/.test(userTight) && /^-?\d+\/\d+$/.test(expectedTight);
   const un = toNumber(userInput), en = toNumber(storedAnswer);
-  if (un !== null && en !== null){
+  if (!bothSimpleFractions && un !== null && en !== null){
     out.verdict = _numEq(un, en, storedAnswer) ? 'correct' : 'incorrect';
     out.via = 'numeric';
     return out;
   }
 
-  if (_tight(userInput) === _tight(storedAnswer)){
+  if (userTight === expectedTight){
     out.verdict = 'correct'; out.via = 'exact'; return out;
   }
 
@@ -3997,7 +4035,7 @@ function _checkOne(userInput, storedAnswer, opts){
   }
   const ul = toNumber(_stripLabel(_tight(userInput)));
   const el = toNumber(_stripLabel(_tight(storedAnswer)));
-  if (ul !== null && el !== null){
+  if (!bothSimpleFractions && ul !== null && el !== null){
     out.verdict = _numEq(ul, el, storedAnswer) ? 'correct' : 'incorrect';
     out.via = 'numeric-labelled';
     return out;
@@ -4068,7 +4106,7 @@ function qzFeedbackHtml(q){
   if(!fb) return '<div class="qz-feedback" id="qzFeedback" role="status" aria-live="polite"></div>';
   if(fb.kind==="correct") return `<div class="qz-feedback correct show" id="qzFeedback" role="status" aria-live="polite"><strong>Correct</strong>Your answer matches the expected answer. <b>${qzEsc(q.a)}</b></div>`;
   if(fb.kind==="unknown") return `<div class="qz-feedback review show" id="qzFeedback" role="status" aria-live="polite"><strong>Check your answer</strong>This answer needs to be marked by you. Compare yours with: <b>${qzEsc(q.a)}</b><div class="qz-feedback-actions"><button class="btn qz-btn-right" id="qzSelfRight">Mark as correct</button><button class="btn qz-btn-wrong" id="qzSelfWrong">Mark as wrong</button></div></div>`;
-  return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Not quite</strong><div class="qz-flag-prompt">You think your answer was correct?</div><div class="qz-feedback-actions"><button class="btn qz-flag-button" id="qzFlag">Flag the Question</button></div>${qzAnswerRevealAction(q,fb)}</div>`;
+  return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Not quite</strong><div class="qz-flag-prompt">Think the checker was too strict?</div><div class="qz-feedback-actions"><button class="btn qz-btn-right" id="qzManualCorrect">Mark correct anyway</button><button class="btn qz-flag-button" id="qzFlag">Flag the Question</button></div>${qzAnswerRevealAction(q,fb)}</div>`;
 }
 async function qzRecordQuestionStat(q,kind,answer=""){
   // Admin self-practice saves under the admin UID but does not alter the shared student-review counters.
@@ -4221,6 +4259,7 @@ function qzRender(){
       ${qzAdminBar(q)}
       <p class="qz-question-label">Question</p>
       <p class="qz-q">${qzEsc(q.q)}</p>
+      ${q.tip?`<div class="qz-question-tip" role="note"><strong>Tip:</strong><span>${qzEsc(q.tip)}</span></div>`:""}
       <div class="qz-working">
         <label class="qz-answer-label" for="qzWorking">Working</label>
         <textarea class="qz-working-in" id="qzWorking" rows="5" placeholder="Your working / calculations..." autocomplete="off">${qzEsc(qzWorking[q.i]||"")}</textarea>
@@ -4275,10 +4314,11 @@ function qzRender(){
                                 $("qzHintBtn").textContent = h.classList.contains("show")?"Hide hint":"Show hint"; };
   $("qzStar").onclick   = ()=>{ const s=qzState[q.i]||{}; if(s.f) delete s.f; else s.f=1;
                                 qzState[q.i]=s; qzSave(); qzRender(); };
-  const selfRight=$("qzSelfRight"), selfWrong=$("qzSelfWrong"), flag=$("qzFlag"), showAnswer=$("qzShowAnswer");
+  const selfRight=$("qzSelfRight"), selfWrong=$("qzSelfWrong"), manualCorrect=$("qzManualCorrect"), flag=$("qzFlag"), showAnswer=$("qzShowAnswer");
   if(showAnswer) showAnswer.onclick=()=>revealAnswer(q);
   if(selfRight) selfRight.onclick=()=>{ qzTrackQuestionStat(q,"manualCorrect"); delete qzFeedback[q.i]; qzMark(q.i,"c",false); };
   if(selfWrong) selfWrong.onclick=()=>{ qzTrackQuestionStat(q,"manualWrong"); delete qzFeedback[q.i]; qzMark(q.i,"w",false); };
+  if(manualCorrect) manualCorrect.onclick=()=>{ qzTrackQuestionStat(q,"manualCorrect"); delete qzFeedback[q.i]; qzMark(q.i,"c",false); };
   if(flag) flag.onclick=async()=>{
     const previousLabel=flag.textContent;
     flag.disabled=true;
