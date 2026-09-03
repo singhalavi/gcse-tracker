@@ -426,7 +426,9 @@
   background:rgba(255,255,255,.88);border-color:rgba(208,215,239,.82);
   box-shadow:0 8px 24px rgba(20,36,92,.06);backdrop-filter:blur(10px);
 }
-.student-hero{grid-template-columns:minmax(0,1.4fr) minmax(250px,.6fr);gap:14px;margin:0 0 18px}
+.student-hero{grid-template-columns:minmax(0,1.4fr) minmax(250px,.6fr);gap:14px;margin:0 0 18px;align-items:stretch}
+.student-dashboard-layout.has-leaderboard .student-hero{grid-template-columns:minmax(0,1.2fr) minmax(220px,.65fr) minmax(280px,.9fr)}
+#studentLeaderboard[hidden]{display:none!important}
 .welcome-card,.ring-card{border-radius:22px!important;border-color:rgba(208,215,239,.82);box-shadow:0 10px 30px rgba(20,36,92,.07)}
 .welcome-card{padding:24px;background:#fff}
 .welcome-card h2{font-size:29px;line-height:1.08}
@@ -507,25 +509,49 @@
 .xp-track{height:9px;border-radius:999px;background:#e8ecf7;overflow:hidden}
 .xp-track i{display:block;height:100%;width:0;background:var(--navy);border-radius:999px;transition:width .35s ease}
 .xp-mini{display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;background:#fff7df;border:1px solid #ecd38f;color:#765100;font-size:10.5px;font-weight:800;white-space:nowrap}
-.leaderboard-card{margin:0 0 18px;padding:20px;border-radius:22px;background:var(--navy);color:#fff;box-shadow:0 14px 34px rgba(0,36,125,.18)}
-.leaderboard-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px}
-.leaderboard-head h2{margin:0;font-family:"Newsreader",serif;font-size:25px;font-weight:600}
-.leaderboard-head p{margin:4px 0 0;color:rgba(255,255,255,.72);font-size:12.5px}
-.leaderboard-controls{display:flex;gap:8px;flex-wrap:wrap}
-.leaderboard-controls select{min-width:170px;max-width:260px;padding:9px 12px;border:1px solid rgba(255,255,255,.28);border-radius:10px;background:#fff;color:var(--ink);font-size:12.5px;font-weight:700}
-.leaderboard-list{display:grid;gap:7px}
-.leader-row{display:grid;grid-template-columns:34px 38px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13)}
+.leaderboard-card{margin:0 0 12px;padding:14px;border-radius:18px;background:var(--navy);color:#fff;box-shadow:0 10px 26px rgba(0,36,125,.16)}
+.leaderboard-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.leaderboard-head h2{margin:0;font-family:"Newsreader",serif;font-size:22px;font-weight:600}
+.leaderboard-head p{margin:3px 0 0;color:rgba(255,255,255,.72);font-size:11.8px}
+.leaderboard-controls{display:flex;gap:6px;flex-wrap:wrap}
+.leaderboard-controls select{min-width:160px;max-width:250px;padding:7px 10px;border:1px solid rgba(255,255,255,.28);border-radius:9px;background:#fff;color:var(--ink);font-size:11.8px;font-weight:700}
+.leaderboard-list{display:grid;gap:5px}
+.leader-row{display:grid;grid-template-columns:28px 32px minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13)}
 .leader-row.me{background:#fff;color:var(--navy);border-color:#fff;box-shadow:0 7px 18px rgba(0,0,0,.13)}
 .leader-rank{font-weight:800;text-align:center;font-variant-numeric:tabular-nums}
-.leader-avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.16);font-size:11px;font-weight:800;letter-spacing:.03em}
+.leader-avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.16);font-size:10.5px;font-weight:800;letter-spacing:.03em}
 .leader-row.me .leader-avatar{background:var(--navy-50)}
-.leader-name{min-width:0;font-size:13px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.leader-name small{display:block;margin-top:2px;color:rgba(255,255,255,.66);font-size:10.5px;font-weight:600}
+.leader-name{min-width:0;font-size:12.4px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.leader-name small{display:block;margin-top:1px;color:rgba(255,255,255,.66);font-size:10px;font-weight:600}
 .leader-row.me .leader-name small{color:var(--muted)}
-.leader-xp{text-align:right;white-space:nowrap;font-size:13px;font-weight:800}
-.leader-xp small{display:block;margin-top:2px;color:rgba(255,255,255,.66);font-size:10px;font-weight:600}
+.leader-xp{text-align:right;white-space:nowrap;font-size:12.4px;font-weight:800}
+.leader-xp small{display:block;margin-top:1px;color:rgba(255,255,255,.66);font-size:9.6px;font-weight:600}
 .leader-row.me .leader-xp small{color:var(--muted)}
 .leader-empty{padding:18px;text-align:center;color:rgba(255,255,255,.76);border:1px dashed rgba(255,255,255,.25);border-radius:12px;font-size:12.5px}
+.student-dashboard-layout,.student-dashboard-layout.has-leaderboard{display:grid;grid-template-columns:minmax(0,1fr);gap:0;align-items:start}
+.student-main-column{min-width:0}
+#studentLeaderboard{position:static;margin:0;padding:13px;border-radius:22px;box-shadow:0 10px 30px rgba(20,36,92,.09);height:100%;min-width:0;overflow:hidden;display:flex;flex-direction:column}
+#studentLeaderboard .leaderboard-head{display:grid;gap:5px;margin-bottom:7px;flex:0 0 auto}
+#studentLeaderboard .leaderboard-head h2{font-size:18px;line-height:1.1}
+#studentLeaderboard .leaderboard-head p{font-size:10.5px;line-height:1.25;margin-top:2px}
+#studentLeaderboard .leaderboard-controls{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;width:100%}
+#studentLeaderboard .leaderboard-controls select{width:100%;height:32px;min-width:0;max-width:none;padding:5px 8px;border-radius:8px;font-size:12px}
+#studentLeaderboard .leaderboard-list{display:grid;align-content:start;gap:4px;flex:1 1 auto;min-height:0;max-height:300px;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:2px}
+#studentLeaderboard .leader-row{grid-template-columns:28px 28px minmax(0,1fr) auto;gap:6px;padding:8px;border-radius:8px;min-height:42px}
+#studentLeaderboard .leader-rank{width:28px;flex:0 0 28px}
+#studentLeaderboard .leader-avatar{width:28px;height:28px;flex:0 0 28px;font-size:9px}
+#studentLeaderboard .leader-rank,#studentLeaderboard .leader-name,#studentLeaderboard .leader-xp{font-size:10.8px}
+#studentLeaderboard .leader-name{display:flex;align-items:center;gap:4px;min-width:0;overflow:visible;white-space:normal;text-overflow:clip;line-height:1.15}
+#studentLeaderboard .leader-name b{display:-webkit-box;min-width:0;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2;white-space:normal;overflow-wrap:anywhere}
+#studentLeaderboard .leader-level{display:inline-flex;align-items:center;padding:1px 4px;border-radius:999px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.82);font-size:8px;font-weight:800;white-space:nowrap;flex:0 0 auto}
+#studentLeaderboard .leader-row.me .leader-level{background:var(--navy-50);color:var(--navy)}
+#studentLeaderboard .leader-separator{height:9px;display:grid;place-items:center;color:rgba(255,255,255,.56);font-size:12px;line-height:1;letter-spacing:.16em}
+#studentLeaderboard .leader-empty{padding:11px;font-size:11px}
+@media(max-width:900px){
+  .student-dashboard-layout.has-leaderboard .student-hero{grid-template-columns:1fr}
+  #studentLeaderboard{height:auto;max-height:none}
+  #studentLeaderboard .leaderboard-list{max-height:300px}
+}
 .xp-toast{position:fixed;right:18px;top:78px;z-index:100;display:grid;gap:6px;pointer-events:none}
 .xp-toast-item{padding:11px 14px;border-radius:12px;background:#fff7df;color:#5f4300;border:1px solid #e9c969;box-shadow:0 12px 30px rgba(38,31,0,.18);font-size:13px;font-weight:800;animation:xp-pop .24s ease both}
 @keyframes xp-pop{from{opacity:0;transform:translateY(-8px) scale(.96)}to{opacity:1;transform:none}}
@@ -561,8 +587,10 @@ body.batch-focus .toast,body.batch-focus .xp-toast{z-index:150}
 .batch-settings-bottom{display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,280px);gap:16px;align-items:end;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
 .batch-filter-select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);font-size:13px;font-weight:700}
 .batch-filter-select:focus{outline:0;border-color:var(--navy);box-shadow:0 0 0 4px var(--navy-50)}
-.batch-manage-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr);gap:18px;margin-top:18px;align-items:start}
+.batch-manage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px;align-items:start}
 .batch-pane{padding:20px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-sm);min-width:0}
+.batch-leaderboard-pane{position:static;padding:20px}
+.batch-leaderboard-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .batch-pane-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:13px}
 .batch-pane-head h3{margin:0;font-family:"Newsreader",serif;font-size:22px;font-weight:600}
 .batch-pane-head p{margin:4px 0 0;color:var(--muted);font-size:12.3px;line-height:1.45}
@@ -578,11 +606,18 @@ body.batch-focus .toast,body.batch-focus .xp-toast{z-index:150}
 .batch-add-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px;max-height:310px;overflow:auto;padding-right:3px}
 .batch-member-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 11px;border:1px solid var(--line);border-radius:11px;background:#fbfcff;min-width:0}
 .batch-member-row>div{min-width:0}.batch-member-row b{display:block;font-size:12.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.batch-member-row span{display:block;color:var(--muted);font-size:10.8px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.batch-member-row .btn,.batch-roster-row .btn{padding:7px 10px;font-size:11px}
-.admin-leaderboard{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fff}
-.admin-leader-row{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:10px;align-items:center;padding:13px 12px;border-bottom:1px solid var(--line)}
+.admin-leaderboard{border:1px solid var(--line);border-radius:13px;background:#fff;overflow:hidden}
+.admin-leader-row{display:grid;grid-template-columns:30px minmax(130px,.8fr) minmax(210px,1.2fr);gap:12px;align-items:center;padding:13px;border-bottom:1px solid var(--line)}
 .admin-leader-row:first-child{background:var(--navy-50)}
-.admin-leader-row:last-child{border-bottom:0}.admin-leader-row b{font-size:12.8px}.admin-leader-row small{display:block;color:var(--muted);font-size:10.8px;margin-top:2px}.admin-leader-score{text-align:right;font-size:13px;font-weight:800;color:var(--navy)}
-.admin-leader-score small{max-width:290px;white-space:normal;font-weight:600;line-height:1.4}
+.admin-leader-row:last-child{border-bottom:0}
+.admin-leader-row>strong{font-size:12px;text-align:center;font-variant-numeric:tabular-nums;color:var(--navy)}
+.admin-leader-person{min-width:0}
+.admin-leader-person b{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.8px}
+.admin-leader-person span{display:block;margin-top:2px;color:var(--muted);font-size:10.8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.admin-leader-score{min-width:0;color:var(--muted);font-size:10.8px;line-height:1.4}
+.admin-leader-score strong{display:block;margin-bottom:2px;color:var(--navy);font-size:13.5px;white-space:nowrap}
+#adminPractice{display:block}
+#view-admin.is-detail #adminPractice{display:none !important}
 .admin-practice-section{padding:18px;margin:0 0 16px;border-radius:var(--radius-lg)}
 .admin-practice-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
 .admin-practice-head h3{margin:0;font-family:"Newsreader",serif;font-size:23px;font-weight:600}
@@ -649,7 +684,7 @@ body.question-bank-focus .wrap{padding-top:16px}
 @media(max-width:1000px){#adminPracticeStrands{grid-template-columns:repeat(3,minmax(0,1fr))}.question-bank-batch-controls{grid-template-columns:repeat(2,minmax(220px,1fr))}.question-bank-batch-controls .chip,.question-bank-batch-status{grid-column:1/-1}}
 @media(max-width:900px){.batch-create,.batch-detail-top{grid-template-columns:1fr 1fr}.batch-create>.btn,.batch-detail-top>.batch-detail-actions{grid-column:1/-1}.batch-list{grid-template-columns:repeat(2,minmax(0,1fr))}.batch-manage-grid{grid-template-columns:1fr}.batch-add-list{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){#adminPracticeStrands{grid-template-columns:repeat(2,minmax(0,1fr))}.question-bank-batch-controls{grid-template-columns:1fr;align-items:stretch}.question-bank-batch-controls .chip{width:100%;white-space:normal}.question-bank-batch-status{grid-column:auto}.admin-question-topic-head{align-items:flex-start;flex-direction:column}.admin-question-topic-actions{width:100%;justify-content:space-between}.admin-topic-open{min-height:38px;padding:8px 14px}.batch-wrong-row{grid-template-columns:1fr}.batch-wrong-count{justify-self:start}.batch-focus-header-inner{padding:13px 14px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:11px}.batch-focus-header .pill{display:none}.batch-focus-header .btn{padding:8px 10px}.batch-focus-heading h2{font-size:22px}.batch-focus-heading p{display:none}.batch-focus-main{padding:14px 14px 32px}.batch-settings,.batch-pane{padding:15px;border-radius:15px}.batch-settings-bottom,.batch-roster-row{grid-template-columns:1fr}.batch-roster-row .btn{justify-self:start}.batch-add-list{grid-template-columns:1fr}.batch-create,.batch-detail-top,.batch-list{grid-template-columns:1fr}.batch-create>.btn,.batch-detail-top>.batch-detail-actions{grid-column:auto}.batch-detail-actions .btn{flex:1 1 auto;justify-content:center}}
-@media(max-width:560px){#adminPracticeStrands{grid-template-columns:1fr}.admin-practice-section{padding:15px}.leaderboard-card{padding:16px;margin-left:-2px;margin-right:-2px}.leaderboard-controls,.leaderboard-controls select{width:100%;max-width:none}.leader-row{grid-template-columns:28px 34px minmax(0,1fr) auto;padding:9px 8px;gap:7px}.xp-toast{left:14px;right:14px;top:72px}.xp-toast-item{text-align:center}}
+@media(max-width:560px){#adminPracticeStrands{grid-template-columns:1fr}.admin-practice-section{padding:15px}.leaderboard-card{padding:13px;margin-left:-2px;margin-right:-2px}.leaderboard-controls,.leaderboard-controls select{width:100%;max-width:none}.leader-row{grid-template-columns:25px 30px minmax(0,1fr) auto;padding:8px 7px;gap:6px}.admin-leader-row{grid-template-columns:26px minmax(0,1fr);gap:9px;padding:12px}.admin-leader-score{grid-column:2}.xp-toast{left:14px;right:14px;top:72px}.xp-toast-item{text-align:center}}
 @media(prefers-reduced-motion:reduce){.xp-toast-item{animation:none}.xp-track i{transition:none}}
 
 /* == QUIZ:BEGIN == */
@@ -903,6 +938,8 @@ body.question-bank-focus .wrap{padding-top:16px}
     </div>
 
 
+    <div class="student-dashboard-layout">
+      <div class="student-main-column">
     <div class="student-hero">
       <div class="welcome-card">
         <div>
@@ -930,18 +967,18 @@ body.question-bank-focus .wrap{padding-top:16px}
         <div class="hint" id="ringSub" style="margin-top:3px">Topics you have completed</div>
 
       </div>
-    </div>
 
-    <section id="studentLeaderboard" class="leaderboard-card" aria-labelledby="studentLeaderboardTitle" hidden>
-      <div class="leaderboard-head">
-        <div><h2 id="studentLeaderboardTitle">Leaderboard</h2><p id="studentLeaderboardMeta">Ranked within your batch by XP.</p></div>
-        <div class="leaderboard-controls">
-          <select id="studentBatchSelect" aria-label="Choose batch"></select>
-          <select id="studentLeaderboardSubject" aria-label="Filter leaderboard by subject" hidden></select>
+      <aside id="studentLeaderboard" class="leaderboard-card" aria-labelledby="studentLeaderboardTitle" hidden>
+        <div class="leaderboard-head">
+          <div><h2 id="studentLeaderboardTitle">Leaderboard</h2><p id="studentLeaderboardMeta">Ranked within your batch by XP.</p></div>
+          <div class="leaderboard-controls">
+            <select id="studentBatchSelect" aria-label="Choose batch"></select>
+            <select id="studentLeaderboardSubject" aria-label="Filter leaderboard by subject" hidden></select>
+          </div>
         </div>
-      </div>
-      <div id="studentLeaderboardList" class="leaderboard-list"></div>
-    </section>
+        <div id="studentLeaderboardList" class="leaderboard-list"></div>
+      </aside>
+    </div>
 
     <section class="card strand-panel" aria-labelledby="strandPanelTitle">
       <div class="strand-panel-head">
@@ -966,6 +1003,8 @@ body.question-bank-focus .wrap{padding-top:16px}
     </div>
 
     <div id="topicsMount"></div>
+      </div>
+    </div>
   </div>
 
   <!-- ADMIN -->
@@ -1118,10 +1157,16 @@ body.question-bank-focus .wrap{padding-top:16px}
         <div id="adminDetailEmpty" class="empty">Select a student on the left to see their full breakdown and strand progress.</div>
         <div id="adminDetail" style="display:none">
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
-            <button id="btnAdminBack" class="btn" style="padding:7px 12px;border-radius:999px;background:#fff">← Back to class list</button>
+            <button id="btnAdminBack" class="btn btn-primary" style="padding:7px 12px;border-radius:999px">← Back to class list</button>
           </div>
           <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
-            <div><b id="detailName" style="font-size:15px">—</b><div id="detailEmail" class="hint"></div></div>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                <b id="detailName" style="font-size:15px">—</b>
+                <button id="btnEditStudentName" class="btn" type="button" style="padding:6px 10px;font-size:12px">✎ Edit name</button>
+              </div>
+              <div id="detailEmail" class="hint"></div>
+            </div>
             <div style="display:flex;gap:8px;align-items:center"><div class="mini-bar"><i id="detailBar" style="width:0%"></i></div><span id="detailPct" class="pill">0%</span></div>
           </div>
           <div id="adminStrands" class="strands" style="margin-bottom:12px"></div>
@@ -1574,6 +1619,7 @@ let selectedStudentBatchId="";
 let selectedAdminBatchId="";
 let adminBatchSubjectFilter="all";
 let adminBatchWrongFirstOnly=false;
+let adminBatchLeaderboardExpanded=false;
 let adminBatchesLoaded=false;
 let adminClassDataLoaded=false;
 let adminPracticeBatchId="";
@@ -1833,7 +1879,8 @@ async function awardXpForMark(question,result,previous,topicWasComplete){
 
 async function loadStudentBatches(){
   studentBatchesCache=[];
-  if(!(fbDb&&currentUser?.uid&&currentUser.role==="student")){ renderStudentLeaderboard(); return; }
+  renderStudentLeaderboard();
+  if(!(fbDb&&currentUser?.uid&&currentUser.role==="student")) return;
   try{
     const {collection,getDocs,query,where}=await import("firebase/firestore");
     const snap=await getDocs(query(collection(fbDb,"batches"),where("studentUids","array-contains",currentUser.uid)));
@@ -1842,14 +1889,23 @@ async function loadStudentBatches(){
       return {id:d.id,...d.data(),members:memberSnap.docs.map(md=>({uid:md.id,...md.data()}))};
     }));
     if(!studentBatchesCache.some(b=>b.id===selectedStudentBatchId)) selectedStudentBatchId=studentBatchesCache[0]?.id||"";
-    await syncOwnLeaderboardCache();
+    if(studentBatchesCache.length) await syncOwnLeaderboardCache();
+    else renderStudentLeaderboard();
   }catch(e){ console.warn("student batches load failed",e); renderStudentLeaderboard(true); }
 }
 function renderStudentLeaderboard(unavailable=false){
   const card=$("studentLeaderboard"),batchSelect=$("studentBatchSelect"),subjectSelect=$("studentLeaderboardSubject"),list=$("studentLeaderboardList");
   if(!card||!batchSelect||!subjectSelect||!list) return;
-  if(!studentBatchesCache.length){ card.hidden=true; return; }
-  card.hidden=false;
+  const layout=card.closest(".student-dashboard-layout");
+  const hasLeaderboard=studentBatchesCache.length>0;
+  card.hidden=!hasLeaderboard;
+  layout?.classList.toggle("has-leaderboard",hasLeaderboard);
+  if(!hasLeaderboard){
+    list.replaceChildren();
+    batchSelect.replaceChildren();
+    subjectSelect.replaceChildren();
+    return;
+  }
   batchSelect.innerHTML=studentBatchesCache.map(b=>`<option value="${qzEsc(b.id)}">${qzEsc(b.name||"Untitled batch")}</option>`).join("");
   batchSelect.value=selectedStudentBatchId||studentBatchesCache[0].id;
   batchSelect.hidden=studentBatchesCache.length<=1;
@@ -1866,7 +1922,19 @@ function renderStudentLeaderboard(unavailable=false){
   if(unavailable){ list.innerHTML='<div class="leader-empty">Leaderboard is unavailable until the batch rules are published.</div>'; return; }
   const rows=(batch.members||[]).map(m=>({...m,score:xpForSubjects({total:m.xpTotal,bySubject:m.bySubject},subjects,leaderboardSubjectFilter)})).sort((a,b)=>b.score-a.score||(a.publicName||"").localeCompare(b.publicName||""));
   if(!rows.length){ list.innerHTML='<div class="leader-empty">No XP has been recorded for this batch yet.</div>'; return; }
-  list.innerHTML=rows.map((m,i)=>{ const {level}=getLevel(Number(m.xpTotal)||0); return `<div class="leader-row ${m.uid===currentUser?.uid?"me":""}"><div class="leader-rank">${i+1}</div><div class="leader-avatar">${qzEsc(m.initials||studentInitials(m.publicName))}</div><div class="leader-name">${qzEsc(m.publicName||"Student")}${m.uid===currentUser?.uid?" <span>(you)</span>":""}<small>Level ${level}</small></div><div class="leader-xp">${m.score} XP<small>${leaderboardSubjectFilter==="all"?"batch total":(SUBJECTS.find(s=>s.id===leaderboardSubjectFilter)?.shortName||"subject")}</small></div></div>`; }).join("");
+  const myRank=rows.findIndex(m=>m.uid===currentUser?.uid);
+  const visibleRows=rows.length<=5
+    ? rows.map((member,index)=>({member,rank:index+1}))
+    : myRank>=5
+      ? [...rows.slice(0,4).map((member,index)=>({member,rank:index+1})),{separator:true},{member:rows[myRank],rank:myRank+1}]
+      : rows.slice(0,5).map((member,index)=>({member,rank:index+1}));
+  list.innerHTML=visibleRows.map(item=>{
+    if(item.separator) return '<div class="leader-separator" role="separator" aria-label="Ranks skipped">…</div>';
+    const m=item.member;
+    const {level}=getLevel(Number(m.xpTotal)||0);
+    const fullName=m.publicName||"Student";
+    return `<div class="leader-row ${m.uid===currentUser?.uid?"me":""}"><div class="leader-rank">${item.rank}</div><div class="leader-avatar">${qzEsc(m.initials||studentInitials(fullName))}</div><div class="leader-name"><b title="${qzEsc(fullName)}">${qzEsc(fullName)}${m.uid===currentUser?.uid?" (you)":""}</b><span class="leader-level">Lv ${level}</span></div><div class="leader-xp">${m.score} XP</div></div>`;
+  }).join("");
 }
 
 function batchSubjectButtons(selected,mode){
@@ -1916,6 +1984,7 @@ function renderAdminBatches(){
     selectedAdminBatchId=btn.dataset.batchId;
     adminBatchSubjectFilter="all";
     adminBatchWrongFirstOnly=false;
+    adminBatchLeaderboardExpanded=false;
     renderAdminBatches();
     requestAnimationFrame(()=>$("btnCloseBatch")?.focus());
   });
@@ -1994,15 +2063,15 @@ function renderAdminBatches(){
               <div id="batchAvailableList" class="batch-add-list"></div>
             </div>
           </section>
-          <section class="batch-pane" aria-labelledby="batchLeaderboardHeading">
-            <div class="batch-pane-head"><div><h3 id="batchLeaderboardHeading">Leaderboard</h3><p>Ranked by ${qzEsc(filterLabel.toLowerCase())} XP.</p></div></div>
-            <div id="adminBatchLeaderboard" class="admin-leaderboard">${leader.length?leader.map((s,i)=>`<div class="admin-leader-row"><b>${i+1}</b><div><b>${qzEsc(s.displayName||s.email||"Student")}</b><small>${qzEsc(s.email||"")}</small></div><div class="admin-leader-score">${s.score} XP<small>${qzEsc(typeLine(s.byType||{}))}</small></div></div>`).join(""):'<div class="empty">Add students to see this leaderboard.</div>'}</div>
+          <section class="batch-pane batch-leaderboard-pane" aria-labelledby="batchLeaderboardHeading">
+            <div class="batch-pane-head"><div><h3 id="batchLeaderboardHeading">Leaderboard</h3><p>Ranked by ${qzEsc(filterLabel.toLowerCase())} XP, with the full XP breakdown.</p></div><span class="pill">${leader.length} ranked</span></div>
+            <div id="adminBatchLeaderboard" class="admin-leaderboard">${leader.length?leader.map((s,i)=>`<div class="admin-leader-row"><strong>${i+1}</strong><div class="admin-leader-person"><b>${qzEsc(s.displayName||"Student")}</b><span>${qzEsc(s.email||"")}</span></div><div class="admin-leader-score"><strong>${s.score} XP</strong>${qzEsc(typeLine(s.byType||{}))}</div></div>`).join(""):'<div class="empty">Add students to see this leaderboard.</div>'}</div>
           </section>
         </div>
       </main>
     </div>`;
   $("batchWrongFirstToggle").onclick=()=>{ adminBatchWrongFirstOnly=!adminBatchWrongFirstOnly; renderAdminBatches(); requestAnimationFrame(()=>$('batchWrongFirstToggle')?.focus()); };
-  $("batchWrongFirstList")?.querySelectorAll("[data-batch-question]").forEach(button=>button.onclick=()=>{
+  $("batchWrongFirstList")?.querySelectorAll("[data-batch-question]").forEach(button=>button.onclick=()=>{ 
     const question=QEFF.find(item=>item.i===button.dataset.batchQuestion);
     if(question) qzOpen({kind:"topic",id:question.c,questionId:question.i});
   });
@@ -2016,8 +2085,8 @@ function renderAdminBatches(){
   $("batchStudentSearch").oninput=renderAvailable;
   $("batchRosterList").querySelectorAll("[data-batch-member]").forEach(btn=>btn.onclick=()=>toggleBatchMember(batch,btn.dataset.batchMember,false));
   $("batchEditSubjects").querySelectorAll("[data-edit-subject]").forEach(btn=>btn.onclick=()=>{ btn.classList.toggle("on"); btn.setAttribute("aria-pressed",String(btn.classList.contains("on"))); });
-  $("adminBatchSubjectFilter").onchange=e=>{ adminBatchSubjectFilter=e.target.value; renderAdminBatches(); requestAnimationFrame(()=>$("adminBatchSubjectFilter")?.focus()); };
-  $("btnCloseBatch").onclick=()=>{ selectedAdminBatchId=""; adminBatchSubjectFilter="all"; adminBatchWrongFirstOnly=false; renderAdminBatches(); requestAnimationFrame(()=>$("batchList")?.scrollIntoView({block:"nearest"})); };
+  $("adminBatchSubjectFilter").onchange=e=>{ adminBatchSubjectFilter=e.target.value; adminBatchLeaderboardExpanded=false; renderAdminBatches(); requestAnimationFrame(()=>$("adminBatchSubjectFilter")?.focus()); };
+  $("btnCloseBatch").onclick=()=>{ selectedAdminBatchId=""; adminBatchSubjectFilter="all"; adminBatchWrongFirstOnly=false; adminBatchLeaderboardExpanded=false; renderAdminBatches(); requestAnimationFrame(()=>$("batchList")?.scrollIntoView({block:"nearest"})); };
   $("btnSaveBatch").onclick=()=>saveBatchEdits(batch);
   $("btnDeleteBatch").onclick=()=>deleteBatch(batch);
 }
@@ -2189,7 +2258,12 @@ async function afterFirebaseLogin(fbUser){
         uid:fbUser.uid,
         role,
         email:email || source.email || "",
-        displayName:fbUser.displayName || source.displayName || "",
+        // A name stored in Firestore belongs to the teacher, not the identity
+        // provider. Google supplies the initial fallback only when no stored
+        // name exists; an explicitly customised name is always preserved.
+        displayName:source.displayNameCustom===true
+          ? (source.displayName||"")
+          : (source.displayName||fbUser.displayName||""),
         pendingAuthProfile:false,
         lastLoginAt:serverTimestamp()
       };
@@ -2541,7 +2615,7 @@ async function adminLoadAll(){
       const currentProg = progMap[currentSubjectId] || progMap[DEFAULT_SUBJECT_ID] || progFlat || {};
       const hasProgress = Object.keys(progMap).some(subjectId=>Object.keys(progMap[subjectId]||{}).length>0)
         || Object.keys(quizBySubject).some(subjectId=>Object.keys(quizBySubject[subjectId]||{}).length>0);
-      list.push({uid:d.id,email:u.email,displayName:u.displayName,role:u.role,invitedAt:u.invitedAt||null,invitedBy:u.invitedBy||null,lastLoginAt:u.lastLoginAt||null,pendingAuthProfile:!!u.pendingAuthProfile,hasProgress,progress:currentProg,progressBySubject:progMap,progressFlat:progFlat,quizBySubject,xp,streaks,completedTopics});
+      list.push({uid:d.id,email:u.email,displayName:u.displayName,displayNameCustom:u.displayNameCustom===true,role:u.role,invitedAt:u.invitedAt||null,invitedBy:u.invitedBy||null,lastLoginAt:u.lastLoginAt||null,pendingAuthProfile:!!u.pendingAuthProfile,hasProgress,progress:currentProg,progressBySubject:progMap,progressFlat:progFlat,quizBySubject,xp,streaks,completedTopics});
     }
     // A provisional profile may have been created for an Auth account whose UID
     // cannot be looked up from the browser SDK. Once the real UID profile exists,
@@ -3310,6 +3384,86 @@ function renderAdminDetail(s, keepFullscreen=false){
     }, 80);
   }
 }
+
+function qzPromptStudentName(currentName){
+  return new Promise(resolve=>{
+    const overlay=document.createElement("div");
+    overlay.style.cssText="position:fixed;inset:0;z-index:200;background:rgba(0,15,70,.44);display:grid;"+
+      "place-items:center;padding:16px;backdrop-filter:blur(4px)";
+    overlay.innerHTML=`<form id="studentNameForm" style="background:#fff;border:1px solid #e6e9f2;border-radius:16px;padding:18px;max-width:380px;width:100%;box-shadow:0 18px 44px rgba(0,36,125,.22)">
+      <div style="font-weight:700;margin-bottom:4px;color:var(--ink)">Edit student name</div>
+      <div class="hint" style="margin-bottom:12px">This name will stay in place when the student signs in with Google.</div>
+      <div class="field">
+        <label for="studentNameInput">Display name</label>
+        <input id="studentNameInput" type="text" maxlength="80" autocomplete="off" />
+      </div>
+      <div id="studentNameError" class="auth-error" style="margin-top:8px" role="alert"></div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
+        <button id="studentNameCancel" class="btn" type="button">Cancel</button>
+        <button id="studentNameSave" class="btn btn-primary" type="submit">Save name</button>
+      </div>
+    </form>`;
+    document.body.appendChild(overlay);
+    const form=overlay.querySelector("#studentNameForm");
+    const input=overlay.querySelector("#studentNameInput");
+    const error=overlay.querySelector("#studentNameError");
+    input.value=String(currentName||"");
+    input.focus();
+    input.select();
+    const finish=value=>{ overlay.remove(); document.removeEventListener("keydown",onKey); resolve(value); };
+    const onKey=event=>{ if(event.key==="Escape") finish(null); };
+    overlay.querySelector("#studentNameCancel").onclick=()=>finish(null);
+    overlay.addEventListener("click",event=>{ if(event.target===overlay) finish(null); });
+    form.addEventListener("submit",event=>{
+      event.preventDefault();
+      const value=input.value.trim();
+      if(!value){
+        error.textContent="Enter a name before saving.";
+        error.classList.add("show");
+        input.focus();
+        return;
+      }
+      finish(value);
+    });
+    document.addEventListener("keydown",onKey);
+  });
+}
+
+async function editStudentDisplayName(student){
+  if(!student || currentUser?.role!=="admin" || !fbDb) return;
+  const newName=await qzPromptStudentName(student.displayName||"");
+  if(newName===null) return;
+  const button=$("btnEditStudentName");
+  if(button){ button.disabled=true; button.textContent="Saving…"; }
+  try{
+    const {doc,setDoc,serverTimestamp}=await import("firebase/firestore");
+    await setDoc(doc(fbDb,"users",student.uid),{
+      displayName:newName,
+      displayNameCustom:true,
+      displayNameUpdatedAt:serverTimestamp(),
+      displayNameUpdatedBy:currentUser.uid
+    },{merge:true});
+    const index=allStudentsCache.findIndex(item=>item.uid===student.uid);
+    const updatedStudent={...(index>=0?allStudentsCache[index]:student),displayName:newName,displayNameCustom:true};
+    if(index>=0) allStudentsCache[index]=updatedStudent;
+    student.displayName=newName;
+    student.displayNameCustom=true;
+    selectedStudentUid=student.uid;
+    renderAdminList();
+    renderAdminDetail(updatedStudent,true);
+    if(button){ button.disabled=false; button.textContent="✎ Edit name"; }
+    showToast("Name updated");
+  }catch(error){
+    console.error("student name update failed",error);
+    showToast("Could not update name");
+    if(button){ button.disabled=false; button.textContent="✎ Edit name"; }
+  }
+}
+
+$("btnEditStudentName")?.addEventListener("click",()=>{
+  const student=allStudentsCache.find(item=>item.uid===selectedStudentUid);
+  if(student) editStudentDisplayName(student);
+});
 
 const TRACKER_INVITE_URL="https://singhalavi.github.io/gcse-tracker/";
 let latestInvite=null;
