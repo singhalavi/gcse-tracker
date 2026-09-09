@@ -599,7 +599,10 @@ body.batch-focus .toast,body.batch-focus .xp-toast{z-index:150}
 .batch-pane-head p{margin:4px 0 0;color:var(--muted);font-size:12.3px;line-height:1.45}
 .batch-pane-head .pill{font-variant-numeric:tabular-nums}
 .batch-member-list{display:grid;gap:8px;margin-top:10px}
-.batch-roster-row{display:grid;grid-template-columns:minmax(160px,1fr) minmax(250px,1.3fr) auto;gap:14px;align-items:center;padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:#fbfcff}
+.batch-roster-row{display:grid;grid-template-columns:minmax(160px,1fr) minmax(250px,1.3fr) auto;gap:14px;align-items:center;padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:#fbfcff;transition:.14s}
+.batch-roster-row[data-open-student]{cursor:pointer}
+.batch-roster-row[data-open-student]:hover{border-color:var(--navy);background:var(--navy-50);box-shadow:var(--shadow-sm)}
+.batch-roster-row[data-open-student]:focus-visible{outline:3px solid var(--navy-100);outline-offset:2px;border-color:var(--navy)}
 .batch-roster-name{min-width:0}
 .batch-roster-name b{display:block;font-size:13.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .batch-roster-name span{display:block;color:var(--muted);font-size:11px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -1122,7 +1125,7 @@ body.question-bank-focus .wrap{padding-top:16px}
         </section>
 
         <div style="margin-top:18px">
-          <div class="section-label">Students</div>
+          <div class="section-label">Students not in a batch</div>
           <div id="studentsList" class="students-list"></div>
         </div>
 
@@ -1157,7 +1160,7 @@ body.question-bank-focus .wrap{padding-top:16px}
 
       <div class="card panel">
         <div class="detail-kicker">Student detail</div>
-        <div id="adminDetailEmpty" class="empty">Select a student on the left to see their full breakdown and strand progress.</div>
+        <div id="adminDetailEmpty" class="empty">Select a student to see their full breakdown and topic progress.</div>
         <div id="adminDetail" style="display:none">
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
             <button id="btnAdminBack" class="btn btn-primary" style="padding:7px 12px;border-radius:999px">← Back to class list</button>
@@ -1607,6 +1610,7 @@ let fbApp=null, fbAuth=null, fbDb=null;
 let currentUser=null;
 let saveTimer=null;
 let selectedStudentUid=null;
+let adminDetailReturnBatchId="";
 let allStudentsCache=[];
 let questionStatsCache=[];
 let questionStatsLoaded={flagged:false,review:false};
@@ -1961,8 +1965,14 @@ async function loadAdminBatches(){
     if(selectedAdminBatchId&&!adminBatchesCache.some(b=>b.id===selectedAdminBatchId)) selectedAdminBatchId="";
     if(adminPracticeBatchId&&!adminBatchesCache.some(b=>b.id===adminPracticeBatchId)) adminPracticeBatchId="";
     renderAdminBatches();
+    renderAdminList();
     if(adminQuestionBankOpen&&adminQuestionBankLoaded) renderAdminPractice();
-  }catch(e){ adminBatchesLoaded=false; console.warn("batches load failed",e); if($("batchList")) $("batchList").innerHTML='<div class="empty">Batches could not be loaded. Publish the Firestore rules shown in the HTML comment.</div>'; }
+  }catch(e){
+    adminBatchesLoaded=false;
+    console.warn("batches load failed",e);
+    if($("batchList")) $("batchList").innerHTML='<div class="empty">Batches could not be loaded. Publish the Firestore rules shown in the HTML comment.</div>';
+    renderAdminList();
+  }
 }
 function xpByTypeForScope(xp,subjectIds,filter,fallback={}){
   const types={correct:0,topic:0,correctStreak:0,daily3:0,daily7:0};
@@ -2058,8 +2068,8 @@ function renderAdminBatches(){
         </section>
         <div class="batch-manage-grid">
           <section class="batch-pane" aria-labelledby="batchStudentsHeading">
-            <div class="batch-pane-head"><div><h3 id="batchStudentsHeading">Students in this batch</h3><p>Full names and XP earned in ${qzEsc(filterLabel.toLowerCase())}.</p></div><span class="pill">${members.length} student${members.length===1?"":"s"}</span></div>
-            <div id="batchRosterList" class="batch-member-list">${members.length?members.map(s=>`<div class="batch-roster-row"><div class="batch-roster-name"><b>${qzEsc(s.displayName||"Name not provided")}</b><span>${qzEsc(s.email||"")}</span></div><div class="batch-xp-breakdown"><strong>${s.score} XP</strong>${qzEsc(typeLine(s.byType||{}))}</div><button class="btn" data-batch-member="${qzEsc(s.uid)}" data-member-action="remove">Remove</button></div>`).join(""):'<div class="empty">No students are in this batch yet.</div>'}</div>
+            <div class="batch-pane-head"><div><h3 id="batchStudentsHeading">Students in this batch</h3><p>Select a student to view their topic-by-topic progress. XP shown for ${qzEsc(filterLabel.toLowerCase())}.</p></div><span class="pill">${members.length} student${members.length===1?"":"s"}</span></div>
+            <div id="batchRosterList" class="batch-member-list">${members.length?members.map(s=>`<div class="batch-roster-row" data-open-student="${qzEsc(s.uid)}" role="button" tabindex="0" aria-label="Open progress for ${qzEsc(s.displayName||s.email||"student")}"><div class="batch-roster-name"><b>${qzEsc(s.displayName||"Name not provided")}</b><span>${qzEsc(s.email||"")} · Open progress</span></div><div class="batch-xp-breakdown"><strong>${s.score} XP</strong>${qzEsc(typeLine(s.byType||{}))}</div><button class="btn" data-batch-member="${qzEsc(s.uid)}" data-member-action="remove">Remove</button></div>`).join(""):'<div class="empty">No students are in this batch yet.</div>'}</div>
             <div class="batch-add-section">
               <div class="batch-pane-head"><div><h3 style="font-size:19px">Add students</h3><p>Search invited students and add them to this batch.</p></div></div>
               <div class="search" style="max-width:none;min-width:0"><span aria-hidden="true">⌕</span><input id="batchStudentSearch" placeholder="Search by full name or email"></div>
@@ -2086,7 +2096,21 @@ function renderAdminBatches(){
   };
   renderAvailable();
   $("batchStudentSearch").oninput=renderAvailable;
-  $("batchRosterList").querySelectorAll("[data-batch-member]").forEach(btn=>btn.onclick=()=>toggleBatchMember(batch,btn.dataset.batchMember,false));
+  $("batchRosterList").querySelectorAll("[data-open-student]").forEach(row=>{
+    const openStudent=()=>{
+      const student=allStudentsCache.find(item=>item.uid===row.dataset.openStudent);
+      if(!student) return;
+      adminDetailReturnBatchId=batch.id;
+      selectedAdminBatchId="";
+      renderAdminBatches();
+      selectedStudentUid=student.uid;
+      renderAdminList();
+      renderAdminDetail(student);
+    };
+    row.addEventListener("click",event=>{ if(!event.target.closest("[data-member-action]")) openStudent(); });
+    row.addEventListener("keydown",event=>{ if((event.key==="Enter"||event.key===" ")&&!event.target.closest("[data-member-action]")){ event.preventDefault(); openStudent(); } });
+  });
+  $("batchRosterList").querySelectorAll("[data-batch-member]").forEach(btn=>btn.onclick=event=>{ event.stopPropagation(); toggleBatchMember(batch,btn.dataset.batchMember,false); });
   $("batchEditSubjects").querySelectorAll("[data-edit-subject]").forEach(btn=>btn.onclick=()=>{ btn.classList.toggle("on"); btn.setAttribute("aria-pressed",String(btn.classList.contains("on"))); });
   $("adminBatchSubjectFilter").onchange=e=>{ adminBatchSubjectFilter=e.target.value; adminBatchLeaderboardExpanded=false; renderAdminBatches(); requestAnimationFrame(()=>$("adminBatchSubjectFilter")?.focus()); };
   $("btnCloseBatch").onclick=()=>{ selectedAdminBatchId=""; adminBatchSubjectFilter="all"; adminBatchWrongFirstOnly=false; adminBatchLeaderboardExpanded=false; renderAdminBatches(); requestAnimationFrame(()=>$("batchList")?.scrollIntoView({block:"nearest"})); };
@@ -2172,7 +2196,7 @@ async function initFirebase(){
         adminQuestionBankOpen=false; adminQuestionBankLoaded=false; adminQuestionBankLoading=false;
         adminPracticeBatchId=""; adminPracticeBatchWrongOnly=false; adminPracticeTopicFilter="all"; adminPracticeBatchLoading=false; adminPracticeBatchError="";
         adminBatchesLoaded=false; adminClassDataLoaded=false;
-        allStudentsCache=[]; studentBatchesCache=[]; adminBatchesCache=[]; selectedStudentUid=null;
+        allStudentsCache=[]; studentBatchesCache=[]; adminBatchesCache=[]; selectedStudentUid=null; adminDetailReturnBatchId="";
         clearSignedOutUi();
         showView("login",{preserveAuthMessage:!!signedOutMessage});
         if(signedOutMessage) showLoginStatus(signedOutMessage);
@@ -2218,6 +2242,7 @@ async function afterFirebaseLogin(fbUser){
   studentBatchesCache=[];
   adminBatchesCache=[];
   selectedStudentUid=null;
+  adminDetailReturnBatchId="";
   selectedStudentBatchId="";
   selectedAdminBatchId="";
   currentUser=null;
@@ -2743,7 +2768,7 @@ $("btnLogout").addEventListener("click", async ()=>{
   if(qzSaveTimer){ clearTimeout(qzSaveTimer); qzSaveTimer=null; }
   clearQuizCacheForUid(signingOutUid);
   try{ if(fbAuth){ const {signOut}=await import("firebase/auth"); await signOut(fbAuth); } }catch{}
-  currentUser=null; currentProgress={}; selectedStudentUid=null; allProgressBySubject={}; qzBySubject={}; qzReset();
+  currentUser=null; currentProgress={}; selectedStudentUid=null; adminDetailReturnBatchId=""; allProgressBySubject={}; qzBySubject={}; qzReset();
   xpState=cleanXp(null); streakState=cleanStreaks(null); completedXpTopics=[]; revealedQuestions=[]; adminStarterXpGranted=false;
   adminQuestionBankOpen=false; adminQuestionBankLoaded=false; adminQuestionBankLoading=false;
   adminPracticeBatchId=""; adminPracticeBatchWrongOnly=false; adminPracticeTopicFilter="all"; adminPracticeBatchLoading=false; adminPracticeBatchError="";
@@ -2859,6 +2884,7 @@ function renderStudent(){
   allStudentsCache=[];
   adminBatchesCache=[];
   selectedStudentUid=null;
+  adminDetailReturnBatchId="";
   renderXpHeader();
   renderStudentLeaderboard();
   const subj=getCurrentSubject();
@@ -3276,8 +3302,15 @@ function renderAdminPractice(){
 /* Admin rendering */
 function renderAdminList(){
   const list=$("studentsList"); if(!list) return; list.innerHTML="";
-  const studs=allStudentsCache.filter(s=>s.role==="student").sort((a,b)=>(a.displayName||"").localeCompare(b.displayName||""));
-  if(!studs.length){ list.innerHTML=`<div class="empty">No students yet — invite the first student above. They’ll appear here as soon as the invitation is sent.</div>`; return; }
+  if(!adminBatchesLoaded){
+    list.innerHTML='<div class="empty">Loading student batch assignments…</div>';
+    return;
+  }
+  const assignedStudentIds=new Set(adminBatchesCache.flatMap(batch=>Array.isArray(batch.studentUids)?batch.studentUids:[]));
+  const allStudents=allStudentsCache.filter(s=>s.role==="student");
+  const studs=allStudents.filter(s=>!assignedStudentIds.has(s.uid)).sort((a,b)=>(a.displayName||"").localeCompare(b.displayName||""));
+  if(!allStudents.length){ list.innerHTML=`<div class="empty">No students yet — invite the first student above. They’ll appear here as soon as the invitation is sent.</div>`; return; }
+  if(!studs.length){ list.innerHTML='<div class="empty">Every student is currently assigned to a batch.</div>'; return; }
   for(const s of studs){
     const quizState=(s.quizBySubject&&s.quizBySubject[currentSubjectId])||{};
     const score=qzScoreForTopics(TOPICS,quizState);
@@ -3287,7 +3320,13 @@ function renderAdminList(){
     const row=document.createElement("button"); row.type="button"; row.className="student-row"+(selectedStudentUid===s.uid?" active":"");
     row.dataset.uid=s.uid; row.style.width="100%"; row.style.textAlign="left"; row.style.cursor="pointer";
     row.innerHTML=`<div class="student-row-main"><b style="font-size:13.2px">${s.displayName||"Name not provided"}</b><div class="student-row-meta"><span>${s.email}</span><span class="student-status ${hasTrackerActivity?"active":"invited"}">${status}</span><span>• ${score.c}/${score.n} questions completed in ${getCurrentSubject().shortName}</span></div></div><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:${pct}%"></i></div><span class="pill" style="background:var(--navy-50);color:var(--navy);border-color:var(--navy-100)">${pct}%</span></div>`;
-    const activate=()=>{ selectedStudentUid=s.uid; document.querySelectorAll(".student-row").forEach(r=>r.classList.remove("active")); row.classList.add("active"); renderAdminDetail(s); };
+    const activate=()=>{
+      adminDetailReturnBatchId="";
+      selectedStudentUid=s.uid;
+      document.querySelectorAll(".student-row").forEach(r=>r.classList.remove("active"));
+      row.classList.add("active");
+      renderAdminDetail(s);
+    };
     row.addEventListener("click", activate);
     list.appendChild(row);
   }
@@ -3376,9 +3415,15 @@ function renderAdminDetail(s, keepFullscreen=false){
   }
 
   const backBtn=$("btnAdminBack");
+  if(backBtn){
+    const returnBatch=adminBatchesCache.find(batch=>batch.id===adminDetailReturnBatchId);
+    backBtn.textContent=returnBatch?`← Back to ${returnBatch.name||"batch"}`:"← Back to class list";
+  }
   if(backBtn && !backBtn._bound){
     backBtn._bound=true;
     backBtn.addEventListener("click", ()=>{
+      const returnBatchId=adminDetailReturnBatchId;
+      adminDetailReturnBatchId="";
       if(viewAdmin) viewAdmin.classList.remove("is-detail");
       adminFilters={strand:"all", q:"", rag:null, todo:false};
       if($("adminSearch")) $("adminSearch").value="";
@@ -3386,7 +3431,13 @@ function renderAdminDetail(s, keepFullscreen=false){
       if(detailEl) detailEl.style.display="none";
       if(emptyEl) emptyEl.style.display="block";
       document.querySelectorAll(".student-row").forEach(r=>r.classList.remove("active"));
-      window.scrollTo({top:0, behavior:"smooth"});
+      if(returnBatchId && adminBatchesCache.some(batch=>batch.id===returnBatchId)){
+        selectedAdminBatchId=returnBatchId;
+        renderAdminBatches();
+        requestAnimationFrame(()=>$('btnCloseBatch')?.focus());
+      }else{
+        window.scrollTo({top:0, behavior:"smooth"});
+      }
     });
   }
   const aSearch=$("adminSearch");
