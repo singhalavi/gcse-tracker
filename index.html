@@ -2946,7 +2946,16 @@ function renderStudent(){
     if(sb) sb.addEventListener("click",(e)=>{ e.stopPropagation(); qzOpen({kind:"strand", id:s}); });
     const list=document.createElement("div"); list.className="topics";
     for(const t of topics){
-      const completed=qzTopicComplete(qzTopicScore(t.id));
+      const topicScore=qzTopicScore(t.id) || {c:0,w:0,fw:0,u:0,n:0};
+      const completed=qzTopicComplete(topicScore);
+      const attempted=topicScore.c+topicScore.w;
+      const studentStats=attempted>0 ? `
+            <div class="admin-topic-stats student-topic-stats" aria-label="${topicScore.c} of ${topicScore.n} completed; ${attempted} attempted; ${topicScore.w} currently wrong; ${topicScore.fw} wrong first time; ${topicScore.u} not attempted">
+              <span><b>${topicScore.c}/${topicScore.n}</b> completed</span><span class="sep">•</span>
+              <span>${attempted} attempted (${topicScore.c} right, <span class="wrong">${topicScore.w} wrong</span>)</span>
+              ${topicScore.fw>0?`<span class="sep">•</span><span class="firstwrong-pill">${topicScore.fw} wrong first time</span>`:""}
+              ${topicScore.u>0?`<span class="sep">•</span><span class="unattempted">${topicScore.u} not attempted</span>`:""}
+            </div>` : "";
       const el=document.createElement("div");
       el.className="topic"+(completed?" is-green":"");
       el.dataset.id=t.id;
@@ -2956,6 +2965,7 @@ function renderStudent(){
           <div class="topic-main">
             <p class="topic-title">${t.title}</p>
             <div class="topic-meta">${t.exam}</div>
+            ${studentStats}
           </div>
         </div>
         <div class="topic-actions">
