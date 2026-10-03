@@ -51,7 +51,7 @@
    },
    {
     "mark": 1,
-    "point": "Q = 0.25 \u00d7 240"
+    "point": "Q = 0.25 × 240"
    },
    {
     "mark": 1,
@@ -126,7 +126,7 @@
   "expr": "V/I",
   "answer": {
    "value": 15.0,
-   "unit": "\u03a9",
+   "unit": "Ω",
    "sig_figs": 2,
    "tolerance": 0.01,
    "computed": 15.0
@@ -142,7 +142,7 @@
    },
    {
     "mark": 1,
-    "point": "15 \u03a9"
+    "point": "15 Ω"
    }
   ],
   "triple_only": false,
@@ -237,7 +237,7 @@
   "marks": 2,
   "command": "Describe",
   "type": "short",
-  "stem": "Describe the shape of the current\u2013potential difference graph for an ohmic conductor at constant temperature, and state what it shows.",
+  "stem": "Describe the shape of the current–potential difference graph for an ohmic conductor at constant temperature, and state what it shows.",
   "marking": [
    {
     "mark": 1,
@@ -261,7 +261,7 @@
   "command": "Explain",
   "type": "extended",
   "required_practical": 4,
-  "stem": "Explain the shape of the current\u2013potential difference graph for a filament lamp.",
+  "stem": "Explain the shape of the current–potential difference graph for a filament lamp.",
   "marking": [
    {
     "mark": 1,
@@ -335,7 +335,7 @@
   "marks": 3,
   "command": "Calculate",
   "type": "numeric",
-  "stem": "Three resistors of 12 \u03a9, 18 \u03a9 and 20 \u03a9 are connected in series. Calculate the total resistance of the circuit.",
+  "stem": "Three resistors of 12 Ω, 18 Ω and 20 Ω are connected in series. Calculate the total resistance of the circuit.",
   "given": {
    "r1": 12,
    "r2": 18,
@@ -345,7 +345,7 @@
   "expr": "r1+r2+r3",
   "answer": {
    "value": 50.0,
-   "unit": "\u03a9",
+   "unit": "Ω",
    "sig_figs": 2,
    "tolerance": 0.01,
    "computed": 50
@@ -361,7 +361,7 @@
    },
    {
     "mark": 1,
-    "point": "50 \u03a9"
+    "point": "50 Ω"
    }
   ],
   "triple_only": false,
@@ -413,7 +413,7 @@
     "point": "Since R = V / I, a larger current at the same p.d. means a smaller total resistance"
    }
   ],
-  "answer_text": "A second parallel resistor creates an extra route for charge to flow, so more current is drawn from the supply for the same potential difference. Since R = V / I, a bigger current at unchanged p.d. means the total resistance has fallen \u2014 it is always less than the smallest individual resistance.",
+  "answer_text": "A second parallel resistor creates an extra route for charge to flow, so more current is drawn from the supply for the same potential difference. Since R = V / I, a bigger current at unchanged p.d. means the total resistance has fallen — it is always less than the smallest individual resistance.",
   "triple_only": false,
   "required_practical": null
  },
@@ -565,7 +565,7 @@
    },
    {
     "mark": 1,
-    "point": "P = 230 \u00d7 8.0"
+    "point": "P = 230 × 8.0"
    },
    {
     "mark": 1,
@@ -583,12 +583,12 @@
   "marks": 3,
   "command": "Calculate",
   "type": "numeric",
-  "stem": "A current of 3.0 A flows through a 25 \u03a9 resistor. Calculate the power dissipated.",
+  "stem": "A current of 3.0 A flows through a 25 Ω resistor. Calculate the power dissipated.",
   "given": {
    "I": 3.0,
    "R": 25
   },
-  "equation": "P = I\u00b2 R",
+  "equation": "P = I² R",
   "expr": "I**2*R",
   "answer": {
    "value": 225.0,
@@ -600,11 +600,11 @@
   "marking": [
    {
     "mark": 1,
-    "point": "P = I\u00b2 R"
+    "point": "P = I² R"
    },
    {
     "mark": 1,
-    "point": "P = 3.0\u00b2 \u00d7 25"
+    "point": "P = 3.0² × 25"
    },
    {
     "mark": 1,
@@ -643,7 +643,7 @@
    },
    {
     "mark": 1,
-    "point": "E = 1500 \u00d7 12"
+    "point": "E = 1500 × 12"
    },
    {
     "mark": 1,
@@ -715,7 +715,7 @@
    },
    {
     "mark": 1,
-    "point": "Energy is dissipated in the cables at a rate given by P = I\u00b2 R"
+    "point": "Energy is dissipated in the cables at a rate given by P = I² R"
    },
    {
     "mark": 1,
@@ -726,7 +726,7 @@
     "point": "so the transmission is more efficient / less energy is wasted as heating"
    }
   ],
-  "answer_text": "The power delivered is P = V I, so transmitting at a very high potential difference means the current can be small. The power wasted heating the cables is P = I\u00b2 R, which depends on the square of the current, so cutting the current sharply reduces the losses. Transmission is therefore far more efficient.",
+  "answer_text": "The power delivered is P = V I, so transmitting at a very high potential difference means the current can be small. The power wasted heating the cables is P = I² R, which depends on the square of the current, so cutting the current sharply reduces the losses. Transmission is therefore far more efficient.",
   "triple_only": false,
   "required_practical": null
  },
@@ -955,7 +955,7 @@
     "point": "The net change in the total energy of a closed system is always zero"
    }
   ],
-  "answer_text": "A closed system is one in which no energy transfers into or out of the system. The net change in its total energy is always zero \u2014 energy is only redistributed between stores.",
+  "answer_text": "A closed system is one in which no energy transfers into or out of the system. The net change in its total energy is always zero — energy is only redistributed between stores.",
   "triple_only": false,
   "required_practical": null
  },
@@ -995,7 +995,7 @@
    "m": 62,
    "v": 8.0
   },
-  "equation": "Ek = 0.5 m v\u00b2",
+  "equation": "Ek = 0.5 m v²",
   "expr": "0.5*m*v**2",
   "answer": {
    "value": 1984.0,
@@ -1007,7 +1007,7 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Ek = 0.5 \u00d7 62 \u00d7 8.0\u00b2"
+    "point": "Ek = 0.5 × 62 × 8.0²"
    },
    {
     "mark": 1,
@@ -1047,11 +1047,11 @@
    },
    {
     "mark": 1,
-    "point": "Ep = 450 \u00d7 9.8 \u00d7 12"
+    "point": "Ep = 450 × 9.8 × 12"
    },
    {
     "mark": 1,
-    "point": "52 920 J (allow 52 900 J or 5.3 \u00d7 10\u2074 J)"
+    "point": "52 920 J (allow 52 900 J or 5.3 × 10⁴ J)"
    }
   ],
   "triple_only": false,
@@ -1070,7 +1070,7 @@
    "k": 250,
    "e": 0.08
   },
-  "equation": "Ee = 0.5 k e\u00b2",
+  "equation": "Ee = 0.5 k e²",
   "expr": "0.5*k*e**2",
   "answer": {
    "value": 0.8,
@@ -1082,11 +1082,11 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Ee = 0.5 k e\u00b2"
+    "point": "Ee = 0.5 k e²"
    },
    {
     "mark": 1,
-    "point": "Ee = 0.5 \u00d7 250 \u00d7 0.080\u00b2"
+    "point": "Ee = 0.5 × 250 × 0.080²"
    },
    {
     "mark": 1,
@@ -1112,18 +1112,18 @@
    },
    {
     "mark": 1,
-    "point": "m g h = 0.5 m v\u00b2"
+    "point": "m g h = 0.5 m v²"
    },
    {
     "mark": 1,
-    "point": "The mass cancels, giving v\u00b2 = 2 g h"
+    "point": "The mass cancels, giving v² = 2 g h"
    },
    {
     "mark": 1,
-    "point": "so v = \u221a(2 g h) \u2014 the speed does not depend on the mass"
+    "point": "so v = √(2 g h) — the speed does not depend on the mass"
    }
   ],
-  "answer_text": "With no air resistance the system is closed, so all the gravitational potential energy lost becomes kinetic energy: m g h = \u00bd m v\u00b2. The mass cancels from both sides, leaving v\u00b2 = 2gh, so v = \u221a(2gh). Notably the landing speed does not depend on the mass of the ball.",
+  "answer_text": "With no air resistance the system is closed, so all the gravitational potential energy lost becomes kinetic energy: m g h = ½ m v². The mass cancels from both sides, leaving v² = 2gh, so v = √(2gh). Notably the landing speed does not depend on the mass of the ball.",
   "triple_only": false,
   "required_practical": null
  },
@@ -1158,13 +1158,13 @@
   "marks": 3,
   "command": "Calculate",
   "type": "numeric",
-  "stem": "A 0.35 kg block of aluminium is heated from 18 \u00b0C to 58 \u00b0C. The specific heat capacity of aluminium is 900 J/kg \u00b0C. Calculate the energy transferred to the block.",
+  "stem": "A 0.35 kg block of aluminium is heated from 18 °C to 58 °C. The specific heat capacity of aluminium is 900 J/kg °C. Calculate the energy transferred to the block.",
   "given": {
    "m": 0.35,
    "c": 900,
    "dt": 40
   },
-  "equation": "\u0394E = m c \u0394\u03b8",
+  "equation": "ΔE = m c Δθ",
   "expr": "m*c*dt",
   "answer": {
    "value": 12600.0,
@@ -1176,11 +1176,11 @@
   "marking": [
    {
     "mark": 1,
-    "point": "\u0394\u03b8 = 58 \u2212 18 = 40 \u00b0C"
+    "point": "Δθ = 58 − 18 = 40 °C"
    },
    {
     "mark": 1,
-    "point": "\u0394E = 0.35 \u00d7 900 \u00d7 40"
+    "point": "ΔE = 0.35 × 900 × 40"
    },
    {
     "mark": 1,
@@ -1198,17 +1198,17 @@
   "marks": 4,
   "command": "Determine",
   "type": "numeric",
-  "stem": "In an experiment, 18 000 J of energy is transferred to a 1.5 kg metal block. The temperature of the block rises by 30 \u00b0C. Determine the specific heat capacity of the metal.",
+  "stem": "In an experiment, 18 000 J of energy is transferred to a 1.5 kg metal block. The temperature of the block rises by 30 °C. Determine the specific heat capacity of the metal.",
   "given": {
    "E": 18000,
    "m": 1.5,
    "dt": 30
   },
-  "equation": "\u0394E = m c \u0394\u03b8,  so c = \u0394E / (m \u0394\u03b8)",
+  "equation": "ΔE = m c Δθ,  so c = ΔE / (m Δθ)",
   "expr": "E/(m*dt)",
   "answer": {
    "value": 400.0,
-   "unit": "J/kg \u00b0C",
+   "unit": "J/kg °C",
    "sig_figs": 3,
    "tolerance": 0.01,
    "computed": 400.0
@@ -1216,11 +1216,11 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Rearranges to c = \u0394E / (m \u0394\u03b8)"
+    "point": "Rearranges to c = ΔE / (m Δθ)"
    },
    {
     "mark": 1,
-    "point": "c = 18 000 / (1.5 \u00d7 30)"
+    "point": "c = 18 000 / (1.5 × 30)"
    },
    {
     "mark": 1,
@@ -1228,7 +1228,7 @@
    },
    {
     "mark": 1,
-    "point": "400 J/kg \u00b0C"
+    "point": "400 J/kg °C"
    }
   ],
   "triple_only": false,
@@ -1255,10 +1255,10 @@
    },
    {
     "mark": 1,
-    "point": "Since c = \u0394E / (m \u0394\u03b8), too large an \u0394E gives too large a value of c"
+    "point": "Since c = ΔE / (m Δθ), too large an ΔE gives too large a value of c"
    }
   ],
-  "answer_text": "Some of the energy supplied is transferred to the surroundings rather than to the block, so the energy recorded is larger than the energy that actually raised the block's temperature. Because c = \u0394E / (m \u0394\u03b8), an \u0394E that is too large gives a specific heat capacity that is too high. Insulating the block reduces this.",
+  "answer_text": "Some of the energy supplied is transferred to the surroundings rather than to the block, so the energy recorded is larger than the energy that actually raised the block's temperature. Because c = ΔE / (m Δθ), an ΔE that is too large gives a specific heat capacity that is too high. Insulating the block reduces this.",
   "triple_only": false
  },
  {
@@ -1407,7 +1407,7 @@
     "point": "It is spread out and becomes less useful, though it is not destroyed"
    }
   ],
-  "answer_text": "Dissipated energy is energy transferred to stores that are not useful \u2014 usually the thermal store of the surroundings. It is not destroyed, but it becomes spread out and can no longer be used usefully.",
+  "answer_text": "Dissipated energy is energy transferred to stores that are not useful — usually the thermal store of the surroundings. It is not destroyed, but it becomes spread out and can no longer be used usefully.",
   "triple_only": false,
   "required_practical": null
  },
@@ -1556,11 +1556,11 @@
   "marking": [
    {
     "mark": 1,
-    "point": "useful power output = efficiency \u00d7 total power input"
+    "point": "useful power output = efficiency × total power input"
    },
    {
     "mark": 1,
-    "point": "= 0.15 \u00d7 60"
+    "point": "= 0.15 × 60"
    },
    {
     "mark": 1,
@@ -1618,7 +1618,7 @@
     "point": "For a lamp the useful output is light, but most of the energy is transferred to thermal stores instead, which is wasted"
    }
   ],
-  "answer_text": "In a kettle the useful output is the thermal energy of the water, and nearly all the electrical input ends up there \u2014 only a little escapes to the kettle body and surroundings. In a filament lamp the useful output is light, but the filament transfers most of its energy to thermal stores, so only a small fraction of the input becomes light.",
+  "answer_text": "In a kettle the useful output is the thermal energy of the water, and nearly all the electrical input ends up there — only a little escapes to the kettle body and surroundings. In a filament lamp the useful output is light, but the filament transfers most of its energy to thermal stores, so only a small fraction of the input becomes light.",
   "triple_only": false,
   "required_practical": null
  },
@@ -1641,7 +1641,7 @@
     "point": "A non-renewable resource is finite and will eventually run out"
    }
   ],
-  "answer_text": "A renewable energy resource is one that is replenished as fast as it is used, so it will not run out. A non-renewable resource is finite \u2014 once used it cannot be replaced on a human timescale.",
+  "answer_text": "A renewable energy resource is one that is replenished as fast as it is used, so it will not run out. A non-renewable resource is finite — once used it cannot be replaced on a human timescale.",
   "triple_only": false,
   "required_practical": null
  },
@@ -1690,7 +1690,7 @@
    },
    {
     "mark": 1,
-    "point": "Disadvantage: unreliable \u2014 output depends on the wind"
+    "point": "Disadvantage: unreliable — output depends on the wind"
    },
    {
     "mark": 1,
@@ -1795,7 +1795,7 @@
     "point": "Speed uses total distance travelled, which is the full length of the track and is not zero"
    }
   ],
-  "answer_text": "Average velocity uses displacement \u2014 the straight-line distance and direction from start to finish \u2014 which is zero because the car returns to its starting point. Average speed uses the total distance travelled, the whole circumference, which is definitely not zero.",
+  "answer_text": "Average velocity uses displacement — the straight-line distance and direction from start to finish — which is zero because the car returns to its starting point. Average speed uses the total distance travelled, the whole circumference, which is definitely not zero.",
   "triple_only": false,
   "required_practical": null
  },
@@ -1897,7 +1897,7 @@
    },
    {
     "mark": 1,
-    "point": "W = 25 \u00d7 9.8"
+    "point": "W = 25 × 9.8"
    },
    {
     "mark": 1,
@@ -1943,7 +1943,7 @@
    "F": 85,
    "f": 32
   },
-  "equation": "resultant = forward force \u2212 opposing force",
+  "equation": "resultant = forward force − opposing force",
   "expr": "F-f",
   "answer": {
    "value": 53.0,
@@ -1959,7 +1959,7 @@
    },
    {
     "mark": 1,
-    "point": "85 \u2212 32 = 53 N to the right"
+    "point": "85 − 32 = 53 N to the right"
    }
   ],
   "triple_only": false,
@@ -2001,7 +2001,7 @@
    "a": 6.0,
    "b": 8.0
   },
-  "equation": "resultant\u00b2 = a\u00b2 + b\u00b2  (Pythagoras)",
+  "equation": "resultant² = a² + b²  (Pythagoras)",
   "expr": "(a**2+b**2)**0.5",
   "answer": {
    "value": 10.0,
@@ -2017,7 +2017,7 @@
    },
    {
     "mark": 1,
-    "point": "R\u00b2 = 6.0\u00b2 + 8.0\u00b2 = 36 + 64 = 100"
+    "point": "R² = 6.0² + 8.0² = 36 + 64 = 100"
    },
    {
     "mark": 1,
@@ -2083,7 +2083,7 @@
    },
    {
     "mark": 1,
-    "point": "W = 240 \u00d7 6.5"
+    "point": "W = 240 × 6.5"
    },
    {
     "mark": 1,
@@ -2167,7 +2167,7 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Work done = force \u00d7 distance moved in the direction of the force"
+    "point": "Work done = force × distance moved in the direction of the force"
    },
    {
     "mark": 1,
@@ -2236,7 +2236,7 @@
     "point": "In inelastic deformation the object does not return to its original shape / is permanently changed"
    }
   ],
-  "answer_text": "In elastic deformation the object returns to its original shape and length once the forces are removed. In inelastic deformation it does not \u2014 the change of shape is permanent.",
+  "answer_text": "In elastic deformation the object returns to its original shape and length once the forces are removed. In inelastic deformation it does not — the change of shape is permanent.",
   "triple_only": false,
   "required_practical": null
  },
@@ -2261,7 +2261,7 @@
    },
    {
     "mark": 1,
-    "point": "Extension = new length \u2212 original length for each added weight"
+    "point": "Extension = new length − original length for each added weight"
    },
    {
     "mark": 1,
@@ -2279,7 +2279,7 @@
   "marks": 3,
   "command": "Explain",
   "type": "extended",
-  "stem": "A force\u2013extension graph for a spring is a straight line at first but then curves. Explain what the curved part shows.",
+  "stem": "A force–extension graph for a spring is a straight line at first but then curves. Explain what the curved part shows.",
   "marking": [
    {
     "mark": 1,
@@ -2294,7 +2294,7 @@
     "point": "Beyond it the spring extends more for each extra newton, and the deformation may become inelastic so the spring does not return to its original length"
    }
   ],
-  "answer_text": "The straight section shows that extension is directly proportional to force, so F = k e applies. Where the line begins to bend is the limit of proportionality. Beyond that point each extra newton produces a greater extension than before, and the spring may be permanently stretched \u2014 inelastic deformation \u2014 so it will not return to its original length.",
+  "answer_text": "The straight section shows that extension is directly proportional to force, so F = k e applies. Where the line begins to bend is the limit of proportionality. Beyond that point each extra newton produces a greater extension than before, and the spring may be permanently stretched — inelastic deformation — so it will not return to its original length.",
   "triple_only": false,
   "required_practical": null
  },
@@ -2328,7 +2328,7 @@
    },
    {
     "mark": 1,
-    "point": "M = 45 \u00d7 0.24"
+    "point": "M = 45 × 0.24"
    },
    {
     "mark": 1,
@@ -2368,7 +2368,7 @@
    },
    {
     "mark": 1,
-    "point": "d2 = (30 \u00d7 0.80) / 48"
+    "point": "d2 = (30 × 0.80) / 48"
    },
    {
     "mark": 1,
@@ -2390,7 +2390,7 @@
   "marking": [
    {
     "mark": 1,
-    "point": "The moment equals force \u00d7 perpendicular distance from the pivot"
+    "point": "The moment equals force × perpendicular distance from the pivot"
    },
    {
     "mark": 1,
@@ -2421,7 +2421,7 @@
    },
    {
     "mark": 1,
-    "point": "The larger gear turns more slowly than the small one \u2014 the increase in moment comes at the cost of rotational speed"
+    "point": "The larger gear turns more slowly than the small one — the increase in moment comes at the cost of rotational speed"
    }
   ],
   "answer_text": "Because the larger gear has a bigger radius, the force transmitted at the teeth acts at a greater distance from its centre of rotation, producing a larger moment. The trade-off is speed: the large gear completes fewer turns than the small one in the same time, so it rotates more slowly.",
@@ -2436,7 +2436,7 @@
   "command": "Calculate",
   "type": "numeric",
   "triple_only": true,
-  "stem": "A force of 600 N acts normally on a surface of area 0.25 m\u00b2. Calculate the pressure exerted on the surface.",
+  "stem": "A force of 600 N acts normally on a surface of area 0.25 m². Calculate the pressure exerted on the surface.",
   "given": {
    "F": 600,
    "A": 0.25
@@ -2475,13 +2475,13 @@
   "command": "Calculate",
   "type": "numeric",
   "triple_only": true,
-  "stem": "Calculate the pressure due to a column of seawater 15 m deep. The density of seawater is 1030 kg/m\u00b3 and g = 9.8 N/kg.",
+  "stem": "Calculate the pressure due to a column of seawater 15 m deep. The density of seawater is 1030 kg/m³ and g = 9.8 N/kg.",
   "given": {
    "h": 15,
    "rho": 1030,
    "g": 9.8
   },
-  "equation": "p = h \u03c1 g",
+  "equation": "p = h ρ g",
   "expr": "h*rho*g",
   "answer": {
    "value": 151410.0,
@@ -2493,15 +2493,15 @@
   "marking": [
    {
     "mark": 1,
-    "point": "p = h \u03c1 g"
+    "point": "p = h ρ g"
    },
    {
     "mark": 1,
-    "point": "p = 15 \u00d7 1030 \u00d7 9.8"
+    "point": "p = 15 × 1030 × 9.8"
    },
    {
     "mark": 1,
-    "point": "151 410 Pa (accept 1.5 \u00d7 10\u2075 Pa)"
+    "point": "151 410 Pa (accept 1.5 × 10⁵ Pa)"
    }
   ],
   "required_practical": null
@@ -2736,11 +2736,11 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Distance is a scalar \u2014 how far an object has travelled in total, with no direction"
+    "point": "Distance is a scalar — how far an object has travelled in total, with no direction"
    },
    {
     "mark": 1,
-    "point": "Displacement is a vector \u2014 the straight-line distance and direction from start to finish"
+    "point": "Displacement is a vector — the straight-line distance and direction from start to finish"
    }
   ],
   "answer_text": "Distance is a scalar: the total length of path travelled, with no direction. Displacement is a vector: the straight-line distance from the starting point to the finishing point, together with the direction.",
@@ -2796,7 +2796,7 @@
   "marks": 2,
   "command": "State",
   "type": "short",
-  "stem": "State what the gradient of a distance\u2013time graph represents, and what a horizontal line on such a graph shows.",
+  "stem": "State what the gradient of a distance–time graph represents, and what a horizontal line on such a graph shows.",
   "marking": [
    {
     "mark": 1,
@@ -2807,7 +2807,7 @@
     "point": "A horizontal line shows the object is stationary"
    }
   ],
-  "answer_text": "The gradient of a distance\u2013time graph gives the speed. A horizontal line has zero gradient, so it shows the object is stationary.",
+  "answer_text": "The gradient of a distance–time graph gives the speed. A horizontal line has zero gradient, so it shows the object is stationary.",
   "triple_only": false,
   "required_practical": null
  },
@@ -2819,7 +2819,7 @@
   "marks": 2,
   "command": "State",
   "type": "short",
-  "stem": "State what the gradient of a velocity\u2013time graph represents, and what the area under the line represents.",
+  "stem": "State what the gradient of a velocity–time graph represents, and what the area under the line represents.",
   "marking": [
    {
     "mark": 1,
@@ -2830,7 +2830,7 @@
     "point": "The area under the line represents the distance travelled"
    }
   ],
-  "answer_text": "The gradient of a velocity\u2013time graph gives the acceleration. The area under the line gives the distance travelled.",
+  "answer_text": "The gradient of a velocity–time graph gives the acceleration. The area under the line gives the distance travelled.",
   "triple_only": false,
   "required_practical": null
  },
@@ -2842,13 +2842,13 @@
   "marks": 3,
   "command": "Calculate",
   "type": "numeric",
-  "stem": "On a velocity\u2013time graph, an object accelerates uniformly from rest to 18 m/s in 12 s, then travels at 18 m/s for a further 20 s. Calculate the total distance travelled.",
+  "stem": "On a velocity–time graph, an object accelerates uniformly from rest to 18 m/s in 12 s, then travels at 18 m/s for a further 20 s. Calculate the total distance travelled.",
   "given": {
    "v": 18,
    "t1": 12,
    "t2": 20
   },
-  "equation": "distance = area under the graph = \u00bd \u00d7 base \u00d7 height + base \u00d7 height",
+  "equation": "distance = area under the graph = ½ × base × height + base × height",
   "expr": "0.5*v*t1 + v*t2",
   "answer": {
    "value": 468.0,
@@ -2860,11 +2860,11 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Area of triangle = \u00bd \u00d7 12 \u00d7 18 = 108 m"
+    "point": "Area of triangle = ½ × 12 × 18 = 108 m"
    },
    {
     "mark": 1,
-    "point": "Area of rectangle = 18 \u00d7 20 = 360 m"
+    "point": "Area of rectangle = 18 × 20 = 360 m"
    },
    {
     "mark": 1,
@@ -2882,7 +2882,7 @@
   "marks": 3,
   "command": "Describe",
   "type": "extended",
-  "stem": "Describe how you would find the speed of an object at a particular moment from a curved distance\u2013time graph.",
+  "stem": "Describe how you would find the speed of an object at a particular moment from a curved distance–time graph.",
   "marking": [
    {
     "mark": 1,
@@ -2894,7 +2894,7 @@
    },
    {
     "mark": 1,
-    "point": "The speed is the gradient of the tangent = change in distance \u00f7 change in time"
+    "point": "The speed is the gradient of the tangent = change in distance ÷ change in time"
    }
   ],
   "answer_text": "Draw a tangent that just touches the curve at the point of interest. Construct a large right-angled triangle using that tangent as the hypotenuse, and read off the change in distance and the corresponding change in time. The speed at that instant is the gradient of the tangent, change in distance divided by change in time. Using a large triangle reduces the percentage error in the readings.",
@@ -2915,11 +2915,11 @@
    "v": 26,
    "t": 6.0
   },
-  "equation": "a = (v \u2212 u) / t",
+  "equation": "a = (v − u) / t",
   "expr": "(v-u)/t",
   "answer": {
    "value": 3.0,
-   "unit": "m/s\u00b2",
+   "unit": "m/s²",
    "sig_figs": 2,
    "tolerance": 0.01,
    "computed": 3.0
@@ -2931,11 +2931,11 @@
    },
    {
     "mark": 1,
-    "point": "a = (26 \u2212 8.0) / 6.0"
+    "point": "a = (26 − 8.0) / 6.0"
    },
    {
     "mark": 1,
-    "point": "3.0 m/s\u00b2"
+    "point": "3.0 m/s²"
    }
   ],
   "triple_only": false,
@@ -2949,13 +2949,13 @@
   "marks": 4,
   "command": "Calculate",
   "type": "numeric",
-  "stem": "A cyclist accelerates uniformly from rest at 1.5 m/s\u00b2 over a distance of 48 m. Calculate her final velocity. Use the equation v\u00b2 \u2212 u\u00b2 = 2 a s.",
+  "stem": "A cyclist accelerates uniformly from rest at 1.5 m/s² over a distance of 48 m. Calculate her final velocity. Use the equation v² − u² = 2 a s.",
   "given": {
    "u": 0,
    "a": 1.5,
    "s": 48
   },
-  "equation": "v\u00b2 \u2212 u\u00b2 = 2 a s",
+  "equation": "v² − u² = 2 a s",
   "expr": "(u**2 + 2*a*s)**0.5",
   "answer": {
    "value": 12.0,
@@ -2967,15 +2967,15 @@
   "marking": [
    {
     "mark": 1,
-    "point": "v\u00b2 = u\u00b2 + 2 a s"
+    "point": "v² = u² + 2 a s"
    },
    {
     "mark": 1,
-    "point": "v\u00b2 = 0 + 2 \u00d7 1.5 \u00d7 48"
+    "point": "v² = 0 + 2 × 1.5 × 48"
    },
    {
     "mark": 1,
-    "point": "v\u00b2 = 144"
+    "point": "v² = 144"
    },
    {
     "mark": 1,
@@ -3013,7 +3013,7 @@
     "point": "Repeat for several forces and plot acceleration against force; a straight line through the origin shows they are directly proportional"
    }
   ],
-  "answer_text": "Connect the trolley by a string over a pulley to a hanging mass, whose weight provides the accelerating force. Measure the acceleration with light gates and a datalogger. To change the force without changing the total mass being accelerated, transfer masses from the trolley to the hanger rather than simply adding them. Repeat for several forces and plot acceleration against force \u2014 a straight line through the origin shows acceleration is directly proportional to force. Compensating for friction by tilting the runway improves the result.",
+  "answer_text": "Connect the trolley by a string over a pulley to a hanging mass, whose weight provides the accelerating force. Measure the acceleration with light gates and a datalogger. To change the force without changing the total mass being accelerated, transfer masses from the trolley to the hanger rather than simply adding them. Repeat for several forces and plot acceleration against force — a straight line through the origin shows acceleration is directly proportional to force. Compensating for friction by tilting the runway improves the result.",
   "triple_only": false
  },
  {
@@ -3024,7 +3024,7 @@
   "marks": 2,
   "command": "Explain",
   "type": "short",
-  "stem": "A car has an acceleration of \u22124.0 m/s\u00b2. Explain what the negative sign tells you.",
+  "stem": "A car has an acceleration of −4.0 m/s². Explain what the negative sign tells you.",
   "marking": [
    {
     "mark": 1,
@@ -3035,7 +3035,7 @@
     "point": "so the car is slowing down / decelerating"
    }
   ],
-  "answer_text": "The negative sign means the acceleration acts in the opposite direction to the car's motion, so the car is decelerating \u2014 its velocity is decreasing by 4.0 m/s every second.",
+  "answer_text": "The negative sign means the acceleration acts in the opposite direction to the car's motion, so the car is decelerating — its velocity is decreasing by 4.0 m/s every second.",
   "triple_only": false,
   "required_practical": null
  },
@@ -3058,7 +3058,7 @@
     "point": "and an object that is moving continues to move at the same speed in the same direction (constant velocity)"
    }
   ],
-  "answer_text": "If the resultant force acting on an object is zero, then an object at rest stays at rest, and an object already moving continues to move at the same speed in the same straight line \u2014 at constant velocity.",
+  "answer_text": "If the resultant force acting on an object is zero, then an object at rest stays at rest, and an object already moving continues to move at the same speed in the same straight line — at constant velocity.",
   "triple_only": false,
   "required_practical": null
  },
@@ -3079,7 +3079,7 @@
   "expr": "F/m",
   "answer": {
    "value": 1.5,
-   "unit": "m/s\u00b2",
+   "unit": "m/s²",
    "sig_figs": 2,
    "tolerance": 0.01,
    "computed": 1.5
@@ -3095,7 +3095,7 @@
    },
    {
     "mark": 1,
-    "point": "1.5 m/s\u00b2"
+    "point": "1.5 m/s²"
    }
   ],
   "triple_only": false,
@@ -3180,7 +3180,7 @@
   "marking": [
    {
     "mark": 1,
-    "point": "W = m g, or correct substitution 58 \u00d7 9.8"
+    "point": "W = m g, or correct substitution 58 × 9.8"
    },
    {
     "mark": 1,
@@ -3216,15 +3216,15 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Weight = 75 \u00d7 9.8 = 735 N"
+    "point": "Weight = 75 × 9.8 = 735 N"
    },
    {
     "mark": 1,
-    "point": "Resultant force = 735 \u2212 335 = 400 N"
+    "point": "Resultant force = 735 − 335 = 400 N"
    },
    {
     "mark": 1,
-    "point": "a = 400 / 75 = 5.33 m/s\u00b2 (downwards)"
+    "point": "a = 400 / 75 = 5.33 m/s² (downwards)"
    }
   ],
   "triple_only": false,
@@ -3332,7 +3332,7 @@
     "point": "so the thinking distance and therefore the total stopping distance increase"
    }
   ],
-  "answer_text": "Tiredness, alcohol, other drugs and distractions such as using a phone all increase reaction time. During that extra time the car continues at full speed before the brakes are even applied, which increases the thinking distance and so the total stopping distance \u2014 making a collision more likely.",
+  "answer_text": "Tiredness, alcohol, other drugs and distractions such as using a phone all increase reaction time. During that extra time the car continues at full speed before the brakes are even applied, which increases the thinking distance and so the total stopping distance — making a collision more likely.",
   "triple_only": false,
   "required_practical": null
  },
@@ -3390,7 +3390,7 @@
     "point": "Because kinetic energy depends on speed squared, doubling the speed needs four times the braking distance for the same force"
    }
   ],
-  "answer_text": "Braking does work against friction, transferring the car's kinetic energy to the thermal store of the brakes. A very large braking force gives a very large deceleration, which can overheat the brakes and can make the tyres lose grip so the car skids and the driver loses control. The danger grows sharply with speed, because kinetic energy depends on the square of the speed \u2014 doubling the speed quadruples the energy that must be removed.",
+  "answer_text": "Braking does work against friction, transferring the car's kinetic energy to the thermal store of the brakes. A very large braking force gives a very large deceleration, which can overheat the brakes and can make the tyres lose grip so the car skids and the driver loses control. The danger grows sharply with speed, because kinetic energy depends on the square of the speed — doubling the speed quadruples the energy that must be removed.",
   "triple_only": false,
   "required_practical": null
  },
@@ -3423,7 +3423,7 @@
    },
    {
     "mark": 1,
-    "point": "p = 0.45 \u00d7 12"
+    "point": "p = 0.45 × 12"
    },
    {
     "mark": 1,
@@ -3482,11 +3482,11 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Momentum before = 2.0 \u00d7 3.0 = 6.0 kg m/s"
+    "point": "Momentum before = 2.0 × 3.0 = 6.0 kg m/s"
    },
    {
     "mark": 1,
-    "point": "Momentum after = (2.0 + 4.0) \u00d7 v"
+    "point": "Momentum after = (2.0 + 4.0) × v"
    },
    {
     "mark": 1,
@@ -3523,7 +3523,7 @@
     "point": "The forward momentum of the shell must be balanced by an equal backward momentum of the cannon, so the cannon recoils"
    }
   ],
-  "answer_text": "Before firing, nothing moves, so the total momentum of the cannon-and-shell system is zero. Momentum is conserved in this closed system, so the total after firing must also be zero. The shell carries forward momentum, so the cannon must carry an equal magnitude of backward momentum \u2014 it recoils. Because the cannon is far more massive, its recoil velocity is much smaller than the shell's.",
+  "answer_text": "Before firing, nothing moves, so the total momentum of the cannon-and-shell system is zero. Momentum is conserved in this closed system, so the total after firing must also be zero. The shell carries forward momentum, so the cannon must carry an equal magnitude of backward momentum — it recoils. Because the cannon is far more massive, its recoil velocity is much smaller than the shell's.",
   "triple_only": false,
   "required_practical": null
  },
@@ -3541,7 +3541,7 @@
    "dp": 24,
    "t": 0.3
   },
-  "equation": "F = \u0394p / \u0394t",
+  "equation": "F = Δp / Δt",
   "expr": "dp/t",
   "answer": {
    "value": 80.0,
@@ -3587,14 +3587,14 @@
    },
    {
     "mark": 1,
-    "point": "Force equals rate of change of momentum, F = \u0394p / \u0394t"
+    "point": "Force equals rate of change of momentum, F = Δp / Δt"
    },
    {
     "mark": 1,
     "point": "So increasing the time reduces the force on the driver, reducing injury"
    }
   ],
-  "answer_text": "The driver must lose the same amount of momentum either way \u2014 that is fixed by their mass and the speed of the car. The air bag increases the time over which that momentum change happens. Since force is the rate of change of momentum, F = \u0394p / \u0394t, a longer time means a smaller average force on the driver, so less injury.",
+  "answer_text": "The driver must lose the same amount of momentum either way — that is fixed by their mass and the speed of the car. The air bag increases the time over which that momentum change happens. Since force is the rate of change of momentum, F = Δp / Δt, a longer time means a smaller average force on the driver, so less injury.",
   "required_practical": null
  },
  {
@@ -3612,7 +3612,7 @@
    "u": 25,
    "v": 35
   },
-  "equation": "\u0394p = m v \u2212 m(\u2212u) = m (v + u)  because the ball reverses direction",
+  "equation": "Δp = m v − m(−u) = m (v + u)  because the ball reverses direction",
   "expr": "m*(v+u)",
   "answer": {
    "value": 3.6,
@@ -3628,7 +3628,7 @@
    },
    {
     "mark": 1,
-    "point": "\u0394p = 0.060 \u00d7 (35 + 25)"
+    "point": "Δp = 0.060 × (35 + 25)"
    },
    {
     "mark": 1,
@@ -3658,7 +3658,7 @@
    },
    {
     "mark": 1,
-    "point": "Since F = \u0394p / \u0394t, a longer stopping time gives a smaller force on the gymnast, reducing the risk of injury"
+    "point": "Since F = Δp / Δt, a longer stopping time gives a smaller force on the gymnast, reducing the risk of injury"
    }
   ],
   "answer_text": "However they land, the gymnast must lose the same momentum. A thick soft mat compresses as they land, which lengthens the time over which they come to rest. Because force is the rate of change of momentum, spreading the same momentum change over a longer time reduces the average force on the body and so the risk of injury.",
@@ -3749,7 +3749,7 @@
    },
    {
     "mark": 1,
-    "point": "Only attraction in every combination means one bar is unmagnetised \u2014 repulsion is the only certain test for a magnet"
+    "point": "Only attraction in every combination means one bar is unmagnetised — repulsion is the only certain test for a magnet"
    }
   ],
   "answer_text": "Bring an end of one bar close to each end of the other in turn, then reverse one bar and repeat. Attraction alone proves nothing, because an unmagnetised steel bar is attracted either way round. Repulsion can only happen between two like poles, so if repulsion is ever seen both bars are magnets; if every combination attracts, one bar is unmagnetised.",
@@ -3954,7 +3954,7 @@
     "point": "Its strength can also be varied by changing the current or the number of turns"
    }
   ],
-  "answer_text": "An electromagnet only produces a field while current flows, so the operator can switch it off to release the scrap exactly where it is wanted \u2014 a permanent magnet could never let go. Its strength can also be adjusted by varying the current or the number of turns.",
+  "answer_text": "An electromagnet only produces a field while current flows, so the operator can switch it off to release the scrap exactly where it is wanted — a permanent magnet could never let go. Its strength can also be adjusted by varying the current or the number of turns.",
   "triple_only": false,
   "required_practical": null
  },
@@ -4015,7 +4015,7 @@
    },
    {
     "mark": 1,
-    "point": "F = 0.30 \u00d7 4.0 \u00d7 0.25"
+    "point": "F = 0.30 × 4.0 × 0.25"
    },
    {
     "mark": 1,
@@ -4071,7 +4071,7 @@
     "point": "The force is zero when the wire is parallel to the magnetic field"
    }
   ],
-  "answer_text": "Increase the current, or use a stronger magnet to increase the flux density \u2014 a greater length of wire in the field also increases the force. The force is zero when the wire lies parallel to the field lines.",
+  "answer_text": "Increase the current, or use a stronger magnet to increase the flux density — a greater length of wire in the field also increases the force. The force is zero when the wire lies parallel to the field lines.",
   "triple_only": false,
   "required_practical": null
  },
@@ -4261,7 +4261,7 @@
     "point": "With no change of field there is no induced potential difference, so no current flows and the meter reads zero"
    }
   ],
-  "answer_text": "Pushing the magnet in changes the magnetic field passing through the coil. A changing field induces a potential difference, and since the circuit is complete a current flows and deflects the meter. Once the magnet is stationary the field through the coil is constant \u2014 nothing is changing \u2014 so no potential difference is induced and the meter returns to zero.",
+  "answer_text": "Pushing the magnet in changes the magnetic field passing through the coil. A changing field induces a potential difference, and since the circuit is complete a current flows and deflects the meter. Once the magnet is stationary the field through the coil is constant — nothing is changing — so no potential difference is induced and the meter returns to zero.",
   "required_practical": null
  },
  {
@@ -4281,14 +4281,14 @@
    },
    {
     "mark": 1,
-    "point": "This field opposes the original change in field \u2014 for example repelling an approaching magnet"
+    "point": "This field opposes the original change in field — for example repelling an approaching magnet"
    },
    {
     "mark": 1,
     "point": "This must be so to conserve energy: work has to be done to move the magnet, and that work becomes the electrical energy generated"
    }
   ],
-  "answer_text": "The induced current produces its own magnetic field, and that field always acts to oppose the change that created it \u2014 repelling an approaching magnet or attracting a retreating one. It must work this way to conserve energy: if the induced field helped the motion, energy would be created from nothing. Instead work must be done against the opposing force, and that work is what becomes the electrical energy generated.",
+  "answer_text": "The induced current produces its own magnetic field, and that field always acts to oppose the change that created it — repelling an approaching magnet or attracting a retreating one. It must work this way to conserve energy: if the induced field helped the motion, energy would be created from nothing. Instead work must be done against the opposing force, and that work is what becomes the electrical energy generated.",
   "required_practical": null
  },
  {
@@ -4315,7 +4315,7 @@
     "point": "A dynamo uses a split-ring commutator, which swaps the connections every half turn, so it produces a direct current that is always in the same direction"
    }
   ],
-  "answer_text": "An alternator uses slip rings, so each end of the coil stays connected to the same part of the external circuit. As the coil turns, the induced potential difference reverses every half turn, giving an alternating current. A dynamo instead uses a split-ring commutator, which swaps the connections every half turn so that the output always flows the same way \u2014 a direct current.",
+  "answer_text": "An alternator uses slip rings, so each end of the coil stays connected to the same part of the external circuit. As the coil turns, the induced potential difference reverses every half turn, giving an alternating current. A dynamo instead uses a split-ring commutator, which swaps the connections every half turn so that the output always flows the same way — a direct current.",
   "required_practical": null
  },
  {
@@ -4346,7 +4346,7 @@
     "point": "The size and frequency of the induced signal depend on the amplitude and frequency of the sound wave, so the electrical signal matches the sound"
    }
   ],
-  "answer_text": "Sound waves arriving at the microphone make its diaphragm vibrate. A coil attached to the diaphragm moves with it, inside the field of a permanent magnet. Because the coil is moving relative to the field, the generator effect induces a potential difference across it. The frequency of the induced signal matches the frequency of the sound, and a louder sound moves the coil further and faster, giving a larger signal \u2014 so the electrical output faithfully copies the sound wave.",
+  "answer_text": "Sound waves arriving at the microphone make its diaphragm vibrate. A coil attached to the diaphragm moves with it, inside the field of a permanent magnet. Because the coil is moving relative to the field, the generator effect induces a potential difference across it. The frequency of the induced signal matches the frequency of the sound, and a louder sound moves the coil further and faster, giving a larger signal — so the electrical output faithfully copies the sound wave.",
   "required_practical": null
  },
  {
@@ -4441,7 +4441,7 @@
    "ns": 3000,
    "Vp": 240
   },
-  "equation": "Vp / Vs = np / ns,  so Vs = Vp \u00d7 ns / np",
+  "equation": "Vp / Vs = np / ns,  so Vs = Vp × ns / np",
   "expr": "Vp*ns/np",
   "answer": {
    "value": 6000.0,
@@ -4453,11 +4453,11 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Vs = Vp \u00d7 ns / np"
+    "point": "Vs = Vp × ns / np"
    },
    {
     "mark": 1,
-    "point": "Vs = 240 \u00d7 3000 / 120"
+    "point": "Vs = 240 × 3000 / 120"
    },
    {
     "mark": 1,
@@ -4501,7 +4501,7 @@
    },
    {
     "mark": 1,
-    "point": "Is = (230 \u00d7 12) / 46"
+    "point": "Is = (230 × 12) / 46"
    },
    {
     "mark": 1,
@@ -4541,16 +4541,16 @@
   "marks": 3,
   "command": "Calculate",
   "type": "numeric",
-  "stem": "A block of wood has a mass of 480 g and a volume of 800 cm\u00b3. Calculate the density of the wood in g/cm\u00b3.",
+  "stem": "A block of wood has a mass of 480 g and a volume of 800 cm³. Calculate the density of the wood in g/cm³.",
   "given": {
    "m": 480,
    "V": 800
   },
-  "equation": "\u03c1 = m / V",
+  "equation": "ρ = m / V",
   "expr": "m/V",
   "answer": {
    "value": 0.6,
-   "unit": "g/cm\u00b3",
+   "unit": "g/cm³",
    "sig_figs": 2,
    "tolerance": 0.01,
    "computed": 0.6
@@ -4558,15 +4558,15 @@
   "marking": [
    {
     "mark": 1,
-    "point": "\u03c1 = m / V"
+    "point": "ρ = m / V"
    },
    {
     "mark": 1,
-    "point": "\u03c1 = 480 / 800"
+    "point": "ρ = 480 / 800"
    },
    {
     "mark": 1,
-    "point": "0.60 g/cm\u00b3"
+    "point": "0.60 g/cm³"
    }
   ],
   "triple_only": false,
@@ -4597,10 +4597,10 @@
    },
    {
     "mark": 1,
-    "point": "Calculate density using \u03c1 = m / V"
+    "point": "Calculate density using ρ = m / V"
    }
   ],
-  "answer_text": "Measure the mass of the stone on a balance. Part-fill a measuring cylinder with water and record the level, then lower the stone in so it is fully submerged and record the new level. The rise in level is the volume of the stone. Then use \u03c1 = m / V. A displacement can is an alternative for larger objects.",
+  "answer_text": "Measure the mass of the stone on a balance. Part-fill a measuring cylinder with water and record the level, then lower the stone in so it is fully submerged and record the new level. The rise in level is the volume of the stone. Then use ρ = m / V. A displacement can is an alternative for larger objects.",
   "triple_only": false
  },
  {
@@ -4611,12 +4611,12 @@
   "marks": 3,
   "command": "Calculate",
   "type": "numeric",
-  "stem": "A steel bar has a density of 7800 kg/m\u00b3 and a volume of 0.0025 m\u00b3. Calculate the mass of the bar.",
+  "stem": "A steel bar has a density of 7800 kg/m³ and a volume of 0.0025 m³. Calculate the mass of the bar.",
   "given": {
    "rho": 7800,
    "V": 0.0025
   },
-  "equation": "\u03c1 = m / V,  so m = \u03c1 V",
+  "equation": "ρ = m / V,  so m = ρ V",
   "expr": "rho*V",
   "answer": {
    "value": 19.5,
@@ -4628,11 +4628,11 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Rearranges to m = \u03c1 V"
+    "point": "Rearranges to m = ρ V"
    },
    {
     "mark": 1,
-    "point": "m = 7800 \u00d7 0.0025"
+    "point": "m = 7800 × 0.0025"
    },
    {
     "mark": 1,
@@ -4709,7 +4709,7 @@
     "point": "A change of state is a physical change, so mass is conserved"
    }
   ],
-  "answer_text": "The flask is sealed so no particles are gained or lost. Melting is a physical change \u2014 only the arrangement and energy of the particles change, not their number or mass \u2014 so the mass stays at 0.40 kg.",
+  "answer_text": "The flask is sealed so no particles are gained or lost. Melting is a physical change — only the arrangement and energy of the particles change, not their number or mass — so the mass stays at 0.40 kg.",
   "triple_only": false,
   "required_practical": null
  },
@@ -4763,7 +4763,7 @@
     "point": "Only the arrangement / energy of the particles changes, so it can be changed back by heating"
    }
   ],
-  "answer_text": "Condensing produces no new substance \u2014 the particles themselves are unchanged, only their arrangement and energy. Heating the liquid reverses it and recovers the original gas with its original properties.",
+  "answer_text": "Condensing produces no new substance — the particles themselves are unchanged, only their arrangement and energy. Heating the liquid reverses it and recovers the original gas with its original properties.",
   "triple_only": false,
   "required_practical": null
  },
@@ -4798,7 +4798,7 @@
   "marks": 3,
   "command": "Explain",
   "type": "extended",
-  "stem": "A beaker of water is heated. Its temperature rises from 20 \u00b0C to 60 \u00b0C. Explain what happens to the internal energy of the water.",
+  "stem": "A beaker of water is heated. Its temperature rises from 20 °C to 60 °C. Explain what happens to the internal energy of the water.",
   "marking": [
    {
     "mark": 1,
@@ -4813,7 +4813,7 @@
     "point": "The particles move faster on average, which raises the temperature"
    }
   ],
-  "answer_text": "The internal energy increases. Heating transfers energy to the particles, increasing their average kinetic energy, so they move faster \u2014 and it is this rise in average kinetic energy that we measure as a rise in temperature.",
+  "answer_text": "The internal energy increases. Heating transfers energy to the particles, increasing their average kinetic energy, so they move faster — and it is this rise in average kinetic energy that we measure as a rise in temperature.",
   "triple_only": false,
   "required_practical": null
  },
@@ -4825,7 +4825,7 @@
   "marks": 3,
   "command": "Explain",
   "type": "extended",
-  "stem": "Ice at 0 \u00b0C is heated until it has all melted. The temperature stays at 0 \u00b0C throughout. Explain why the internal energy of the ice increases even though the temperature does not change.",
+  "stem": "Ice at 0 °C is heated until it has all melted. The temperature stays at 0 °C throughout. Explain why the internal energy of the ice increases even though the temperature does not change.",
   "marking": [
    {
     "mark": 1,
@@ -4840,7 +4840,7 @@
     "point": "Temperature depends on average kinetic energy, which is unchanged, so the temperature stays constant"
    }
   ],
-  "answer_text": "The energy supplied goes into the potential energy of the particles rather than their kinetic energy: it weakens and breaks the forces holding the particles in the solid. Temperature depends only on the average kinetic energy, which does not change, so the temperature stays at 0 \u00b0C while internal energy rises.",
+  "answer_text": "The energy supplied goes into the potential energy of the particles rather than their kinetic energy: it weakens and breaks the forces holding the particles in the solid. Temperature depends only on the average kinetic energy, which does not change, so the temperature stays at 0 °C while internal energy rises.",
   "triple_only": false,
   "required_practical": null
  },
@@ -4900,7 +4900,7 @@
   "marks": 3,
   "command": "Calculate",
   "type": "numeric",
-  "stem": "The specific latent heat of fusion of ice is 334 000 J/kg. Calculate the energy needed to melt 0.25 kg of ice at 0 \u00b0C.",
+  "stem": "The specific latent heat of fusion of ice is 334 000 J/kg. Calculate the energy needed to melt 0.25 kg of ice at 0 °C.",
   "given": {
    "m": 0.25,
    "L": 334000
@@ -4921,7 +4921,7 @@
    },
    {
     "mark": 1,
-    "point": "E = 0.25 \u00d7 334 000"
+    "point": "E = 0.25 × 334 000"
    },
    {
     "mark": 1,
@@ -4939,7 +4939,7 @@
   "marks": 4,
   "command": "Determine",
   "type": "numeric",
-  "stem": "A 50 W heater is used to boil water already at 100 \u00b0C. In 200 seconds it boils away 0.0044 kg of water. Determine the specific latent heat of vaporisation of water from these results.",
+  "stem": "A 50 W heater is used to boil water already at 100 °C. In 200 seconds it boils away 0.0044 kg of water. Determine the specific latent heat of vaporisation of water from these results.",
   "given": {
    "P": 50,
    "t": 200,
@@ -4957,7 +4957,7 @@
   "marking": [
    {
     "mark": 1,
-    "point": "E = P t = 50 \u00d7 200 = 10 000 J"
+    "point": "E = P t = 50 × 200 = 10 000 J"
    },
    {
     "mark": 1,
@@ -4969,7 +4969,7 @@
    },
    {
     "mark": 1,
-    "point": "2.3 \u00d7 10\u2076 J/kg (accept 2 270 000 J/kg)"
+    "point": "2.3 × 10⁶ J/kg (accept 2 270 000 J/kg)"
    }
   ],
   "triple_only": false,
@@ -5052,7 +5052,7 @@
     "point": "so the total force on each unit area of wall increases, increasing the pressure"
    }
   ],
-  "answer_text": "Heating increases the average kinetic energy of the particles so they move faster. They therefore strike the walls more frequently and each collision exerts a greater force. Since the volume is fixed, the force per unit area \u2014 the pressure \u2014 rises.",
+  "answer_text": "Heating increases the average kinetic energy of the particles so they move faster. They therefore strike the walls more frequently and each collision exerts a greater force. Since the volume is fixed, the force per unit area — the pressure — rises.",
   "triple_only": false,
   "required_practical": null
  },
@@ -5113,7 +5113,7 @@
   "command": "Calculate",
   "type": "numeric",
   "triple_only": true,
-  "stem": "A gas at constant temperature has a volume of 0.030 m\u00b3 at a pressure of 120 000 Pa. The gas is compressed to a volume of 0.010 m\u00b3. Calculate the new pressure.",
+  "stem": "A gas at constant temperature has a volume of 0.030 m³ at a pressure of 120 000 Pa. The gas is compressed to a volume of 0.010 m³. Calculate the new pressure.",
   "given": {
    "p1": 120000,
    "V1": 0.03,
@@ -5135,7 +5135,7 @@
    },
    {
     "mark": 1,
-    "point": "p2 = (120 000 \u00d7 0.030) / 0.010"
+    "point": "p2 = (120 000 × 0.030) / 0.010"
    },
    {
     "mark": 1,
@@ -5168,7 +5168,7 @@
     "point": "The average force on each unit area of wall increases, so the pressure increases"
    }
   ],
-  "answer_text": "The same number of particles now occupies a smaller space, so each particle travels a shorter distance between collisions with the walls and hits them more often. The speeds are unchanged because the temperature is constant, but the increased rate of collisions raises the average force per unit area \u2014 the pressure.",
+  "answer_text": "The same number of particles now occupies a smaller space, so each particle travels a shorter distance between collisions with the walls and hits them more often. The speeds are unchanged because the temperature is constant, but the increased rate of collisions raises the average force per unit area — the pressure.",
   "required_practical": null
  },
  {
@@ -5267,7 +5267,7 @@
   "marking": [
    {
     "mark": 1,
-    "point": "About 10 000 times larger (atom \u2248 1 \u00d7 10\u207b\u00b9\u2070 m, nucleus \u2248 1 \u00d7 10\u207b\u00b9\u2074 m)"
+    "point": "About 10 000 times larger (atom ≈ 1 × 10⁻¹⁰ m, nucleus ≈ 1 × 10⁻¹⁴ m)"
    }
   ],
   "triple_only": false,
@@ -5355,7 +5355,7 @@
    "A": 56,
    "Z": 26
   },
-  "equation": "neutrons = mass number \u2212 atomic number",
+  "equation": "neutrons = mass number − atomic number",
   "expr": "A-Z",
   "answer": {
    "value": 30.0,
@@ -5367,11 +5367,11 @@
   "marking": [
    {
     "mark": 1,
-    "point": "neutrons = mass number \u2212 atomic number"
+    "point": "neutrons = mass number − atomic number"
    },
    {
     "mark": 1,
-    "point": "56 \u2212 26 = 30"
+    "point": "56 − 26 = 30"
    }
   ],
   "triple_only": false,
@@ -5396,7 +5396,7 @@
     "point": "but different numbers of neutrons, so different mass numbers"
    }
   ],
-  "answer_text": "Isotopes are atoms of the same element \u2014 they have the same number of protons \u2014 but they contain different numbers of neutrons, so they have different mass numbers.",
+  "answer_text": "Isotopes are atoms of the same element — they have the same number of protons — but they contain different numbers of neutrons, so they have different mass numbers.",
   "triple_only": false,
   "required_practical": null
  },
@@ -5419,7 +5419,7 @@
     "point": "Isotopes have the same number of protons and so the same number of electrons; only the neutron number differs"
    }
   ],
-  "answer_text": "Chemical reactions depend on the outer electrons, and the number of electrons is set by the number of protons. Isotopes have the same proton number, so they have identical electron arrangements \u2014 the extra neutrons affect mass but not chemistry.",
+  "answer_text": "Chemical reactions depend on the outer electrons, and the number of electrons is set by the number of protons. Isotopes have the same proton number, so they have identical electron arrangements — the extra neutrons affect mass but not chemistry.",
   "triple_only": false,
   "required_practical": null
  },
@@ -5473,7 +5473,7 @@
     "point": "Because so few were deflected, this nucleus must be very small, and it contains most of the mass"
    }
   ],
-  "answer_text": "Most alpha particles passing straight through showed that the atom is mostly empty space, which the plum pudding model could not explain. The small number deflected through large angles showed there must be a concentrated region of positive charge repelling them. Since deflections were so rare, that region \u2014 the nucleus \u2014 must be extremely small, and to turn back a fast alpha particle it must also carry most of the atom's mass.",
+  "answer_text": "Most alpha particles passing straight through showed that the atom is mostly empty space, which the plum pudding model could not explain. The small number deflected through large angles showed there must be a concentrated region of positive charge repelling them. Since deflections were so rare, that region — the nucleus — must be extremely small, and to turn back a fast alpha particle it must also carry most of the atom's mass.",
   "triple_only": false,
   "required_practical": null
  },
@@ -5496,7 +5496,7 @@
     "point": "Scientific models are changed or replaced when new evidence does not fit them"
    }
   ],
-  "answer_text": "The alpha particle scattering results could not be explained by the plum pudding model, which predicted no large deflections. When new experimental evidence contradicts a model, scientists must modify or replace it \u2014 so the nuclear model took its place.",
+  "answer_text": "The alpha particle scattering results could not be explained by the plum pudding model, which predicted no large deflections. When new experimental evidence contradicts a model, scientists must modify or replace it — so the nuclear model took its place.",
   "triple_only": false,
   "required_practical": null
  },
@@ -5546,7 +5546,7 @@
     "point": "Gamma: electromagnetic radiation / a high-energy electromagnetic wave from the nucleus"
    }
   ],
-  "answer_text": "An alpha particle is two protons and two neutrons \u2014 a helium nucleus. A beta particle is a high-speed electron ejected from the nucleus when a neutron turns into a proton. A gamma ray is high-energy electromagnetic radiation from the nucleus, with no mass or charge.",
+  "answer_text": "An alpha particle is two protons and two neutrons — a helium nucleus. A beta particle is a high-speed electron ejected from the nucleus when a neutron turns into a proton. A gamma ray is high-energy electromagnetic radiation from the nucleus, with no mass or charge.",
   "triple_only": false,
   "required_practical": null
  },
@@ -5562,15 +5562,15 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Alpha is the most ionising but least penetrating \u2014 stopped by paper or a few cm of air"
+    "point": "Alpha is the most ionising but least penetrating — stopped by paper or a few cm of air"
    },
    {
     "mark": 1,
-    "point": "Beta is moderately ionising and moderately penetrating \u2014 stopped by a few mm of aluminium"
+    "point": "Beta is moderately ionising and moderately penetrating — stopped by a few mm of aluminium"
    },
    {
     "mark": 1,
-    "point": "Gamma is the least ionising but most penetrating \u2014 needs thick lead or concrete to reduce it"
+    "point": "Gamma is the least ionising but most penetrating — needs thick lead or concrete to reduce it"
    }
   ],
   "answer_text": "Alpha is the most strongly ionising but the least penetrating, stopped by a sheet of paper or a few centimetres of air. Beta is less ionising but more penetrating, stopped by a few millimetres of aluminium. Gamma is the least ionising and the most penetrating, needing many centimetres of lead or thick concrete. Penetrating power and ionising power run in opposite directions.",
@@ -5621,7 +5621,7 @@
     "point": "Only the probability of decay in a given time can be stated, which is why large samples show a predictable pattern"
    }
   ],
-  "answer_text": "It is impossible to say which individual nucleus will decay next or exactly when it will happen \u2014 each nucleus has only a fixed probability of decaying in a given time. Over the huge numbers of nuclei in a real sample this randomness averages out into the predictable half-life pattern.",
+  "answer_text": "It is impossible to say which individual nucleus will decay next or exactly when it will happen — each nucleus has only a fixed probability of decaying in a given time. Over the huge numbers of nuclei in a real sample this randomness averages out into the predictable half-life pattern.",
   "triple_only": false,
   "required_practical": null
  },
@@ -5690,7 +5690,7 @@
     "point": "Atomic number 86"
    }
   ],
-  "answer_text": "Mass number 222 and atomic number 86, since alpha emission removes 4 from the mass number and 2 from the atomic number: \u00b2\u00b2\u2076\u2088\u2088Ra \u2192 \u00b2\u00b2\u00b2\u2088\u2086Rn + \u2074\u2082He.",
+  "answer_text": "Mass number 222 and atomic number 86, since alpha emission removes 4 from the mass number and 2 from the atomic number: ²²⁶₈₈Ra → ²²²₈₆Rn + ⁴₂He.",
   "triple_only": false,
   "required_practical": null
  },
@@ -5713,7 +5713,7 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Neither changes \u2014 gamma emission removes energy but no particles"
+    "point": "Neither changes — gamma emission removes energy but no particles"
    }
   ],
   "triple_only": false,
@@ -5755,7 +5755,7 @@
    "C0": 2400,
    "n": 4
   },
-  "equation": "count rate = initial \u00f7 2\u207f, where n = number of half-lives",
+  "equation": "count rate = initial ÷ 2ⁿ, where n = number of half-lives",
   "expr": "C0/2**n",
   "answer": {
    "value": 150.0,
@@ -5771,7 +5771,7 @@
    },
    {
     "mark": 1,
-    "point": "2400 \u2192 1200 \u2192 600 \u2192 300 \u2192 150"
+    "point": "2400 → 1200 → 600 → 300 → 150"
    },
    {
     "mark": 1,
@@ -5795,7 +5795,7 @@
    "A": 400,
    "t": 12
   },
-  "equation": "find how many halvings, then half-life = time \u00f7 number of half-lives",
+  "equation": "find how many halvings, then half-life = time ÷ number of half-lives",
   "expr": "t/4",
   "answer": {
    "value": 3.0,
@@ -5807,7 +5807,7 @@
   "marking": [
    {
     "mark": 1,
-    "point": "6400 \u2192 3200 \u2192 1600 \u2192 800 \u2192 400, so 4 half-lives"
+    "point": "6400 → 3200 → 1600 → 800 → 400, so 4 half-lives"
    },
    {
     "mark": 1,
@@ -5829,12 +5829,12 @@
   "marks": 3,
   "command": "Calculate",
   "type": "numeric",
-  "stem": "A sample contains 8.0 \u00d7 10\u2078 undecayed nuclei. After 3 half-lives, calculate the net decline in the number of undecayed nuclei, expressed as a ratio of the initial number.",
+  "stem": "A sample contains 8.0 × 10⁸ undecayed nuclei. After 3 half-lives, calculate the net decline in the number of undecayed nuclei, expressed as a ratio of the initial number.",
   "given": {
    "N0": 800000000.0,
    "n": 3
   },
-  "equation": "remaining = N0 / 2\u207f, decline ratio = (N0 \u2212 remaining) / N0",
+  "equation": "remaining = N0 / 2ⁿ, decline ratio = (N0 − remaining) / N0",
   "expr": "(N0 - N0/2**n)/N0",
   "answer": {
    "value": 0.875,
@@ -5954,7 +5954,7 @@
     "point": "This makes the findings more reliable / trustworthy before they are acted on"
    }
   ],
-  "answer_text": "Publishing allows other scientists to peer review the work \u2014 checking the methods, data and conclusions for mistakes or bias, and attempting to reproduce the results. This makes the findings far more reliable before they are used to set safety limits.",
+  "answer_text": "Publishing allows other scientists to peer review the work — checking the methods, data and conclusions for mistakes or bias, and attempting to reproduce the results. This makes the findings far more reliable before they are used to set safety limits.",
   "triple_only": false,
   "required_practical": null
  },
@@ -6082,7 +6082,7 @@
     "point": "Two or three neutrons are released along with energy (as gamma radiation and kinetic energy of the products)"
    }
   ],
-  "answer_text": "A uranium-235 nucleus absorbs a neutron, which makes it unstable. It then splits into two smaller daughter nuclei of roughly similar size, releasing two or three further neutrons plus energy \u2014 carried away as gamma radiation and as kinetic energy of the fragments and neutrons.",
+  "answer_text": "A uranium-235 nucleus absorbs a neutron, which makes it unstable. It then splits into two smaller daughter nuclei of roughly similar size, releasing two or three further neutrons plus energy — carried away as gamma radiation and as kinetic energy of the fragments and neutrons.",
   "required_practical": null
  },
  {
@@ -6109,7 +6109,7 @@
     "point": "Control rods absorb some of the neutrons, so on average one neutron per fission causes the next fission, keeping the rate steady"
    }
   ],
-  "answer_text": "Each fission releases two or three neutrons, and each of those can be absorbed by another uranium nucleus and trigger a further fission \u2014 so the number of fissions can grow rapidly. Control rods, made of a neutron-absorbing material such as boron, are lowered into the core to soak up surplus neutrons, so that on average exactly one neutron from each fission goes on to cause the next. This holds the reaction rate steady.",
+  "answer_text": "Each fission releases two or three neutrons, and each of those can be absorbed by another uranium nucleus and trigger a further fission — so the number of fissions can grow rapidly. Control rods, made of a neutron-absorbing material such as boron, are lowered into the core to soak up surplus neutrons, so that on average exactly one neutron from each fission goes on to cause the next. This holds the reaction rate steady.",
   "required_practical": null
  },
  {
@@ -6186,7 +6186,7 @@
     "point": "Natural satellites (moons) which orbit the planets, plus asteroids and comets"
    }
   ],
-  "answer_text": "At the centre is the Sun, a star. Eight planets orbit it, along with dwarf planets such as Pluto. Natural satellites \u2014 moons \u2014 orbit the planets, and the system also contains asteroids and comets.",
+  "answer_text": "At the centre is the Sun, a star. Eight planets orbit it, along with dwarf planets such as Pluto. Natural satellites — moons — orbit the planets, and the system also contains asteroids and comets.",
   "required_practical": null
  },
  {
@@ -6213,7 +6213,7 @@
     "point": "When it was hot enough, hydrogen nuclei began to fuse and the star began to shine"
    }
   ],
-  "answer_text": "A vast cloud of dust and gas \u2014 a nebula \u2014 was pulled together by gravitational attraction. As the material fell inwards the temperature and pressure at the centre rose enormously. Eventually conditions were extreme enough for hydrogen nuclei to fuse into helium, releasing energy, and the Sun began to shine as a main sequence star.",
+  "answer_text": "A vast cloud of dust and gas — a nebula — was pulled together by gravitational attraction. As the material fell inwards the temperature and pressure at the centre rose enormously. Eventually conditions were extreme enough for hydrogen nuclei to fuse into helium, releasing energy, and the Sun began to shine as a main sequence star.",
   "required_practical": null
  },
  {
@@ -6261,7 +6261,7 @@
     "point": "These two effects are equal and opposite, so the star neither collapses nor expands"
    }
   ],
-  "answer_text": "Gravity pulls the material of the star inwards, while the enormous outward pressure produced by fusion in the core pushes outwards. During the main sequence these two are balanced, so the star stays the same size \u2014 it neither collapses nor expands.",
+  "answer_text": "Gravity pulls the material of the star inwards, while the enormous outward pressure produced by fusion in the core pushes outwards. During the main sequence these two are balanced, so the star stays the same size — it neither collapses nor expands.",
   "required_practical": null
  },
  {
@@ -6292,7 +6292,7 @@
     "point": "It then throws off its outer layers as a planetary nebula, leaving a white dwarf which cools and fades to a black dwarf"
    }
   ],
-  "answer_text": "Gravity pulls a nebula of dust and gas together into a protostar, which heats up until fusion begins and it becomes a stable main sequence star. When the hydrogen in the core runs low, it swells into a red giant. It then sheds its outer layers as a planetary nebula, leaving behind a hot dense core \u2014 a white dwarf \u2014 which gradually cools and fades to a black dwarf.",
+  "answer_text": "Gravity pulls a nebula of dust and gas together into a protostar, which heats up until fusion begins and it becomes a stable main sequence star. When the hydrogen in the core runs low, it swells into a red giant. It then sheds its outer layers as a planetary nebula, leaving behind a hot dense core — a white dwarf — which gradually cools and fades to a black dwarf.",
   "required_practical": null
  },
  {
@@ -6346,7 +6346,7 @@
     "point": "The supernova distributes these elements through space, where they can form new planets"
    }
   ],
-  "answer_text": "Nuclear fusion inside a star can build up elements only as far as iron. Elements heavier than iron are created in the immense energies of a supernova explosion. That explosion also scatters the material out across space, where it can later be incorporated into new stars and planets \u2014 which is why such elements are found on Earth.",
+  "answer_text": "Nuclear fusion inside a star can build up elements only as far as iron. Elements heavier than iron are created in the immense energies of a supernova explosion. That explosion also scatters the material out across space, where it can later be incorporated into new stars and planets — which is why such elements are found on Earth.",
   "required_practical": null
  },
  {
@@ -6396,7 +6396,7 @@
     "point": "The gravitational force acts towards the centre, providing the centripetal force that produces this change"
    }
   ],
-  "answer_text": "Acceleration is a change of velocity, and velocity includes direction. In a circular orbit the direction of motion changes continuously, so the velocity is always changing even though the speed is constant. Gravity provides the force towards the centre of the orbit that causes this change \u2014 the centripetal force.",
+  "answer_text": "Acceleration is a change of velocity, and velocity includes direction. In a circular orbit the direction of motion changes continuously, so the velocity is always changing even though the speed is constant. Gravity provides the force towards the centre of the orbit that causes this change — the centripetal force.",
   "required_practical": null
  },
  {
@@ -6446,7 +6446,7 @@
     "point": "It acts towards the centre of the orbit, that is towards the Sun"
    }
   ],
-  "answer_text": "The gravitational attraction between the Sun and the planet provides the force. It acts towards the centre of the orbit \u2014 towards the Sun.",
+  "answer_text": "The gravitational attraction between the Sun and the planet provides the force. It acts towards the centre of the orbit — towards the Sun.",
   "required_practical": null
  },
  {
@@ -6550,7 +6550,7 @@
     "point": "This is attributed to dark energy, and it shows scientific models change when new evidence appears"
    }
   ],
-  "answer_text": "Since 1998, measurements using supernovae in very distant galaxies have shown that those galaxies are receding ever faster. This means the expansion of the universe is accelerating, rather than slowing under gravity as had been expected. The cause is attributed to dark energy, which is still poorly understood \u2014 a good example of how scientific models are revised when new evidence emerges.",
+  "answer_text": "Since 1998, measurements using supernovae in very distant galaxies have shown that those galaxies are receding ever faster. This means the expansion of the universe is accelerating, rather than slowing under gravity as had been expected. The cause is attributed to dark energy, which is still poorly understood — a good example of how scientific models are revised when new evidence emerges.",
   "required_practical": null
  },
  {
@@ -6647,7 +6647,7 @@
     "point": "The water and the duck oscillate about a fixed position as the wave passes through"
    }
   ],
-  "answer_text": "It shows that waves transfer energy, not matter. The water particles \u2014 and the duck floating on them \u2014 simply oscillate up and down about a fixed point as the wave passes through. The energy travels towards the shore, but the water does not.",
+  "answer_text": "It shows that waves transfer energy, not matter. The water particles — and the duck floating on them — simply oscillate up and down about a fixed point as the wave passes through. The energy travels towards the shore, but the water does not.",
   "triple_only": false,
   "required_practical": null
  },
@@ -6687,7 +6687,7 @@
    "f": 400,
    "wl": 0.85
   },
-  "equation": "v = f \u03bb",
+  "equation": "v = f λ",
   "expr": "f*wl",
   "answer": {
    "value": 340.0,
@@ -6699,11 +6699,11 @@
   "marking": [
    {
     "mark": 1,
-    "point": "v = f \u03bb"
+    "point": "v = f λ"
    },
    {
     "mark": 1,
-    "point": "v = 400 \u00d7 0.85"
+    "point": "v = 400 × 0.85"
    },
    {
     "mark": 1,
@@ -6782,12 +6782,12 @@
   "marks": 3,
   "command": "Calculate",
   "type": "numeric",
-  "stem": "A radio wave travels at 3.0 \u00d7 10\u2078 m/s and has a wavelength of 250 m. Calculate its frequency.",
+  "stem": "A radio wave travels at 3.0 × 10⁸ m/s and has a wavelength of 250 m. Calculate its frequency.",
   "given": {
    "v": 300000000.0,
    "wl": 250
   },
-  "equation": "v = f \u03bb,  so f = v / \u03bb",
+  "equation": "v = f λ,  so f = v / λ",
   "expr": "v/wl",
   "answer": {
    "value": 1200000.0,
@@ -6799,15 +6799,15 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Rearranges to f = v / \u03bb"
+    "point": "Rearranges to f = v / λ"
    },
    {
     "mark": 1,
-    "point": "f = 3.0 \u00d7 10\u2078 / 250"
+    "point": "f = 3.0 × 10⁸ / 250"
    },
    {
     "mark": 1,
-    "point": "1.2 \u00d7 10\u2076 Hz (1200 kHz)"
+    "point": "1.2 × 10⁶ Hz (1200 kHz)"
    }
   ],
   "triple_only": false,
@@ -6838,10 +6838,10 @@
    },
    {
     "mark": 1,
-    "point": "Calculate the speed using v = f \u03bb"
+    "point": "Calculate the speed using v = f λ"
    }
   ],
-  "answer_text": "Set up a ripple tank with a motorised dipper driven by a signal generator, and read the frequency directly from the generator. Freeze the wave pattern using a strobe light or by photographing the projected shadow, then measure the length of ten wavelengths with a ruler and divide by ten to find one wavelength \u2014 measuring several reduces the percentage error. Then calculate the speed from v = f \u03bb.",
+  "answer_text": "Set up a ripple tank with a motorised dipper driven by a signal generator, and read the frequency directly from the generator. Freeze the wave pattern using a strobe light or by photographing the projected shadow, then measure the length of ten wavelengths with a ruler and divide by ten to find one wavelength — measuring several reduces the percentage error. Then calculate the speed from v = f λ.",
   "triple_only": false
  },
  {
@@ -6865,10 +6865,10 @@
    },
    {
     "mark": 1,
-    "point": "Calculate the speed using v = f \u03bb"
+    "point": "Calculate the speed using v = f λ"
    }
   ],
-  "answer_text": "Attach the string to a vibration generator driven by a signal generator, with a mass over a pulley providing tension. Adjust the frequency until a clear standing wave forms, and read the frequency from the generator. Measure the length of several loops with a metre rule \u2014 each loop is half a wavelength \u2014 to find the wavelength. Then use v = f \u03bb.",
+  "answer_text": "Attach the string to a vibration generator driven by a signal generator, with a mass over a pulley providing tension. Adjust the frequency until a clear standing wave forms, and read the frequency from the generator. Measure the length of several loops with a metre rule — each loop is half a wavelength — to find the wavelength. Then use v = f λ.",
   "triple_only": false
  },
  {
@@ -6886,7 +6886,7 @@
    "d": 0.6,
    "k": 5
   },
-  "equation": "f = n / t,  \u03bb = d / k,  v = f \u03bb",
+  "equation": "f = n / t,  λ = d / k,  v = f λ",
   "expr": "(n/t)*(d/k)",
   "answer": {
    "value": 0.36,
@@ -6902,11 +6902,11 @@
    },
    {
     "mark": 1,
-    "point": "\u03bb = 0.60 / 5 = 0.12 m"
+    "point": "λ = 0.60 / 5 = 0.12 m"
    },
    {
     "mark": 1,
-    "point": "v = 3.0 \u00d7 0.12 = 0.36 m/s"
+    "point": "v = 3.0 × 0.12 = 0.36 m/s"
    }
   ],
   "triple_only": false,
@@ -6982,7 +6982,7 @@
     "point": "This makes the ray change direction, bending towards the normal as it enters the denser medium"
    }
   ],
-  "answer_text": "Light travels more slowly in glass than in air. When the ray meets the boundary at an angle, one edge of the wavefront enters the glass and slows down before the other edge does. That difference swings the wavefront round, so the ray changes direction \u2014 bending towards the normal on entering the denser medium.",
+  "answer_text": "Light travels more slowly in glass than in air. When the ray meets the boundary at an angle, one edge of the wavefront enters the glass and slows down before the other edge does. That difference swings the wavefront round, so the ray changes direction — bending towards the normal on entering the denser medium.",
   "required_practical": null
  },
  {
@@ -7036,7 +7036,7 @@
     "point": "so both sides slow down together and there is no bending, although the speed still decreases"
    }
   ],
-  "answer_text": "Travelling along the normal, the entire wavefront meets the boundary at the same instant, so every part of it slows down simultaneously. With no difference in timing across the wavefront there is nothing to swing it round, so the ray continues straight \u2014 though it does still slow down.",
+  "answer_text": "Travelling along the normal, the entire wavefront meets the boundary at the same instant, so every part of it slows down simultaneously. With no difference in timing across the wavefront there is nothing to swing it round, so the ray continues straight — though it does still slow down.",
   "required_practical": null
  },
  {
@@ -7080,7 +7080,7 @@
    "v": 5000,
    "f": 250
   },
-  "equation": "v = f \u03bb,  so \u03bb = v / f",
+  "equation": "v = f λ,  so λ = v / f",
   "expr": "v/f",
   "answer": {
    "value": 20.0,
@@ -7092,11 +7092,11 @@
   "marking": [
    {
     "mark": 1,
-    "point": "\u03bb = v / f"
+    "point": "λ = v / f"
    },
    {
     "mark": 1,
-    "point": "\u03bb = 5000 / 250"
+    "point": "λ = 5000 / 250"
    },
    {
     "mark": 1,
@@ -7126,10 +7126,10 @@
    },
    {
     "mark": 1,
-    "point": "Since v = f \u03bb and f is constant, a greater speed means a longer wavelength"
+    "point": "Since v = f λ and f is constant, a greater speed means a longer wavelength"
    }
   ],
-  "answer_text": "Frequency is fixed by the source, so it does not change on entering the water. Sound travels faster in water than in air, and because v = f \u03bb with f constant, the increase in speed must produce a longer wavelength.",
+  "answer_text": "Frequency is fixed by the source, so it does not change on entering the water. Sound travels faster in water than in air, and because v = f λ with f constant, the increase in speed must produce a longer wavelength.",
   "required_practical": null
  },
  {
@@ -7204,7 +7204,7 @@
   "marking": [
    {
     "mark": 1,
-    "point": "Total distance = v \u00d7 t = 1500 \u00d7 0.12 = 180 m"
+    "point": "Total distance = v × t = 1500 × 0.12 = 180 m"
    },
    {
     "mark": 1,
@@ -7245,7 +7245,7 @@
     "point": "The time taken for each reflection to return is used to calculate the depth of that boundary, and a computer builds these into an image"
    }
   ],
-  "answer_text": "A transducer sends pulses of ultrasound into the body. Whenever a pulse meets a boundary between two different media \u2014 for example tissue and fluid \u2014 part of it is reflected back. The transducer detects these echoes, and since the speed in tissue is known, the time delay of each echo gives the depth of that boundary. A computer assembles all these depths into an image.",
+  "answer_text": "A transducer sends pulses of ultrasound into the body. Whenever a pulse meets a boundary between two different media — for example tissue and fluid — part of it is reflected back. The transducer detects these echoes, and since the speed in tissue is known, the time delay of each echo gives the depth of that boundary. A computer assembles all these depths into an image.",
   "required_practical": null
  },
  {
@@ -7314,14 +7314,14 @@
    },
    {
     "mark": 1,
-    "point": "They all travel at the same speed through a vacuum (3 \u00d7 10\u2078 m/s)"
+    "point": "They all travel at the same speed through a vacuum (3 × 10⁸ m/s)"
    },
    {
     "mark": 1,
     "point": "They all transfer energy from a source to an absorber"
    }
   ],
-  "answer_text": "All electromagnetic waves are transverse, all travel at the same speed of 3 \u00d7 10\u2078 m/s through a vacuum, and all transfer energy from a source to an absorber.",
+  "answer_text": "All electromagnetic waves are transverse, all travel at the same speed of 3 × 10⁸ m/s through a vacuum, and all transfer energy from a source to an absorber.",
   "triple_only": false,
   "required_practical": null
  },
@@ -7369,7 +7369,7 @@
     "point": "The boundaries between the groups are chosen for convenience rather than marking any sudden physical change"
    }
   ],
-  "answer_text": "Wavelength and frequency vary smoothly across the whole spectrum with no gaps. The division into seven named groups is made for convenience, based on how the waves are produced and used \u2014 there is no abrupt physical change at the boundaries.",
+  "answer_text": "Wavelength and frequency vary smoothly across the whole spectrum with no gaps. The division into seven named groups is made for convenience, based on how the waves are produced and used — there is no abrupt physical change at the boundaries.",
   "triple_only": false,
   "required_practical": null
  },
@@ -7419,7 +7419,7 @@
     "point": "Absorbing electromagnetic radiation can raise an electron to a higher energy level, or remove it entirely, ionising the atom"
    }
   ],
-  "answer_text": "When an electron in an atom falls from a higher to a lower energy level, the energy difference is emitted as electromagnetic radiation \u2014 this is how visible light, ultraviolet and X-rays can arise. Changes within the nucleus itself produce gamma rays. The process also runs the other way: absorbing electromagnetic radiation can lift an electron to a higher energy level, or if the energy is great enough, knock it out of the atom altogether and ionise it.",
+  "answer_text": "When an electron in an atom falls from a higher to a lower energy level, the energy difference is emitted as electromagnetic radiation — this is how visible light, ultraviolet and X-rays can arise. Changes within the nucleus itself produce gamma rays. The process also runs the other way: absorbing electromagnetic radiation can lift an electron to a higher energy level, or if the energy is great enough, knock it out of the atom altogether and ionise it.",
   "triple_only": false,
   "required_practical": null
  },
@@ -7465,7 +7465,7 @@
     "point": "Since energy depends on wavelength, the same material behaves differently towards different parts of the spectrum"
    }
   ],
-  "answer_text": "The way a wave interacts with a material depends on how the wave's energy compares with the spacing of the material's atoms and its electron energy levels. Because the energy of an electromagnetic wave depends on its wavelength, one material can transmit some wavelengths while absorbing or reflecting others \u2014 glass transmits visible light but absorbs much ultraviolet, for example.",
+  "answer_text": "The way a wave interacts with a material depends on how the wave's energy compares with the spacing of the material's atoms and its electron energy levels. Because the energy of an electromagnetic wave depends on its wavelength, one material can transmit some wavelengths while absorbing or reflecting others — glass transmits visible light but absorbs much ultraviolet, for example.",
   "triple_only": false,
   "required_practical": null
  },
@@ -7519,7 +7519,7 @@
     "point": "Gamma rays are the most hazardous because they carry the most energy and penetrate deepest into the body"
    }
   ],
-  "answer_text": "These three are ionising radiations: they carry enough energy to knock electrons out of atoms in living tissue. That can kill cells or cause mutations in DNA which may lead to cancer \u2014 ultraviolet causes skin cancer and eye damage, for instance. Gamma rays are the most hazardous because they have the highest energy and penetrate furthest into the body.",
+  "answer_text": "These three are ionising radiations: they carry enough energy to knock electrons out of atoms in living tissue. That can kill cells or cause mutations in DNA which may lead to cancer — ultraviolet causes skin cancer and eye damage, for instance. Gamma rays are the most hazardous because they have the highest energy and penetrate furthest into the body.",
   "triple_only": false,
   "required_practical": null
  },
@@ -7698,7 +7698,7 @@
   "choices": [
    "4 nm to 7 nm",
    "400 nm to 700 nm",
-   "400 \u00b5m to 700 \u00b5m",
+   "400 µm to 700 µm",
    "4 mm to 7 mm"
   ],
   "answer_index": 1,
@@ -7816,7 +7816,7 @@
     "point": "Keep the water temperature and the distance the same for each face; the matt black surface gives the highest reading"
    }
   ],
-  "answer_text": "Fill a Leslie cube \u2014 whose four vertical faces are matt black, shiny black, matt white and shiny silver \u2014 with hot water. Hold an infrared detector a fixed distance from one face and record the reading, then repeat for each of the other faces at exactly the same distance. Keep the water temperature constant by working quickly. The matt black face gives the largest reading, showing it is the best emitter of infrared, and the shiny silver face the smallest."
+  "answer_text": "Fill a Leslie cube — whose four vertical faces are matt black, shiny black, matt white and shiny silver — with hot water. Hold an infrared detector a fixed distance from one face and record the reading, then repeat for each of the other faces at exactly the same distance. Keep the water temperature constant by working quickly. The matt black face gives the largest reading, showing it is the best emitter of infrared, and the shiny silver face the smallest."
  },
  {
   "id": "W12-002",
@@ -7838,7 +7838,7 @@
     "point": "It is also the best possible emitter of radiation"
    }
   ],
-  "answer_text": "A perfect black body absorbs all of the radiation incident on it \u2014 none is reflected or transmitted. It is also the best possible emitter of radiation.",
+  "answer_text": "A perfect black body absorbs all of the radiation incident on it — none is reflected or transmitted. It is also the best possible emitter of radiation.",
   "required_practical": null
  },
  {
@@ -7892,7 +7892,1105 @@
     "point": "The peak of the distribution shifts to shorter wavelengths"
    }
   ],
-  "answer_text": "As the temperature rises, the object emits more radiation at every wavelength, so the total intensity increases. The peak of the distribution also moves to shorter wavelengths \u2014 which is why a heated metal glows first red and then white.",
+  "answer_text": "As the temperature rises, the object emits more radiation at every wavelength, so the total intensity increases. The peak of the distribution also moves to shorter wavelengths — which is why a heated metal glows first red and then white.",
+  "required_practical": null
+ },
+ {
+  "id": "E2-005",
+  "subtopic": "E2",
+  "spec_ref": "4.1.1.2",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A runner has a mass of 750 g and runs at 36 km/h. Calculate the runner's kinetic energy. Convert the values to SI units before using the equation.",
+  "given": {
+   "m": "750 g",
+   "v": "36 km/h"
+  },
+  "equation": "Ek = 0.5 m v²",
+  "expr": "0.5*m*v**2",
+  "answer": {
+   "value": 37.5,
+   "unit": "J",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 37.5
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "750 g = 0.750 kg and 36 km/h = 10 m/s"
+   },
+   {
+    "mark": 1,
+    "point": "Ek = 0.5 × 0.750 × 10²"
+   },
+   {
+    "mark": 1,
+    "point": "37.5 J"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "E2-006",
+  "subtopic": "E2",
+  "spec_ref": "4.1.1.2",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A 1.2 kg parcel is lifted through a height of 250 cm. Calculate its gain in gravitational potential energy. Use g = 9.8 N/kg and convert the height to metres.",
+  "given": {
+   "m": 1.2,
+   "h": "250 cm",
+   "g": 9.8
+  },
+  "equation": "Ep = m g h",
+  "expr": "m*g*h",
+  "answer": {
+   "value": 29.4,
+   "unit": "J",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 29.4
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "250 cm = 2.50 m"
+   },
+   {
+    "mark": 1,
+    "point": "Ep = 1.2 × 9.8 × 2.50"
+   },
+   {
+    "mark": 1,
+    "point": "29.4 J"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "E2-007",
+  "subtopic": "E2",
+  "spec_ref": "4.1.1.2",
+  "tier": "H",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A spring with a spring constant of 320 N/m is compressed by 45 mm. Calculate the elastic potential energy stored. Convert the compression to metres.",
+  "given": {
+   "k": 320,
+   "e": "45 mm"
+  },
+  "equation": "Ee = 0.5 k e²",
+  "expr": "0.5*k*e**2",
+  "answer": {
+   "value": 0.324,
+   "unit": "J",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 0.324
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "45 mm = 0.045 m"
+   },
+   {
+    "mark": 1,
+    "point": "Ee = 0.5 × 320 × 0.045²"
+   },
+   {
+    "mark": 1,
+    "point": "0.324 J"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "C1-005",
+  "subtopic": "C1",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A current of 250 mA flows through a lamp for 2.0 minutes. Calculate the charge transferred. Convert both values to amperes and seconds.",
+  "equation": "Q = I t",
+  "expr": "I*t",
+  "answer": {
+   "value": 30,
+   "unit": "C",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 30
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "250 mA = 0.250 A and 2.0 minutes = 120 s"
+   },
+   {
+    "mark": 1,
+    "point": "Q = 0.250 × 120"
+   },
+   {
+    "mark": 1,
+    "point": "30 C"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "C2-005",
+  "subtopic": "C2",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A 6.0 V potential difference is applied across a resistor. The current is 25 mA. Calculate the resistance. Convert the current to amperes.",
+  "equation": "R = V / I",
+  "expr": "V/I",
+  "answer": {
+   "value": 240,
+   "unit": "Ω",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 240
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "25 mA = 0.025 A"
+   },
+   {
+    "mark": 1,
+    "point": "R = 6.0 / 0.025"
+   },
+   {
+    "mark": 1,
+    "point": "240 Ω"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "C6-005",
+  "subtopic": "C6",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A 230 V heater draws a current of 450 mA. Calculate its power. Convert the current to amperes.",
+  "equation": "P = V I",
+  "expr": "V*I",
+  "answer": {
+   "value": 103.5,
+   "unit": "W",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 103.5
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "450 mA = 0.450 A"
+   },
+   {
+    "mark": 1,
+    "point": "P = 230 × 0.450"
+   },
+   {
+    "mark": 1,
+    "point": "103.5 W"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "E3-005",
+  "subtopic": "E3",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A 250 g copper block is heated from 20 °C to 65 °C. The specific heat capacity of copper is 390 J/kg °C. Calculate the energy transferred to the block. Convert the mass to kilograms.",
+  "equation": "ΔE = m c Δθ",
+  "expr": "m*c*dtheta",
+  "answer": {
+   "value": 4387.5,
+   "unit": "J",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 4387.5
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "250 g = 0.250 kg and Δθ = 45 °C"
+   },
+   {
+    "mark": 1,
+    "point": "ΔE = 0.250 × 390 × 45"
+   },
+   {
+    "mark": 1,
+    "point": "4.39 × 10³ J"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "E4-005",
+  "subtopic": "E4",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A 1.5 kW heater transfers energy for 4.0 minutes. Calculate the energy transferred in joules. Convert the power to watts and the time to seconds.",
+  "equation": "E = P t",
+  "expr": "P*t",
+  "answer": {
+   "value": 360000,
+   "unit": "J",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 360000
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "1.5 kW = 1500 W and 4.0 minutes = 240 s"
+   },
+   {
+    "mark": 1,
+    "point": "E = 1500 × 240"
+   },
+   {
+    "mark": 1,
+    "point": "360 000 J"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "E6-005",
+  "subtopic": "E6",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A motor takes in 0.80 kW of power and transfers 560 W usefully. Calculate its efficiency as a percentage. Convert the input power to watts.",
+  "equation": "efficiency = useful power / input power",
+  "expr": "560/800",
+  "answer": {
+   "value": 0.7,
+   "unit": "(or 70%)",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 0.7
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "0.80 kW = 800 W"
+   },
+   {
+    "mark": 1,
+    "point": "efficiency = 560 / 800"
+   },
+   {
+    "mark": 1,
+    "point": "0.70 or 70%"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "F2-005",
+  "subtopic": "F2",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A package has a mass of 850 g. Calculate its weight on Earth, where g = 9.8 N/kg. Convert the mass to kilograms.",
+  "equation": "W = m g",
+  "expr": "m*g",
+  "answer": {
+   "value": 8.33,
+   "unit": "N",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 8.33
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "850 g = 0.850 kg"
+   },
+   {
+    "mark": 1,
+    "point": "W = 0.850 × 9.8"
+   },
+   {
+    "mark": 1,
+    "point": "8.33 N"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "F4-005",
+  "subtopic": "F4",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A force of 1.2 kN pushes a crate through 35 cm in the direction of the force. Calculate the work done. Convert both measurements to newtons and metres.",
+  "equation": "W = F s",
+  "expr": "F*s",
+  "answer": {
+   "value": 420,
+   "unit": "J",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 420
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "1.2 kN = 1200 N and 35 cm = 0.35 m"
+   },
+   {
+    "mark": 1,
+    "point": "W = 1200 × 0.35"
+   },
+   {
+    "mark": 1,
+    "point": "420 J"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "F5-005",
+  "subtopic": "F5",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "H",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A spring has a spring constant of 250 N/m. A force of 7.5 N is applied without exceeding the limit of proportionality. Calculate the extension in millimetres.",
+  "equation": "F = k e, so e = F / k",
+  "expr": "F/k*1000",
+  "answer": {
+   "value": 30,
+   "unit": "mm",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 30
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "e = 7.5 / 250 = 0.030 m"
+   },
+   {
+    "mark": 1,
+    "point": "Convert 0.030 m to millimetres"
+   },
+   {
+    "mark": 1,
+    "point": "30 mm"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "F6-005",
+  "subtopic": "F6",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A force of 32 N acts at right angles to a door, 75 cm from its hinge. Calculate the moment about the hinge. Convert the distance to metres.",
+  "equation": "M = F d",
+  "expr": "F*d",
+  "answer": {
+   "value": 24,
+   "unit": "N m",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 24
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "75 cm = 0.75 m"
+   },
+   {
+    "mark": 1,
+    "point": "M = 32 × 0.75"
+   },
+   {
+    "mark": 1,
+    "point": "24 N m"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "F7-005",
+  "subtopic": "F7",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A force of 500 N acts normally on an area of 20 cm². Calculate the pressure in pascals. Convert the area to square metres.",
+  "equation": "p = F / A",
+  "expr": "F/A",
+  "answer": {
+   "value": 250000,
+   "unit": "Pa",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 250000
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "20 cm² = 0.0020 m²"
+   },
+   {
+    "mark": 1,
+    "point": "p = 500 / 0.0020"
+   },
+   {
+    "mark": 1,
+    "point": "250 000 Pa"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "F9-005",
+  "subtopic": "F9",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A car travels 1.8 km in 2.0 minutes. Calculate its average speed in metres per second. Convert the distance and time to SI units.",
+  "equation": "v = s / t",
+  "expr": "s/t",
+  "answer": {
+   "value": 15,
+   "unit": "m/s",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 15
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "1.8 km = 1800 m and 2.0 minutes = 120 s"
+   },
+   {
+    "mark": 1,
+    "point": "v = 1800 / 120"
+   },
+   {
+    "mark": 1,
+    "point": "15 m/s"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "F11-005",
+  "subtopic": "F11",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A car speeds up from 36 km/h to 72 km/h in 5.0 seconds. Calculate its acceleration in m/s². Convert both speeds to metres per second.",
+  "equation": "a = (v − u) / t",
+  "expr": "(v-u)/t",
+  "answer": {
+   "value": 2,
+   "unit": "m/s²",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 2
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "36 km/h = 10 m/s and 72 km/h = 20 m/s"
+   },
+   {
+    "mark": 1,
+    "point": "a = (20 − 10) / 5.0"
+   },
+   {
+    "mark": 1,
+    "point": "2.0 m/s²"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "F12-005",
+  "subtopic": "F12",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A resultant force of 1800 N acts on a vehicle with a mass of 0.80 tonnes. Calculate its acceleration. Convert the mass to kilograms.",
+  "equation": "a = F / m",
+  "expr": "F/m",
+  "answer": {
+   "value": 2.25,
+   "unit": "m/s²",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 2.25
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "0.80 tonnes = 800 kg"
+   },
+   {
+    "mark": 1,
+    "point": "a = 1800 / 800"
+   },
+   {
+    "mark": 1,
+    "point": "2.25 m/s²"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "F15-005",
+  "subtopic": "F15",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "H",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A 250 g ball moves at 72 km/h. Calculate its momentum. Convert the mass to kilograms and the speed to metres per second.",
+  "equation": "p = m v",
+  "expr": "m*v",
+  "answer": {
+   "value": 5,
+   "unit": "kg m/s",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 5
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "250 g = 0.250 kg and 72 km/h = 20 m/s"
+   },
+   {
+    "mark": 1,
+    "point": "p = 0.250 × 20"
+   },
+   {
+    "mark": 1,
+    "point": "5.0 kg m/s"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "F16-005",
+  "subtopic": "F16",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "H",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A 0.20 kg ball changes its velocity by 15 m/s in 25 ms. Calculate the magnitude of the average force. Convert the time to seconds.",
+  "equation": "F = Δp / Δt = m Δv / Δt",
+  "expr": "m*dv/dt",
+  "answer": {
+   "value": 120,
+   "unit": "N",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 120
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "25 ms = 0.025 s"
+   },
+   {
+    "mark": 1,
+    "point": "F = (0.20 × 15) / 0.025"
+   },
+   {
+    "mark": 1,
+    "point": "120 N"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "M4-005",
+  "subtopic": "M4",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A 45 cm wire carries a current of 3.0 A at right angles to a magnetic field of flux density 0.40 T. Calculate the force on the wire. Convert the wire length to metres.",
+  "equation": "F = B I l",
+  "expr": "B*I*l",
+  "answer": {
+   "value": 0.54,
+   "unit": "N",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 0.54
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "45 cm = 0.45 m"
+   },
+   {
+    "mark": 1,
+    "point": "F = 0.40 × 3.0 × 0.45"
+   },
+   {
+    "mark": 1,
+    "point": "0.54 N"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "M8-005",
+  "subtopic": "M8",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A transformer has 500 turns on its primary coil and 25 turns on its secondary coil. The primary potential difference is 6.0 kV. Calculate the secondary potential difference in volts. Convert kilovolts to volts.",
+  "equation": "Vs = Vp × ns / np",
+  "expr": "6000*25/500",
+  "answer": {
+   "value": 300,
+   "unit": "V",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 300
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "6.0 kV = 6000 V"
+   },
+   {
+    "mark": 1,
+    "point": "Vs = 6000 × 25 / 500"
+   },
+   {
+    "mark": 1,
+    "point": "300 V"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "P1-005",
+  "subtopic": "P1",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A metal sample has a mass of 54 g and a volume of 20 cm³. Calculate its density in kg/m³. Convert the mass and volume to SI units.",
+  "equation": "ρ = m / V",
+  "expr": "0.054/0.000020",
+  "answer": {
+   "value": 2700,
+   "unit": "kg/m³",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 2700
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "54 g = 0.054 kg and 20 cm³ = 0.000020 m³"
+   },
+   {
+    "mark": 1,
+    "point": "ρ = 0.054 / 0.000020"
+   },
+   {
+    "mark": 1,
+    "point": "2700 kg/m³"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "P4-005",
+  "subtopic": "P4",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A 75 g sample of ice melts at 0 °C. The specific latent heat of fusion of ice is 334 000 J/kg. Calculate the energy needed. Convert the mass to kilograms.",
+  "equation": "E = m L",
+  "expr": "0.075*334000",
+  "answer": {
+   "value": 25050,
+   "unit": "J",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 25050
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "75 g = 0.075 kg"
+   },
+   {
+    "mark": 1,
+    "point": "E = 0.075 × 334 000"
+   },
+   {
+    "mark": 1,
+    "point": "2.51 × 10⁴ J"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "P6-005",
+  "subtopic": "P6",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A gas at constant temperature has a pressure of 150 kPa and a volume of 200 cm³. It is compressed to 0.50 litres. Calculate its new pressure in kilopascals. Convert the volumes to the same units first.",
+  "equation": "p₁V₁ = p₂V₂",
+  "expr": "150*2.0/0.50",
+  "answer": {
+   "value": 60,
+   "unit": "kPa",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 60
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "0.50 litres = 500 cm³"
+   },
+   {
+    "mark": 1,
+    "point": "p₂ = 150 × 200 / 500"
+   },
+   {
+    "mark": 1,
+    "point": "60 kPa"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "W2-005",
+  "subtopic": "W2",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A wave has a frequency of 2.5 kHz and a wavelength of 12 cm. Calculate its speed in metres per second. Convert both values to SI units.",
+  "equation": "v = f λ",
+  "expr": "2500*0.12",
+  "answer": {
+   "value": 300,
+   "unit": "m/s",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 300
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "2.5 kHz = 2500 Hz and 12 cm = 0.12 m"
+   },
+   {
+    "mark": 1,
+    "point": "v = 2500 × 0.12"
+   },
+   {
+    "mark": 1,
+    "point": "300 m/s"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "W3-005",
+  "subtopic": "W3",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "In a ripple tank, 18 waves pass a point in 30 seconds. The distance across 6 wavelengths is 90 cm. Calculate the wave speed in metres per second. Convert the measurements to SI units.",
+  "equation": "v = f λ",
+  "expr": "(18/30)*(0.90/6)",
+  "answer": {
+   "value": 0.09,
+   "unit": "m/s",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 0.09
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "f = 18 / 30 = 0.60 Hz and λ = 90 cm / 6 = 0.15 m"
+   },
+   {
+    "mark": 1,
+    "point": "v = 0.60 × 0.15"
+   },
+   {
+    "mark": 1,
+    "point": "0.090 m/s"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "W5-005",
+  "subtopic": "W5",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A sound wave travels through air at 340 m/s and has a frequency of 4.0 kHz. Calculate its wavelength in metres. Convert the frequency to hertz.",
+  "equation": "λ = v / f",
+  "expr": "340/4000",
+  "answer": {
+   "value": 0.085,
+   "unit": "m",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 0.085
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "4.0 kHz = 4000 Hz"
+   },
+   {
+    "mark": 1,
+    "point": "λ = 340 / 4000"
+   },
+   {
+    "mark": 1,
+    "point": "0.085 m"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "W6-005",
+  "subtopic": "W6",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "An ultrasound pulse travels to the seabed and back in 800 microseconds. The speed of sound in seawater is 1500 m/s. Calculate the depth of the sea. Convert the time to seconds and remember the pulse travels there and back.",
+  "equation": "depth = v t / 2",
+  "expr": "1500*0.0008/2",
+  "answer": {
+   "value": 0.6,
+   "unit": "m",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 0.6
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "800 μs = 0.000800 s"
+   },
+   {
+    "mark": 1,
+    "point": "depth = (1500 × 0.000800) / 2"
+   },
+   {
+    "mark": 1,
+    "point": "0.60 m"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "W10-005",
+  "subtopic": "W10",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "B",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "An object is 0.8 cm tall and its image is 24 mm tall. Calculate the magnification. Convert the heights to the same unit first.",
+  "equation": "magnification = image height / object height",
+  "expr": "24/8",
+  "answer": {
+   "value": 3,
+   "unit": "",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 3
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "0.8 cm = 8 mm"
+   },
+   {
+    "mark": 1,
+    "point": "magnification = 24 / 8"
+   },
+   {
+    "mark": 1,
+    "point": "3"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "F13-005",
+  "subtopic": "F13",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "H",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A 650 g skydiver is falling. Air resistance is 5.0 N upwards. Calculate the skydiver’s acceleration, using g = 9.8 N/kg. Convert the mass to kilograms.",
+  "equation": "W = m g, then Fnet = W − drag, then a = Fnet / m",
+  "expr": "(0.650*9.8-5.0)/0.650",
+  "answer": {
+   "value": 2.1076923076923078,
+   "unit": "m/s²",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 2.1076923076923078
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "650 g = 0.650 kg"
+   },
+   {
+    "mark": 1,
+    "point": "W = 0.650 × 9.8 = 6.37 N, so Fnet = 6.37 − 5.0 = 1.37 N downwards"
+   },
+   {
+    "mark": 1,
+    "point": "a = 1.37 / 0.650 = 2.11 m/s² downwards"
+   }
+  ],
+  "triple_only": false,
+  "required_practical": null
+ },
+ {
+  "id": "R6-005",
+  "subtopic": "R6",
+  "spec_ref": "GCSE Physics calculation practice",
+  "tier": "H",
+  "marks": 3,
+  "command": "Calculate",
+  "type": "numeric",
+  "stem": "A radioactive source has a half-life of 45 minutes and an initial count rate of 3200 counts per minute. Calculate the count rate after 3.0 hours. Convert the time to minutes first.",
+  "equation": "count rate = initial ÷ 2ⁿ",
+  "expr": "3200/(2**(180/45))",
+  "answer": {
+   "value": 200,
+   "unit": "counts/min",
+   "sig_figs": 3,
+   "tolerance": 0.01,
+   "computed": 200
+  },
+  "marking": [
+   {
+    "mark": 1,
+    "point": "3.0 hours = 180 minutes, which is 4 half-lives"
+   },
+   {
+    "mark": 1,
+    "point": "count rate = 3200 ÷ 2⁴"
+   },
+   {
+    "mark": 1,
+    "point": "200 counts per minute"
+   }
+  ],
+  "triple_only": false,
   "required_practical": null
  }
 ]
