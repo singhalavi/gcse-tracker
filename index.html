@@ -1422,6 +1422,12 @@ let allProgressBySubject = {};
 let currentProgress = {};
 
 function getCurrentSubject(){ return SUBJECTS.find(s=>s.id===currentSubjectId) || SUBJECTS[0]; }
+function canStudentFlagMathsQuestion(){
+  if(currentSubjectId===PHYSICS_SUBJECT_ID||currentUser?.role!=="student") return true;
+  if(!studentBatchesLoaded) return false;
+  const permittedBatches=new Set(["2026_sunday_10am","ton trial"]);
+  return studentBatchesCache.some(batch=>permittedBatches.has(String(batch.name||"").trim().toLowerCase()));
+}
 
 const PHYSICS_SUBJECT_ID = "gcse-aqa-physics-higher";
 let physicsDataReady = Promise.resolve(false);
@@ -3749,17 +3755,35 @@ function hideInviteResult(){
   latestInvite=null;
   $("inviteResult").classList.remove("show");
 }
-function inviteEmailText(name,email,adminName){
+function inviteSubjectNames(batchIds=[]){
+  const subjectIds=[...new Set((batchIds||[]).flatMap(batchId=>{
+    const batch=adminBatchesCache.find(item=>item.id===batchId);
+    return Array.isArray(batch?.subjectIds)?batch.subjectIds:[];
+  }))];
+  return subjectIds.map(id=>{
+    const subject=SUBJECTS.find(item=>item.id===id);
+    const name=subject?.name||subject?.shortName||id;
+    if(/physics/i.test(id)||/physics/i.test(name)) return "Physics";
+    if(/math/i.test(id)||/math/i.test(name)) return "Maths";
+    return name.replace(/^GCSE\s+/i,"").replace(/\s+(Higher|Foundation)$/i,"");
+  });
+}
+function inviteEmailText(name,email,adminName,subjects=[]){
   const greeting=name?`Hi ${name},`:"Hello,";
   const signature=String(adminName||"").trim()||"Avi";
+  const subjectLine=subjects.length
+    ? `Your practice subjects: ${subjects.join(", ")}.`
+    : "Your practice subjects will appear once your tutor assigns you to a subject batch.";
   return `${greeting}
 
-You've been invited to join GCSE Learning Tracker - your personalised subject practice space.
+You've been invited to join the GCSE Practice Portal, your personalised space to practise and track your progress.
+
+${subjectLine}
 
 Here's how to get started:
 • Go to: ${TRACKER_INVITE_URL}
 • Click "Continue with Google" to sign in instantly (recommended), OR click Log in then Forgot password to set your own password
-• Start practising - your progress saves automatically
+• Choose an assigned subject and start practising - your progress saves automatically
 
 Your login email: ${email}
 
@@ -3769,10 +3793,11 @@ Happy practising!
 
 - ${signature}`;
 }
-function showInviteResult({name,email,isExisting=false,isActive=false,resetEmailSent=false}){
+function showInviteResult({name,email,batchIds=[],isExisting=false,isActive=false,resetEmailSent=false}){
   const adminName=currentUser && currentUser.displayName ? currentUser.displayName : "";
-  const emailText=inviteEmailText(name,email,adminName);
-  latestInvite={name,email,isExisting,emailText};
+  const subjects=inviteSubjectNames(batchIds);
+  const emailText=inviteEmailText(name,email,adminName,subjects);
+  latestInvite={name,email,isExisting,subjects,emailText};
   const accountLabel=name||email;
   $("inviteResultTitle").textContent=isExisting
     ? `Account already exists for ${accountLabel} — share the tracker link`
@@ -3883,7 +3908,7 @@ async function finishExistingInvite(profile,email,displayName,batchIds=[]){
   }catch(e){
     console.warn("password setup email unavailable; copied invite explains Forgot password",e);
   }
-  showInviteResult({name:data.displayName||displayName,email,isExisting:true,isActive,resetEmailSent});
+  showInviteResult({name:data.displayName||displayName,email,batchIds,isExisting:true,isActive,resetEmailSent});
   setInviteMessage(resetEmailSent
     ? `Account already exists for ${data.displayName||displayName}. Password setup email sent.${batchNote}`
     : `Account already exists for ${data.displayName||displayName}. Copy the email content to share the login steps.${batchNote}`,"success");
@@ -3961,7 +3986,7 @@ $("btnInviteStudent").addEventListener("click", async ()=>{
     button.textContent="Adding to batch…";
     const batchNote=await assignInviteToBatches(inviteBatchIds,cred.user.uid,{displayName,email});
 
-    showInviteResult({name:displayName,email,isExisting:false,isActive:false,resetEmailSent});
+    showInviteResult({name:displayName,email,batchIds:inviteBatchIds,isExisting:false,isActive:false,resetEmailSent});
     setInviteMessage(resetEmailSent
       ? `Account created for ${displayName}. Password setup email sent.${batchNote}`
       : `Account created for ${displayName}. Copy the email content so they can set their password from Log in.${batchNote}`,"success");
@@ -3983,7 +4008,7 @@ $("btnInviteStudent").addEventListener("click", async ()=>{
         }else if(inviteErrorIsNetwork(profileErr)){
           retryNeeded=true; setInviteMessage("The account exists, but we couldn’t check its profile. Check your connection and click Retry invite.","error");
         }else{
-          showInviteResult({name:displayName,email,isExisting:true,isActive:false});
+          showInviteResult({name:displayName,email,batchIds:inviteBatchIds,isExisting:true,isActive:false});
           setInviteMessage(`Account already exists for ${displayName} — ready to invite.`,"success");
         }
       }
@@ -4688,11 +4713,12 @@ function qzPhysicsMarkingHtml(q){
 }
 function qzFeedbackHtml(q){
   const fb=qzFeedback[q.i];
+  const showFlag=canStudentFlagMathsQuestion();
   if(!fb) return '<div class="qz-feedback" id="qzFeedback" role="status" aria-live="polite"></div>';
   if(fb.kind==="correct") return `<div class="qz-feedback correct show" id="qzFeedback" role="status" aria-live="polite"><strong>Correct</strong>Your answer matches the expected answer. <b>${qzEsc(q.a)}</b>${currentSubjectId===PHYSICS_SUBJECT_ID&&q.markingPoints?.length&&q.type!=="mcq"?`<div style="margin-top:10px">You can also award marks point by point, including for your working.${qzPhysicsMarkingHtml(q)}</div>`:""}</div>`;
   if(fb.kind==="unknown") return `<div class="qz-feedback review show" id="qzFeedback" role="status" aria-live="polite"><strong>Self-mark this response</strong>Compare your answer with: <b>${qzEsc(q.a)}</b>${currentSubjectId===PHYSICS_SUBJECT_ID&&q.markingPoints?.length?qzPhysicsMarkingHtml(q):currentSubjectId===PHYSICS_SUBJECT_ID&&q.m?`<div class="qz-physics-mark-points"><b>Mark points</b><br>${qzEsc(q.m)}</div>`:""}${currentSubjectId===PHYSICS_SUBJECT_ID&&q.markingPoints?.length?"":`<div class="qz-feedback-actions"><button class="btn qz-btn-right" id="qzSelfRight">Mark as correct</button><button class="btn qz-btn-wrong" id="qzSelfWrong">Mark as wrong</button></div>`}</div>`;
   if(currentSubjectId===PHYSICS_SUBJECT_ID&&q.markingPoints?.length&&q.type!=="mcq") return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Check your working against the mark points</strong>You can still award yourself marks for correct steps.${qzPhysicsMarkingHtml(q)}${qzAnswerRevealAction(q,fb)}</div>`;
-  return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Not quite</strong><div class="qz-flag-prompt">Think the checker was too strict?</div><div class="qz-feedback-actions"><button class="btn qz-btn-right" id="qzManualCorrect">Mark correct anyway</button><button class="btn qz-flag-button" id="qzFlag">Flag the Question</button></div>${qzAnswerRevealAction(q,fb)}</div>`;
+  return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Not quite</strong>${showFlag?'<div class="qz-flag-prompt">Think the checker was too strict?</div>':""}<div class="qz-feedback-actions"><button class="btn qz-btn-right" id="qzManualCorrect">Mark correct anyway</button>${showFlag?'<button class="btn qz-flag-button" id="qzFlag">Flag the Question</button>':""}</div>${qzAnswerRevealAction(q,fb)}</div>`;
 }
 async function qzRecordQuestionStat(q,kind,answer=""){
   // Admin self-practice saves under the admin UID but does not alter the shared student-review counters.
