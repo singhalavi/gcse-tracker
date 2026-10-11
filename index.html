@@ -46,6 +46,15 @@
     --shadow:0 10px 30px rgba(91,63,163,.10),0 2px 8px rgba(91,63,163,.06);
     --shadow-sm:0 4px 16px rgba(91,63,163,.08);
   }
+  body.subject-chemistry{
+    --navy:#16834b;
+    --navy-700:#11683b;
+    --navy-800:#0d512e;
+    --navy-50:#eaf7ef;
+    --navy-100:#ccebd7;
+    --shadow:0 10px 30px rgba(22,131,75,.10),0 2px 8px rgba(22,131,75,.06);
+    --shadow-sm:0 4px 16px rgba(22,131,75,.08);
+  }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"DM Sans", ui-sans-system, system-ui, -apple-system, sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
   button,input,select,textarea{font:inherit}
@@ -926,7 +935,7 @@ body.question-bank-focus .wrap{padding-top:16px}
       <div class="math-hero-abstract">
         <div class="math-badge-row">
           <span class="gcse-pill">GCSE Learning</span>
-          <span class="gcse-pill muted">Maths &amp; Physics</span>
+          <span class="gcse-pill muted">Maths, Physics &amp; Chemistry</span>
         </div>
         <div style="position:relative">
           <h2 class="math-title">Sign in to<br><em>practise.</em></h2>
@@ -1424,14 +1433,17 @@ let currentProgress = {};
 
 function getCurrentSubject(){ return SUBJECTS.find(s=>s.id===currentSubjectId) || SUBJECTS[0]; }
 function canStudentFlagMathsQuestion(){
-  if(currentSubjectId===PHYSICS_SUBJECT_ID||currentUser?.role!=="student") return true;
+  if(QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)||currentUser?.role!=="student") return true;
   if(!studentBatchesLoaded) return false;
   const permittedBatches=new Set(["2026_sunday_10am","ton trial"]);
   return studentBatchesCache.some(batch=>permittedBatches.has(String(batch.name||"").trim().toLowerCase()));
 }
 
 const PHYSICS_SUBJECT_ID = "gcse-aqa-physics-higher";
+const CHEMISTRY_SUBJECT_ID = "gcse-aqa-chemistry-higher";
+const QUESTION_BANK_SUBJECT_IDS = new Set([PHYSICS_SUBJECT_ID, CHEMISTRY_SUBJECT_ID]);
 let physicsDataReady = Promise.resolve(false);
+let chemistryDataReady = Promise.resolve(false);
 async function fetchPhysicsJson(filename){
   const candidates=[new URL(filename,location.href),new URL(`Portal/${filename}`,location.href)];
   let lastError=null;
@@ -1506,6 +1518,42 @@ async function loadPhysicsSubject(){
   }
 }
 physicsDataReady=loadPhysicsSubject();
+async function loadChemistrySubject(){
+  try{
+    const [topicData,questionData]=await Promise.all([
+      fetch(new URL("chemistry/subtopics.json",location.href)).then(response=>{if(!response.ok) throw new Error(`Chemistry subtopics returned ${response.status}`); return response.json();}),
+      fetch(new URL("chemistry/questions.json",location.href)).then(response=>{if(!response.ok) throw new Error(`Chemistry questions returned ${response.status}`); return response.json();})
+    ]);
+    const questionsByTopic=new Map();
+    for(const item of questionData){const list=questionsByTopic.get(item.subtopic)||[];list.push(item);questionsByTopic.set(item.subtopic,list);}
+    const sourceTopics=topicData.filter(topic=>questionsByTopic.has(topic.code));
+    const strandOrder=[...new Set(sourceTopics.map(topic=>topic.topic_code))];
+    const strandTitleNames={
+      "4.1":"Atomic","4.2":"Bonding","4.3":"Quantitative Chemistry","4.4":"Chemical Changes",
+      "4.5":"Energy Changes","4.6":"Rates & Equilibrium","4.7":"Organic Chemistry",
+      "4.8":"Chemical Analysis","4.9":"Atmospheric Chemistry","4.10":"Resource Use"
+    };
+    const strands={},strandLabels={},strandIcons={};
+    for(const topic of sourceTopics){
+      const label=strandTitleNames[topic.topic_code]||topic.topic;
+      strands[topic.topic_code]=label;strandLabels[topic.topic_code]=label;strandIcons[topic.topic_code]=topic.topic_code.replace("4.","");
+    }
+    const topics=sourceTopics.map(topic=>({id:topic.code,strand:topic.topic_code,strandName:topic.topic,title:topic.name,exam:`${topic.topic} · Paper ${topic.paper}${topic.required_practical?` · Required practical ${topic.required_practical}`:""}`}));
+    const questions=questionData.map(item=>{
+      const choices=Array.isArray(item.choices)?item.choices:null;
+      const answer=choices?choices[item.answer_index]:item.answer?.value;
+      const points=(item.marking||[]).map(point=>({mark:Number(point.mark)||1,point:String(point.point||"")})).filter(point=>point.point);
+      return {i:item.id,c:item.subtopic,q:item.stem,a:answer!==undefined&&answer!==null?`${answer}${item.answer?.unit?` ${item.answer.unit}`:""}`:String(item.answer_text||""),markingPoints:points,alts:[],orderSensitive:false,m:points.map(point=>`M${point.mark} ${point.point}`).join("; "),h:item.equation?`Useful relationship: ${item.equation}`:"Use the mark points to check your response.",tip:"",g:7,k:Number(item.marks)||1,t:"E",choices,answerIndex:Number.isInteger(item.answer_index)?item.answer_index:null,answerValue:item.answer?.value,type:item.type,unit:item.answer?.unit||"",tolerance:Number(item.answer?.tolerance)||0};
+    });
+    const subject={id:CHEMISTRY_SUBJECT_ID,name:"GCSE AQA Chemistry Higher",shortName:"AQA Chemistry",strands,strandOrder,strandLabels,strandTitleNames,strandIcons,topics,questions};
+    const existing=SUBJECTS.findIndex(item=>item.id===CHEMISTRY_SUBJECT_ID);
+    if(existing>=0) SUBJECTS[existing]=subject; else SUBJECTS.push(subject);
+    if(savedSubjectId===CHEMISTRY_SUBJECT_ID) currentSubjectId=CHEMISTRY_SUBJECT_ID;
+    updateSubjectGlobals();populateSubjectSelectors();initBatchControls();
+    return true;
+  }catch(error){console.error("Chemistry question bank unavailable",error);const status=$("physicsLoadStatus");if(status){status.textContent="Chemistry topics did not load. Check that the chemistry folder is available beside Portal, then reload.";status.hidden=false;}return false;}
+}
+chemistryDataReady=loadChemistrySubject();
 function getCurrentTopics(){ return getCurrentSubject().topics; }
 
 let TOPICS = getCurrentTopics();
@@ -1527,6 +1575,7 @@ function updateSubjectGlobals(){
 function updateHeaderMeta(){
   const subj=getCurrentSubject();
   document.body.classList.toggle("subject-physics",currentSubjectId===PHYSICS_SUBJECT_ID);
+  document.body.classList.toggle("subject-chemistry",currentSubjectId===CHEMISTRY_SUBJECT_ID);
   const hdr=$("hdrMeta");
   if(hdr) hdr.textContent = subj.name;
   const sMeta=$("studentSubjectMeta");
@@ -1536,7 +1585,7 @@ function updateHeaderMeta(){
   const allChip=document.querySelector('.chip[data-strand="all"]');
   if(allChip) allChip.textContent="All";
   const brand=$("brandSubject");
-  if(brand) brand.textContent=subj.name.includes("Physics")?"GCSE Physics":"GCSE Maths";
+  if(brand) brand.textContent=subj.name.includes("Physics")?"GCSE Physics":subj.name.includes("Chemistry")?"GCSE Chemistry":"GCSE Maths";
 }
 
 function availableSubjectsForCurrentUser(){
@@ -1559,7 +1608,7 @@ function populateSubjectSelectors(){
     if(!sel) return;
     const options=sel===selS&&currentUser?.role==="student"?subjects:SUBJECTS;
     sel.innerHTML=options.map(subject=>{
-      const label=subject.id===DEFAULT_SUBJECT_ID?"Maths":subject.id===PHYSICS_SUBJECT_ID?"Physics":subject.shortName||subject.name;
+      const label=subject.id===DEFAULT_SUBJECT_ID?"Maths":subject.id===PHYSICS_SUBJECT_ID?"Physics":subject.id===CHEMISTRY_SUBJECT_ID?"Chemistry":subject.shortName||subject.name;
       return `<button type="button" class="subject-option" data-subject-id="${qzEsc(subject.id)}" aria-pressed="${subject.id===currentSubjectId}">${qzEsc(label)}</button>`;
     }).join("");
   });
@@ -2398,7 +2447,7 @@ async function initFirebase(){
 }
 
 async function afterFirebaseLogin(fbUser){
-  await physicsDataReady;
+  await Promise.all([physicsDataReady,chemistryDataReady]);
   const loginGeneration=++authLoadGeneration;
   // Authentication can change accounts without reloading this tab. Clear every
   // account-owned in-memory value and pending write before reading the new UID.
@@ -3107,7 +3156,7 @@ function renderStudent(){
     strandsEl.appendChild(div);
   };
   for(const s of STRAND_ORDER){
-    const labelName=STRAND_LABEL[s]?STRAND_LABEL[s].split(" ")[0]:(subj.strands[s]||s);
+    const labelName=subj.strandTitleNames?.[s]||(STRAND_LABEL[s]?STRAND_LABEL[s].split(" ")[0]:(subj.strands[s]||s));
     addPracticeCard(s,labelName,TOPICS.filter(t=>t.strand===s));
   }
   const score=qzScoreForTopics(TOPICS);
@@ -4117,13 +4166,13 @@ function qzWriteDeletedQuestionIds(ids,subjectId=currentSubjectId,uid=currentUse
 function qzAddDeletedQuestionIds(ids){ qzWriteDeletedQuestionIds([...qzReadDeletedQuestionIds(),...ids]); }
 function qzForgetDeletedQuestionId(qid){ qzWriteDeletedQuestionIds(qzReadDeletedQuestionIds().filter(id=>id!==qid)); }
 function qzSetSaveState(t){ const el=$("saveState"); if(el) el.textContent=t; }
-function qzPhysicsAnswerKey(){ return currentUser?.uid&&currentSubjectId===PHYSICS_SUBJECT_ID?`gcse_answers_${currentUser.uid}_${PHYSICS_SUBJECT_ID}`:null; }
+function qzPhysicsAnswerKey(){ return currentUser?.uid&&QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)?`gcse_answers_${currentUser.uid}_${currentSubjectId}`:null; }
 function qzReadPhysicsAnswers(){
   const key=qzPhysicsAnswerKey(); if(!key) return {};
   try{ const value=JSON.parse(sGet(key)||"{}"); return value&&typeof value==="object"?value:{}; }catch{ return {}; }
 }
 function qzHydratePhysicsAnswers(){
-  if(currentSubjectId!==PHYSICS_SUBJECT_ID) return;
+  if(!QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)) return;
   const saved=qzReadPhysicsAnswers();
   for(const [qid,attempts] of Object.entries(saved)){
     const latest=Array.isArray(attempts)?attempts.at(-1):attempts;
@@ -4158,9 +4207,9 @@ function qzResolvePhysicsAnswer(q,verdict,marksAwarded=null,maxMarks=null){
   sSet(key,JSON.stringify(history));
 }
 function qzPhysicsAnswerHistoryMarkup(q){
-  if(currentSubjectId!==PHYSICS_SUBJECT_ID) return "";
+  if(!QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)) return "";
   const attempts=qzReadPhysicsAnswers()[q.i];
-  if(!Array.isArray(attempts)||!attempts.length) return '<p class="qz-answer-tip">Your Physics answers are saved on this device.</p>';
+  if(!Array.isArray(attempts)||!attempts.length) return `<p class="qz-answer-tip">Your ${currentSubjectId===CHEMISTRY_SUBJECT_ID?"Chemistry":"Physics"} answers are saved on this device.</p>`;
   const rows=attempts.slice(-5).reverse().map(item=>{
     const stamp=new Date(item.at).toLocaleString();
     const answer=q.choices&&item.answer!==""?q.choices[Number(item.answer)]||item.answer:item.answer;
@@ -4297,10 +4346,10 @@ async function qSetOverride(qid, patch){
 }
 
 function qzFor(code){ return qVisible().filter(q=>q.c===code); }
-function qzForStrand(st){ return qVisible().filter(q=>q.c[0]===st); }
+function qzForStrand(st){ const topicCodes=new Set(TOPICS.filter(topic=>topic.strand===st).map(topic=>topic.id)); return qVisible().filter(q=>topicCodes.has(q.c)); }
 function qzQuestionCode(q){
   const existing=String(q.i||"").trim();
-  if(/^[A-Za-z]+\d+-\d{2,}$/.test(existing)) return existing.toUpperCase();
+  if(/^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*-\d{2,}$/.test(existing)) return existing.toUpperCase();
   const home=String(q.home||q.c||"Q").toUpperCase();
   const homeQuestions=QUESTIONS.filter(item=>item.c===(q.home||q.c));
   const index=homeQuestions.findIndex(item=>item.i===q.i);
@@ -4756,9 +4805,9 @@ function qzFeedbackHtml(q){
   const fb=qzFeedback[q.i];
   const showFlag=canStudentFlagMathsQuestion();
   if(!fb) return '<div class="qz-feedback" id="qzFeedback" role="status" aria-live="polite"></div>';
-  if(fb.kind==="correct") return `<div class="qz-feedback correct show" id="qzFeedback" role="status" aria-live="polite"><strong>Correct</strong>Your answer matches the expected answer. <b>${qzEsc(q.a)}</b>${currentSubjectId===PHYSICS_SUBJECT_ID&&q.markingPoints?.length&&q.type!=="mcq"?`<div style="margin-top:10px">You can also award marks point by point, including for your working.${qzPhysicsMarkingHtml(q)}</div>`:""}</div>`;
-  if(fb.kind==="unknown") return `<div class="qz-feedback review show" id="qzFeedback" role="status" aria-live="polite"><strong>Self-mark this response</strong>Compare your answer with: <b>${qzEsc(q.a)}</b>${currentSubjectId===PHYSICS_SUBJECT_ID&&q.markingPoints?.length?qzPhysicsMarkingHtml(q):currentSubjectId===PHYSICS_SUBJECT_ID&&q.m?`<div class="qz-physics-mark-points"><b>Mark points</b><br>${qzEsc(q.m)}</div>`:""}${currentSubjectId===PHYSICS_SUBJECT_ID&&q.markingPoints?.length?"":`<div class="qz-feedback-actions"><button class="btn qz-btn-right" id="qzSelfRight">Mark as correct</button><button class="btn qz-btn-wrong" id="qzSelfWrong">Mark as wrong</button></div>`}</div>`;
-  if(currentSubjectId===PHYSICS_SUBJECT_ID&&q.markingPoints?.length&&q.type!=="mcq") return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Check your working against the mark points</strong>You can still award yourself marks for correct steps.${qzPhysicsMarkingHtml(q)}${qzAnswerRevealAction(q,fb)}</div>`;
+  if(fb.kind==="correct") return `<div class="qz-feedback correct show" id="qzFeedback" role="status" aria-live="polite"><strong>Correct</strong>Your answer matches the expected answer. <b>${qzEsc(q.a)}</b>${QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)&&q.markingPoints?.length&&q.type!=="mcq"?`<div style="margin-top:10px">You can also award marks point by point, including for your working.${qzPhysicsMarkingHtml(q)}</div>`:""}</div>`;
+  if(fb.kind==="unknown") return `<div class="qz-feedback review show" id="qzFeedback" role="status" aria-live="polite"><strong>Self-mark this response</strong>Compare your answer with: <b>${qzEsc(q.a)}</b>${QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)&&q.markingPoints?.length?qzPhysicsMarkingHtml(q):QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)&&q.m?`<div class="qz-physics-mark-points"><b>Mark points</b><br>${qzEsc(q.m)}</div>`:""}${QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)&&q.markingPoints?.length?"":`<div class="qz-feedback-actions"><button class="btn qz-btn-right" id="qzSelfRight">Mark as correct</button><button class="btn qz-btn-wrong" id="qzSelfWrong">Mark as wrong</button></div>`}</div>`;
+  if(QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)&&q.markingPoints?.length&&q.type!=="mcq") return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Check your working against the mark points</strong>You can still award yourself marks for correct steps.${qzPhysicsMarkingHtml(q)}${qzAnswerRevealAction(q,fb)}</div>`;
   return `<div class="qz-feedback incorrect show" id="qzFeedback" role="status" aria-live="polite"><strong>Not quite</strong>${showFlag?'<div class="qz-flag-prompt">Think the checker was too strict?</div>':""}<div class="qz-feedback-actions"><button class="btn qz-btn-right" id="qzManualCorrect">Mark correct anyway</button>${showFlag?'<button class="btn qz-flag-button" id="qzFlag">Flag the Question</button>':""}</div>${qzAnswerRevealAction(q,fb)}</div>`;
 }
 async function qzRecordQuestionStat(q,kind,answer=""){
@@ -4812,7 +4861,7 @@ function qzCheckAnswer(q){
   if(Array.isArray(q.choices)){
     const correct=Number(given)===Number(q.answerIndex);
     result={verdict:correct?"correct":"incorrect",via:"multiple-choice",user:given,expected:String(q.answerIndex)};
-  }else if(currentSubjectId===PHYSICS_SUBJECT_ID&&q.type==="numeric"){
+  }else if(QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)&&q.type==="numeric"){
     let numericText=given;
     if(q.unit){ const escaped=q.unit.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); numericText=numericText.replace(new RegExp("\\s*"+escaped+"\\s*$","i"),""); }
     const submitted=toNumber(numericText), expected=Number(q.answerValue);
@@ -4865,7 +4914,7 @@ function qzRender(){
         </div>
         <div class="qz-complete-actions">
           <button class="btn" id="qzReview">Review questions</button>
-          ${currentSubjectId===PHYSICS_SUBJECT_ID?'<button class="btn" id="qzRestartTopic">Reset &amp; try again</button>':''}
+          ${QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)?'<button class="btn" id="qzRestartTopic">Reset &amp; try again</button>':''}
           <button class="btn" id="qzCompleteBack">Back to checklist</button>
           <button class="btn btn-primary" id="qzNextTopic" ${nextTopic?"":"disabled"}>${nextTopic?`Next topic: ${nextTopic.id} →`:"No next topic"}</button>
         </div>
@@ -4875,7 +4924,7 @@ function qzRender(){
       document.querySelectorAll(".qz-chip").forEach(ch=>ch.classList.toggle("on", ch.dataset.f==="all"));
       qzRender();
     };
-    if(currentSubjectId===PHYSICS_SUBJECT_ID) $("qzRestartTopic").onclick=()=>qzResetTopic(qzScope.id);
+    if(QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)) $("qzRestartTopic").onclick=()=>qzResetTopic(qzScope.id);
     $("qzCompleteBack").onclick=qzReturnToDashboard;
     if(nextTopic) $("qzNextTopic").onclick=()=>qzOpen({kind:"topic",id:nextTopic.id});
     return;
@@ -4909,7 +4958,7 @@ function qzRender(){
   const answerControl=Array.isArray(q.choices)
     ? `<fieldset class="qz-choice-list" aria-label="Choose one answer">${q.choices.map((choice,index)=>`<label class="qz-choice-option ${String(qzDrafts[q.i]??"")===String(index)?"selected":""}"><input type="radio" name="qzChoice" value="${index}" ${String(qzDrafts[q.i]??"")===String(index)?"checked":""}><span class="qz-choice-letter">${String.fromCharCode(65+index)}</span><span class="qz-choice-option-text">${qzEsc(choice)}</span></label>`).join("")}</fieldset><input class="qz-choice-hidden-answer" id="qzInput" type="hidden" value="${qzEsc(qzDrafts[q.i]||"")}">`
     : `<input class="qz-final-in" id="qzInput" type="text" placeholder="Final answer" autocomplete="off" value="${qzEsc(qzDrafts[q.i]||"")}">`;
-  const workingControl=Array.isArray(q.choices)?"":currentSubjectId===PHYSICS_SUBJECT_ID&&q.type!=="numeric"
+  const workingControl=Array.isArray(q.choices)?"":QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)&&q.type!=="numeric"
     ? `<details class="qz-working-details"><summary>Add working or notes (optional)</summary><div class="qz-working"><label class="qz-answer-label" for="qzWorking">Working or notes</label><textarea class="qz-working-in" id="qzWorking" rows="5" placeholder="Plan your explanation or jot down ideas..." autocomplete="off">${qzEsc(qzWorking[q.i]||"")}</textarea></div></details>`
     : `<div class="qz-working"><label class="qz-answer-label" for="qzWorking">Working</label><textarea class="qz-working-in" id="qzWorking" rows="5" placeholder="Your working / calculations..." autocomplete="off">${qzEsc(qzWorking[q.i]||"")}</textarea></div>`;
   body.innerHTML = `
@@ -4918,7 +4967,7 @@ function qzRender(){
       <div class="qz-meta">
         <span class="qz-code" title="Permanent question code">${qzEsc(questionCode)}</span>
         <span class="qz-topic-name">${qzEsc(topic?.title||q.c)}</span>
-        ${currentSubjectId===PHYSICS_SUBJECT_ID?"":`<span class="qz-tag">${q.k} mark${q.k>1?"s":""}</span>`}
+        ${QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)?"":`<span class="qz-tag">${q.k} mark${q.k>1?"s":""}</span>`}
         <button class="qz-star ${st.f?"on":""}" id="qzStar" title="Favourite this question">${st.f?"★":"☆"}</button>
       </div>
       <div class="qz-context" aria-label="${qzEsc(topicContext)}">
@@ -4932,7 +4981,7 @@ function qzRender(){
         ${q.moved?`<span class="qz-tag" title="Moved by an admin from ${q.home}">moved from ${q.home}</span>`:''}
       </div>
       ${qzAdminBar(q)}
-      <div class="qz-question-head"><p class="qz-question-label">Question</p>${currentSubjectId===PHYSICS_SUBJECT_ID?`<span class="qz-mark-count" aria-label="${q.k} mark${q.k===1?"":"s"}">${q.k} mark${q.k===1?"":"s"}</span>`:""}</div>
+      <div class="qz-question-head"><p class="qz-question-label">Question</p>${QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)?`<span class="qz-mark-count" aria-label="${q.k} mark${q.k===1?"":"s"}">${q.k} mark${q.k===1?"":"s"}</span>`:""}</div>
       <p class="qz-q">${qzEsc(q.q)}</p>
       ${workingControl}
       ${q.tip?`<div class="qz-question-tip" role="note"><strong>Tip:</strong><span>${qzEsc(q.tip)}</span></div>`:""}
@@ -5121,7 +5170,7 @@ async function qzResetTopic(code){
     if(!st.f) delete qzState[q.i];          // drop empty entries, keep the doc small
   }
   qzAddDeletedQuestionIds(pool.map(q=>q.i));
-  if(currentSubjectId===PHYSICS_SUBJECT_ID){
+  if(QUESTION_BANK_SUBJECT_IDS.has(currentSubjectId)){
     const key=qzPhysicsAnswerKey();
     if(key){
       const answerHistory=qzReadPhysicsAnswers();
